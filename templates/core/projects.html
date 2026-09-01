@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Projects" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# PAGE HEADER                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header">
+    <div class="container">
+        <span class="section-tag">{% trans "Our Portfolio" %}</span>
+        <h1 class="page-title">{% trans "Selected" %} <span class="text-gold">{% trans "Projects" %}</span></h1>
+        <p class="page-subtitle">{% trans "A curated showcase of our work across industries and technologies." %}</p>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CATEGORY FILTER                             #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        {# Filter buttons #}
+        <div class="filter-bar">
+            {% for cat in categories %}
+            <button class="filter-btn {% if cat.slug == 'all' %}active{% endif %}" data-filter="{{ cat.slug }}">
+                {{ cat.name }}
+            </button>
+            {% endfor %}
+        </div>
+
+        {# Projects grid #}
+        <div class="projects-grid" id="projectsGrid">
+            {% for project in projects_list %}
+            <div class="project-card" data-category="{{ project.category }}">
+                <div class="project-card-img">
+                    <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+                    <div class="project-card-overlay">
+                        <span class="project-category-badge">{{ project.category_label }}</span>
+                        <p class="project-card-desc">{{ project.description }}</p>
+                    </div>
+                </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">{{ project.title }}</h3>
+                    <span class="project-card-cat">{{ project.category_label }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CTA                                         #}
+{# ═══════════════════════════════════════════ #}
+<section class="section cta-section">
+    <div class="container text-center">
+        <h2 class="cta-title">{% trans "Like What You See?" %}</h2>
+        <p class="cta-subtitle">{% trans "Let's create something extraordinary together." %}</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-gold btn-lg">{% trans "Start Your Project" %}</a>
+    </div>
+</section>
+{% endblock %}

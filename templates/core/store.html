@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Store" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# COMING SOON PAGE                            #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header store-coming-soon">
+    <div class="container text-center">
+        <span class="section-tag">{% trans "Coming Soon" %}</span>
+        <h1 class="page-title">
+            {% trans "The" %} <span class="text-gold">getNexiro</span> {% trans "Store" %}
+        </h1>
+        <p class="page-subtitle">
+            {% trans "We're building something special. Premium digital products, templates, and tools — crafted with the same quality you expect from our custom projects." %}
+        </p>
+        <div class="store-placeholder">
+            <div class="store-icon">🚀</div>
+            <p class="store-msg">{% trans "Stay tuned. Great things are on the way." %}</p>
+            <a href="{% url 'core:contact' %}" class="btn btn-outline">{% trans "Notify Me" %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

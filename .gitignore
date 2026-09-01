@@ -1,0 +1,12 @@
+# Python / Django gitignore
+*.pyc
+*~
+__pycache__/
+*.sqlite3
+db.sqlite3
+/venv/
+/.venv/
+/staticfiles/
+.env
+.vscode/
+.idea/

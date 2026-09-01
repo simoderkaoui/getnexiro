@@ -1,0 +1,175 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}getNexiro{% endblock %} — {% trans "Premium Software Development" %}</title>
+    <meta name="description" content="{% block meta_description %}{% trans 'getNexiro — A luxury B2B software development agency based in Tangier, Morocco.' %}{% endblock %}">
+
+    {# ── Google Fonts: Playfair Display (serif headings) + Inter (body sans-serif) ── #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    {# ── Stylesheets ── #}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% if LANGUAGE_BIDI %}
+    <link rel="stylesheet" href="{% static 'css/rtl.css' %}">
+    {% endif %}
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {# ════════════════════════════════════════════════ #}
+    {# NAVIGATION                                       #}
+    {# ════════════════════════════════════════════════ #}
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            {# Logo #}
+            <a href="{% url 'core:home' %}" class="navbar-logo">
+                <img src="{% static 'images/logo.png' %}" alt="getNexiro — Tech & Dev Services" height="44">
+            </a>
+
+            {# Hamburger toggle for mobile #}
+            <button class="navbar-toggle" id="navToggle" aria-label="{% trans 'Toggle navigation' %}">
+                <span></span><span></span><span></span>
+            </button>
+
+            {# Navigation links #}
+            <div class="navbar-links" id="navLinks">
+                <a href="{% url 'core:home' %}" class="nav-link">{% trans "Home" %}</a>
+                <a href="{% url 'core:about' %}" class="nav-link">{% trans "About" %}</a>
+                <a href="{% url 'core:services' %}" class="nav-link">{% trans "Services" %}</a>
+                <a href="{% url 'core:projects' %}" class="nav-link">{% trans "Projects" %}</a>
+                <a href="{% url 'core:store' %}" class="nav-link">{% trans "Store" %}</a>
+                <a href="{% url 'core:contact' %}" class="nav-link nav-link-cta">{% trans "Contact" %}</a>
+
+                {# Language Switcher #}
+                <div class="lang-switcher">
+                    <form action="{% url 'set_language' %}" method="post" id="langForm">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <select name="language" onchange="this.form.submit()" class="lang-select" aria-label="{% trans 'Select language' %}">
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                    {{ lang_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {# ════════════════════════════════════════════════ #}
+    {# MAIN CONTENT                                     #}
+    {# ════════════════════════════════════════════════ #}
+    <main class="main-content">
+        {# Django messages (success/error notifications) #}
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {# ════════════════════════════════════════════════ #}
+    {# FOOTER                                           #}
+    {# ════════════════════════════════════════════════ #}
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                {# Column 1: Brand #}
+                <div class="footer-col footer-brand">
+                    <a href="{% url 'core:home' %}" class="navbar-logo">
+                        <img src="{% static 'images/logo.png' %}" alt="getNexiro" height="38">
+                    </a>
+                    <p class="footer-tagline">{% trans "Crafting premium digital experiences from the shores of Tangier." %}</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/getnexiro" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="Twitter / X" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="GitHub" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                {# Column 2: Quick Links #}
+                <div class="footer-col">
+                    <h4 class="footer-heading">{% trans "Quick Links" %}</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'core:home' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
+                        <li><a href="{% url 'core:services' %}">{% trans "Services" %}</a></li>
+                        <li><a href="{% url 'core:projects' %}">{% trans "Projects" %}</a></li>
+                        <li><a href="{% url 'core:contact' %}">{% trans "Contact" %}</a></li>
+                    </ul>
+                </div>
+
+                {# Column 3: Services #}
+                <div class="footer-col">
+                    <h4 class="footer-heading">{% trans "Services" %}</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'core:services' %}">{% trans "Web Development" %}</a></li>
+                        <li><a href="{% url 'core:services' %}">{% trans "Mobile Apps" %}</a></li>
+                        <li><a href="{% url 'core:services' %}">{% trans "UI/UX Design" %}</a></li>
+                        <li><a href="{% url 'core:services' %}">{% trans "Technical Consulting" %}</a></li>
+                    </ul>
+                </div>
+
+                {# Column 4: Contact Info #}
+                <div class="footer-col">
+                    <h4 class="footer-heading">{% trans "Get in Touch" %}</h4>
+                    <ul class="footer-links footer-contact-info">
+                        <li>📍 {% trans "Tangier, Morocco" %}</li>
+                        <li>✉️ hello@getnexiro.com</li>
+                        <li>📞 +212 5XX-XXXXXX</li>
+                    </ul>
+
+                    {# Footer Language Switcher #}
+                    <div class="footer-lang">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <select name="language" onchange="this.form.submit()" class="lang-select" aria-label="{% trans 'Select language' %}">
+                                {% for lang_code, lang_name in LANGUAGES %}
+                                    <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                        {{ lang_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 getNexiro. {% trans "All rights reserved." %}</p>
+            </div>
+        </div>
+    </footer>
+
+    {# ── Scripts ── #}
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

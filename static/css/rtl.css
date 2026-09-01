@@ -1,0 +1,97 @@
+/*
+ * ═══════════════════════════════════════════════════
+ * getNexiro — RTL (Right-to-Left) Overrides
+ * Applied when dir="rtl" is set on <html> (Arabic)
+ * ═══════════════════════════════════════════════════
+ */
+
+/* ── Font adjustments for Arabic ─────────────── */
+[dir="rtl"] body {
+    font-family: 'Inter', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+}
+
+[dir="rtl"] .hero-title,
+[dir="rtl"] .section-title,
+[dir="rtl"] .page-title,
+[dir="rtl"] .cta-title,
+[dir="rtl"] .service-preview-title,
+[dir="rtl"] .service-card-title,
+[dir="rtl"] .team-name,
+[dir="rtl"] .project-preview-title,
+[dir="rtl"] .project-card-title,
+[dir="rtl"] .value-title,
+[dir="rtl"] .value-item-title,
+[dir="rtl"] .process-title,
+[dir="rtl"] .footer-heading,
+[dir="rtl"] .contact-form-title,
+[dir="rtl"] .contact-info-title,
+[dir="rtl"] .mission-quote {
+    font-family: 'Playfair Display', 'Traditional Arabic', Georgia, serif;
+}
+
+/* ── Navigation RTL ──────────────────────────── */
+[dir="rtl"] .navbar-toggle {
+    order: -1;
+}
+
+/* ── Service card link arrow direction ───────── */
+[dir="rtl"] .service-card-link {
+    direction: rtl;
+}
+
+/* ── Project card info flex ──────────────────── */
+[dir="rtl"] .project-card-info {
+    flex-direction: row-reverse;
+}
+
+/* ── Hero text alignment ─────────────────────── */
+[dir="rtl"] .hero-badge,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-subtitle,
+[dir="rtl"] .hero-actions {
+    text-align: right;
+}
+
+/* ── Increased line height for Arabic ────────── */
+[dir="rtl"] p,
+[dir="rtl"] .hero-subtitle,
+[dir="rtl"] .section-subtitle,
+[dir="rtl"] .page-subtitle,
+[dir="rtl"] .value-desc,
+[dir="rtl"] .service-preview-desc,
+[dir="rtl"] .service-card-desc,
+[dir="rtl"] .process-desc,
+[dir="rtl"] .about-text p,
+[dir="rtl"] .value-item-desc {
+    line-height: 2;
+}
+
+/* ── Mission quote ───────────────────────────── */
+[dir="rtl"] .mission-quote {
+    text-align: right;
+}
+
+/* ── Contact info items ──────────────────────── */
+[dir="rtl"] .contact-info-item {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+/* ── Filter bar ──────────────────────────────── */
+[dir="rtl"] .filter-bar {
+    direction: rtl;
+}
+
+/* ── Form alignment ──────────────────────────── */
+[dir="rtl"] .form-input {
+    text-align: right;
+}
+
+[dir="rtl"] .form-label {
+    text-align: right;
+}
+
+/* ── Footer social ───────────────────────────── */
+[dir="rtl"] .footer-social {
+    justify-content: flex-start;
+}

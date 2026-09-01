@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Services" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# PAGE HEADER                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header">
+    <div class="container">
+        <span class="section-tag">{% trans "Our Services" %}</span>
+        <h1 class="page-title">{% trans "End-to-End" %} <span class="text-gold">{% trans "Digital Solutions" %}</span></h1>
+        <p class="page-subtitle">{% trans "From concept to deployment and beyond — we cover every aspect of your digital product lifecycle." %}</p>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# SERVICES GRID                               #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="services-grid">
+            {% for service in services_list %}
+            <div class="service-card">
+                <div class="service-card-icon {{ service.icon }}"></div>
+                <h3 class="service-card-title">{{ service.title }}</h3>
+                <p class="service-card-desc">{{ service.description }}</p>
+                <a href="{% url 'core:contact' %}" class="service-card-link">{% trans "Discuss this service" %} →</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# PROCESS SECTION                             #}
+{# ═══════════════════════════════════════════ #}
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "Our Process" %}</span>
+            <h2 class="section-title">{% trans "How We Work" %}</h2>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-number">01</div>
+                <h3 class="process-title">{% trans "Discovery" %}</h3>
+                <p class="process-desc">{% trans "Deep dive into your business, users, and technical requirements." %}</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">02</div>
+                <h3 class="process-title">{% trans "Design" %}</h3>
+                <p class="process-desc">{% trans "Architecture planning, wireframes, and high-fidelity prototypes." %}</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">03</div>
+                <h3 class="process-title">{% trans "Develop" %}</h3>
+                <p class="process-desc">{% trans "Agile sprints with transparent progress tracking and quality assurance." %}</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">04</div>
+                <h3 class="process-title">{% trans "Deploy & Support" %}</h3>
+                <p class="process-desc">{% trans "Seamless launch and ongoing maintenance for continuous improvement." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CTA                                         #}
+{# ═══════════════════════════════════════════ #}
+<section class="section cta-section">
+    <div class="container text-center">
+        <h2 class="cta-title">{% trans "Have a Project in Mind?" %}</h2>
+        <p class="cta-subtitle">{% trans "Tell us about your vision and let's explore how we can bring it to life." %}</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-gold btn-lg">{% trans "Start a Conversation" %}</a>
+    </div>
+</section>
+{% endblock %}

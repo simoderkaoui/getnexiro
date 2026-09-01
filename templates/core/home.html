@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# HERO SECTION                                #}
+{# ═══════════════════════════════════════════ #}
+<section class="hero">
+    <div class="hero-bg">
+        <img src="https://picsum.photos/seed/nexirohero/1920/1080" alt="" class="hero-bg-img" loading="eager">
+        <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-content">
+        <span class="hero-badge">{% trans "Based in Tangier, Morocco" %}</span>
+        <h1 class="hero-title">
+            {% trans "We Build" %}
+            <span class="text-gold">{% trans "Exceptional" %}</span>
+            {% trans "Digital Products" %}
+        </h1>
+        <p class="hero-subtitle">
+            {% trans "A premium B2B software development agency crafting scalable, elegant, and high-performance digital solutions for forward-thinking enterprises." %}
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'core:contact' %}" class="btn btn-gold">{% trans "Start a Project" %}</a>
+            <a href="{% url 'core:projects' %}" class="btn btn-outline">{% trans "View Our Work" %}</a>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# VALUE PROPOSITION                           #}
+{# ═══════════════════════════════════════════ #}
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "Why getNexiro" %}</span>
+            <h2 class="section-title">{% trans "Engineering Excellence, Delivered" %}</h2>
+            <p class="section-subtitle">
+                {% trans "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth." %}
+            </p>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <h3 class="value-title">{% trans "Strategy First" %}</h3>
+                <p class="value-desc">{% trans "Every project begins with understanding your business goals, users, and market — not just your feature list." %}</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <h3 class="value-title">{% trans "Bespoke Solutions" %}</h3>
+                <p class="value-desc">{% trans "No templates, no shortcuts. Custom-crafted architecture tailored to your specific requirements and scale." %}</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <h3 class="value-title">{% trans "Long-Term Partnership" %}</h3>
+                <p class="value-desc">{% trans "We don't disappear after launch. Ongoing support, iteration, and strategic guidance for continuous improvement." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# FEATURED SERVICES                           #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "What We Do" %}</span>
+            <h2 class="section-title">{% trans "Core Services" %}</h2>
+        </div>
+        <div class="services-preview-grid">
+            {% for service in featured_services %}
+            <div class="service-preview-card">
+                <div class="service-icon {{ service.icon }}"></div>
+                <h3 class="service-preview-title">{{ service.title }}</h3>
+                <p class="service-preview-desc">{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="{% url 'core:services' %}" class="btn btn-outline">{% trans "All Services" %} →</a>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# FEATURED PROJECTS                           #}
+{# ═══════════════════════════════════════════ #}
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "Selected Work" %}</span>
+            <h2 class="section-title">{% trans "Featured Projects" %}</h2>
+        </div>
+        <div class="projects-preview-grid">
+            {% for project in featured_projects %}
+            <div class="project-preview-card">
+                <div class="project-preview-img">
+                    <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+                    <div class="project-preview-overlay">
+                        <span class="project-category-badge">{{ project.category }}</span>
+                    </div>
+                </div>
+                <h3 class="project-preview-title">{{ project.title }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="{% url 'core:projects' %}" class="btn btn-gold">{% trans "View All Projects" %}</a>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CTA SECTION                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="section cta-section">
+    <div class="container text-center">
+        <h2 class="cta-title">{% trans "Ready to Elevate Your Digital Presence?" %}</h2>
+        <p class="cta-subtitle">{% trans "Let's discuss your next project and explore how getNexiro can help you achieve your business goals." %}</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-gold btn-lg">{% trans "Get in Touch" %}</a>
+    </div>
+</section>
+{% endblock %}

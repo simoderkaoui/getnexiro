@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "About Us" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# PAGE HEADER                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header">
+    <div class="container">
+        <span class="section-tag">{% trans "About Us" %}</span>
+        <h1 class="page-title">{% trans "The Story Behind" %} <span class="text-gold">getNexiro</span></h1>
+        <p class="page-subtitle">{% trans "Where North African creativity meets global engineering standards." %}</p>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# OUR STORY                                   #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="about-split">
+            <div class="about-text">
+                <span class="section-tag">{% trans "Our Story" %}</span>
+                <h2 class="section-title">{% trans "Born at the Crossroads of Continents" %}</h2>
+                <p>
+                    {% trans "Founded in Tangier — the vibrant city where the Atlantic meets the Mediterranean — getNexiro was born from a simple belief: world-class software doesn't need a Silicon Valley address." %}
+                </p>
+                <p>
+                    {% trans "Our founders, seasoned engineers with experience at leading tech companies in Europe and North America, returned to Morocco with a vision to build a boutique development agency that rivals the best in the world, while leveraging the unique advantages of our strategic location." %}
+                </p>
+                <p>
+                    {% trans "Today, we serve ambitious companies across three continents, delivering solutions that are technically excellent, beautifully designed, and strategically aligned with our clients' business objectives." %}
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="https://picsum.photos/seed/tangier/600/500" alt="{% trans 'Tangier, Morocco' %}" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# MISSION                                     #}
+{# ═══════════════════════════════════════════ #}
+<section class="section section-dark">
+    <div class="container text-center">
+        <span class="section-tag">{% trans "Our Mission" %}</span>
+        <blockquote class="mission-quote">
+            "{% trans "To empower enterprises with bespoke digital solutions that are not just functional, but transformative — combining technical excellence with strategic insight to create lasting competitive advantages." %}"
+        </blockquote>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# WHY TANGIER                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "Why Tangier" %}</span>
+            <h2 class="section-title">{% trans "A Strategic Advantage" %}</h2>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-number">🌍</div>
+                <h3 class="value-title">{% trans "Gateway Location" %}</h3>
+                <p class="value-desc">{% trans "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs." %}</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">💡</div>
+                <h3 class="value-title">{% trans "Rich Talent Pool" %}</h3>
+                <p class="value-desc">{% trans "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers." %}</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">💎</div>
+                <h3 class="value-title">{% trans "Premium Value" %}</h3>
+                <p class="value-desc">{% trans "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# TEAM                                        #}
+{# ═══════════════════════════════════════════ #}
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "The Team" %}</span>
+            <h2 class="section-title">{% trans "Meet the Minds Behind getNexiro" %}</h2>
+        </div>
+        <div class="team-grid">
+            {% for member in team_members %}
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="{{ member.image }}" alt="{{ member.name }}" loading="lazy">
+                </div>
+                <h3 class="team-name">{{ member.name }}</h3>
+                <p class="team-role">{{ member.role }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# VALUES                                      #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">{% trans "Our Values" %}</span>
+            <h2 class="section-title">{% trans "What Drives Us" %}</h2>
+        </div>
+        <div class="values-grid">
+            {% for value in values %}
+            <div class="value-item">
+                <h3 class="value-item-title">{{ value.title }}</h3>
+                <p class="value-item-desc">{{ value.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

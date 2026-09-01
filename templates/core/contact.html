@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Contact" %}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# PAGE HEADER                                 #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header">
+    <div class="container">
+        <span class="section-tag">{% trans "Contact Us" %}</span>
+        <h1 class="page-title">{% trans "Let's Build Something" %} <span class="text-gold">{% trans "Remarkable" %}</span></h1>
+        <p class="page-subtitle">{% trans "Ready to start your next project? We'd love to hear from you." %}</p>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CONTACT FORM + INFO                        #}
+{# ═══════════════════════════════════════════ #}
+<section class="section">
+    <div class="container">
+        <div class="contact-grid">
+            {# Contact Form #}
+            <div class="contact-form-wrapper">
+                <h2 class="contact-form-title">{% trans "Send Us a Message" %}</h2>
+                <form method="post" action="{% url 'core:contact' %}" class="contact-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="form-error">
+                            {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-gold btn-full">{% trans "Send Message" %}</button>
+                </form>
+            </div>
+
+            {# Contact Information #}
+            <div class="contact-info-wrapper">
+                <h2 class="contact-info-title">{% trans "Get in Touch" %}</h2>
+
+                <div class="contact-info-card">
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">📍</span>
+                        <div>
+                            <h4>{% trans "Our Office" %}</h4>
+                            <p>{% trans "Tangier, Morocco" %}<br>{% trans "Tangier Free Zone" %}</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">✉️</span>
+                        <div>
+                            <h4>{% trans "Email" %}</h4>
+                            <p>hello@getnexiro.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">📞</span>
+                        <div>
+                            <h4>{% trans "Phone" %}</h4>
+                            <p dir="ltr">+212 5XX-XXXXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">🕐</span>
+                        <div>
+                            <h4>{% trans "Business Hours" %}</h4>
+                            <p>{% trans "Mon — Fri: 9:00 AM — 6:00 PM (GMT+1)" %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {# Map placeholder #}
+                <div class="map-placeholder">
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-5.85%2C35.74%2C-5.75%2C35.80&layer=mapnik&marker=35.7796%2C-5.8030"
+                        width="100%"
+                        height="250"
+                        style="border:0; border-radius: 12px; opacity: 0.85;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        title="{% trans 'getNexiro Office Location — Tangier, Morocco' %}">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
