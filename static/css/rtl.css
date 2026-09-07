@@ -1,89 +1,85 @@
 /*
  * ═══════════════════════════════════════════════════
- * getNexiro — RTL (Right-to-Left) Overrides
+ * getNexiro — Modern RTL (Right-to-Left) Overrides
  * Applied when dir="rtl" is set on <html> (Arabic)
  * ═══════════════════════════════════════════════════
  */
 
-/* ── Font adjustments for Arabic ─────────────── */
 [dir="rtl"] body {
-    font-family: 'Inter', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+    font-family: 'Cairo', 'Plus Jakarta Sans', -apple-system, sans-serif;
+    letter-spacing: 0;
 }
 
 [dir="rtl"] .hero-title,
 [dir="rtl"] .section-title,
 [dir="rtl"] .page-title,
 [dir="rtl"] .cta-title,
+[dir="rtl"] .bento-title,
 [dir="rtl"] .service-preview-title,
 [dir="rtl"] .service-card-title,
-[dir="rtl"] .team-name,
 [dir="rtl"] .project-preview-title,
 [dir="rtl"] .project-card-title,
-[dir="rtl"] .value-title,
-[dir="rtl"] .value-item-title,
-[dir="rtl"] .process-title,
+[dir="rtl"] .tangier-title,
 [dir="rtl"] .footer-heading,
 [dir="rtl"] .contact-form-title,
 [dir="rtl"] .contact-info-title,
-[dir="rtl"] .mission-quote {
-    font-family: 'Playfair Display', 'Traditional Arabic', Georgia, serif;
+[dir="rtl"] .team-name {
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 0;
 }
 
-/* ── Navigation RTL ──────────────────────────── */
-[dir="rtl"] .navbar-toggle {
-    order: -1;
-}
-
-/* ── Service card link arrow direction ───────── */
-[dir="rtl"] .service-card-link {
-    direction: rtl;
-}
-
-/* ── Project card info flex ──────────────────── */
-[dir="rtl"] .project-card-info {
-    flex-direction: row-reverse;
-}
-
-/* ── Hero text alignment ─────────────────────── */
-[dir="rtl"] .hero-badge,
-[dir="rtl"] .hero-title,
-[dir="rtl"] .hero-subtitle,
-[dir="rtl"] .hero-actions {
-    text-align: right;
-}
-
-/* ── Increased line height for Arabic ────────── */
+/* ── Typography Rhythm for Arabic ── */
 [dir="rtl"] p,
 [dir="rtl"] .hero-subtitle,
 [dir="rtl"] .section-subtitle,
 [dir="rtl"] .page-subtitle,
-[dir="rtl"] .value-desc,
+[dir="rtl"] .bento-desc,
 [dir="rtl"] .service-preview-desc,
 [dir="rtl"] .service-card-desc,
 [dir="rtl"] .process-desc,
-[dir="rtl"] .about-text p,
-[dir="rtl"] .value-item-desc {
-    line-height: 2;
+[dir="rtl"] .tangier-desc,
+[dir="rtl"] .cta-subtitle,
+[dir="rtl"] .footer-tagline {
+    line-height: 1.85;
 }
 
-/* ── Mission quote ───────────────────────────── */
-[dir="rtl"] .mission-quote {
+/* ── Navigation RTL ── */
+[dir="rtl"] .navbar-toggle {
+    margin-right: 0.5rem;
+    margin-left: 0;
+}
+
+[dir="rtl"] .lang-select {
+    padding-right: 0.35rem;
+    padding-left: 0.9rem;
+    background-position: left center;
+}
+
+[dir="rtl"] .lang-globe-icon {
+    margin-right: 0;
+    margin-left: 0.35rem;
+}
+
+/* ── Button icons RTL ── */
+[dir="rtl"] .btn .btn-icon {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .btn:hover .btn-icon {
+    transform: scaleX(-1) translateX(3px);
+}
+
+[dir="rtl"] .service-card-link svg,
+[dir="rtl"] .service-card-action-link svg {
+    transform: scaleX(-1);
+}
+
+/* ── Text alignments ── */
+[dir="rtl"] .hero-text-col {
     text-align: right;
 }
 
-/* ── Contact info items ──────────────────────── */
-[dir="rtl"] .contact-info-item {
-    flex-direction: row-reverse;
-    text-align: right;
-}
-
-/* ── Filter bar ──────────────────────────────── */
-[dir="rtl"] .filter-bar {
-    direction: rtl;
-}
-
-/* ── Form alignment ──────────────────────────── */
-[dir="rtl"] .form-input {
+[dir="rtl"] .about-text {
     text-align: right;
 }
 
@@ -91,7 +87,40 @@
     text-align: right;
 }
 
-/* ── Footer social ───────────────────────────── */
-[dir="rtl"] .footer-social {
-    justify-content: flex-start;
+[dir="rtl"] .form-input {
+    text-align: right;
+}
+
+[dir="rtl"] .contact-info-item {
+    text-align: right;
+}
+
+[dir="rtl"] .footer-links a:hover {
+    padding-left: 0;
+    padding-right: 3px;
+}
+
+[dir="rtl"] .value-item-bar {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .terminal-card {
+    direction: ltr; /* Terminal code remains LTR */
+}
+
+[dir="rtl"] .bullet-item {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+/* ── Floating Badges RTL ── */
+[dir="rtl"] .badge-top-right {
+    right: auto;
+    left: -15px;
+}
+
+[dir="rtl"] .badge-bottom-left {
+    left: auto;
+    right: -15px;
 }

@@ -8,10 +8,14 @@
 {# PAGE HEADER                                 #}
 {# ═══════════════════════════════════════════ #}
 <section class="page-header">
-    <div class="container">
-        <span class="section-tag">{% trans "Our Services" %}</span>
-        <h1 class="page-title">{% trans "End-to-End" %} <span class="text-gold">{% trans "Digital Solutions" %}</span></h1>
-        <p class="page-subtitle">{% trans "From concept to deployment and beyond — we cover every aspect of your digital product lifecycle." %}</p>
+    <div class="container text-center">
+        <div class="badge-tag">{% trans "Our Capabilities" %}</div>
+        <h1 class="page-title">
+            {% trans "End-to-End" %} <span class="text-gradient">{% trans "Digital Engineering" %}</span>
+        </h1>
+        <p class="page-subtitle">
+            {% trans "From technical blueprint to cloud orchestration — we engineer robust, scalable systems built for long-term commercial impact." %}
+        </p>
     </div>
 </section>
 
@@ -22,11 +26,35 @@
     <div class="container">
         <div class="services-grid">
             {% for service in services_list %}
-            <div class="service-card">
-                <div class="service-card-icon {{ service.icon }}"></div>
+            <div class="service-card glass-card">
+                <div class="service-card-header">
+                    <div class="service-card-icon-box">
+                        {% if service.icon == 'icon-web' %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        {% elif service.icon == 'icon-mobile' %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        {% elif service.icon == 'icon-design' %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        {% elif service.icon == 'icon-consulting' %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        {% elif service.icon == 'icon-api' %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        {% else %}
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                        {% endif %}
+                    </div>
+                    <span class="service-pill-tag">B2B Core</span>
+                </div>
+
                 <h3 class="service-card-title">{{ service.title }}</h3>
                 <p class="service-card-desc">{{ service.description }}</p>
-                <a href="{% url 'core:contact' %}" class="service-card-link">{% trans "Discuss this service" %} →</a>
+
+                <div class="service-card-footer">
+                    <a href="{% url 'core:contact' %}" class="service-card-action-link">
+                        <span>{% trans "Discuss this service" %}</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -36,32 +64,59 @@
 {# ═══════════════════════════════════════════ #}
 {# PROCESS SECTION                             #}
 {# ═══════════════════════════════════════════ #}
-<section class="section section-dark">
+<section class="section section-dark section-process">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">{% trans "Our Process" %}</span>
+            <div class="badge-tag">{% trans "Our Methodology" %}</div>
             <h2 class="section-title">{% trans "How We Work" %}</h2>
+            <p class="section-subtitle">
+                {% trans "A battle-tested 4-stage engineering sprint lifecycle engineered for speed, transparency, and architectural reliability." %}
+            </p>
         </div>
-        <div class="process-grid">
-            <div class="process-step">
-                <div class="process-number">01</div>
+
+        <div class="process-timeline-grid">
+            <div class="process-card glass-card">
+                <div class="process-step-num">01</div>
+                <div class="process-indicator-dot"></div>
                 <h3 class="process-title">{% trans "Discovery" %}</h3>
                 <p class="process-desc">{% trans "Deep dive into your business, users, and technical requirements." %}</p>
+                <div class="process-tags">
+                    <span>Audit</span>
+                    <span>Architecture</span>
+                </div>
             </div>
-            <div class="process-step">
-                <div class="process-number">02</div>
+
+            <div class="process-card glass-card">
+                <div class="process-step-num">02</div>
+                <div class="process-indicator-dot"></div>
                 <h3 class="process-title">{% trans "Design" %}</h3>
                 <p class="process-desc">{% trans "Architecture planning, wireframes, and high-fidelity prototypes." %}</p>
+                <div class="process-tags">
+                    <span>Figma UI/UX</span>
+                    <span>Prototypes</span>
+                </div>
             </div>
-            <div class="process-step">
-                <div class="process-number">03</div>
+
+            <div class="process-card glass-card">
+                <div class="process-step-num">03</div>
+                <div class="process-indicator-dot"></div>
                 <h3 class="process-title">{% trans "Develop" %}</h3>
                 <p class="process-desc">{% trans "Agile sprints with transparent progress tracking and quality assurance." %}</p>
+                <div class="process-tags">
+                    <span>2-Week Sprints</span>
+                    <span>CI/CD QA</span>
+                </div>
             </div>
-            <div class="process-step">
-                <div class="process-number">04</div>
+
+            <div class="process-card glass-card">
+                <div class="process-step-num">04</div>
+                <div class="process-indicator-dot"></div>
                 <h3 class="process-title">{% trans "Deploy & Support" %}</h3>
                 <p class="process-desc">{% trans "Seamless launch and ongoing maintenance for continuous improvement." %}</p>
+                <div class="process-tags">
+                    <span>Cloud Scaling</span>
+                    <span>24/7 SLA</span>
+                </div>
             </div>
         </div>
     </div>
@@ -72,9 +127,19 @@
 {# ═══════════════════════════════════════════ #}
 <section class="section cta-section">
     <div class="container text-center">
-        <h2 class="cta-title">{% trans "Have a Project in Mind?" %}</h2>
-        <p class="cta-subtitle">{% trans "Tell us about your vision and let's explore how we can bring it to life." %}</p>
-        <a href="{% url 'core:contact' %}" class="btn btn-gold btn-lg">{% trans "Start a Conversation" %}</a>
+        <div class="cta-card glass-card">
+            <div class="badge-tag">{% trans "Initiate Collaboration" %}</div>
+            <h2 class="cta-title">{% trans "Have a Project in Mind?" %}</h2>
+            <p class="cta-subtitle">
+                {% trans "Tell us about your vision and let's explore how we can bring it to life." %}
+            </p>
+            <div class="cta-actions">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
+                    <span>{% trans "Start a Conversation" %}</span>
+                    <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

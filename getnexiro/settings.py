@@ -16,8 +16,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 # ──────────────────────────────────────────────
 SECRET_KEY = 'django-insecure-change-me-in-production-getnexiro-2025'
-DEBUG = True
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://getnexiro.pythonanywhere.com',
+    'http://getnexiro.pythonanywhere.com',
+    'https://*.pythonanywhere.com',
+]
 
 # ──────────────────────────────────────────────
 # Installed Apps

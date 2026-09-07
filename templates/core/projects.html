@@ -8,41 +8,53 @@
 {# PAGE HEADER                                 #}
 {# ═══════════════════════════════════════════ #}
 <section class="page-header">
-    <div class="container">
-        <span class="section-tag">{% trans "Our Portfolio" %}</span>
-        <h1 class="page-title">{% trans "Selected" %} <span class="text-gold">{% trans "Projects" %}</span></h1>
-        <p class="page-subtitle">{% trans "A curated showcase of our work across industries and technologies." %}</p>
+    <div class="container text-center">
+        <div class="badge-tag">{% trans "Our Portfolio" %}</div>
+        <h1 class="page-title">
+            {% trans "Selected" %} <span class="text-gradient">{% trans "Case Studies" %}</span>
+        </h1>
+        <p class="page-subtitle">
+            {% trans "A curated showcase of high-impact architectures, enterprise web platforms, and bespoke products delivered for global brands." %}
+        </p>
     </div>
 </section>
 
 {# ═══════════════════════════════════════════ #}
-{# CATEGORY FILTER                             #}
+{# CATEGORY FILTER & GRID                      #}
 {# ═══════════════════════════════════════════ #}
 <section class="section">
     <div class="container">
-        {# Filter buttons #}
-        <div class="filter-bar">
-            {% for cat in categories %}
-            <button class="filter-btn {% if cat.slug == 'all' %}active{% endif %}" data-filter="{{ cat.slug }}">
-                {{ cat.name }}
-            </button>
-            {% endfor %}
+        {# Modern Filter bar #}
+        <div class="filter-bar-wrapper">
+            <div class="filter-bar">
+                {% for cat in categories %}
+                <button class="filter-btn {% if cat.slug == 'all' %}active{% endif %}" data-filter="{{ cat.slug }}">
+                    {{ cat.name }}
+                </button>
+                {% endfor %}
+            </div>
         </div>
 
         {# Projects grid #}
         <div class="projects-grid" id="projectsGrid">
             {% for project in projects_list %}
-            <div class="project-card" data-category="{{ project.category }}">
-                <div class="project-card-img">
-                    <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+            <div class="project-card glass-card" data-category="{{ project.category }}">
+                <div class="project-card-img-wrapper">
+                    <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy" class="project-img">
                     <div class="project-card-overlay">
                         <span class="project-category-badge">{{ project.category_label }}</span>
                         <p class="project-card-desc">{{ project.description }}</p>
+                        <a href="{% url 'core:contact' %}" class="project-action-circle" title="{% trans 'View Case Study' %}">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </a>
                     </div>
                 </div>
                 <div class="project-card-info">
-                    <h3 class="project-card-title">{{ project.title }}</h3>
-                    <span class="project-card-cat">{{ project.category_label }}</span>
+                    <div>
+                        <span class="project-card-cat">{{ project.category_label }}</span>
+                        <h3 class="project-card-title">{{ project.title }}</h3>
+                    </div>
+                    <span class="project-verified-badge">✓ Verified</span>
                 </div>
             </div>
             {% endfor %}
@@ -55,9 +67,19 @@
 {# ═══════════════════════════════════════════ #}
 <section class="section cta-section">
     <div class="container text-center">
-        <h2 class="cta-title">{% trans "Like What You See?" %}</h2>
-        <p class="cta-subtitle">{% trans "Let's create something extraordinary together." %}</p>
-        <a href="{% url 'core:contact' %}" class="btn btn-gold btn-lg">{% trans "Start Your Project" %}</a>
+        <div class="cta-card glass-card">
+            <div class="badge-tag">{% trans "Collaboration" %}</div>
+            <h2 class="cta-title">{% trans "Like What You See?" %}</h2>
+            <p class="cta-subtitle">
+                {% trans "Let's create something extraordinary together." %}
+            </p>
+            <div class="cta-actions">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
+                    <span>{% trans "Start Your Project" %}</span>
+                    <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
