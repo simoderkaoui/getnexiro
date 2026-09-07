@@ -16,6 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 # ──────────────────────────────────────────────
 SECRET_KEY = 'django-insecure-change-me-in-production-getnexiro-2025'
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://getnexiro.pythonanywhere.com',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 # ──────────────────────────────────────────────
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # i18n: LocaleMiddleware must come after SessionMiddleware and before CommonMiddleware
     'django.middleware.locale.LocaleMiddleware',
@@ -124,6 +126,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # ──────────────────────────────────────────────
 # Media files (User uploads)
