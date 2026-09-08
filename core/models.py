@@ -266,7 +266,7 @@ class Project(models.Model):
     description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
 
     image = models.ImageField(
-        _('Cover Image'), upload_to='projects/',
+        _('Cover Image'), upload_to='projects/', blank=True, null=True,
     )
     client_name = models.CharField(_('Client Name'), max_length=100, blank=True)
     technologies = models.CharField(_('Technologies'), max_length=300, blank=True)
@@ -304,7 +304,7 @@ class TeamMember(models.Model):
     bio_fr = models.TextField(_('Bio (FR)'), blank=True, default='')
     bio_ar = models.TextField(_('Bio (AR)'), blank=True, default='')
 
-    photo = models.ImageField(_('Photo'), upload_to='team/')
+    photo = models.ImageField(_('Photo'), upload_to='team/', blank=True, null=True)
     linkedin_url = models.URLField(_('LinkedIn URL'), blank=True)
     order = models.PositiveIntegerField(_('Display Order'), default=0)
 

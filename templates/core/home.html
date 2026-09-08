@@ -224,7 +224,11 @@
             {% for project in featured_projects %}
             <div class="project-preview-card glass-card">
                 <div class="project-preview-img-wrapper">
+                    {% if project.image %}
                     <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+                    {% else %}
+                    <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy" style="object-fit:contain; padding:2rem;">
+                    {% endif %}
                     <div class="project-preview-overlay">
                         {% if project.category %}<span class="project-category-badge">{{ project.category.name }}</span>{% endif %}
                         <a href="{% url 'core:projects' %}" class="project-view-btn" aria-label="{% trans 'View Project' %}">
@@ -232,6 +236,7 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="project-preview-footer">
                     {% if project.category %}<span class="project-category-small">{{ project.category.name }}</span>{% endif %}
                     <h3 class="project-preview-title">{{ project.title }}</h3>

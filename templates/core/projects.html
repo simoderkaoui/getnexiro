@@ -29,7 +29,13 @@
             {% for project in projects_list %}
             <div class="project-card glass-card" data-category="{{ project.category.slug|default:'all' }}">
                 <div class="project-card-img-wrapper">
+                    {% if project.image %}
                     <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" class="project-img">
+                    {% else %}
+                    <div class="project-fallback-img">
+                        <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy" class="project-img-fallback">
+                    </div>
+                    {% endif %}
                     <div class="project-card-overlay">
                         {% if project.category %}<span class="project-category-badge">{{ project.category.name }}</span>{% endif %}
                         <p class="project-card-desc">{{ project.description }}</p>
@@ -48,8 +54,14 @@
                     {% endif %}
                 </div>
             </div>
+            {% empty %}
+            <div class="empty-projects-state glass-card text-center" style="grid-column: 1 / -1; padding: 4rem 2rem;">
+                <p style="color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">{% trans "Portfolio case studies will be displayed here." %}</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm">{% trans "Contact Us to Discuss Your Project" %}</a>
+            </div>
             {% endfor %}
         </div>
+
     </div>
 </section>
 

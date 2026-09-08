@@ -1,10 +1,14 @@
 """
 Seed the database with complete multilingual content (English, French, Arabic).
+Robust against network failures and proxy blocks (checks local media files first).
 
 Usage: python manage.py seed_data
 """
 
+import os
 import urllib.request
+from pathlib import Path
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from core.models import (
@@ -13,15 +17,58 @@ from core.models import (
 )
 
 
-def download_image(url, filename):
-    """Download an image from URL and return a ContentFile."""
+def get_image_file(subfolder, seed, filename, download_url):
+    """
+    Get image from local media first (offline-friendly for PythonAnywhere),
+    then try downloading, with graceful fallback.
+    """
+    media_dir = Path(settings.MEDIA_ROOT) / subfolder
+    target_file = media_dir / filename
+
+    # 1. Exact local file exists
+    if target_file.exists() and target_file.stat().st_size > 0:
+        try:
+            with open(target_file, 'rb') as f:
+                return ContentFile(f.read(), name=filename)
+        except Exception:
+            pass
+
+    # 2. Match any file starting with seed in that folder
+    if media_dir.exists():
+        for candidate in media_dir.glob(f'{seed}*'):
+            if candidate.is_file() and candidate.stat().st_size > 0:
+                try:
+                    with open(candidate, 'rb') as f:
+                        return ContentFile(f.read(), name=candidate.name)
+                except Exception:
+                    pass
+
+    # 3. Try to download from internet (works locally or on paid tiers)
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        data = urllib.request.urlopen(req, timeout=15).read()
-        return ContentFile(data, name=filename)
+        req = urllib.request.Request(download_url, headers={'User-Agent': 'Mozilla/5.0'})
+        data = urllib.request.urlopen(req, timeout=8).read()
+        if data:
+            # Save locally for future runs
+            media_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                with open(target_file, 'wb') as f:
+                    f.write(data)
+            except Exception:
+                pass
+            return ContentFile(data, name=filename)
     except Exception as e:
-        print(f'  [WARN] Could not download {url}: {e}')
-        return None
+        print(f'  [NOTE] Offline mode: could not fetch {download_url} ({e})')
+
+    # 4. Fallback to logo in static
+    static_logo = Path(settings.BASE_DIR) / 'static' / 'images' / 'logo.png'
+    if static_logo.exists():
+        try:
+            with open(static_logo, 'rb') as f:
+                return ContentFile(f.read(), name=f'{seed}.png')
+        except Exception:
+            pass
+
+    return None
 
 
 class Command(BaseCommand):
@@ -251,17 +298,23 @@ class Command(BaseCommand):
                 'cloudmetrics', False, 5, 'DataCloud Inc', 'Django, Go, ClickHouse',
             ),
         ]
+        created_projects = 0
         for t_en, t_fr, t_ar, cat_slug, d_en, d_fr, d_ar, seed, feat, order, client, tech in projects_data:
             cat = cat_map.get(cat_slug)
-            img = download_image(f'https://picsum.photos/seed/{seed}/600/400', f'{seed}.jpg')
+            img = get_image_file('projects', seed, f'{seed}.jpg', f'https://picsum.photos/seed/{seed}/600/400')
+            
+            p = Project(
+                title_en=t_en, title_fr=t_fr, title_ar=t_ar,
+                description_en=d_en, description_fr=d_fr, description_ar=d_ar,
+                category=cat, client_name=client, technologies=tech,
+                is_featured=feat, order=order,
+            )
             if img:
-                Project.objects.create(
-                    title_en=t_en, title_fr=t_fr, title_ar=t_ar,
-                    description_en=d_en, description_fr=d_fr, description_ar=d_ar,
-                    category=cat, image=img, client_name=client, technologies=tech,
-                    is_featured=feat, order=order,
-                )
-        self.stdout.write('  [OK] Created multilingual projects with images')
+                p.image.save(f'{seed}.jpg', img, save=False)
+            p.save()
+            created_projects += 1
+            
+        self.stdout.write(f'  [OK] Created {created_projects} multilingual projects')
 
         # ── 6. Team Members ──
         TeamMember.objects.all().delete()
@@ -307,15 +360,19 @@ class Command(BaseCommand):
                 'sara', 4,
             ),
         ]
+        created_team = 0
         for name, r_en, r_fr, r_ar, b_en, b_fr, b_ar, seed, order in team_data:
-            photo = download_image(f'https://picsum.photos/seed/{seed}/300/300', f'{seed}.jpg')
+            photo = get_image_file('team', seed, f'{seed}.jpg', f'https://picsum.photos/seed/{seed}/300/300')
+            tm = TeamMember(
+                name=name, role_en=r_en, role_fr=r_fr, role_ar=r_ar,
+                bio_en=b_en, bio_fr=b_fr, bio_ar=b_ar,
+                order=order,
+            )
             if photo:
-                TeamMember.objects.create(
-                    name=name, role_en=r_en, role_fr=r_fr, role_ar=r_ar,
-                    bio_en=b_en, bio_fr=b_fr, bio_ar=b_ar,
-                    photo=photo, order=order,
-                )
-        self.stdout.write('  [OK] Created multilingual team members with photos')
+                tm.photo.save(f'{seed}.jpg', photo, save=False)
+            tm.save()
+            created_team += 1
+        self.stdout.write(f'  [OK] Created {created_team} multilingual team members')
 
         # ── 7. Testimonials ──
         Testimonial.objects.all().delete()
@@ -354,13 +411,18 @@ class Command(BaseCommand):
                 'omar', 3,
             ),
         ]
+        created_testimonials = 0
         for name, r_en, r_fr, r_ar, company, q_en, q_fr, q_ar, seed, order in testimonials_data:
-            avatar = download_image(f'https://picsum.photos/seed/{seed}/100/100', f'{seed}.jpg')
-            Testimonial.objects.create(
+            avatar = get_image_file('testimonials', seed, f'{seed}.jpg', f'https://picsum.photos/seed/{seed}/100/100')
+            t = Testimonial(
                 author_name=name, author_role_en=r_en, author_role_fr=r_fr, author_role_ar=r_ar,
                 company=company, quote_en=q_en, quote_fr=q_fr, quote_ar=q_ar,
-                avatar=avatar, is_featured=True, order=order,
+                is_featured=True, order=order,
             )
-        self.stdout.write('  [OK] Created multilingual testimonials')
+            if avatar:
+                t.avatar.save(f'{seed}.jpg', avatar, save=False)
+            t.save()
+            created_testimonials += 1
+        self.stdout.write(f'  [OK] Created {created_testimonials} multilingual testimonials')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))

@@ -68,7 +68,11 @@
             {% for member in team_members %}
             <div class="team-card glass-card">
                 <div class="team-img-wrapper">
+                    {% if member.photo %}
                     <img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" class="team-avatar">
+                    {% else %}
+                    <img src="{% static 'images/logo_icon_transparent.png' %}" alt="{{ member.name }}" loading="lazy" class="team-avatar" style="padding:0.75rem;">
+                    {% endif %}
                 </div>
                 <h3 class="team-name">{{ member.name }}</h3>
                 <p class="team-role">{{ member.role }}</p>
