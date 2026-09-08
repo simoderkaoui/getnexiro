@@ -4,48 +4,41 @@
 {% block title %}{% trans "Store" %}{% endblock %}
 
 {% block content %}
-{# ═══════════════════════════════════════════ #}
-{# COMING SOON PAGE                            #}
-{# ═══════════════════════════════════════════ #}
-<section class="store-hero-section">
+<section class="page-header">
     <div class="container text-center">
-        <div class="store-card glass-card">
-            <div class="store-glow-bg" aria-hidden="true"></div>
-            <div class="badge-tag">{% trans "Coming Soon" %}</div>
-            <h1 class="page-title">
-                {% trans "The" %} <span class="text-gradient">getNexiro</span> {% trans "Store" %}
-            </h1>
-            <p class="page-subtitle store-desc">
-                {% trans "We're building something special. Premium digital products, templates, and tools — crafted with the same quality you expect from our custom projects." %}
-            </p>
+        <div class="badge-tag">{% trans "Coming Soon" %}</div>
+        <h1 class="page-title">{% trans "The getNexiro" %} <span class="text-gradient">{% trans "Store" %}</span></h1>
+        <p class="page-subtitle">{% trans "Premium digital products, templates, and development tools — launching soon." %}</p>
+    </div>
+</section>
 
-            {# Upcoming Products Preview Grid #}
-            <div class="store-upcoming-grid">
-                <div class="store-item-preview">
-                    <span class="store-item-badge">Architecture Kit</span>
-                    <h4>Enterprise SaaS Engine</h4>
-                    <p>Production-ready Django & React architecture with multi-tenancy & billing.</p>
+<section class="section">
+    <div class="container">
+        <div class="store-coming-soon glass-card text-center">
+            <div class="store-icon-big">🚀</div>
+            <h2>{% trans "We're Building Something Special" %}</h2>
+            <p class="store-desc">{% trans "Our store will feature premium Django templates, React component libraries, design systems, and development toolkits crafted by the getNexiro team." %}</p>
+            <div class="store-preview-grid">
+                <div class="store-preview-item glass-card">
+                    <span class="store-emoji">🎨</span>
+                    <h3>{% trans "Design Systems" %}</h3>
+                    <p>{% trans "Production-ready UI kits and component libraries." %}</p>
                 </div>
-                <div class="store-item-preview">
-                    <span class="store-item-badge">Design System</span>
-                    <h4>Obsidian UI Pro</h4>
-                    <p>Figma & Tailwind design system crafted for high-tech B2B software.</p>
+                <div class="store-preview-item glass-card">
+                    <span class="store-emoji">⚡</span>
+                    <h3>{% trans "Starter Templates" %}</h3>
+                    <p>{% trans "Django & React project boilerplates with best practices." %}</p>
                 </div>
-                <div class="store-item-preview">
-                    <span class="store-item-badge">DevOps Kit</span>
-                    <h4>Cloud Scale Terraform</h4>
-                    <p>Production AWS infrastructure automation with monitoring & zero-downtime CI/CD.</p>
+                <div class="store-preview-item glass-card">
+                    <span class="store-emoji">🛠️</span>
+                    <h3>{% trans "Dev Tools" %}</h3>
+                    <p>{% trans "CLI tools, scripts, and automation utilities." %}</p>
                 </div>
             </div>
-
-            <div class="store-cta-box">
-                <p class="store-msg">{% trans "Stay tuned. Great things are on the way." %}</p>
-                <div class="store-notify-form">
-                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
-                        <span>{% trans "Notify Me When Ready" %}</span>
-                        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
-                </div>
+            <div style="margin-top: 2.5rem;">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
+                    <span>{% trans "Notify Me When It Launches" %}</span>
+                </a>
             </div>
         </div>
     </div>

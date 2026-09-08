@@ -10,29 +10,20 @@
 <section class="page-header">
     <div class="container text-center">
         <div class="badge-tag">{% trans "Contact Us" %}</div>
-        <h1 class="page-title">
-            {% trans "Let's Build Something" %} <span class="text-gradient">{% trans "Remarkable" %}</span>
-        </h1>
-        <p class="page-subtitle">
-            {% trans "Ready to start your next project? We'd love to hear from you." %}
-        </p>
+        <h1 class="page-title">{% trans "Let's Build Something" %} <span class="text-gradient">{% trans "Remarkable" %}</span></h1>
+        <p class="page-subtitle">{% trans "Ready to start your next project? We'd love to hear from you." %}</p>
     </div>
 </section>
 
 {# ═══════════════════════════════════════════ #}
-{# CONTACT FORM + INFO                        #}
+{# CONTACT FORM + INFO (ORIGINAL STRUCTURE)    #}
 {# ═══════════════════════════════════════════ #}
 <section class="section">
     <div class="container">
         <div class="contact-grid">
             {# Contact Form #}
             <div class="contact-form-wrapper glass-card">
-                <div class="form-header-badge">
-                    <span class="status-live-dot"></span>
-                    <span>{% trans "Average Response Time: < 2 Hours" %}</span>
-                </div>
                 <h2 class="contact-form-title">{% trans "Send Us a Message" %}</h2>
-                
                 <form method="post" action="{% url 'core:contact' %}" class="contact-form">
                     {% csrf_token %}
                     {% for field in form %}
@@ -64,7 +55,7 @@
                         <span class="contact-info-icon">📍</span>
                         <div>
                             <h4>{% trans "Our Office" %}</h4>
-                            <p>{% trans "Tangier, Morocco" %}<br>{% trans "Tangier Free Zone" %}</p>
+                            <p>{{ config.address }}<br>{{ config.address_detail }}</p>
                         </div>
                     </div>
 
@@ -72,7 +63,7 @@
                         <span class="contact-info-icon">✉️</span>
                         <div>
                             <h4>{% trans "Email" %}</h4>
-                            <p><a href="mailto:hello@getnexiro.com" class="text-cyan">hello@getnexiro.com</a></p>
+                            <p><a href="mailto:{{ config.email }}" class="text-cyan">{{ config.email }}</a></p>
                         </div>
                     </div>
 
@@ -80,7 +71,7 @@
                         <span class="contact-info-icon">📞</span>
                         <div>
                             <h4>{% trans "Phone" %}</h4>
-                            <p dir="ltr">+212 5XX-XXXXXX</p>
+                            <p dir="ltr"><a href="tel:{{ config.phone }}" class="text-cyan">{{ config.phone }}</a></p>
                         </div>
                     </div>
 
@@ -88,7 +79,7 @@
                         <span class="contact-info-icon">🕐</span>
                         <div>
                             <h4>{% trans "Business Hours" %}</h4>
-                            <p>{% trans "Mon — Fri: 9:00 AM — 6:00 PM (GMT+1)" %}</p>
+                            <p>{{ config.business_hours }}</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +87,7 @@
                 {# Map placeholder #}
                 <div class="map-placeholder glass-card">
                     <iframe
-                        src="https://www.openstreetmap.org/export/embed.html?bbox=-5.85%2C35.74%2C-5.75%2C35.80&layer=mapnik&marker=35.7796%2C-5.8030"
+                        src="{{ config.map_embed_url }}"
                         width="100%"
                         height="240"
                         style="border:0; border-radius: 12px; filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(120%);"

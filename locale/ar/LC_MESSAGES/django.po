@@ -1,39 +1,70 @@
-# getNexiro — Arabic (ar) Translation File
-# الترجمات العربية لموقع getNexiro
-# Copyright (C) 2025 getNexiro
+# Arabic translations for getNexiro
+# Copyright (C) 2026 getNexiro
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: getNexiro 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-01 00:00+0000\n"
-"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
 "Last-Translator: getNexiro Team\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 
-# ═══════════════════════════════════════════
-# BASE TEMPLATE — Navigation
-# ═══════════════════════════════════════════
+# ── SEO & Meta ──
 
-msgid "Premium Software Development"
-msgstr "تطوير برمجي فاخر"
+msgid "Web & App Development Agency in Tangier, Morocco"
+msgstr "وكالة تطوير مواقع وتطبيقات في طنجة، المغرب"
 
-msgid "getNexiro — A luxury B2B software development agency based in Tangier, Morocco."
-msgstr "getNexiro — وكالة تطوير برمجي فاخرة موجهة للشركات ومقرها في طنجة، المغرب."
+msgid "getNexiro — Professional web development, mobile apps & software engineering agency in Tangier, Morocco. Serving businesses in Tangier, Tetouan, Fes, Meknes, M&rsquo;diq & across Northern Morocco. Contact us for custom web solutions."
+msgstr "getNexiro — وكالة تطوير مواقع احترافية، تطبيقات جوال وهندسة برمجيات في طنجة، المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب. اتصل بنا لحلول ويب مخصصة."
 
-msgid "Toggle navigation"
-msgstr "تبديل التنقل"
+msgid "web development Tangier, app development Morocco, software agency Tangier, web developer Tetouan, mobile app Fes, website design Meknes, agence web Tanger, développement web Maroc, création site web Tanger, développeur Tétouan, تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, getNexiro, web development Northern Morocco, M diq web agency"
+msgstr "تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, مطور ويب تطوان, تطبيق جوال فاس, تصميم موقع مكناس, وكالة ويب طنجة, تطوير ويب المغرب, إنشاء موقع طنجة, مطور تطوان, getNexiro, تطوير ويب شمال المغرب, وكالة ويب المضيق"
+
+msgid "Web & App Development Agency"
+msgstr "وكالة تطوير مواقع وتطبيقات"
+
+msgid "Professional web development, mobile apps & digital solutions in Tangier, Morocco. Serving Tangier, Tetouan, Fes, Meknes & Northern Morocco."
+msgstr "تطوير ويب احترافي، تطبيقات جوال وحلول رقمية في طنجة، المغرب. نخدم طنجة، تطوان، فاس، مكناس وشمال المغرب."
+
+msgid "Professional web development, mobile apps & digital solutions in Tangier, Morocco."
+msgstr "تطوير ويب احترافي، تطبيقات جوال وحلول رقمية في طنجة، المغرب."
+
+msgid "Web Development Agency Tangier"
+msgstr "وكالة تطوير ويب طنجة"
+
+msgid "Serving businesses in"
+msgstr "نخدم الشركات في"
+
+msgid "Northern Morocco"
+msgstr "شمال المغرب"
+
+# ── WhatsApp ──
+
+msgid "Hello getNexiro! I am interested in your services."
+msgstr "مرحباً getNexiro! أنا مهتم بخدماتكم."
+
+msgid "Chat on WhatsApp"
+msgstr "تحدث عبر واتساب"
+
+msgid "Chat with us"
+msgstr "تحدث معنا"
+
+msgid "Close"
+msgstr "إغلاق"
+
+# ── Navigation ──
 
 msgid "Home"
 msgstr "الرئيسية"
 
 msgid "About"
-msgstr "من نحن"
+msgstr "عن الشركة"
 
 msgid "Services"
 msgstr "الخدمات"
@@ -44,162 +75,172 @@ msgstr "المشاريع"
 msgid "Store"
 msgstr "المتجر"
 
+msgid "Soon"
+msgstr "قريباً"
+
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+msgid "Start a Project"
+msgstr "ابدأ مشروعاً"
+
+msgid "Toggle navigation"
+msgstr "تبديل التنقل"
+
+msgid "Switch to"
+msgstr "التبديل إلى"
+
 msgid "Contact"
 msgstr "اتصل بنا"
 
-msgid "Select language"
-msgstr "اختر اللغة"
+# ── Home Hero & Console ──
 
-# ═══════════════════════════════════════════
-# BASE TEMPLATE — Footer
-# ═══════════════════════════════════════════
+msgid "B2B Software Studio • Tangier, Morocco"
+msgstr "استوديو برمجيات B2B • طنجة، المغرب"
 
-msgid "Crafting premium digital experiences from the shores of Tangier."
-msgstr "نصنع تجارب رقمية فاخرة من شواطئ طنجة."
+msgid "We Architect"
+msgstr "نصمم"
 
-msgid "Quick Links"
-msgstr "روابط سريعة"
+msgid "High-Velocity"
+msgstr "أنظمة رقمية"
 
-msgid "Get in Touch"
-msgstr "تواصل معنا"
+msgid "Digital Systems"
+msgstr "فائقة السرعة"
 
-msgid "Tangier, Morocco"
-msgstr "طنجة، المغرب"
+msgid "Selected Work"
+msgstr "أعمال مختارة"
 
-msgid "All rights reserved."
-msgstr "جميع الحقوق محفوظة."
+msgid "Core Technologies"
+msgstr "التقنيات الأساسية"
 
-# ═══════════════════════════════════════════
-# HOME PAGE — Hero
-# ═══════════════════════════════════════════
+msgid "LIVE"
+msgstr "مباشر"
 
-msgid "Based in Tangier, Morocco"
-msgstr "مقرنا في طنجة، المغرب"
+msgid "OPERATIONAL"
+msgstr "يعمل بكفاءة"
 
-msgid "We Build"
-msgstr "نبني منتجات"
+msgid "# getNexiro Production Architecture"
+msgstr "# البنية الإنتاجية لـ getNexiro"
 
-msgid "Exceptional"
-msgstr "استثنائية"
+msgid "Architecture verified: 0 vulnerabilities found"
+msgstr "تم التحقق: 0 ثغرات أمنية — حماية كاملة"
 
-msgid "Digital Products"
-msgstr "رقمية"
+msgid "Edge latency: 24ms [Tangier PoP Online]"
+msgstr "زمن الاستجابة: 24ms [عقدة طنجة متصلة عالمياً]"
 
-msgid "A premium B2B software development agency crafting scalable, elegant, and high-performance digital solutions for forward-thinking enterprises."
-msgstr "وكالة تطوير برمجي فاخرة موجهة للشركات، تصنع حلولاً رقمية قابلة للتوسع وأنيقة وعالية الأداء للمؤسسات ذات الرؤية المستقبلية."
+msgid "Global Latency"
+msgstr "زمن الاستجابة العالمي"
 
-msgid "Start a Project"
-msgstr "ابدأ مشروعك"
+msgid "Security Tier"
+msgstr "مستوى الأمان"
 
-msgid "View Our Work"
-msgstr "شاهد أعمالنا"
+msgid "Uptime SLA"
+msgstr "ضمان التواجد SLA"
 
-# ═══════════════════════════════════════════
-# HOME PAGE — Value Proposition
-# ═══════════════════════════════════════════
+msgid "Zero-Trust"
+msgstr "انعدام الثقة"
+
+msgid "High Velocity"
+msgstr "سرعة فائقة"
+
+msgid "Sub-100ms Performance"
+msgstr "أداء أقل من 100 ملي ثانية"
+
+msgid "Enterprise Grade"
+msgstr "مستوى المؤسسات"
+
+msgid "Zero-Trust Security"
+msgstr "أمان انعدام الثقة"
+
+# ── Bento Grid ──
 
 msgid "Why getNexiro"
 msgstr "لماذا getNexiro"
 
 msgid "Engineering Excellence, Delivered"
-msgstr "التميز الهندسي، مُسلَّم"
+msgstr "التميز الهندسي، بين يديك"
 
 msgid "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth."
-msgstr "نجمع بين الخبرة التقنية العالمية والفهم العميق لأهداف الأعمال لتقديم حلول تحقق نمواً ملموساً."
+msgstr "نجمع بين الخبرة التقنية العالمية والفهم العميق لأهداف الأعمال لتقديم حلول تدفع النمو القابل للقياس."
+
+msgid "Strategic Focus"
+msgstr "التركيز الاستراتيجي"
 
 msgid "Strategy First"
 msgstr "الاستراتيجية أولاً"
 
 msgid "Every project begins with understanding your business goals, users, and market — not just your feature list."
-msgstr "كل مشروع يبدأ بفهم أهدافك التجارية ومستخدميك وسوقك — وليس فقط قائمة المميزات."
+msgstr "كل مشروع يبدأ بفهم أهدافك التجارية ومستخدميك وسوقك — وليس فقط قائمة الميزات."
+
+msgid "Domain modeling and requirement discovery"
+msgstr "نمذجة المجال واكتشاف المتطلبات"
+
+msgid "User journey and system bottleneck audit"
+msgstr "تدقيق رحلة المستخدم ومعالجة اختناقات النظام"
+
+msgid "Clear milestone-driven technical roadmap"
+msgstr "خارطة طريق تقنية واضحة محددة المعالم"
+
+msgid "Tailored Code"
+msgstr "كود مخصص"
 
 msgid "Bespoke Solutions"
-msgstr "حلول مخصصة"
+msgstr "حلول مصممة خصيصاً"
 
 msgid "No templates, no shortcuts. Custom-crafted architecture tailored to your specific requirements and scale."
-msgstr "بدون قوالب جاهزة، بدون اختصارات. هندسة مصممة خصيصاً لمتطلباتك وحجم عملك."
+msgstr "لا قوالب جاهزة، لا اختصارات. بنية معمارية مخصصة ومصممة لمتطلباتك وحجم أعمالك."
+
+msgid "Ongoing Synergy"
+msgstr "تآزر مستمر"
 
 msgid "Long-Term Partnership"
 msgstr "شراكة طويلة الأمد"
 
 msgid "We don't disappear after launch. Ongoing support, iteration, and strategic guidance for continuous improvement."
-msgstr "لا نختفي بعد الإطلاق. دعم مستمر، تطوير دوري، وتوجيه استراتيجي للتحسين المستمر."
+msgstr "لا نختفي بعد الإطلاق. دعم مستمر وتطوير دوري وتوجيه استراتيجي للتحسين الدائم."
 
-# ═══════════════════════════════════════════
-# HOME PAGE — Featured Services
-# ═══════════════════════════════════════════
+# ── Home Previews & CTA ──
 
 msgid "What We Do"
 msgstr "ما نقوم به"
 
 msgid "Core Services"
-msgstr "خدماتنا الأساسية"
+msgstr "الخدمات الأساسية"
 
-msgid "Web Development"
-msgstr "تطوير الويب"
+msgid "View All Services"
+msgstr "عرض جميع الخدمات"
 
-msgid "Scalable web applications built with cutting-edge frameworks and architectures."
-msgstr "تطبيقات ويب قابلة للتوسع مبنية بأحدث الأطر والهندسات المعمارية."
-
-msgid "Mobile Apps"
-msgstr "تطبيقات الجوال"
-
-msgid "Native and cross-platform mobile experiences that delight users."
-msgstr "تجارب جوال أصلية ومتعددة المنصات تُسعد المستخدمين."
-
-msgid "UI/UX Design"
-msgstr "تصميم واجهات وتجربة المستخدم"
-
-msgid "Research-driven design that balances aesthetics with usability."
-msgstr "تصميم مبني على البحث يوازن بين الجمالية وسهولة الاستخدام."
-
-msgid "All Services"
-msgstr "جميع الخدمات"
-
-# ═══════════════════════════════════════════
-# HOME PAGE — Featured Projects
-# ═══════════════════════════════════════════
-
-msgid "Selected Work"
-msgstr "أعمال مختارة"
+msgid "Explore capability"
+msgstr "استكشف الخدمة"
 
 msgid "Featured Projects"
 msgstr "مشاريع مميزة"
 
-msgid "FinFlow Dashboard"
-msgstr "لوحة تحكم FinFlow"
+msgid "View Full Portfolio"
+msgstr "عرض المحفظة الكاملة"
 
-msgid "FinTech"
-msgstr "التقنية المالية"
+msgid "View Project"
+msgstr "عرض المشروع"
 
-msgid "MedConnect Platform"
-msgstr "منصة MedConnect"
+msgid "Client Voices"
+msgstr "آراء العملاء"
 
-msgid "HealthTech"
-msgstr "التقنية الصحية"
+msgid "What Our Clients Say"
+msgstr "ماذا يقول عملاؤنا"
 
-msgid "LogiTrack System"
-msgstr "نظام LogiTrack"
+msgid "Trusted by innovative companies"
+msgstr "موثوق من قبل كبرى الشركات المبتكرة"
 
-msgid "Logistics"
-msgstr "اللوجستيات"
-
-msgid "View All Projects"
-msgstr "عرض جميع المشاريع"
-
-# ═══════════════════════════════════════════
-# HOME PAGE — CTA
-# ═══════════════════════════════════════════
+msgid "Get in Touch"
+msgstr "تواصل معنا"
 
 msgid "Ready to Elevate Your Digital Presence?"
 msgstr "مستعد لرفع مستوى حضورك الرقمي؟"
 
 msgid "Let's discuss your next project and explore how getNexiro can help you achieve your business goals."
-msgstr "لنناقش مشروعك القادم ونستكشف كيف يمكن لـ getNexiro مساعدتك في تحقيق أهدافك التجارية."
+msgstr "دعنا نناقش مشروعك القادم ونستكشف كيف يمكن لـ getNexiro مساعدتك في تحقيق أهدافك التجارية."
 
-# ═══════════════════════════════════════════
-# ABOUT PAGE
-# ═══════════════════════════════════════════
+# ── About Page ──
 
 msgid "About Us"
 msgstr "من نحن"
@@ -208,284 +249,255 @@ msgid "The Story Behind"
 msgstr "القصة وراء"
 
 msgid "Where North African creativity meets global engineering standards."
-msgstr "حيث يلتقي الإبداع المغاربي بمعايير الهندسة العالمية."
+msgstr "حيث يلتقي الإبداع الشمال إفريقي بأعلى معايير الهندسة العالمية."
 
 msgid "Our Story"
 msgstr "قصتنا"
 
 msgid "Born at the Crossroads of Continents"
-msgstr "وُلدنا عند ملتقى القارات"
-
-msgid "Founded in Tangier — the vibrant city where the Atlantic meets the Mediterranean — getNexiro was born from a simple belief: world-class software doesn't need a Silicon Valley address."
-msgstr "تأسست في طنجة — المدينة النابضة بالحياة حيث يلتقي المحيط الأطلسي بالبحر الأبيض المتوسط — وُلدت getNexiro من قناعة بسيطة: البرمجيات الراقية لا تحتاج عنوانًا في وادي السيليكون."
+msgstr "وُلدت عند ملتقى القارات"
 
 msgid "Our founders, seasoned engineers with experience at leading tech companies in Europe and North America, returned to Morocco with a vision to build a boutique development agency that rivals the best in the world, while leveraging the unique advantages of our strategic location."
-msgstr "مؤسسونا، مهندسون متمرسون بخبرات في شركات تقنية رائدة في أوروبا وأمريكا الشمالية، عادوا إلى المغرب برؤية لبناء وكالة تطوير متخصصة تنافس الأفضل في العالم، مستفيدين من المزايا الفريدة لموقعنا الاستراتيجي."
+msgstr "مؤسسونا، مهندسون محنكون لديهم خبرة في كبرى شركات التكنولوجيا في أوروبا وأمريكا الشمالية، عادوا إلى المغرب برؤية تأسيس وكالة برمجيات بوتيكية تضاهي الأفضل عالمياً، مستفيدين من المزايا الاستراتيجية الفريدة لموقعنا."
 
-msgid "Today, we serve ambitious companies across three continents, delivering solutions that are technically excellent, beautifully designed, and strategically aligned with our clients' business objectives."
-msgstr "اليوم، نخدم شركات طموحة عبر ثلاث قارات، نقدم حلولاً متميزة تقنياً، مصممة بجمال، ومتوافقة استراتيجياً مع أهداف عملائنا التجارية."
+msgid "Founded in Tangier"
+msgstr "تأسست في طنجة"
+
+msgid "Continents Reached"
+msgstr "قارات تم الوصول إليها"
+
+msgid "Tailored Codebases"
+msgstr "قواعد أكواد مخصصة 100%"
+
+msgid "Tangier, Morocco"
+msgstr "طنجة، المغرب"
+
+msgid "Gateway to Europe & Africa"
+msgstr "بوابة العبور بين أوروبا وإفريقيا"
 
 msgid "Our Mission"
 msgstr "مهمتنا"
-
-msgid "To empower enterprises with bespoke digital solutions that are not just functional, but transformative — combining technical excellence with strategic insight to create lasting competitive advantages."
-msgstr "تمكين المؤسسات بحلول رقمية مخصصة ليست مجرد وظيفية، بل تحويلية — تجمع بين التميز التقني والرؤية الاستراتيجية لخلق مزايا تنافسية دائمة."
 
 msgid "Why Tangier"
 msgstr "لماذا طنجة"
 
 msgid "A Strategic Advantage"
-msgstr "ميزة استراتيجية"
+msgstr "ميزة استراتيجية فريدة"
 
 msgid "Gateway Location"
-msgstr "موقع بوابة"
+msgstr "موقع استراتيجي عالمي"
 
 msgid "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs."
-msgstr "على بُعد 14 كم فقط من أوروبا، توفر طنجة توافقاً مع المنطقة الزمنية GMT+1 مع العملاء الأوروبيين وسهولة السفر إلى مراكز الأعمال الرئيسية."
+msgstr "على بعد 14 كم فقط من أوروبا، توفر طنجة توافقاً تاماً في التوقيت (GMT+1) مع أوروبا وسهولة التنقل لأهم مراكز الأعمال."
 
 msgid "Rich Talent Pool"
-msgstr "مجموعة مواهب غنية"
+msgstr "مجمع مواهب هندسية ثري"
 
 msgid "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers."
-msgstr "النظام التقني المتنامي في المغرب يوفر الوصول إلى مهندسين ومصممين متعددي اللغات وذوي مهارات عالية."
+msgstr "يوفر النظام التقني المتنامي في المغرب وصولاً لنخبة من المهندسين والمصممين متعددي اللغات ذوي الكفاءة العالية."
 
 msgid "Premium Value"
-msgstr "قيمة فاخرة"
+msgstr "قيمة استثنائية"
 
 msgid "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship."
-msgstr "جودة عالمية بأسعار تنافسية — تقديم عائد استثمار استثنائي دون المساومة على الحرفية."
+msgstr "جودة عالمية بأسعار تنافسية — عائد استثمار استثنائي دون أي مساومة على جودة وحرفية التنفيذ."
 
 msgid "The Team"
-msgstr "الفريق"
+msgstr "فريق العمل"
 
 msgid "Meet the Minds Behind getNexiro"
-msgstr "تعرّف على العقول وراء getNexiro"
+msgstr "تعرف على العقول المبدعة وراء getNexiro"
 
-msgid "CEO & Founder"
-msgstr "الرئيس التنفيذي والمؤسس"
+# ── Services Page ──
 
-msgid "Lead Designer"
-msgstr "كبير المصممين"
+msgid "Our Capabilities"
+msgstr "قدراتنا التقنية"
 
-msgid "CTO"
-msgstr "المدير التقني"
+msgid "Enterprise"
+msgstr "المؤسسية"
 
-msgid "Project Manager"
-msgstr "مدير المشاريع"
-
-msgid "Our Values"
-msgstr "قيمنا"
-
-msgid "What Drives Us"
-msgstr "ما يحركنا"
-
-msgid "Excellence"
-msgstr "التميز"
-
-msgid "We pursue the highest standards in every line of code and pixel of design."
-msgstr "نسعى لأعلى المعايير في كل سطر كود وكل بكسل في التصميم."
-
-msgid "Innovation"
-msgstr "الابتكار"
-
-msgid "We embrace emerging technologies to deliver future-proof solutions."
-msgstr "نتبنى التقنيات الناشئة لتقديم حلول مستقبلية."
-
-msgid "Transparency"
-msgstr "الشفافية"
-
-msgid "Open communication and honest collaboration at every stage."
-msgstr "تواصل مفتوح وتعاون صادق في كل مرحلة."
-
-msgid "Partnership"
-msgstr "الشراكة"
-
-msgid "We see ourselves as an extension of your team, not just a vendor."
-msgstr "نعتبر أنفسنا امتداداً لفريقك، وليس مجرد مزوّد خدمة."
-
-# ═══════════════════════════════════════════
-# SERVICES PAGE
-# ═══════════════════════════════════════════
-
-msgid "Our Services"
-msgstr "خدماتنا"
-
-msgid "End-to-End"
-msgstr "حلول رقمية"
-
-msgid "Digital Solutions"
-msgstr "شاملة"
-
-msgid "From concept to deployment and beyond — we cover every aspect of your digital product lifecycle."
-msgstr "من الفكرة إلى النشر وما بعده — نغطي كل جانب من جوانب دورة حياة منتجك الرقمي."
-
-msgid "Mobile Applications"
-msgstr "تطبيقات الجوال"
-
-msgid "From responsive marketing sites to complex SaaS platforms, we architect and build robust web solutions using Django, React, and modern frameworks."
-msgstr "من المواقع التسويقية المتجاوبة إلى منصات SaaS المعقدة، نصمم ونبني حلول ويب متينة باستخدام Django و React والأطر الحديثة."
-
-msgid "Native iOS/Android and cross-platform apps built with Flutter and React Native, delivering seamless performance and beautiful interfaces."
-msgstr "تطبيقات أصلية لـ iOS/Android ومتعددة المنصات مبنية بـ Flutter و React Native، تقدم أداءً سلساً وواجهات جميلة."
-
-msgid "User research, wireframing, prototyping, and pixel-perfect design systems that elevate your brand and convert visitors into customers."
-msgstr "بحث المستخدم، والنماذج الأولية، والتصميم المثالي الذي يرفع علامتك التجارية ويحوّل الزوار إلى عملاء."
-
-msgid "Technical Consulting"
-msgstr "الاستشارات التقنية"
-
-msgid "Architecture reviews, technology audits, and strategic roadmapping to ensure your digital investments deliver maximum ROI."
-msgstr "مراجعات الهندسة المعمارية، والتدقيق التقني، وخرائط الطريق الاستراتيجية لضمان أن استثماراتك الرقمية تحقق أقصى عائد."
-
-msgid "API & Integration"
-msgstr "واجهات برمجة التطبيقات والتكامل"
-
-msgid "RESTful and GraphQL APIs, third-party integrations, and microservices architecture designed for scalability and reliability."
-msgstr "واجهات RESTful و GraphQL، تكاملات خارجية، وهندسة خدمات مصغرة مصممة للتوسع والموثوقية."
-
-msgid "Cloud & DevOps"
-msgstr "السحابة و DevOps"
-
-msgid "Cloud infrastructure, CI/CD pipelines, containerization, and monitoring — we ensure your applications run flawlessly at any scale."
-msgstr "البنية التحتية السحابية، أنابيب CI/CD، الحاويات، والمراقبة — نضمن أن تطبيقاتك تعمل بلا عيوب على أي نطاق."
+msgid "End-to-end engineering services designed for enterprise-grade performance, scalability, and security."
+msgstr "خدمات هندسية متكاملة مصممة للأداء العالي وقابلية التوسع وأعلى درجات الأمان للمؤسسات."
 
 msgid "Discuss this service"
-msgstr "ناقش هذه الخدمة"
+msgstr "ناقش متطلباتك معنا"
+
+msgid "Services will be added soon. Check back later!"
+msgstr "سيتم إضافة المزيد من الخدمات قريباً."
 
 msgid "Our Process"
-msgstr "منهجيتنا"
+msgstr "منهجية العمل"
 
-msgid "How We Work"
-msgstr "كيف نعمل"
+msgid "How We Deliver Excellence"
+msgstr "كيف نصنع التميز البرمجي"
 
 msgid "Discovery"
-msgstr "الاكتشاف"
+msgstr "الاكتشاف والتحليل"
 
-msgid "Deep dive into your business, users, and technical requirements."
-msgstr "غوص عميق في عملك ومستخدميك ومتطلباتك التقنية."
+msgid "We deep-dive into your business requirements, user needs, and technical landscape."
+msgstr "نتعمق في متطلبات عملك، احتياجات المستخدمين، والمشهد التقني الكامل."
+
+msgid "Requirements"
+msgstr "المتطلبات"
+
+msgid "Research"
+msgstr "البحث والتحليل"
+
+msgid "Architecture"
+msgstr "الهندسة والمعمارية"
+
+msgid "We design scalable system architectures and create detailed technical specifications."
+msgstr "نصمم بنيات برمجية قابلة للتوسع ونضع مواصفات تقنية تفصيلية ودقيقة."
 
 msgid "Design"
 msgstr "التصميم"
 
-msgid "Architecture planning, wireframes, and high-fidelity prototypes."
-msgstr "تخطيط الهندسة المعمارية، والنماذج الشبكية، والنماذج الأولية عالية الدقة."
+msgid "Planning"
+msgstr "التخطيط"
 
-msgid "Develop"
-msgstr "التطوير"
+msgid "Development"
+msgstr "التطوير البرمجي"
 
-msgid "Agile sprints with transparent progress tracking and quality assurance."
-msgstr "سباقات أجايل مع تتبع شفاف للتقدم وضمان الجودة."
+msgid "Agile sprints with continuous integration, automated testing, and frequent deliverables."
+msgstr "سباقات تطوير رشيقة (Agile) مع تكامل مستمر واختبارات آلية وتسليمات متتابعة."
 
-msgid "Deploy & Support"
-msgstr "النشر والدعم"
+msgid "Agile"
+msgstr "أجايل"
 
-msgid "Seamless launch and ongoing maintenance for continuous improvement."
-msgstr "إطلاق سلس وصيانة مستمرة للتحسين المتواصل."
+msgid "Launch & Support"
+msgstr "الإطلاق والدعم المستمر"
 
-msgid "Have a Project in Mind?"
-msgstr "لديك مشروع في ذهنك؟"
+msgid "Production deployment, performance monitoring, and ongoing maintenance partnerships."
+msgstr "النشر في بيئة الإنتاج، مراقبة الأداء على مدار الساعة، وشراكات صيانة وتطوير مستمرة."
 
-msgid "Tell us about your vision and let's explore how we can bring it to life."
-msgstr "أخبرنا عن رؤيتك ولنستكشف معاً كيف يمكننا تحقيقها."
+msgid "Deploy"
+msgstr "النشر"
 
-msgid "Start a Conversation"
-msgstr "ابدأ محادثة"
+msgid "Monitor"
+msgstr "المراقبة"
 
-# ═══════════════════════════════════════════
-# PROJECTS PAGE
-# ═══════════════════════════════════════════
+msgid "Need a Custom Solution?"
+msgstr "هل تحتاج إلى حل برمجي مخصص؟"
+
+msgid "Tell us about your project and we'll propose the perfect service mix."
+msgstr "أخبرنا عن تفاصيل مشروعك وسنقترح الحل التقني الأمثل لاحتياجاتك."
+
+msgid "Get a Free Consultation"
+msgstr "احصل على استشارة مجانية"
+
+# ── Projects Page ──
 
 msgid "Our Portfolio"
-msgstr "معرض أعمالنا"
+msgstr "محفظة الأعمال"
 
 msgid "Selected"
-msgstr "مشاريع"
+msgstr "نماذج من"
 
-msgid "A curated showcase of our work across industries and technologies."
-msgstr "عرض منسّق لأعمالنا عبر الصناعات والتقنيات."
+msgid "Case Studies"
+msgstr "دراسات الحالة"
+
+msgid "A curated showcase of high-impact architectures, enterprise web platforms, and bespoke products delivered for global brands."
+msgstr "مجموعة مختارة من البنيات البرمجية عالية التأثير ومنصات الويب المؤسسية والمنتجات الرقمية المخصصة."
 
 msgid "All"
 msgstr "الكل"
 
-msgid "E-Commerce"
-msgstr "التجارة الإلكترونية"
+msgid "View Case Study"
+msgstr "عرض دراسة الحالة"
 
-msgid "SaaS"
-msgstr "البرمجيات كخدمة"
-
-msgid "Real-time financial analytics dashboard for a leading investment firm."
-msgstr "لوحة تحكم تحليلات مالية فورية لشركة استثمار رائدة."
-
-msgid "Telemedicine platform connecting patients with specialists across Morocco."
-msgstr "منصة طب عن بُعد تربط المرضى بالمتخصصين في جميع أنحاء المغرب."
-
-msgid "ShopLux E-Commerce"
-msgstr "متجر ShopLux الإلكتروني"
-
-msgid "Premium e-commerce experience for a luxury fashion brand."
-msgstr "تجربة تجارة إلكترونية فاخرة لعلامة أزياء راقية."
-
-msgid "End-to-end supply chain management system with real-time GPS tracking."
-msgstr "نظام إدارة سلسلة التوريد الشامل مع تتبع GPS في الوقت الفعلي."
-
-msgid "CloudMetrics SaaS"
-msgstr "CloudMetrics SaaS"
-
-msgid "Multi-tenant analytics platform serving 500+ enterprise clients."
-msgstr "منصة تحليلات متعددة المستأجرين تخدم أكثر من 500 عميل مؤسسي."
-
-msgid "PaySecure Gateway"
-msgstr "بوابة PaySecure"
-
-msgid "PCI-compliant payment gateway processing millions of daily transactions."
-msgstr "بوابة دفع متوافقة مع PCI تعالج ملايين المعاملات اليومية."
+msgid "Collaboration"
+msgstr "التعاون المشترك"
 
 msgid "Like What You See?"
-msgstr "أعجبك ما تراه؟"
+msgstr "أعجبك ما رأيته؟"
 
 msgid "Let's create something extraordinary together."
-msgstr "لنصنع شيئاً استثنائياً معاً."
+msgstr "دعنا نبني معاً شيئاً استثنائياً يفوق التوقعات."
 
 msgid "Start Your Project"
-msgstr "ابدأ مشروعك"
+msgstr "ابدأ مشروعك الآن"
 
-# ═══════════════════════════════════════════
-# STORE PAGE
-# ═══════════════════════════════════════════
+# ── Store Page ──
 
 msgid "Coming Soon"
-msgstr "قريباً"
+msgstr "قريباً جداً"
 
-msgid "The"
+msgid "The getNexiro"
 msgstr "متجر"
 
-msgid "We're building something special. Premium digital products, templates, and tools — crafted with the same quality you expect from our custom projects."
-msgstr "نبني شيئاً مميزاً. منتجات رقمية فاخرة، قوالب، وأدوات — مصنوعة بنفس الجودة التي تتوقعها من مشاريعنا المخصصة."
+msgid "We're Building Something Special"
+msgstr "نبني شيئاً مميزاً للمطورين والشركات"
 
-msgid "Stay tuned. Great things are on the way."
-msgstr "ترقبوا. أشياء عظيمة في الطريق."
+msgid "Our store will feature premium Django templates, React component libraries, design systems, and development toolkits crafted by the getNexiro team."
+msgstr "سيضم متجرنا قوالب Django احترافية، ومكتبات مكونات React، وأنظمة تصميم برمجية مطورة من قبل فريق getNexiro."
 
-msgid "Notify Me"
-msgstr "أعلمني"
+msgid "Design Systems"
+msgstr "أنظمة التصميم UI/UX"
 
-# ═══════════════════════════════════════════
-# CONTACT PAGE
-# ═══════════════════════════════════════════
+msgid "Production-ready UI kits and component libraries."
+msgstr "حزم واجهات مستخدم ومكتبات مكونات جاهزة للإنتاج الفوري."
 
-msgid "Contact Us"
-msgstr "اتصل بنا"
+msgid "Starter Templates"
+msgstr "قوالب مشاريع جاهزة"
+
+msgid "Django & React project boilerplates with best practices."
+msgstr "هياكل مشاريع Django و React مبنية وفق أفضل الممارسات العالمية."
+
+msgid "Dev Tools"
+msgstr "أدوات التطوير والأتمتة"
+
+msgid "CLI tools, scripts, and automation utilities."
+msgstr "أدوات سطر الأوامر وسكربتات الأتمتة لزيادة الإنتاجية."
+
+msgid "Notify Me When It Launches"
+msgstr "أشعرني فور الإطلاق"
+
+# ── Contact Page ──
 
 msgid "Let's Build Something"
-msgstr "لنبنِ شيئاً"
+msgstr "لنبني معاً شيئاً"
 
 msgid "Remarkable"
-msgstr "رائعاً"
+msgstr "استثنائياً"
 
 msgid "Ready to start your next project? We'd love to hear from you."
-msgstr "مستعد لبدء مشروعك القادم؟ يسعدنا سماعك."
+msgstr "هل أنت مستعد لبدء مشروعك القادم؟ يسعدنا التواصل معك وسماع أفكارك."
 
 msgid "Send Us a Message"
 msgstr "أرسل لنا رسالة"
+
+msgid "Get in Touch"
+msgstr "تواصل معنا"
+
+msgid "Our Office"
+msgstr "مقرنا"
+
+msgid "Send Message"
+msgstr "إرسال الرسالة"
+
+msgid "getNexiro Office Location — Tangier, Morocco"
+msgstr "موقع مقر getNexiro — طنجة، المغرب"
+
+
+msgid "Contact Information"
+msgstr "معلومات التواصل"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Phone"
+msgstr "الهاتف"
+
+msgid "Business Hours"
+msgstr "أوقات العمل"
+
+msgid "Our Location"
+msgstr "مقر الشركة"
+
+msgid "Thank you for your message! We will get back to you shortly."
+msgstr "شكراً لرسالتك! سنقوم بالرد عليك في أقرب وقت ممكن."
+
+# ── Form Fields ──
 
 msgid "Full Name"
 msgstr "الاسم الكامل"
@@ -506,31 +518,42 @@ msgid "Message"
 msgstr "الرسالة"
 
 msgid "Tell us about your project..."
-msgstr "أخبرنا عن مشروعك..."
+msgstr "أخبرنا عن تفاصيل مشروعك وأهدافك..."
 
-msgid "Send Message"
-msgstr "إرسال الرسالة"
+# ── Footer ──
 
-msgid "Thank you for your message! We will get back to you shortly."
-msgstr "شكراً لرسالتك! سنعود إليك قريباً."
+msgid "Professional web development, mobile apps & software engineering agency based in Tangier, Morocco. Serving businesses across Tangier, Tetouan, Fes, Meknes & Northern Morocco."
+msgstr "وكالة احترافية في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات مقرها طنجة، المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب."
 
-msgid "Our Office"
-msgstr "مكتبنا"
+msgid "Available for new projects"
+msgstr "متاح لبدء مشاريع جديدة"
 
-msgid "Tangier Free Zone"
-msgstr "المنطقة الحرة بطنجة"
+msgid "Navigation"
+msgstr "روابط سريعة"
 
-msgid "Email"
-msgstr "البريد الإلكتروني"
+msgid "Our Services"
+msgstr "خدماتنا"
 
-msgid "Phone"
-msgstr "الهاتف"
+msgid "Selected Works"
+msgstr "أعمالنا المختارة"
 
-msgid "Business Hours"
-msgstr "ساعات العمل"
+msgid "Web Development"
+msgstr "تطوير المواقع"
 
-msgid "Mon — Fri: 9:00 AM — 6:00 PM (GMT+1)"
-msgstr "الاثنين — الجمعة: 9:00 صباحاً — 6:00 مساءً (GMT+1)"
+msgid "Mobile Applications"
+msgstr "تطبيقات الجوال"
 
-msgid "getNexiro Office Location — Tangier, Morocco"
-msgstr "موقع مكتب getNexiro — طنجة، المغرب"
+msgid "UI/UX & Design Systems"
+msgstr "تصميم تجربة وواجهة المستخدم"
+
+msgid "API & Microservices"
+msgstr "واجهات البرمجة API"
+
+msgid "Cloud & DevOps"
+msgstr "الحوسبة السحابية و DevOps"
+
+msgid "Tangier Hub"
+msgstr "مركز طنجة"
+
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."

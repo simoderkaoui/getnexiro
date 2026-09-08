@@ -4,32 +4,23 @@
 {% block title %}{% trans "Home" %}{% endblock %}
 
 {% block content %}
-{# ═══════════════════════════════════════════ #}
-{# HERO SECTION                                #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ HERO ══════ #}
 <section class="hero-section">
     <div class="hero-grid-pattern" aria-hidden="true"></div>
     <div class="hero-glow-center" aria-hidden="true"></div>
-
     <div class="container hero-container">
         <div class="hero-split">
-            {# Left Column: Core Value Proposition #}
             <div class="hero-text-col">
                 <div class="hero-badge-wrapper">
                     <span class="pulse-dot"></span>
                     <span class="hero-badge-text">{% trans "B2B Software Studio • Tangier, Morocco" %}</span>
                 </div>
-
                 <h1 class="hero-title">
                     {% trans "We Architect" %}<br>
                     <span class="text-gradient">{% trans "High-Velocity" %}</span><br>
                     {% trans "Digital Systems" %}
                 </h1>
-
-                <p class="hero-subtitle">
-                    {% trans "A premium software engineering agency crafting scalable web platforms, bespoke enterprise applications, and resilient digital architectures for forward-thinking organizations worldwide." %}
-                </p>
-
+                <p class="hero-subtitle">{{ config.hero_subtitle }}</p>
                 <div class="hero-actions">
                     <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
                         <span>{% trans "Start a Project" %}</span>
@@ -37,11 +28,8 @@
                     </a>
                     <a href="{% url 'core:projects' %}" class="btn btn-outline btn-lg">
                         <span>{% trans "Selected Work" %}</span>
-                        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
                 </div>
-
-                {# Tech Stack Bar #}
                 <div class="hero-tech-trust">
                     <span class="trust-label">{% trans "Core Technologies" %}:</span>
                     <div class="tech-pills-row">
@@ -53,51 +41,66 @@
                     </div>
                 </div>
             </div>
-
-            {# Right Column: Modern Tech Architecture Visual #}
             <div class="hero-visual-col">
-                <div class="terminal-card glass-card">
-                    <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <span class="dot dot-red"></span>
-                            <span class="dot dot-amber"></span>
-                            <span class="dot dot-cyan"></span>
+                <div class="console-mockup-wrapper">
+                    <div class="console-card">
+                        <div class="console-header">
+                            <div class="console-dots">
+                                <span class="console-dot dot-red"></span>
+                                <span class="console-dot dot-amber"></span>
+                                <span class="console-dot dot-green"></span>
+                            </div>
+                            <div class="console-tab">
+                                <span>⚡</span> getnexiro_core.py
+                            </div>
+                            <div class="console-live-pill">
+                                <span class="status-live-dot"></span>
+                                <span>{% trans "LIVE" %}</span>
+                            </div>
                         </div>
-                        <div class="terminal-title">getnexiro_engine.py</div>
-                        <div class="terminal-status"><span class="status-live-dot"></span> LIVE</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="code-line"><span class="code-comment"># getNexiro Enterprise Architecture</span></div>
-                        <div class="code-line"><span class="code-keyword">from</span> getnexiro <span class="code-keyword">import</span> CloudCluster, SecurityLayer</div>
-                        <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="code-var">agency</span> = CloudCluster(</div>
-                        <div class="code-line code-indent"><span class="code-prop">location</span>=<span class="code-str">"Tangier, Morocco"</span>,</div>
-                        <div class="code-line code-indent"><span class="code-prop">timezone</span>=<span class="code-str">"GMT+1 (EU Synchronized)"</span>,</div>
-                        <div class="code-line code-indent"><span class="code-prop">security</span>=SecurityLayer.<span class="code-val">ENTERPRISE_TIER</span>,</div>
-                        <div class="code-line code-indent"><span class="code-prop">uptime_sla</span>=<span class="code-num">0.9998</span></div>
-                        <div class="code-line">)</div>
-                        <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="code-comment"># Deploying client business infrastructure</span></div>
-                        <div class="code-line"><span class="code-var">pipeline</span> = agency.deploy_pipeline(scale=<span class="code-str">"Global"</span>)</div>
-                        <div class="code-line terminal-output">✓ Architecture verified: 0 vulnerabilities found</div>
-                        <div class="code-line terminal-output-cyan">⚡ Edge response latency: 28ms [Global CDN Active]</div>
-                    </div>
-
-                    {# Floating Badge 1 #}
-                    <div class="floating-badge badge-top-right">
-                        <span class="floating-badge-icon">⚡</span>
-                        <div>
-                            <strong>{% trans "High Velocity" %}</strong>
-                            <small>{% trans "Sub-100ms Performance" %}</small>
+                        <div class="console-body">
+                            <div class="console-lines-gutter" aria-hidden="true">
+                                01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10
+                            </div>
+                            <div class="console-code">
+                                <div class="code-line"><span class="code-comment">{% trans "# getNexiro Production Architecture" %}</span></div>
+                                <div class="code-line"><span class="code-keyword">from</span> <span class="code-val">getnexiro</span> <span class="code-keyword">import</span> CloudCluster, Security</div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line"><span class="code-var">agency</span> = CloudCluster(</div>
+                                <div class="code-line code-indent"><span class="code-prop">hub</span>=<span class="code-str">"Tangier, Morocco"</span>,</div>
+                                <div class="code-line code-indent"><span class="code-prop">timezone</span>=<span class="code-str">"GMT+1 (EU Aligned)"</span>,</div>
+                                <div class="code-line code-indent"><span class="code-prop">security</span>=Security.<span class="code-val">ZERO_TRUST</span>,</div>
+                                <div class="code-line code-indent"><span class="code-prop">uptime_sla</span>=<span class="code-num">0.9998</span></div>
+                                <div class="code-line">)</div>
+                                <div class="code-line"><span class="code-var">pipeline</span> = agency.deploy(scale=<span class="code-str">"Global"</span>)</div>
+                                <div class="console-outputs">
+                                    <div class="console-output-success">✓ {% trans "Architecture verified: 0 vulnerabilities found" %}</div>
+                                    <div class="console-output-cyan">⚡ {% trans "Edge latency: 24ms [Tangier PoP Online]" %}</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    {# Floating Badge 2 #}
-                    <div class="floating-badge badge-bottom-left">
-                        <span class="floating-badge-icon">🛡️</span>
-                        <div>
-                            <strong>{% trans "Enterprise Grade" %}</strong>
-                            <small>{% trans "Zero-Trust Security" %}</small>
+                        <div class="console-metrics-shelf">
+                            <div class="shelf-metric">
+                                <span class="shelf-icon">⚡</span>
+                                <div class="shelf-info">
+                                    <span class="shelf-val">24ms</span>
+                                    <span class="shelf-lbl">{% trans "Global Latency" %}</span>
+                                </div>
+                            </div>
+                            <div class="shelf-metric">
+                                <span class="shelf-icon">🛡️</span>
+                                <div class="shelf-info">
+                                    <span class="shelf-val">{% trans "Zero-Trust" %}</span>
+                                    <span class="shelf-lbl">{% trans "Security Tier" %}</span>
+                                </div>
+                            </div>
+                            <div class="shelf-metric">
+                                <span class="shelf-icon">🚀</span>
+                                <div class="shelf-info">
+                                    <span class="shelf-val">99.98%</span>
+                                    <span class="shelf-lbl">{% trans "Uptime SLA" %}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,56 +109,37 @@
     </div>
 </section>
 
-{# ═══════════════════════════════════════════ #}
-{# IMPACT METRICS STRIP                        #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ STATS (from DB) ══════ #}
+{% if stats %}
 <section class="stats-strip">
     <div class="container">
         <div class="stats-grid">
+            {% for stat in stats %}
             <div class="stat-card">
-                <div class="stat-number"><span class="counter" data-target="99.98">99.98</span>%</div>
-                <div class="stat-label">{% trans "System Reliability SLA" %}</div>
+                <div class="stat-number">{{ stat.value }}</div>
+                <div class="stat-label">{{ stat.label }}</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number"><span class="counter" data-target="50">50</span>+</div>
-                <div class="stat-label">{% trans "Enterprise Platforms Shipped" %}</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">&lt;<span class="counter" data-target="80">80</span>ms</div>
-                <div class="stat-label">{% trans "Average API Latency" %}</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">GMT+1</div>
-                <div class="stat-label">{% trans "Tangier Hub / European Timezone" %}</div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
-{# ═══════════════════════════════════════════ #}
-{# VALUE PROPOSITION / WHY GETNEXIRO          #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ WHY GETNEXIRO ══════ #}
 <section class="section section-bento">
     <div class="container">
         <div class="section-header">
             <div class="badge-tag">{% trans "Why getNexiro" %}</div>
             <h2 class="section-title">{% trans "Engineering Excellence, Delivered" %}</h2>
-            <p class="section-subtitle">
-                {% trans "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth." %}
-            </p>
+            <p class="section-subtitle">{% trans "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth." %}</p>
         </div>
-
         <div class="bento-grid">
-            {# Bento Item 1: Large #}
             <div class="bento-card bento-card-large glass-card">
-                <div class="bento-glow" aria-hidden="true"></div>
                 <div class="bento-number">01</div>
                 <div class="bento-content">
                     <span class="bento-tag">{% trans "Strategic Focus" %}</span>
                     <h3 class="bento-title">{% trans "Strategy First" %}</h3>
-                    <p class="bento-desc">
-                        {% trans "Every project begins with understanding your business goals, users, and market — not just your feature list." %}
-                    </p>
+                    <p class="bento-desc">{% trans "Every project begins with understanding your business goals, users, and market — not just your feature list." %}</p>
                     <div class="bento-bullets">
                         <div class="bullet-item">✓ {% trans "Domain modeling and requirement discovery" %}</div>
                         <div class="bullet-item">✓ {% trans "User journey and system bottleneck audit" %}</div>
@@ -163,39 +147,28 @@
                     </div>
                 </div>
             </div>
-
-            {# Bento Item 2 #}
             <div class="bento-card glass-card">
-                <div class="bento-glow" aria-hidden="true"></div>
                 <div class="bento-number">02</div>
                 <div class="bento-content">
                     <span class="bento-tag">{% trans "Tailored Code" %}</span>
                     <h3 class="bento-title">{% trans "Bespoke Solutions" %}</h3>
-                    <p class="bento-desc">
-                        {% trans "No templates, no shortcuts. Custom-crafted architecture tailored to your specific requirements and scale." %}
-                    </p>
+                    <p class="bento-desc">{% trans "No templates, no shortcuts. Custom-crafted architecture tailored to your specific requirements and scale." %}</p>
                 </div>
             </div>
-
-            {# Bento Item 3 #}
             <div class="bento-card glass-card">
-                <div class="bento-glow" aria-hidden="true"></div>
                 <div class="bento-number">03</div>
                 <div class="bento-content">
                     <span class="bento-tag">{% trans "Ongoing Synergy" %}</span>
                     <h3 class="bento-title">{% trans "Long-Term Partnership" %}</h3>
-                    <p class="bento-desc">
-                        {% trans "We don't disappear after launch. Ongoing support, iteration, and strategic guidance for continuous improvement." %}
-                    </p>
+                    <p class="bento-desc">{% trans "We don't disappear after launch. Ongoing support, iteration, and strategic guidance for continuous improvement." %}</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{# ═══════════════════════════════════════════ #}
-{# FEATURED SERVICES PREVIEW                   #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ SERVICES (from DB) ══════ #}
+{% if featured_services %}
 <section class="section section-services-preview">
     <div class="container">
         <div class="section-header-flex">
@@ -208,11 +181,10 @@
                 <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-
         <div class="services-preview-grid">
             {% for service in featured_services %}
             <div class="service-preview-card glass-card">
-                <div class="service-icon-box {{ service.icon }}">
+                <div class="service-icon-box">
                     {% if service.icon == 'icon-web' %}
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     {% elif service.icon == 'icon-mobile' %}
@@ -232,10 +204,10 @@
         </div>
     </div>
 </section>
+{% endif %}
 
-{# ═══════════════════════════════════════════ #}
-{# FEATURED PROJECTS PREVIEW                   #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ PROJECTS (from DB) ══════ #}
+{% if featured_projects %}
 <section class="section section-projects-preview">
     <div class="container">
         <div class="section-header-flex">
@@ -248,21 +220,20 @@
                 <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-
         <div class="projects-preview-grid">
             {% for project in featured_projects %}
             <div class="project-preview-card glass-card">
                 <div class="project-preview-img-wrapper">
-                    <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
                     <div class="project-preview-overlay">
-                        <span class="project-category-badge">{{ project.category }}</span>
-                        <a href="{% url 'core:projects' %}" class="project-view-btn" aria-label="View Project">
+                        {% if project.category %}<span class="project-category-badge">{{ project.category.name }}</span>{% endif %}
+                        <a href="{% url 'core:projects' %}" class="project-view-btn" aria-label="{% trans 'View Project' %}">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                         </a>
                     </div>
                 </div>
                 <div class="project-preview-footer">
-                    <span class="project-category-small">{{ project.category }}</span>
+                    {% if project.category %}<span class="project-category-small">{{ project.category.name }}</span>{% endif %}
                     <h3 class="project-preview-title">{{ project.title }}</h3>
                 </div>
             </div>
@@ -270,58 +241,73 @@
         </div>
     </div>
 </section>
+{% endif %}
 
-{# ═══════════════════════════════════════════ #}
-{# TANGIER STRATEGIC GATEWAY                   #}
-{# ═══════════════════════════════════════════ #}
-<section class="section section-tangier-gateway">
+{# ══════ TESTIMONIALS (from DB) ══════ #}
+{% if testimonials %}
+<section class="section section-dark section-testimonials">
     <div class="container">
-        <div class="tangier-banner glass-card">
-            <div class="tangier-banner-glow" aria-hidden="true"></div>
-            <div class="tangier-content">
-                <div class="badge-tag">{% trans "Strategic Hub" %}</div>
-                <h2 class="tangier-title">{% trans "The Tangier Advantage" %}</h2>
-                <p class="tangier-desc">
-                    {% trans "Located at the historic crossroads of Europe and Africa, just 14 km from the Spanish coast. getNexiro leverages Morocco's vibrant high-tech ecosystem to deliver world-class engineering with full GMT+1 timezone alignment for European and global enterprise partners." %}
-                </p>
-                <div class="tangier-stats-row">
-                    <div class="tangier-stat-item">
-                        <span class="stat-highlight">14 km</span>
-                        <span class="stat-highlight-label">{% trans "From Continental Europe" %}</span>
-                    </div>
-                    <div class="tangier-stat-item">
-                        <span class="stat-highlight">GMT+1</span>
-                        <span class="stat-highlight-label">{% trans "Synchronized Working Hours" %}</span>
-                    </div>
-                    <div class="tangier-stat-item">
-                        <span class="stat-highlight">3 Langs</span>
-                        <span class="stat-highlight-label">{% trans "English, French & Arabic" %}</span>
+        <div class="section-header">
+            <div class="badge-tag">{% trans "Client Voices" %}</div>
+            <h2 class="section-title">{% trans "What Our Clients Say" %}</h2>
+        </div>
+        <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card glass-card">
+                <div class="testimonial-quote-icon">❝</div>
+                <p class="testimonial-text">{{ testimonial.quote }}</p>
+                <div class="testimonial-author">
+                    {% if testimonial.avatar %}
+                    <img src="{{ testimonial.avatar.url }}" alt="{{ testimonial.author_name }}" class="testimonial-avatar">
+                    {% endif %}
+                    <div>
+                        <strong class="testimonial-name">{{ testimonial.author_name }}</strong>
+                        <span class="testimonial-role">{{ testimonial.author_role }}{% if testimonial.company %}, {{ testimonial.company }}{% endif %}</span>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
-{# ═══════════════════════════════════════════ #}
-{# HIGH IMPACT CTA                             #}
-{# ═══════════════════════════════════════════ #}
+{# ══════ CLIENT LOGOS (from DB) ══════ #}
+{% if client_logos %}
+<section class="section section-clients">
+    <div class="container text-center">
+        <p class="clients-label">{% trans "Trusted by innovative companies" %}</p>
+        <div class="clients-row">
+            {% for client in client_logos %}
+            {% if client.url %}
+            <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}">
+                <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+            </a>
+            {% else %}
+            <div class="client-logo-item" title="{{ client.name }}">
+                <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ══════ CTA ══════ #}
 <section class="section cta-section">
-    <div class="cta-glow-bg" aria-hidden="true"></div>
     <div class="container text-center">
         <div class="cta-card glass-card">
             <div class="badge-tag">{% trans "Get in Touch" %}</div>
             <h2 class="cta-title">{% trans "Ready to Elevate Your Digital Presence?" %}</h2>
-            <p class="cta-subtitle">
-                {% trans "Let's discuss your next project and explore how getNexiro can help you achieve your business goals." %}
-            </p>
+            <p class="cta-subtitle">{% trans "Let's discuss your next project and explore how getNexiro can help you achieve your business goals." %}</p>
             <div class="cta-actions">
                 <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
                     <span>{% trans "Start a Project" %}</span>
                     <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
-                <a href="mailto:hello@getnexiro.com" class="btn btn-outline btn-lg">
-                    <span>hello@getnexiro.com</span>
+                <a href="mailto:{{ config.email }}" class="btn btn-outline btn-lg">
+                    <span>{{ config.email }}</span>
                 </a>
             </div>
         </div>
