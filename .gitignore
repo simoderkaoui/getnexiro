@@ -7,6 +7,8 @@ db.sqlite3
 /venv/
 /.venv/
 /staticfiles/
+/media/
 .env
 .vscode/
 .idea/
+test_err.log

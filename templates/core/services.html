@@ -18,7 +18,7 @@
         <div class="services-grid">
             {% for service in services_list %}
             <div class="service-card glass-card">
-                <div class="service-icon-wrapper">
+                <div class="service-icon-box">
                     {% if service.icon == 'icon-web' %}
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     {% elif service.icon == 'icon-mobile' %}
@@ -61,6 +61,18 @@
             <h2 class="section-title">{% trans "How We Deliver Excellence" %}</h2>
         </div>
         <div class="process-timeline-grid">
+            {% for step in process_steps %}
+            <div class="process-step glass-card">
+                <span class="process-step-num">{{ step.step_number }}</span>
+                <h3 class="process-step-title">{{ step.title }}</h3>
+                <p class="process-step-desc">{{ step.description }}</p>
+                {% if step.tags %}
+                <div class="process-tags">
+                    <span class="tech-pill">{{ step.tags }}</span>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
             <div class="process-step glass-card">
                 <span class="process-step-num">01</span>
                 <h3 class="process-step-title">{% trans "Discovery" %}</h3>
@@ -85,6 +97,7 @@
                 <p class="process-step-desc">{% trans "Production deployment, performance monitoring, and ongoing maintenance partnerships." %}</p>
                 <div class="process-tags"><span class="tech-pill">{% trans "Deploy" %}</span><span class="tech-pill">{% trans "Monitor" %}</span></div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>

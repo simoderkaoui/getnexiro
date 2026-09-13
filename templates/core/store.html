@@ -19,6 +19,13 @@
             <h2>{% trans "We're Building Something Special" %}</h2>
             <p class="store-desc">{% trans "Our store will feature premium Django templates, React component libraries, design systems, and development toolkits crafted by the getNexiro team." %}</p>
             <div class="store-preview-grid">
+                {% for item in store_items %}
+                <div class="store-preview-item glass-card">
+                    <span class="store-emoji">{{ item.emoji }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                </div>
+                {% empty %}
                 <div class="store-preview-item glass-card">
                     <span class="store-emoji">🎨</span>
                     <h3>{% trans "Design Systems" %}</h3>
@@ -34,6 +41,7 @@
                     <h3>{% trans "Dev Tools" %}</h3>
                     <p>{% trans "CLI tools, scripts, and automation utilities." %}</p>
                 </div>
+                {% endfor %}
             </div>
             <div style="margin-top: 2.5rem;">
                 <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">

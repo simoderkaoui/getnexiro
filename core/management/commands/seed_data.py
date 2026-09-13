@@ -14,6 +14,7 @@ from django.core.files.base import ContentFile
 from core.models import (
     SiteConfig, Service, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat,
+    CompanyValue, ProcessStep, StoreItem,
 )
 
 
@@ -81,7 +82,7 @@ class Command(BaseCommand):
         config = SiteConfig.load()
         config.site_name = 'getNexiro'
         config.email = 'getnexiro@gmail.com'
-        config.phone = '+212 663 017 817'
+        config.phone = '+212 787 862 187'
 
         config.tagline_en = 'Tech & Dev Services'
         config.tagline_fr = 'Services Tech & Dev'
@@ -90,6 +91,30 @@ class Command(BaseCommand):
         config.hero_title_en = 'We Architect High-Velocity Digital Systems'
         config.hero_title_fr = 'Nous Concevons des Systèmes Numériques Haute-Performance'
         config.hero_title_ar = 'نصمم أنظمة رقمية عالية السرعة والأداء'
+
+        config.hero_badge_en = 'B2B Software Studio • Tangier, Morocco'
+        config.hero_badge_fr = 'Studio Logiciel B2B • Tanger, Maroc'
+        config.hero_badge_ar = 'استوديو برمجيات B2B • طنجة، المغرب'
+
+        config.hero_cta_primary_text_en = 'Start a Project'
+        config.hero_cta_primary_text_fr = 'Démarrer un projet'
+        config.hero_cta_primary_text_ar = 'ابدأ مشروعك'
+
+        config.hero_cta_secondary_text_en = 'Selected Work'
+        config.hero_cta_secondary_text_fr = 'Nos Réalisations'
+        config.hero_cta_secondary_text_ar = 'أعمال مختارة'
+
+        config.cta_title_en = 'Ready to Elevate Your Digital Presence?'
+        config.cta_title_fr = 'Prêt à propulser votre présence numérique ?'
+        config.cta_title_ar = 'هل أنت مستعد لتعزيز حضورك الرقمي؟'
+
+        config.cta_subtitle_en = "Let's discuss your next project and explore how getNexiro can help you achieve your business goals."
+        config.cta_subtitle_fr = "Parlons de votre prochain projet et voyons comment getNexiro peut propulser vos objectifs d'affaires."
+        config.cta_subtitle_ar = "دعنا نناقش مشروعك القادم ونكتشف معاً كيف تساعدك getNexiro على تحقيق أهدافك التجارية بنجاح."
+
+        config.cta_button_text_en = 'Start a Project'
+        config.cta_button_text_fr = 'Démarrer un projet'
+        config.cta_button_text_ar = 'ابدأ مشروعك معنا'
 
         config.hero_subtitle_en = (
             'A premium software engineering agency crafting scalable web platforms, '
@@ -232,10 +257,11 @@ class Command(BaseCommand):
         # ── 4. Project Categories ──
         ProjectCategory.objects.all().delete()
         cats_data = [
-            ('FinTech', 'FinTech', 'التكنولوجيا المالية', 'fintech'),
+            ('Agro-Export', 'Agro-Export', 'الصناعات الغذائية والتصدير', 'agroexport'),
             ('HealthTech', 'HealthTech', 'الصحة الرقمية', 'healthtech'),
+            ('Medical Lab', 'Laboratoire Médical', 'المختبر الطبي', 'medlab'),
+            ('Food Industry', 'Industrie Alimentaire', 'الصناعات الغذائية', 'food'),
             ('E-Commerce', 'E-Commerce', 'التجارة الإلكترونية', 'ecommerce'),
-            ('Logistics', 'Logistique', 'اللوجستيك والنقل', 'logistics'),
             ('SaaS', 'SaaS', 'البرمجيات السحابية', 'saas'),
         ]
         cat_map = {}
@@ -248,54 +274,54 @@ class Command(BaseCommand):
         Project.objects.all().delete()
         projects_data = [
             (
-                'FinFlow Analytics',
-                'FinFlow Analytics',
-                'منصة FinFlow المالية',
-                'fintech',
-                'Real-time financial intelligence dashboard processing millions of daily transactions with sub-second latency.',
-                'Tableau de bord d\'intelligence financière en temps réel traitant des millions de transactions quotidiennes.',
-                'لوحة تحكم ذكية للتحليلات المالية الفورية تعالج ملايين المعاملات يومياً بدقة وزمن استجابة فائق.',
-                'finflow', True, 1, 'Atlas Capital', 'Django, React, Redis, PostgreSQL',
-            ),
-            (
-                'MedConnect Health',
-                'MedConnect Santé',
-                'منصة MedConnect الطبية',
+                'MEDICENTERS PERFORMANCE',
+                'MEDICENTERS PERFORMANCE',
+                'منصة ميديسنترز بيرفورمانس',
                 'healthtech',
-                'Comprehensive telemedicine platform connecting patients across Morocco with board-certified medical specialists.',
-                'Plateforme de télémédecine reliant les patients du Maroc aux meilleurs spécialistes médicaux certifiés.',
-                'منصة طب عن بعد شاملة تربط المرضى بنخبة من الأطباء والاستشاريين المعتمدين في مختلف أنحاء المغرب.',
-                'medconnect', True, 2, 'Morocco Health Network', 'Flutter, Python, WebRTC',
+                'Medical architecture, space fitting, and turnkey healthcare design platform with interactive 360° virtual tours.',
+                'Plateforme d\'aménagement et agencement d\'espaces médicaux professionnels à Tanger avec visites virtuelles 360° immersives.',
+                'منصة رائدة في تهيئة وتجهيز المساحات الطبية والعيادات في طنجة مع جولات افتراضية تفاعلية 360 درجة.',
+                'medicenters', True, 1, 'MEDICENTERS PERFORMANCE', 'Django, Bootstrap 5, Pannellum 360, i18n',
             ),
             (
-                'ShopLux Luxury Store',
-                'ShopLux Boutique Luxe',
-                'متجر ShopLux الفاخر',
-                'ecommerce',
-                'High-conversion omnichannel luxury e-commerce platform with automated logistics and payment integrations.',
-                'Plateforme e-commerce de luxe omnicanale à haute conversion avec logistique automatisée et paiements intégrés.',
-                'متجر إلكتروني فاخر متعدد القنوات بمعدلات تحويل عالية مع ربط لوجستي وبوابات دفع إلكتروني متكاملة.',
-                'shoplux', True, 3, 'Maison Luxe Tangier', 'Next.js, Django REST, Stripe',
+                'CAPERSMED Wholesale Export',
+                'CAPERSMED Export Agroalimentaire',
+                'منصة كابرز ميد للتصدير الدولي',
+                'agroexport',
+                'Global B2B agro-food export platform featuring multi-market internationalization across 9 languages, technical SEO, and BRC/IFS certification showcases.',
+                'Plateforme B2B mondiale d\'exportation agroalimentaire avec internationalisation en 9 langues, SEO technique et mise en avant des certifications BRC/IFS.',
+                'منصة تصدير دولية B2B للصناعات الغذائية تدعم 9 لغات عالمية مع تحسين محركات البحث المتقدم واستعراض شهادات الجودة العالمية BRC و IFS.',
+                'capersmed', True, 2, 'CAPERSMED SARL', 'Django, Multilingual (9 langs), SEO, Schema.org',
             ),
             (
-                'LogiTrack Gateway',
-                'LogiTrack Logistique',
-                'نظام LogiTrack اللوجستي',
-                'logistics',
-                'End-to-end supply chain tracking platform connecting Tangier Med port with European freight operators.',
-                'Plateforme de traçabilité logistique reliant le port Tanger Med aux transporteurs européens.',
-                'منصة إدارة وتتبع سلاسل الإمداد اللوجستية تربط ميناء طنجة المتوسط بشركات الشحن الأوروبية.',
-                'logitrack', False, 4, 'EuroMed Cargo', 'Python, Docker, Kafka, Leaflet',
+                'Laboratoire International Tanger',
+                'Laboratoire International de Tanger',
+                'المختبر الدولي للتحاليل الطبية بطنجة',
+                'medlab',
+                'Medical laboratory platform with online results portal, appointment booking, multilingual support, and SEO-optimized health blog.',
+                'Plateforme de laboratoire d\'analyses médicales avec portail de résultats en ligne, prise de rendez-vous, support multilingue et blog santé optimisé SEO.',
+                'منصة مختبر التحاليل الطبية مع بوابة نتائج إلكترونية وحجز مواعيد ودعم متعدد اللغات ومدونة صحية محسّنة لمحركات البحث.',
+                'laboratoire', True, 3, 'Laboratoire International', 'Django, Bootstrap 5, i18n (FR/AR), Blog CMS',
             ),
             (
-                'CloudMetrics SaaS',
-                'CloudMetrics SaaS',
-                'منصة CloudMetrics السحابية',
+                'Vinaigre du Maroc',
+                'Vinaigre du Maroc',
+                'خل المغرب للتصدير',
+                'food',
+                'B2B export platform for premium Moroccan vinegar and condiments with international BRC/IFS/Halal certifications and multilingual product catalog.',
+                'Plateforme d\'exportation B2B de vinaigre et condiments premium marocains avec certifications internationales BRC/IFS/Halal et catalogue produits multilingue.',
+                'منصة تصدير B2B للخل والتوابل المغربية الفاخرة مع شهادات الجودة الدولية BRC/IFS/حلال وكتالوج منتجات متعدد اللغات.',
+                'vinaigre', True, 4, 'Vinaigre du Maroc SARL', 'Django, Bootstrap 5, SEO, Multilingual',
+            ),
+            (
+                'Diwan Atlas — Customs SaaS',
+                'Diwan Atlas — Facturation Douane',
+                'ديوان أطلس — منصة الفوترة الجمركية',
                 'saas',
-                'Multi-tenant observability platform providing enterprise teams with infrastructure health insights.',
-                'Plateforme d\'observabilité multi-tenant offrant aux équipes d\'entreprise une visibilité totale sur leur infrastructure.',
-                'منصة سحابية متقدمة متعددة المستأجرين لمراقبة وتحليل كفاءة واستقرار البنية التحتية البرمجية للمؤسسات.',
-                'cloudmetrics', False, 5, 'DataCloud Inc', 'Django, Go, ClickHouse',
+                'Bespoke SaaS invoicing and regulatory clearance platform engineered for licensed customs brokers and transit agents in Morocco, featuring automated port fee computation, VAT breakdown, and bilingual FR/AR interface.',
+                'Plateforme SaaS métier de facturation et de gestion des dossiers douaniers conçue pour les agents en douane et transitaires au Maroc, avec calcul automatisé des débours, TVA douanière et interface bilingue FR/AR.',
+                'منصة سحابية متقدمة لفوترة وإدارة الملفات الجمركية مصممة لوكلاء ومعشري الجمارك في المغرب، تتميز باحتساب آلي للرسوم وتتبع الفواتير والامتثال الضريبي بواجهة ثنائية اللغة.',
+                'diwanatlas', True, 5, 'Cabinet de Transit & Douane (Confidentiel)', 'Next.js, TypeScript, Tailwind CSS, PostgreSQL',
             ),
         ]
         created_projects = 0
@@ -320,44 +346,34 @@ class Command(BaseCommand):
         TeamMember.objects.all().delete()
         team_data = [
             (
-                'Youssef El Amrani',
-                'CEO & Technical Founder',
-                'Fondateur & Directeur Général',
-                'المؤسس والمدير التنفيذي',
-                '12+ years building enterprise systems across Europe and North Africa. Passionate about engineering craftsmanship.',
-                'Plus de 12 ans d\'expérience dans les systèmes d\'entreprise en Europe et Afrique du Nord.',
-                'أكثر من 12 عاماً في بناء الأنظمة المؤسسية بين أوروبا وشمال إفريقيا، شغوف بجودة وحرفية البرمجيات.',
-                'youssef', 1,
+                'Ayyoub Beroigui',
+                'Founder',
+                'Fondateur',
+                'المؤسس',
+                'Visionary technologist and founder driving high-velocity software engineering, scalable architectures, and digital transformation.',
+                'Technologue visionnaire et fondateur pilotant l\'ingénierie logicielle haute performance, les architectures évolutives et la transformation digitale.',
+                'مبتكر تقني ومؤسس يقود مسيرة هندسة البرمجيات عالية الأداء والمعماريات السحابية القابلة للتوسع والتحول الرقمي.',
+                'ayyoub', 1,
             ),
             (
-                'Amina Benali',
-                'Head of Product & Design',
-                'Directrice Produit & Design',
-                'مديرة المنتجات والتصميم',
-                'Specialized in creating world-class UI/UX design systems that convert complex workflows into effortless interfaces.',
-                'Spécialisée dans la création de design systems qui transforment les flux complexes en interfaces intuitives.',
-                'متخصصة في تصميم أنظمة الواجهات وتجارب المستخدم التي تبسط العمليات المعقدة إلى واجهات انسيابية وجذابة.',
-                'amina', 2,
+                'Simo Darkaoui',
+                'Developer',
+                'Développeur',
+                'مطور برمجيات',
+                'Full-stack software developer focused on robust web applications, scalable backend systems, and clean modern architecture.',
+                'Développeur full-stack spécialisé dans les applications web robustes, les systèmes backend évolutifs et l\'architecture moderne.',
+                'مطور برمجيات متكامل يركز على بناء تطبيقات ويب متطورة وأنظمة خلفية قابلة للتوسع وهندسة برمجية عالية الجودة.',
+                'simo', 2,
             ),
             (
-                'Karim Tazi',
-                'Principal Cloud Architect',
-                'Architecte Cloud Principal',
-                'كبير مهندسي الحوسبة السحابية',
-                'AWS-certified solutions architect specializing in microservices, distributed systems, and zero-downtime deployments.',
-                'Architecte certifié AWS expert en microservices, systèmes distribués et déploiements sans interruption.',
-                'مهندس معتمد من AWS متخصص في الخدمات المصغرة، الأنظمة الموزعة، والنشر السحابي بدون أي انقطاع في الخدمة.',
-                'karim', 3,
-            ),
-            (
-                'Sara Idrissi',
-                'Lead Full-Stack Engineer',
-                'Ingénieure Full-Stack Lead',
-                'كبيرة مهندسي البرمجيات Full-Stack',
-                'Django and React core enthusiast focused on high-performance backend pipelines and accessible modern web apps.',
-                'Experte Django et React dédiée aux architectures backend haute performance et aux applications web accessibles.',
-                'خبيرة في أطر عمل Django و React، تركز على بناء خطوط معالجة خلفية فائقة السرعة وتطبيقات ويب عصرية.',
-                'sara', 4,
+                'Rajae Belhaj',
+                'Commercial & Business Development',
+                'Responsable Commerciale',
+                'المسؤولة التجارية وتطوير الأعمال',
+                'Driving client relationships, strategic accounts, and tailored software partnerships for businesses and enterprise clients.',
+                'Développement des partenariats stratégiques, relation client et accompagnement commercial pour les solutions d\'entreprise.',
+                'إدارة علاقات العملاء والشراكات الاستراتيجية وتقديم حلول برمجية مخصصة للشركات والمؤسسات.',
+                'rajae', 3,
             ),
         ]
         created_team = 0
@@ -424,5 +440,178 @@ class Command(BaseCommand):
             t.save()
             created_testimonials += 1
         self.stdout.write(f'  [OK] Created {created_testimonials} multilingual testimonials')
+
+        # ── 8. Client Logos (They Trust Us) ──
+        ClientLogo.objects.all().delete()
+        clients_data = [
+            ('MEDICENTERS PERFORMANCE', 'https://medicentersperformance.com', 'medicenters.png', 1),
+            ('CAPERSMED', 'https://capersmed.com', 'capersmed.png', 2),
+            ('Laboratoire International', 'https://laboratoiretanger.com', 'laboratoire.png', 3),
+            ('Vinaigre du Maroc', 'https://vinaigredumaroc.com', 'vinaigre.png', 4),
+        ]
+        created_clients = 0
+        for name, url, filename, order in clients_data:
+            logo_file = get_image_file('clients', filename.split('.')[0], filename, f'https://picsum.photos/seed/{filename.split(".")[0]}/200/80')
+            cl = ClientLogo(name=name, url=url, order=order)
+            if logo_file:
+                cl.logo.save(filename, logo_file, save=False)
+            cl.save()
+            created_clients += 1
+        self.stdout.write(f'  [OK] Created {created_clients} client logos')
+
+        # ── 9. Company Values (About Page) ──
+        CompanyValue.objects.all().delete()
+        company_values_data = [
+            (
+                '🌍',
+                'Gateway Location',
+                'Emplacement Stratégique',
+                'موقع استراتيجي وبوابة القارات',
+                'Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs.',
+                'À seulement 14 km de l\'Europe, Tanger offre un alignement sur le fuseau GMT+1 avec nos clients européens et un accès rapide aux pôles économiques majeurs.',
+                'على بعد 14 كم فقط من أوروبا، توفر طنجة توافقاً كاملاً مع التوقيت الأوروبي (GMT+1) وسهولة الوصول إلى كبرى العواصم الاقتصادية.',
+                1,
+            ),
+            (
+                '💡',
+                'Rich Talent Pool',
+                'Vivier de Talents Exceptionnel',
+                'كفاءات وخبرات هندسية رائدة',
+                "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers.",
+                "L'écosystème technologique en plein essor au Maroc nous permet de réunir des ingénieurs et designers multilingues hautement qualifiés.",
+                'يوفر النظام التكنولوجي الصاعد في المغرب نخبة من المهندسين والمصممين متعددي اللغات والمهارات العالمية الفائقة.',
+                2,
+            ),
+            (
+                '💎',
+                'Premium Value',
+                'Valeur & Excellence',
+                'قيمة استثنائية وأعلى عائد استثماري',
+                'World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship.',
+                'Une qualité de niveau mondial à des tarifs compétitifs — offrant un retour sur investissement exceptionnel sans compromis technique.',
+                'جودة عالمية بأسعار تنافسية تحقق أقصى عائد على الاستثمار دون أي مساومة على معايير الإتقان والدقة.',
+                3,
+            ),
+        ]
+        created_values = 0
+        for icon, t_en, t_fr, t_ar, d_en, d_fr, d_ar, order in company_values_data:
+            CompanyValue.objects.create(
+                icon=icon,
+                title_en=t_en, title_fr=t_fr, title_ar=t_ar,
+                description_en=d_en, description_fr=d_fr, description_ar=d_ar,
+                order=order,
+            )
+            created_values += 1
+        self.stdout.write(f'  [OK] Created {created_values} company values')
+
+        # ── 10. Process Steps (Services Page) ──
+        ProcessStep.objects.all().delete()
+        process_steps_data = [
+            (
+                '01',
+                'Discovery',
+                'Découverte',
+                'الاستكشاف والتحليل',
+                'We deep-dive into your business requirements, user needs, and technical landscape.',
+                'Nous analysons en profondeur vos besoins métier, les attentes utilisateurs et votre environnement technologique.',
+                'نتعمق في متطلبات عملك واحتياجات المستخدمين والبنية التقنية الحالية لبناء أساس متين.',
+                'Requirements, Research',
+                1,
+            ),
+            (
+                '02',
+                'Architecture',
+                'Architecture',
+                'التصميم والهندسة',
+                'We design scalable system architectures and create detailed technical specifications.',
+                'Nous concevons des architectures évolutives et rédigeons des spécifications techniques rigoureuses.',
+                'نصمم معمارية أنظمة مرنة وقابلة للتوسع ونضع المواصفات الفنية التفصيلية.',
+                'Design, Planning',
+                2,
+            ),
+            (
+                '03',
+                'Development',
+                'Développement',
+                'التطوير البرمجي',
+                'Agile sprints with continuous integration, automated testing, and frequent deliverables.',
+                'Sprints agiles avec intégration continue, tests automatisés et livrables fréquents.',
+                'سبرنتات مرنة (Agile) مع تكامل مستمر واختبارات مؤتمتة وتسليمات مرحلية منتظمة.',
+                'Agile, CI/CD',
+                3,
+            ),
+            (
+                '04',
+                'Launch & Support',
+                'Lancement & Support',
+                'الإطلاق والدعم المستمر',
+                'Production deployment, performance monitoring, and ongoing maintenance partnerships.',
+                'Mise en production sécurisée, surveillance des performances et partenariat de maintenance continue.',
+                'نشر آمن في بيئة الإنتاج، مراقبة فورية للأداء، وشراكة دعم وصيانة متواصلة.',
+                'Deploy, Monitor',
+                4,
+            ),
+        ]
+        created_steps = 0
+        for num, t_en, t_fr, t_ar, d_en, d_fr, d_ar, tags, order in process_steps_data:
+            ProcessStep.objects.create(
+                step_number=num,
+                title_en=t_en, title_fr=t_fr, title_ar=t_ar,
+                description_en=d_en, description_fr=d_fr, description_ar=d_ar,
+                tags=tags,
+                order=order,
+            )
+            created_steps += 1
+        self.stdout.write(f'  [OK] Created {created_steps} process steps')
+
+        # ── 11. Store Items (Store Page) ──
+        StoreItem.objects.all().delete()
+        store_items_data = [
+            (
+                '🎨',
+                'Design Systems',
+                'Design Systems',
+                'أنظمة التصميم UI/UX',
+                'Production-ready UI kits and component libraries.',
+                'Kits UI prêts pour la production et bibliothèques de composants.',
+                'حزم واجهات مستخدم جاهزة للإنتاج ومكتبات عناصر بصرية متكاملة.',
+                'COMING SOON', 'BIENTÔT DISPONIBLE', 'قريباً',
+                1, True,
+            ),
+            (
+                '⚡',
+                'Starter Templates',
+                'Modèles de Démarrage',
+                'قوالب انطلاق للمشاريع',
+                'Django & React project boilerplates with best practices.',
+                'Boilerplates de projets Django & React intégrant les meilleures pratiques.',
+                'قوالب هيكلية متقدمة لمشاريع Django و React بأعلى المعايير الهندسية.',
+                'COMING SOON', 'BIENTÔT DISPONIBLE', 'قريباً',
+                2, True,
+            ),
+            (
+                '🛠️',
+                'Dev Tools',
+                'Outils Développeurs',
+                'أدوات المطورين والأتمتة',
+                'CLI tools, scripts, and automation utilities.',
+                'Outils CLI, scripts et utilitaires d\'automatisation performants.',
+                'أدوات سطر الأوامر، سكربتات وحلول أتمتة لرفع الإنتاجية والتطوير.',
+                'COMING SOON', 'BIENTÔT DISPONIBLE', 'قريباً',
+                3, True,
+            ),
+        ]
+        created_store_items = 0
+        for emoji, t_en, t_fr, t_ar, d_en, d_fr, d_ar, b_en, b_fr, b_ar, order, is_active in store_items_data:
+            StoreItem.objects.create(
+                emoji=emoji,
+                title_en=t_en, title_fr=t_fr, title_ar=t_ar,
+                description_en=d_en, description_fr=d_fr, description_ar=d_ar,
+                badge_en=b_en, badge_fr=b_fr, badge_ar=b_ar,
+                order=order,
+                is_active=is_active,
+            )
+            created_store_items += 1
+        self.stdout.write(f'  [OK] Created {created_store_items} store preview items')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))

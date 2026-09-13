@@ -27,7 +27,11 @@
                 </div>
             </div>
             <div class="about-image-card glass-card">
+                {% if config.about_image %}
+                <img src="{{ config.about_image.url }}" alt="{{ config.site_name }}" loading="lazy" class="about-img">
+                {% else %}
                 <img src="https://picsum.photos/seed/tangier2024/600/500" alt="{% trans 'Tangier, Morocco' %}" loading="lazy" class="about-img">
+                {% endif %}
                 <div class="about-image-badge"><span class="pin-icon">📍</span><div><strong>{% trans "Tangier, Morocco" %}</strong><small>{% trans "Gateway to Europe & Africa" %}</small></div></div>
             </div>
         </div>
@@ -50,9 +54,17 @@
             <h2 class="section-title">{% trans "A Strategic Advantage" %}</h2>
         </div>
         <div class="value-grid">
+            {% for val in company_values %}
+            <div class="value-card glass-card">
+                <div class="value-number-icon">{{ val.icon }}</div>
+                <h3 class="value-title">{{ val.title }}</h3>
+                <p class="value-desc">{{ val.description }}</p>
+            </div>
+            {% empty %}
             <div class="value-card glass-card"><div class="value-number-icon">🌍</div><h3 class="value-title">{% trans "Gateway Location" %}</h3><p class="value-desc">{% trans "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs." %}</p></div>
             <div class="value-card glass-card"><div class="value-number-icon">💡</div><h3 class="value-title">{% trans "Rich Talent Pool" %}</h3><p class="value-desc">{% trans "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers." %}</p></div>
             <div class="value-card glass-card"><div class="value-number-icon">💎</div><h3 class="value-title">{% trans "Premium Value" %}</h3><p class="value-desc">{% trans "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship." %}</p></div>
+            {% endfor %}
         </div>
     </div>
 </section>

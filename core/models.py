@@ -133,15 +133,75 @@ class SiteConfig(models.Model):
     meta_description_fr = models.CharField(_('Meta Description (FR)'), max_length=300, blank=True, default='getNexiro — Agence de développement web, applications mobiles et ingénierie logicielle à Tanger, Maroc.')
     meta_description_ar = models.CharField(_('Meta Description (AR)'), max_length=300, blank=True, default='getNexiro — وكالة رائدة في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات في طنجة، المغرب.')
 
+    # Branding & Pictures
+    site_logo = models.ImageField(_('Site Logo'), upload_to='branding/', blank=True, null=True, help_text=_('Website header logo (transparent PNG recommended)'))
+    site_favicon = models.FileField(_('Site Favicon / Icon'), upload_to='branding/', blank=True, null=True)
+    about_image = models.ImageField(_('About Page Image'), upload_to='about/', blank=True, null=True, help_text=_('Feature picture for About Us page (Tangier / Studio image)'))
+
+    # Hero Video & Wallpaper Settings
+    HERO_BG_CHOICES = [
+        ('default', _('Default Animated Mesh / Glow')),
+        ('image', _('Custom Wallpaper / Image')),
+        ('video', _('Video Background')),
+    ]
+    hero_bg_type = models.CharField(_('Hero Background Type'), max_length=20, choices=HERO_BG_CHOICES, default='default')
+    hero_bg_image = models.ImageField(_('Hero Wallpaper / Background Image'), upload_to='hero/', blank=True, null=True)
+    hero_bg_video = models.FileField(_('Hero Background Video (MP4/WebM)'), upload_to='hero/', blank=True, null=True)
+    hero_bg_video_url = models.URLField(_('Hero Background Video URL (Direct MP4 or external)'), blank=True, default='')
+
+    # Hero Badges & Buttons
+    hero_badge_en = models.CharField(_('Hero Badge (EN)'), max_length=150, default='B2B Software Studio • Tangier, Morocco')
+    hero_badge_fr = models.CharField(_('Hero Badge (FR)'), max_length=150, blank=True, default='Studio Logiciel B2B • Tanger, Maroc')
+    hero_badge_ar = models.CharField(_('Hero Badge (AR)'), max_length=150, blank=True, default='استوديو برمجيات B2B • طنجة، المغرب')
+
+    hero_cta_primary_text_en = models.CharField(_('Hero CTA Primary (EN)'), max_length=60, default='Start a Project')
+    hero_cta_primary_text_fr = models.CharField(_('Hero CTA Primary (FR)'), max_length=60, blank=True, default='Démarrer un projet')
+    hero_cta_primary_text_ar = models.CharField(_('Hero CTA Primary (AR)'), max_length=60, blank=True, default='ابدأ مشروعك')
+
+    hero_cta_secondary_text_en = models.CharField(_('Hero CTA Secondary (EN)'), max_length=60, default='Selected Work')
+    hero_cta_secondary_text_fr = models.CharField(_('Hero CTA Secondary (FR)'), max_length=60, blank=True, default='Nos Réalisations')
+    hero_cta_secondary_text_ar = models.CharField(_('Hero CTA Secondary (AR)'), max_length=60, blank=True, default='أعمال مختارة')
+
+    # Global CTA Banner
+    cta_title_en = models.CharField(_('CTA Title (EN)'), max_length=200, default='Ready to Architect Your Next Digital Leap?')
+    cta_title_fr = models.CharField(_('CTA Title (FR)'), max_length=200, blank=True, default='Prêt à concevoir votre prochain saut numérique ?')
+    cta_title_ar = models.CharField(_('CTA Title (AR)'), max_length=200, blank=True, default='هل أنت مستعد لبناء مشروعك الرقمي القادم؟')
+
+    cta_subtitle_en = models.TextField(_('CTA Subtitle (EN)'), default='Schedule an architecture consultation with our engineering team in Tangier.')
+    cta_subtitle_fr = models.TextField(_('CTA Subtitle (FR)'), blank=True, default='Planifiez une consultation d\'architecture avec notre équipe d\'ingénierie à Tanger.')
+    cta_subtitle_ar = models.TextField(_('CTA Subtitle (AR)'), blank=True, default='احجز جلسة استشارية تقنية مع فريقنا الهندسي في طنجة.')
+
+    cta_button_text_en = models.CharField(_('CTA Button (EN)'), max_length=60, default='Start Your Project')
+    cta_button_text_fr = models.CharField(_('CTA Button (FR)'), max_length=60, blank=True, default='Démarrer votre projet')
+    cta_button_text_ar = models.CharField(_('CTA Button (AR)'), max_length=60, blank=True, default='ابدأ مشروعك معنا')
+
     # Localized Property Getters
     @property
     def tagline(self): return get_localized(self, 'tagline')
+
+    @property
+    def hero_badge(self): return get_localized(self, 'hero_badge')
 
     @property
     def hero_title(self): return get_localized(self, 'hero_title')
 
     @property
     def hero_subtitle(self): return get_localized(self, 'hero_subtitle')
+
+    @property
+    def hero_cta_primary_text(self): return get_localized(self, 'hero_cta_primary_text')
+
+    @property
+    def hero_cta_secondary_text(self): return get_localized(self, 'hero_cta_secondary_text')
+
+    @property
+    def cta_title(self): return get_localized(self, 'cta_title')
+
+    @property
+    def cta_subtitle(self): return get_localized(self, 'cta_subtitle')
+
+    @property
+    def cta_button_text(self): return get_localized(self, 'cta_button_text')
 
     @property
     def about_text(self): return get_localized(self, 'about_text')
@@ -417,3 +477,106 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f'{self.name} — {self.subject}'
+
+
+# ── 10. Company Values (About Page) ────────────────────────────
+
+class CompanyValue(models.Model):
+    """Company core values displayed on the About page."""
+
+    icon = models.CharField(_('Icon / Emoji'), max_length=30, default='🌍', help_text=_('Emoji or symbol, e.g. 🌍, 💡, 💎'))
+    title_en = models.CharField(_('Title (EN)'), max_length=120)
+    title_fr = models.CharField(_('Title (FR)'), max_length=120, blank=True, default='')
+    title_ar = models.CharField(_('Title (AR)'), max_length=120, blank=True, default='')
+
+    description_en = models.TextField(_('Description (EN)'))
+    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def description(self): return get_localized(self, 'description')
+
+    class Meta:
+        verbose_name = _('Company Value')
+        verbose_name_plural = _('Company Values')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return self.title_en or f"Value #{self.pk}"
+
+
+# ── 11. Process Steps (Services Page) ──────────────────────────
+
+class ProcessStep(models.Model):
+    """4-step delivery process displayed on the Services page."""
+
+    step_number = models.CharField(_('Step Number'), max_length=10, default='01', help_text=_('e.g. 01, 02, 03, 04'))
+    title_en = models.CharField(_('Title (EN)'), max_length=120)
+    title_fr = models.CharField(_('Title (FR)'), max_length=120, blank=True, default='')
+    title_ar = models.CharField(_('Title (AR)'), max_length=120, blank=True, default='')
+
+    description_en = models.TextField(_('Description (EN)'))
+    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+
+    tags = models.CharField(_('Tags (comma-separated)'), max_length=200, blank=True, default='Discovery, Planning')
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def description(self): return get_localized(self, 'description')
+
+    class Meta:
+        verbose_name = _('Process Step')
+        verbose_name_plural = _('Process Steps')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return f"{self.step_number} — {self.title_en}"
+
+
+# ── 12. Store Items (Store Page) ───────────────────────────────
+
+class StoreItem(models.Model):
+    """Upcoming products/templates displayed on the Store page."""
+
+    emoji = models.CharField(_('Emoji / Icon'), max_length=20, default='🚀')
+    title_en = models.CharField(_('Title (EN)'), max_length=120)
+    title_fr = models.CharField(_('Title (FR)'), max_length=120, blank=True, default='')
+    title_ar = models.CharField(_('Title (AR)'), max_length=120, blank=True, default='')
+
+    description_en = models.TextField(_('Description (EN)'))
+    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+
+    badge_en = models.CharField(_('Badge (EN)'), max_length=50, blank=True, default='COMING SOON')
+    badge_fr = models.CharField(_('Badge (FR)'), max_length=50, blank=True, default='BIENTÔT DISPONIBLE')
+    badge_ar = models.CharField(_('Badge (AR)'), max_length=50, blank=True, default='قريباً')
+
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def description(self): return get_localized(self, 'description')
+
+    @property
+    def badge(self): return get_localized(self, 'badge')
+
+    class Meta:
+        verbose_name = _('Store Item')
+        verbose_name_plural = _('Store Items')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return self.title_en or f"Store Item #{self.pk}"
+

@@ -144,5 +144,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    // ── 6. Scroll Reveal Animations ──────────────
+    const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+    if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // ── 7. Back to Top Button ────────────────────
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        const toggleBackToTop = () => {
+            if (window.scrollY > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        };
+        window.addEventListener('scroll', toggleBackToTop, { passive: true });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });

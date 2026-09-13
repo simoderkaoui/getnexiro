@@ -12,6 +12,7 @@ from .forms import ContactForm
 from .models import (
     SiteConfig, Service, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
+    CompanyValue, ProcessStep, StoreItem,
 )
 
 
@@ -40,6 +41,7 @@ def about(request):
     ctx = _get_common_context()
     ctx.update({
         'team_members': TeamMember.objects.all(),
+        'company_values': CompanyValue.objects.all(),
     })
     return render(request, 'core/about.html', ctx)
 
@@ -49,6 +51,7 @@ def services(request):
     ctx = _get_common_context()
     ctx.update({
         'services_list': Service.objects.all(),
+        'process_steps': ProcessStep.objects.all(),
     })
     return render(request, 'core/services.html', ctx)
 
@@ -66,6 +69,9 @@ def projects(request):
 def store(request):
     """Store page: coming soon placeholder."""
     ctx = _get_common_context()
+    ctx.update({
+        'store_items': StoreItem.objects.filter(is_active=True),
+    })
     return render(request, 'core/store.html', ctx)
 
 

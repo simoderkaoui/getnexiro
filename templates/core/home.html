@@ -6,6 +6,20 @@
 {% block content %}
 {# ══════ HERO ══════ #}
 <section class="hero-section">
+    {% if config.hero_bg_type == 'video' and config.hero_bg_video %}
+    <video autoplay muted loop playsinline class="hero-bg-video">
+        <source src="{{ config.hero_bg_video.url }}" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay" aria-hidden="true"></div>
+    {% elif config.hero_bg_type == 'video' and config.hero_bg_video_url %}
+    <video autoplay muted loop playsinline class="hero-bg-video">
+        <source src="{{ config.hero_bg_video_url }}" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay" aria-hidden="true"></div>
+    {% elif config.hero_bg_type == 'image' and config.hero_bg_image %}
+    <div class="hero-bg-wallpaper" style="background-image: url('{{ config.hero_bg_image.url }}');" aria-hidden="true"></div>
+    <div class="hero-video-overlay" aria-hidden="true"></div>
+    {% endif %}
     <div class="hero-grid-pattern" aria-hidden="true"></div>
     <div class="hero-glow-center" aria-hidden="true"></div>
     <div class="container hero-container">
@@ -13,21 +27,19 @@
             <div class="hero-text-col">
                 <div class="hero-badge-wrapper">
                     <span class="pulse-dot"></span>
-                    <span class="hero-badge-text">{% trans "B2B Software Studio • Tangier, Morocco" %}</span>
+                    <span class="hero-badge-text">{{ config.hero_badge|default:_("B2B Software Studio • Tangier, Morocco") }}</span>
                 </div>
                 <h1 class="hero-title">
-                    {% trans "We Architect" %}<br>
-                    <span class="text-gradient">{% trans "High-Velocity" %}</span><br>
-                    {% trans "Digital Systems" %}
+                    {{ config.hero_title|safe }}
                 </h1>
                 <p class="hero-subtitle">{{ config.hero_subtitle }}</p>
                 <div class="hero-actions">
                     <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
-                        <span>{% trans "Start a Project" %}</span>
+                        <span>{{ config.hero_cta_primary_text|default:_("Start a Project") }}</span>
                         <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
                     <a href="{% url 'core:projects' %}" class="btn btn-outline btn-lg">
-                        <span>{% trans "Selected Work" %}</span>
+                        <span>{{ config.hero_cta_secondary_text|default:_("Selected Work") }}</span>
                     </a>
                 </div>
                 <div class="hero-tech-trust">
@@ -113,7 +125,7 @@
 {% if stats %}
 <section class="stats-strip">
     <div class="container">
-        <div class="stats-grid">
+        <div class="stats-grid reveal-stagger reveal">
             {% for stat in stats %}
             <div class="stat-card">
                 <div class="stat-number">{{ stat.value }}</div>
@@ -128,12 +140,12 @@
 {# ══════ WHY GETNEXIRO ══════ #}
 <section class="section section-bento">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
             <div class="badge-tag">{% trans "Why getNexiro" %}</div>
             <h2 class="section-title">{% trans "Engineering Excellence, Delivered" %}</h2>
             <p class="section-subtitle">{% trans "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth." %}</p>
         </div>
-        <div class="bento-grid">
+        <div class="bento-grid reveal-stagger reveal">
             <div class="bento-card bento-card-large glass-card">
                 <div class="bento-number">01</div>
                 <div class="bento-content">
@@ -181,7 +193,7 @@
                 <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-        <div class="services-preview-grid">
+        <div class="services-preview-grid reveal-stagger reveal">
             {% for service in featured_services %}
             <div class="service-preview-card glass-card">
                 <div class="service-icon-box">
@@ -220,14 +232,14 @@
                 <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-        <div class="projects-preview-grid">
+        <div class="projects-preview-grid reveal-stagger reveal">
             {% for project in featured_projects %}
             <div class="project-preview-card glass-card">
                 <div class="project-preview-img-wrapper">
                     {% if project.image %}
                     <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
                     {% else %}
-                    <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy" style="object-fit:contain; padding:2rem;">
+                    <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy">
                     {% endif %}
                     <div class="project-preview-overlay">
                         {% if project.category %}<span class="project-category-badge">{{ project.category.name }}</span>{% endif %}
@@ -238,8 +250,13 @@
                 </div>
 
                 <div class="project-preview-footer">
-                    {% if project.category %}<span class="project-category-small">{{ project.category.name }}</span>{% endif %}
-                    <h3 class="project-preview-title">{{ project.title }}</h3>
+                    <div class="project-card-text">
+                        {% if project.category %}<span class="project-category-small">{{ project.category.name }}</span>{% endif %}
+                        <h3 class="project-preview-title">{{ project.title }}</h3>
+                    </div>
+                    {% if project.technologies %}
+                    <span class="project-verified-badge">{{ project.technologies|truncatewords:2 }}</span>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -252,11 +269,11 @@
 {% if testimonials %}
 <section class="section section-dark section-testimonials">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
             <div class="badge-tag">{% trans "Client Voices" %}</div>
             <h2 class="section-title">{% trans "What Our Clients Say" %}</h2>
         </div>
-        <div class="testimonials-grid">
+        <div class="testimonials-grid reveal-stagger reveal">
             {% for testimonial in testimonials %}
             <div class="testimonial-card glass-card">
                 <div class="testimonial-quote-icon">❝</div>
@@ -282,18 +299,56 @@
 <section class="section section-clients">
     <div class="container text-center">
         <p class="clients-label">{% trans "Trusted by innovative companies" %}</p>
-        <div class="clients-row">
-            {% for client in client_logos %}
-            {% if client.url %}
-            <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}">
-                <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
-            </a>
-            {% else %}
-            <div class="client-logo-item" title="{{ client.name }}">
-                <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+        <div class="clients-marquee">
+            <div class="clients-marquee-track">
+                {% for client in client_logos %}
+                {% if client.url %}
+                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+                </a>
+                {% else %}
+                <div class="client-logo-item" title="{{ client.name }}">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+                </div>
+                {% endif %}
+                {% endfor %}
+                {# Duplicate set 2 #}
+                {% for client in client_logos %}
+                {% if client.url %}
+                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </a>
+                {% else %}
+                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </div>
+                {% endif %}
+                {% endfor %}
+                {# Duplicate set 3 #}
+                {% for client in client_logos %}
+                {% if client.url %}
+                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </a>
+                {% else %}
+                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </div>
+                {% endif %}
+                {% endfor %}
+                {# Duplicate set 4 #}
+                {% for client in client_logos %}
+                {% if client.url %}
+                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </a>
+                {% else %}
+                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
+                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
     </div>
 </section>
@@ -302,13 +357,13 @@
 {# ══════ CTA ══════ #}
 <section class="section cta-section">
     <div class="container text-center">
-        <div class="cta-card glass-card">
+        <div class="cta-card glass-card reveal">
             <div class="badge-tag">{% trans "Get in Touch" %}</div>
-            <h2 class="cta-title">{% trans "Ready to Elevate Your Digital Presence?" %}</h2>
-            <p class="cta-subtitle">{% trans "Let's discuss your next project and explore how getNexiro can help you achieve your business goals." %}</p>
+            <h2 class="cta-title">{{ config.cta_title|default:_("Ready to Elevate Your Digital Presence?") }}</h2>
+            <p class="cta-subtitle">{{ config.cta_subtitle|default:_("Let's discuss your next project and explore how getNexiro can help you achieve your business goals.") }}</p>
             <div class="cta-actions">
                 <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg btn-glow">
-                    <span>{% trans "Start a Project" %}</span>
+                    <span>{{ config.cta_button_text|default:_("Start a Project") }}</span>
                     <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
                 <a href="mailto:{{ config.email }}" class="btn btn-outline btn-lg">

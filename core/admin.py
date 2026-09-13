@@ -10,29 +10,52 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     SiteConfig, Service, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
+    CompanyValue, ProcessStep, StoreItem,
 )
 
 
 @admin.register(SiteConfig)
 class SiteConfigAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Brand Identity'), {
-            'fields': ('site_name', 'email', 'phone'),
+        (_('Brand Identity & Logo'), {
+            'fields': ('site_name', 'site_logo', 'site_favicon', 'email', 'phone'),
+            'description': _('Configure site name, header logo, browser favicon, and primary contact info.'),
+        }),
+        (_('Hero Background (Video / Wallpaper)'), {
+            'fields': ('hero_bg_type', 'hero_bg_image', 'hero_bg_video', 'hero_bg_video_url'),
+            'description': _('Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL).'),
+        }),
+        (_('Hero Badge (Multilingual)'), {
+            'fields': ('hero_badge_en', 'hero_badge_fr', 'hero_badge_ar'),
+        }),
+        (_('Hero Headline (Multilingual)'), {
+            'fields': ('hero_title_en', 'hero_title_fr', 'hero_title_ar'),
+        }),
+        (_('Hero Subtitle (Multilingual)'), {
+            'fields': ('hero_subtitle_en', 'hero_subtitle_fr', 'hero_subtitle_ar'),
+        }),
+        (_('Hero CTA Buttons (Multilingual)'), {
+            'fields': (
+                'hero_cta_primary_text_en', 'hero_cta_primary_text_fr', 'hero_cta_primary_text_ar',
+                'hero_cta_secondary_text_en', 'hero_cta_secondary_text_fr', 'hero_cta_secondary_text_ar',
+            ),
         }),
         (_('Tagline (Multilingual)'), {
             'fields': ('tagline_en', 'tagline_fr', 'tagline_ar'),
         }),
-        (_('Home Hero Headline'), {
-            'fields': ('hero_title_en', 'hero_title_fr', 'hero_title_ar'),
+        (_('About Us Picture & Story'), {
+            'fields': ('about_image', 'about_text_en', 'about_text_fr', 'about_text_ar'),
+            'description': _('Upload feature picture for About page and edit story in all languages.'),
         }),
-        (_('Home Hero Subtitle'), {
-            'fields': ('hero_subtitle_en', 'hero_subtitle_fr', 'hero_subtitle_ar'),
-        }),
-        (_('About Us Story'), {
-            'fields': ('about_text_en', 'about_text_fr', 'about_text_ar'),
-        }),
-        (_('Mission Statement'), {
+        (_('Mission Statement (Multilingual)'), {
             'fields': ('mission_statement_en', 'mission_statement_fr', 'mission_statement_ar'),
+        }),
+        (_('Global Call-To-Action Banner (Multilingual)'), {
+            'fields': (
+                'cta_title_en', 'cta_title_fr', 'cta_title_ar',
+                'cta_subtitle_en', 'cta_subtitle_fr', 'cta_subtitle_ar',
+                'cta_button_text_en', 'cta_button_text_fr', 'cta_button_text_ar',
+            ),
         }),
         (_('Address & Location'), {
             'fields': (
@@ -195,6 +218,70 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(CompanyValue)
+class CompanyValueAdmin(admin.ModelAdmin):
+    list_display = ('title_en', 'title_fr', 'title_ar', 'icon', 'order')
+    list_editable = ('order',)
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en')
+    ordering = ('order',)
+
+    fieldsets = (
+        (_('Titles (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar'),
+        }),
+        (_('Descriptions (Multilingual)'), {
+            'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+        (_('Appearance'), {
+            'fields': ('icon', 'order'),
+        }),
+    )
+
+
+@admin.register(ProcessStep)
+class ProcessStepAdmin(admin.ModelAdmin):
+    list_display = ('step_number', 'title_en', 'title_fr', 'title_ar', 'tags', 'order')
+    list_editable = ('order',)
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'tags')
+    ordering = ('order',)
+
+    fieldsets = (
+        (_('Step Info'), {
+            'fields': ('step_number', 'tags', 'order'),
+        }),
+        (_('Titles (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar'),
+        }),
+        (_('Descriptions (Multilingual)'), {
+            'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+    )
+
+
+@admin.register(StoreItem)
+class StoreItemAdmin(admin.ModelAdmin):
+    list_display = ('title_en', 'title_fr', 'title_ar', 'emoji', 'badge_en', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+    list_filter = ('is_active',)
+    search_fields = ('title_en', 'title_fr', 'title_ar')
+    ordering = ('order',)
+
+    fieldsets = (
+        (_('Item Settings'), {
+            'fields': ('emoji', 'is_active', 'order'),
+        }),
+        (_('Titles (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar'),
+        }),
+        (_('Descriptions (Multilingual)'), {
+            'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+        (_('Badges (Multilingual)'), {
+            'fields': ('badge_en', 'badge_fr', 'badge_ar'),
+        }),
+    )
 
 
 admin.site.site_header = 'getNexiro Admin'
