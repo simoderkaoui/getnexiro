@@ -176,6 +176,29 @@ class GetNexiroViewsTest(TestCase):
             # Contact message must still be saved to the database
             self.assertTrue(ContactMessage.objects.filter(email='resilience@example.com').exists())
 
+    def test_contact_with_browser_gps_coordinates(self):
+        activate('en')
+        mail.outbox = []
+        post_data = {
+            'name': 'Fes Mobile Client',
+            'email': 'client.fes@example.com',
+            'subject': 'Fintech Project from Fes',
+            'message': 'We are located in Fes and need bespoke platform development.',
+            'geo_lat': '34.0331',
+            'geo_lon': '-5.0003',
+            'geo_accuracy': '18',
+            'geo_city': 'Fes, Fes-Meknes, Morocco',
+        }
+        response = self.client.post(reverse('core:contact'), post_data, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 2)
+
+        admin_email = mail.outbox[0]
+        self.assertIn('Fes, Fes-Meknes, Morocco', admin_email.body)
+        self.assertIn('Exact GPS', admin_email.body)
+        self.assertIn('https://www.google.com/maps?q=34.0331,-5.0003', admin_email.body)
+
+
 
 
 

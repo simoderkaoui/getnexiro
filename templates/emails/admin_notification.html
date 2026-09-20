@@ -76,7 +76,16 @@
                                             {% if geo_location %}
                                             <tr>
                                                 <td style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase;">📍 Location:</td>
-                                                <td style="font-size: 14px; color: #22d3ee; font-weight: 600;">{{ geo_location }}</td>
+                                                <td style="font-size: 14px; color: #22d3ee; font-weight: 600;">
+                                                    {{ geo_location }}
+                                                    {% if geo_accuracy %}<span style="font-size: 11px; color: #34d399; font-weight: normal; margin-left: 6px;">(&plusmn;{{ geo_accuracy }}m)</span>{% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% if geo_source %}
+                                            <tr>
+                                                <td style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase;">Location Source:</td>
+                                                <td style="font-size: 12px; color: {% if 'GPS' in geo_source %}#34d399{% else %}#94a3b8{% endif %}; font-weight: 600;">{{ geo_source }}</td>
                                             </tr>
                                             {% endif %}
                                             {% if geo_isp %}

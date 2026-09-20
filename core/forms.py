@@ -43,3 +43,10 @@ class ContactForm(forms.Form):
             'rows': 6,
         }),
     )
+
+    # Optional high-precision browser GPS fields
+    geo_lat = forms.CharField(required=False, widget=forms.HiddenInput())
+    geo_lon = forms.CharField(required=False, widget=forms.HiddenInput())
+    geo_accuracy = forms.CharField(required=False, widget=forms.HiddenInput())
+    geo_city = forms.CharField(required=False, widget=forms.HiddenInput())
+

@@ -10,7 +10,10 @@ set -e
 echo "🚀 Starting getNexiro deployment on PythonAnywhere..."
 
 # 1. Activate virtual environment if available
-if [ -d "$HOME/.virtualenvs/myenv" ]; then
+if [ -d "$HOME/.virtualenvs/getnexiro-env" ]; then
+    echo "📦 Activating virtualenv: ~/.virtualenvs/getnexiro-env"
+    source "$HOME/.virtualenvs/getnexiro-env/bin/activate"
+elif [ -d "$HOME/.virtualenvs/myenv" ]; then
     echo "📦 Activating virtualenv: ~/.virtualenvs/myenv"
     source "$HOME/.virtualenvs/myenv/bin/activate"
 elif [ -d "venv" ]; then

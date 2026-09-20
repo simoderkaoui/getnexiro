@@ -87,17 +87,75 @@ def geolocate_ip(ip_address):
         except Exception:
             continue
 
-    return empty
+def reverse_geocode(lat, lon):
+    """
+    Reverse-geocode exact GPS coordinates to city, region, and country
+    using high-accuracy reverse geocoding services.
+    """
+    if not lat or not lon:
+        return ''
+    try:
+        url = f'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={lat}&longitude={lon}&localityLanguage=en'
+        req = urllib.request.Request(url, headers={'User-Agent': 'getNexiro/1.0'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            city = data.get('city') or data.get('locality')
+            region = data.get('principalSubdivision')
+            country = data.get('countryName')
+            parts = [p for p in [city, region, country] if p]
+            if parts:
+                return ', '.join(parts)
+    except Exception:
+        pass
+
+    try:
+        url = f'https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}&zoom=14&addressdetails=1'
+        req = urllib.request.Request(url, headers={'User-Agent': 'getNexiro/1.0 (contact@getnexiro.com)'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            addr = data.get('address', {})
+            city = addr.get('city') or addr.get('town') or addr.get('village')
+            region = addr.get('state') or addr.get('county')
+            country = addr.get('country')
+            parts = [p for p in [city, region, country] if p]
+            if parts:
+                return ', '.join(parts)
+    except Exception:
+        pass
+    return ''
 
 
-def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, admin_url):
+def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, admin_url, client_geo=None):
     """Synchronous worker that compiles and sends both emails."""
     try:
         config = SiteConfig.load()
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <getnexiro@gmail.com>')
 
-        # ── Geo-locate the sender's IP ──────────────────────────
-        geo = geolocate_ip(ip_address)
+        # ── Determine Location: GPS sensor (high precision) vs IP gateway (fallback) ──
+        ip_geo = geolocate_ip(ip_address)
+        client_geo = client_geo or {}
+
+        has_gps = bool(client_geo.get('lat') and client_geo.get('lon'))
+
+        if has_gps:
+            # Exact device GPS coordinates from browser
+            geo_lat = str(client_geo['lat'])
+            geo_lon = str(client_geo['lon'])
+            geo_accuracy = str(client_geo.get('accuracy', ''))
+            resolved_city = client_geo.get('city') or reverse_geocode(geo_lat, geo_lon) or 'Exact GPS Coordinates'
+            geo_location = resolved_city
+            geo_source = 'Exact GPS (Phone / Device Sensor)'
+            geo_isp = ip_geo.get('isp', '')
+            geo_timezone = ip_geo.get('timezone', '')
+        else:
+            # Fallback to cellular/ISP gateway IP
+            geo_lat = ip_geo.get('lat', '')
+            geo_lon = ip_geo.get('lon', '')
+            geo_accuracy = ''
+            geo_location = ip_geo.get('location_str', '')
+            geo_source = 'Cellular / ISP Gateway IP (Mobile Data)' if ip_geo.get('location_str') else ''
+            geo_isp = ip_geo.get('isp', '')
+            geo_timezone = ip_geo.get('timezone', '')
 
         # ── 1. Admin Notification Email ──────────────────────────
         admin_subject = f"[getNexiro Inquiry] {contact_message.subject} — {contact_message.name}"
@@ -113,15 +171,13 @@ def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, ad
             'admin_url': admin_url,
             'config': config,
             # Geolocation data
-            'geo_city': geo.get('city', ''),
-            'geo_region': geo.get('region', ''),
-            'geo_country': geo.get('country', ''),
-            'geo_country_code': geo.get('country_code', ''),
-            'geo_location': geo.get('location_str', ''),
-            'geo_lat': geo.get('lat', ''),
-            'geo_lon': geo.get('lon', ''),
-            'geo_isp': geo.get('isp', ''),
-            'geo_timezone': geo.get('timezone', ''),
+            'geo_location': geo_location,
+            'geo_lat': geo_lat,
+            'geo_lon': geo_lon,
+            'geo_accuracy': geo_accuracy,
+            'geo_source': geo_source,
+            'geo_isp': geo_isp,
+            'geo_timezone': geo_timezone,
         }
 
         admin_text = render_to_string('emails/admin_notification.txt', admin_context)
@@ -180,7 +236,7 @@ def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, ad
         logger.error("Failed to send contact notification or confirmation email: %s", exc, exc_info=True)
 
 
-def send_contact_emails(contact_message, request=None, async_send=True):
+def send_contact_emails(contact_message, request=None, async_send=True, client_geo=None):
     """
     Dispatches both the Admin notification and Sender confirmation emails.
     Defaults to background thread (async_send=True) for zero UI latency.
@@ -201,6 +257,20 @@ def send_contact_emails(contact_message, request=None, async_send=True):
 
     ip_address = get_client_ip(request)
 
+    # Extract client GPS data if submitted in POST or passed explicitly
+    if client_geo is None and request and request.method == 'POST':
+        lat = request.POST.get('geo_lat', '').strip()
+        lon = request.POST.get('geo_lon', '').strip()
+        acc = request.POST.get('geo_accuracy', '').strip()
+        city = request.POST.get('geo_city', '').strip()
+        if lat and lon:
+            client_geo = {
+                'lat': lat,
+                'lon': lon,
+                'accuracy': acc,
+                'city': city,
+            }
+
     # Admin URL for direct access
     admin_url = ''
     if request:
@@ -212,12 +282,13 @@ def send_contact_emails(contact_message, request=None, async_send=True):
     # During testing, send synchronously so test runner can inspect mail.outbox
     is_testing = getattr(settings, 'TESTING', False) or hasattr(mail, 'outbox')
     if is_testing or not async_send:
-        _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, admin_url)
+        _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, admin_url, client_geo=client_geo)
     else:
         # Asynchronous execution in daemon thread for production responsiveness
         t = threading.Thread(
             target=_dispatch_emails_sync,
-            args=(contact_message, admin_recipient, lang, ip_address, admin_url),
+            args=(contact_message, admin_recipient, lang, ip_address, admin_url, client_geo),
             daemon=True,
         )
         t.start()
+

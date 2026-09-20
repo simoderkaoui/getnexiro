@@ -26,7 +26,10 @@
                 <h2 class="contact-form-title">{% trans "Send Us a Message" %}</h2>
                 <form method="post" action="{% url 'core:contact' %}" class="contact-form">
                     {% csrf_token %}
-                    {% for field in form %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
                     <div class="form-group">
                         <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                         {{ field }}
@@ -100,4 +103,48 @@
         </div>
     </div>
 </section>
+
+<script>
+(function() {
+    // High-accuracy device GPS geolocation (mobile & desktop)
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            function(pos) {
+                var lat = pos.coords.latitude;
+                var lon = pos.coords.longitude;
+                var acc = Math.round(pos.coords.accuracy || 0);
+
+                var latEl = document.querySelector('input[name="geo_lat"]');
+                var lonEl = document.querySelector('input[name="geo_lon"]');
+                var accEl = document.querySelector('input[name="geo_accuracy"]');
+                var cityEl = document.querySelector('input[name="geo_city"]');
+
+                if (latEl) latEl.value = lat;
+                if (lonEl) lonEl.value = lon;
+                if (accEl) accEl.value = acc;
+
+                // Client-side reverse geocoding for instant city/region name
+                try {
+                    fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat + '&longitude=' + lon + '&localityLanguage=en')
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            var city = data.city || data.locality || '';
+                            var region = data.principalSubdivision || '';
+                            var country = data.countryName || '';
+                            var parts = [city, region, country].filter(Boolean);
+                            if (cityEl && parts.length) {
+                                cityEl.value = parts.join(', ');
+                            }
+                        })
+                        .catch(function() {});
+                } catch (e) {}
+            },
+            function(err) {
+                // User denied or unavailable -> server automatically falls back to IP geolocation
+            },
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+        );
+    }
+})();
+</script>
 {% endblock %}
