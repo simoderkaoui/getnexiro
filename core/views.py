@@ -5,7 +5,7 @@ All content is fetched from the database (admin-editable).
 Falls back to empty lists gracefully if no data exists yet.
 """
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from django.contrib import messages
 from .forms import ContactForm
@@ -65,6 +65,30 @@ def projects(request):
         'projects_list': Project.objects.select_related('category').all(),
     })
     return render(request, 'core/projects.html', ctx)
+
+
+def project_detail(request, slug):
+    """Case study detail page with gallery carousel, tech stack, deep-dive story, and CTAs."""
+    ctx = _get_common_context()
+    project = get_object_or_404(
+        Project.objects.select_related('category').prefetch_related('gallery_images'),
+        slug=slug
+    )
+
+    gallery_images = list(project.gallery_images.all())
+
+    # Related projects
+    related_projects = Project.objects.filter(category=project.category).exclude(pk=project.pk)[:3]
+    if not related_projects.exists():
+        related_projects = Project.objects.exclude(pk=project.pk)[:3]
+
+    ctx.update({
+        'project': project,
+        'gallery_images': gallery_images,
+        'related_projects': related_projects,
+    })
+    return render(request, 'core/project_detail.html', ctx)
+
 
 
 def store(request):

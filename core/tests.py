@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils.translation import activate
 from core.models import (
-    SiteConfig, Service, ProjectCategory, Project,
+    SiteConfig, Service, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, Stat, ContactMessage,
     CompanyValue, ProcessStep, StoreItem,
 )
@@ -79,6 +79,26 @@ class GetNexiroViewsTest(TestCase):
         response = self.client.get(reverse('core:projects'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'FinFlow Analytics')
+
+    def test_project_detail_view(self):
+        activate('en')
+        response = self.client.get(reverse('core:project_detail', kwargs={'slug': self.project.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'FinFlow Analytics')
+        self.assertContains(response, 'Real-time financial dashboard')
+        self.assertContains(response, 'Start a Similar Project')
+        self.assertContains(response, 'Chat on WhatsApp')
+
+    def test_project_detail_multilingual_ar(self):
+        activate('ar')
+        response = self.client.get(f'/ar/projects/{self.project.slug}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'منصة FinFlow')
+
+    def test_project_detail_404_on_invalid_slug(self):
+        response = self.client.get('/en/projects/non-existent-project/')
+        self.assertEqual(response.status_code, 404)
+
 
     def test_store_page(self):
         response = self.client.get(reverse('core:store'))

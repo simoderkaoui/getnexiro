@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{{ project.title }} — {% trans "Case Study" %} | {{ config.site_name }}{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════ #}
+{# BREADCRUMBS & PROJECT HERO HEADER           #}
+{# ═══════════════════════════════════════════ #}
+<section class="page-header project-detail-header">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+            <a href="{% url 'core:home' %}">{% trans "Home" %}</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="{% url 'core:projects' %}">{% trans "Projects" %}</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">{{ project.title }}</span>
+        </nav>
+
+        <div class="project-hero-content">
+            {% if project.category %}
+            <span class="badge-tag">{{ project.category.name }}</span>
+            {% endif %}
+            <h1 class="page-title project-detail-title">{{ project.title }}</h1>
+            <p class="page-subtitle project-detail-subtitle">{{ project.description }}</p>
+
+            <!-- Project Specs Bar -->
+            <div class="project-specs-grid glass-card">
+                {% if project.client_name %}
+                <div class="project-spec-item">
+                    <span class="spec-label">{% trans "Client" %}</span>
+                    <span class="spec-value">{{ project.client_name }}</span>
+                </div>
+                {% endif %}
+                {% if project.category %}
+                <div class="project-spec-item">
+                    <span class="spec-label">{% trans "Category" %}</span>
+                    <span class="spec-value">{{ project.category.name }}</span>
+                </div>
+                {% endif %}
+                <div class="project-spec-item">
+                    <span class="spec-label">{% trans "Year" %}</span>
+                    <span class="spec-value">{{ project.year|default:"2025" }}</span>
+                </div>
+                <div class="project-spec-item">
+                    <span class="spec-label">{% trans "Timeline" %}</span>
+                    <span class="spec-value">{{ project.duration|default:"3 Months" }}</span>
+                </div>
+                {% if project.live_url %}
+                <div class="project-spec-item spec-action">
+                    <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                        <span>{% trans "Visit Live Platform" %}</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
+                {% endif %}
+                {% if project.github_url %}
+                <div class="project-spec-item spec-action">
+                    <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>{% trans "Source Code" %}</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# INTERACTIVE GALLERY CAROUSEL                #}
+{# ═══════════════════════════════════════════ #}
+<section class="section project-gallery-section">
+    <div class="container">
+        <div class="project-carousel-wrapper glass-card" id="projectCarousel">
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slide 1: Primary Cover Image -->
+                    {% if project.image %}
+                    <div class="carousel-slide active" data-index="0">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="carousel-img">
+                        <div class="carousel-caption">
+                            <span>{% trans "Cover Architecture" %} — {{ project.title }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Gallery Slides -->
+                    {% for item in gallery_images %}
+                    <div class="carousel-slide {% if not project.image and forloop.first %}active{% endif %}" data-index="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}">
+                        <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }}" class="carousel-img">
+                        {% if item.caption %}
+                        <div class="carousel-caption">
+                            <span>{{ item.caption }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation Controls -->
+                <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="{% trans 'Previous slide' %}">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="carousel-btn carousel-next" id="carouselNext" aria-label="{% trans 'Next slide' %}">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <!-- Counter Badge -->
+                <div class="carousel-counter" id="carouselCounter">
+                    <span id="carouselCurrent">1</span> / <span id="carouselTotal">1</span>
+                </div>
+            </div>
+
+            <!-- Carousel Thumbnails Strip -->
+            <div class="carousel-thumbnails" id="carouselThumbs">
+                {% if project.image %}
+                <button class="thumb-btn active" data-thumb="0" aria-label="{% trans 'Slide 1' %}">
+                    <img src="{{ project.image.url }}" alt="Thumb 0">
+                </button>
+                {% endif %}
+                {% for item in gallery_images %}
+                <button class="thumb-btn {% if not project.image and forloop.first %}active{% endif %}" data-thumb="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}" aria-label="Slide {{ forloop.counter }}">
+                    <img src="{{ item.image.url }}" alt="Thumb {{ forloop.counter }}">
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# CASE STUDY DEEP-DIVE (CHALLENGE / SOLUTION) #}
+{# ═══════════════════════════════════════════ #}
+<section class="section project-content-section">
+    <div class="container">
+        <div class="project-content-grid">
+            <!-- Left / Main Column: Case Study Narrative -->
+            <div class="project-narrative">
+                <!-- Overview -->
+                <div class="project-block glass-card">
+                    <h2 class="project-block-title">
+                        <span class="block-icon">📌</span>
+                        {% trans "Project Overview" %}
+                    </h2>
+                    <div class="project-text-content">
+                        <p>{{ project.description|linebreaksbr }}</p>
+                    </div>
+                </div>
+
+                <!-- The Challenge -->
+                {% if project.challenge %}
+                <div class="project-block glass-card">
+                    <h2 class="project-block-title">
+                        <span class="block-icon">🎯</span>
+                        {% trans "The Challenge" %}
+                    </h2>
+                    <div class="project-text-content">
+                        <p>{{ project.challenge|linebreaksbr }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Architecture & Solution -->
+                {% if project.solution %}
+                <div class="project-block glass-card highlight-border">
+                    <h2 class="project-block-title">
+                        <span class="block-icon">⚡</span>
+                        {% trans "Architecture & Engineering Solution" %}
+                    </h2>
+                    <div class="project-text-content">
+                        <p>{{ project.solution|linebreaksbr }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Results & Business Impact -->
+                {% if project.results %}
+                <div class="project-block glass-card">
+                    <h2 class="project-block-title">
+                        <span class="block-icon">📈</span>
+                        {% trans "Results & Business Impact" %}
+                    </h2>
+                    <div class="project-text-content">
+                        <p>{{ project.results|linebreaksbr }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Client Testimonial / Feedback -->
+                {% if project.client_feedback_quote %}
+                <div class="project-testimonial-card glass-card">
+                    <div class="quote-mark">“</div>
+                    <blockquote class="client-quote">
+                        {{ project.client_feedback_quote }}
+                    </blockquote>
+                    <div class="quote-author-info">
+                        {% if project.client_feedback_author %}
+                        <strong>{{ project.client_feedback_author }}</strong>
+                        {% endif %}
+                        {% if project.client_feedback_role %}
+                        <span>{{ project.client_feedback_role }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right Column / Sidebar: Tech Stack & Easy Quick CTAs -->
+            <aside class="project-sidebar">
+                <!-- Tech Stack Card -->
+                {% if project.tech_list %}
+                <div class="sidebar-card glass-card">
+                    <h3 class="sidebar-card-title">
+                        <span>🛠️</span> {% trans "Technologies & Tools" %}
+                    </h3>
+                    <div class="tech-pills-wrap">
+                        {% for tech in project.tech_list %}
+                        <span class="tech-pill">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- EASY REMINDER CALL TO ACTION CARD -->
+                <div class="sidebar-card cta-sidebar-card glass-card">
+                    <div class="badge-tag">{% trans "Ready to Build?" %}</div>
+                    <h3 class="cta-sidebar-title">{% trans "Inspired by this Project?" %}</h3>
+                    <p class="cta-sidebar-desc">
+                        {% trans "Let's architect a high-velocity digital platform tailored to your specific business requirements." %}
+                    </p>
+
+                    <div class="cta-sidebar-buttons">
+                        <!-- Primary CTA: Direct Contact with Pre-filled Subject -->
+                        <a href="{% url 'core:contact' %}?subject={{ 'Project Inquiry: '|urlencode }}{{ project.title_en|urlencode }}" class="btn btn-primary btn-full btn-glow">
+                            <span>{% trans "Start a Similar Project" %}</span>
+                            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+
+                        <!-- Secondary CTA: Instant WhatsApp Connection -->
+                        <a href="https://wa.me/212787862187?text={{ 'Hello getNexiro, I am interested in building a solution like: '|urlencode }}{{ project.title_en|urlencode }}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-full">
+                            <span>{% trans "Chat on WhatsApp" %}</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+
+                        <!-- Tertiary CTA: Phone Call -->
+                        <a href="tel:{{ config.phone|default:'+212663017817' }}" class="btn btn-outline btn-full">
+                            <span>{% trans "Call Studio Directly" %}</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{# ═══════════════════════════════════════════ #}
+{# MORE PROJECTS / RELATED CASE STUDIES        #}
+{# ═══════════════════════════════════════════ #}
+{% if related_projects %}
+<section class="section section-related-projects">
+    <div class="container">
+        <div class="section-header-flex">
+            <div>
+                <div class="badge-tag">{% trans "Portfolio" %}</div>
+                <h2 class="section-title">{% trans "Explore More Case Studies" %}</h2>
+            </div>
+            <a href="{% url 'core:projects' %}" class="btn btn-outline btn-sm">
+                <span>{% trans "View All Projects" %}</span>
+                <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+        </div>
+
+        <div class="projects-preview-grid">
+            {% for rel_proj in related_projects %}
+            <div class="project-preview-card glass-card">
+                <div class="project-preview-img-wrapper">
+                    {% if rel_proj.image %}
+                    <img src="{{ rel_proj.image.url }}" alt="{{ rel_proj.title }}" loading="lazy">
+                    {% else %}
+                    <img src="{% static 'images/logo.png' %}" alt="{{ rel_proj.title }}" loading="lazy">
+                    {% endif %}
+                    <div class="project-preview-overlay">
+                        {% if rel_proj.category %}<span class="project-category-badge">{{ rel_proj.category.name }}</span>{% endif %}
+                        <a href="{% url 'core:project_detail' rel_proj.slug %}" class="project-view-btn" aria-label="{% trans 'View Case Study' %}">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-preview-footer">
+                    <div class="project-card-text">
+                        {% if rel_proj.category %}<span class="project-category-small">{{ rel_proj.category.name }}</span>{% endif %}
+                        <h3 class="project-preview-title">
+                            <a href="{% url 'core:project_detail' rel_proj.slug %}" style="color:inherit; text-decoration:none;">{{ rel_proj.title }}</a>
+                        </h3>
+                    </div>
+                    {% if rel_proj.technologies %}
+                    <span class="project-verified-badge">{{ rel_proj.technologies|truncatewords:2 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ═══════════════════════════════════════════ #}
+{# CAROUSEL CONTROLLER JAVASCRIPT              #}
+{# ═══════════════════════════════════════════ #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var track = document.getElementById('carouselTrack');
+    var slides = track ? track.querySelectorAll('.carousel-slide') : [];
+    var thumbs = document.querySelectorAll('.thumb-btn');
+    var prevBtn = document.getElementById('carouselPrev');
+    var nextBtn = document.getElementById('carouselNext');
+    var currentEl = document.getElementById('carouselCurrent');
+    var totalEl = document.getElementById('carouselTotal');
+
+    if (!slides.length) return;
+
+    var currentIndex = 0;
+    var totalSlides = slides.length;
+    if (totalEl) totalEl.textContent = totalSlides;
+
+    function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+
+        // Slide track
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+        // Update active classes
+        slides.forEach(function(s, idx) {
+            s.classList.toggle('active', idx === currentIndex);
+        });
+
+        // Update thumbnails
+        thumbs.forEach(function(t, idx) {
+            t.classList.toggle('active', idx === currentIndex);
+        });
+
+        if (currentEl) currentEl.textContent = currentIndex + 1;
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            goToSlide(currentIndex - 1);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            goToSlide(currentIndex + 1);
+        });
+    }
+
+    thumbs.forEach(function(thumb, idx) {
+        thumb.addEventListener('click', function() {
+            goToSlide(idx);
+        });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+        if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    });
+
+    // Touch swipe support for mobile
+    var touchStartX = 0;
+    var touchEndX = 0;
+    track.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 40) goToSlide(currentIndex + 1);
+        if (touchEndX > touchStartX + 40) goToSlide(currentIndex - 1);
+    }, { passive: true });
+});
+</script>
+{% endblock %}

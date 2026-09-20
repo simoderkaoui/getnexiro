@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from .models import (
-    SiteConfig, Service, ProjectCategory, Project,
+    SiteConfig, Service, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, StoreItem,
 )
@@ -109,23 +109,57 @@ class ProjectCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name_en',)}
 
 
+class ProjectImageInline(admin.TabularInline):
+    model = ProjectImage
+    extra = 2
+    fields = ('image', 'caption_en', 'caption_fr', 'caption_ar', 'order', 'image_preview')
+    readonly_fields = ('image_preview',)
+
+    @admin.display(description=_('Preview'))
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="height:45px; border-radius:6px; object-fit:cover;" />', obj.image.url)
+        return '—'
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'category', 'is_featured', 'image_preview', 'order')
+    list_display = ('title_en', 'category', 'is_featured', 'image_preview', 'gallery_count', 'order')
     list_filter = ('category', 'is_featured')
     list_editable = ('is_featured', 'order')
-    search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en')
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en', 'slug')
+    prepopulated_fields = {'slug': ('title_en',)}
     ordering = ('order',)
+    inlines = [ProjectImageInline]
 
     fieldsets = (
-        (_('Titles (Multilingual)'), {
-            'fields': ('title_en', 'title_fr', 'title_ar'),
+        (_('Titles & Slug (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar', 'slug'),
         }),
-        (_('Category & Details'), {
-            'fields': ('category', 'client_name', 'technologies', 'image'),
+        (_('Category, Client & Links'), {
+            'fields': ('category', 'client_name', 'technologies', 'duration', 'year', 'live_url', 'github_url', 'image'),
         }),
-        (_('Descriptions (Multilingual)'), {
+        (_('Executive Overview (Multilingual)'), {
             'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+        (_('Deep-Dive: The Challenge (Multilingual)'), {
+            'fields': ('challenge_en', 'challenge_fr', 'challenge_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Deep-Dive: Architecture & Solution (Multilingual)'), {
+            'fields': ('solution_en', 'solution_fr', 'solution_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Deep-Dive: Results & Impact (Multilingual)'), {
+            'fields': ('results_en', 'results_fr', 'results_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Client Testimonial & Feedback (Multilingual)'), {
+            'fields': (
+                'client_feedback_quote_en', 'client_feedback_quote_fr', 'client_feedback_quote_ar',
+                'client_feedback_author', 'client_feedback_role',
+            ),
+            'classes': ('collapse',),
         }),
         (_('Settings'), {
             'fields': ('is_featured', 'order'),
@@ -137,6 +171,12 @@ class ProjectAdmin(admin.ModelAdmin):
         if obj.image:
             return format_html('<img src="{}" style="height:36px; border-radius:6px; object-fit:cover;" />', obj.image.url)
         return '—'
+
+    @admin.display(description=_('Gallery'))
+    def gallery_count(self, obj):
+        count = obj.gallery_images.count()
+        return f"{count} photo{'s' if count != 1 else ''}"
+
 
 
 @admin.register(TeamMember)

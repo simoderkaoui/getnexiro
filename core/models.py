@@ -10,6 +10,8 @@ All models provide:
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _, get_language
+from django.utils.text import slugify
+from django.urls import reverse
 
 
 def get_localized(instance, field_name):
@@ -37,7 +39,8 @@ def get_localized(instance, field_name):
         alt = getattr(instance, f'{field_name}_{code}', None)
         if alt:
             return alt
-    return getattr(instance, field_name, '')
+    return ''
+
 
 
 # ── 1. Site Configuration (Singleton) ──────────────────────────
@@ -316,20 +319,48 @@ class Project(models.Model):
     title_fr = models.CharField(_('Title (FR)'), max_length=150, blank=True, default='')
     title_ar = models.CharField(_('Title (AR)'), max_length=150, blank=True, default='')
 
+    slug = models.SlugField(_('Slug'), max_length=160, unique=True, null=True, blank=True)
+
     category = models.ForeignKey(
         ProjectCategory, on_delete=models.SET_NULL, null=True, blank=True,
         verbose_name=_('Category'),
     )
 
-    description_en = models.TextField(_('Description (EN)'))
-    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
-    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+    # Executive Summary / Overview
+    description_en = models.TextField(_('Overview (EN)'))
+    description_fr = models.TextField(_('Overview (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Overview (AR)'), blank=True, default='')
 
     image = models.ImageField(
         _('Cover Image'), upload_to='projects/', blank=True, null=True,
     )
     client_name = models.CharField(_('Client Name'), max_length=100, blank=True)
-    technologies = models.CharField(_('Technologies'), max_length=300, blank=True)
+    technologies = models.CharField(_('Technologies (comma-separated)'), max_length=300, blank=True)
+    duration = models.CharField(_('Duration'), max_length=60, blank=True, default='3 Months')
+    year = models.CharField(_('Year'), max_length=20, blank=True, default='2025')
+    live_url = models.URLField(_('Live Project URL'), blank=True, help_text=_('Link to live website or production application'))
+    github_url = models.URLField(_('GitHub / Source URL'), blank=True)
+
+    # Deep-Dive Case Study Sections (Multilingual)
+    challenge_en = models.TextField(_('The Challenge (EN)'), blank=True, default='')
+    challenge_fr = models.TextField(_('The Challenge (FR)'), blank=True, default='')
+    challenge_ar = models.TextField(_('The Challenge (AR)'), blank=True, default='')
+
+    solution_en = models.TextField(_('Architecture & Solution (EN)'), blank=True, default='')
+    solution_fr = models.TextField(_('Architecture & Solution (FR)'), blank=True, default='')
+    solution_ar = models.TextField(_('Architecture & Solution (AR)'), blank=True, default='')
+
+    results_en = models.TextField(_('Results & Impact (EN)'), blank=True, default='')
+    results_fr = models.TextField(_('Results & Impact (FR)'), blank=True, default='')
+    results_ar = models.TextField(_('Results & Impact (AR)'), blank=True, default='')
+
+    # Client Feedback / Quote
+    client_feedback_quote_en = models.TextField(_('Client Testimonial Quote (EN)'), blank=True, default='')
+    client_feedback_quote_fr = models.TextField(_('Client Testimonial Quote (FR)'), blank=True, default='')
+    client_feedback_quote_ar = models.TextField(_('Client Testimonial Quote (AR)'), blank=True, default='')
+    client_feedback_author = models.CharField(_('Client Testimonial Author'), max_length=100, blank=True, default='')
+    client_feedback_role = models.CharField(_('Client Testimonial Role'), max_length=120, blank=True, default='')
+
     is_featured = models.BooleanField(_('Featured on Home Page'), default=False)
     order = models.PositiveIntegerField(_('Display Order'), default=0)
     created_at = models.DateField(_('Project Date'), auto_now_add=True)
@@ -340,6 +371,41 @@ class Project(models.Model):
     @property
     def description(self): return get_localized(self, 'description')
 
+    @property
+    def challenge(self): return get_localized(self, 'challenge')
+
+    @property
+    def solution(self): return get_localized(self, 'solution')
+
+    @property
+    def results(self): return get_localized(self, 'results')
+
+    @property
+    def client_feedback_quote(self): return get_localized(self, 'client_feedback_quote')
+
+    @property
+    def tech_list(self):
+        """Returns clean list of technologies."""
+        if not self.technologies:
+            return []
+        return [t.strip() for t in self.technologies.split(',') if t.strip()]
+
+    def get_absolute_url(self):
+        return reverse('core:project_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title_en or f'project-{self.pk or ""}')
+            if not base_slug:
+                base_slug = 'project'
+            slug = base_slug
+            counter = 1
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')
@@ -347,6 +413,32 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title_en or self.title_ar or f"Project #{self.pk}"
+
+
+class ProjectImage(models.Model):
+    """Gallery carousel images for a project case study."""
+
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='gallery_images',
+        verbose_name=_('Project'),
+    )
+    image = models.ImageField(_('Gallery Image'), upload_to='projects/gallery/')
+    caption_en = models.CharField(_('Caption (EN)'), max_length=200, blank=True, default='')
+    caption_fr = models.CharField(_('Caption (FR)'), max_length=200, blank=True, default='')
+    caption_ar = models.CharField(_('Caption (AR)'), max_length=200, blank=True, default='')
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    @property
+    def caption(self): return get_localized(self, 'caption')
+
+    class Meta:
+        verbose_name = _('Project Gallery Image')
+        verbose_name_plural = _('Project Gallery Images')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return f"{self.project.title_en} — Image #{self.pk}"
+
 
 
 # ── 5. Team Members ────────────────────────────────────────────
