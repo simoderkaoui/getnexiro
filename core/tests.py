@@ -185,6 +185,7 @@ class GetNexiroViewsTest(TestCase):
         self.assertIn("L'équipe getNexiro", sender_email.body)
 
     def test_contact_confirmation_multilingual_ar(self):
+        activate('ar')
         mail.outbox = []
         post_data = {
             'name': 'عمر الفاسي',
@@ -192,7 +193,7 @@ class GetNexiroViewsTest(TestCase):
             'subject': 'استشارة معمارية برمجية',
             'message': 'مرحباً getNexiro، نريد تطوير منصة رقمية متطورة.',
         }
-        response = self.client.post('/ar/contact/', post_data, follow=True)
+        response = self.client.post(reverse('core:contact'), post_data, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(mail.outbox), 2)
 

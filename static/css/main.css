@@ -3318,3 +3318,254 @@ ul {
     }
 }
 
+
+/* ══════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE RESPONSIVE FIXES
+   ══════════════════════════════════════════════════ */
+
+/* ── Tablet (≤992px) ── */
+@media (max-width: 992px) {
+    .container {
+        padding-inline: 1.25rem;
+    }
+    .section-title {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+    }
+    .hero-title {
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+    }
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+    .hero-split {
+        gap: 2.5rem;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-title {
+        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    }
+}
+
+/* ── Mobile (≤768px) ── */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 8rem 0 3rem;
+    }
+    .page-title {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
+    .page-subtitle {
+        font-size: 0.92rem;
+    }
+    .section {
+        padding: 3.5rem 0;
+    }
+    .section-title {
+        font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+    }
+    .section-subtitle {
+        font-size: 0.88rem;
+    }
+    .hero-title {
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        letter-spacing: -0.02em;
+    }
+    .hero-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .hero-actions .btn {
+        justify-content: center;
+        width: 100%;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .stat-number {
+        font-size: 2rem;
+    }
+    .cta-card {
+        padding: 2rem 1.25rem;
+    }
+    .cta-title {
+        font-size: 1.4rem;
+    }
+    .cta-subtitle {
+        font-size: 0.88rem;
+    }
+    .btn-lg {
+        padding: 0.9rem 1.75rem;
+        font-size: 0.88rem;
+    }
+    .btn-sm {
+        padding: 0.55rem 1rem;
+        font-size: 0.78rem;
+    }
+    /* About page */
+    .tangier-banner {
+        padding: 2rem 1.25rem;
+    }
+    .tangier-banner h2 {
+        font-size: 1.3rem;
+    }
+    /* Contact form */
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+    .contact-grid {
+        gap: 2rem;
+    }
+    /* Footer */
+    .footer {
+        padding-top: 3rem;
+    }
+    .footer-tagline {
+        font-size: 0.85rem;
+    }
+    .footer-heading {
+        font-size: 0.9rem;
+    }
+    .footer-seo-areas {
+        font-size: 0.75rem;
+    }
+    .footer-seo-areas p {
+        line-height: 1.8;
+    }
+    /* Testimonials */
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+    .testimonial-text {
+        font-size: 0.92rem;
+    }
+    /* Client logos */
+    .client-logos-track {
+        gap: 2rem;
+    }
+    /* Services grid */
+    .services-grid .glass-card,
+    .projects-grid .glass-card {
+        padding: 1.25rem;
+    }
+    /* Process steps */
+    .process-timeline-grid {
+        gap: 1.25rem;
+    }
+    /* Values */
+    .value-grid {
+        gap: 1.25rem;
+    }
+    /* Blog grid */
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    .blog-filter-bar {
+        gap: 0.4rem;
+    }
+    .blog-filter-pill {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.9rem;
+    }
+}
+
+/* ── Small phones (≤480px) ── */
+@media (max-width: 480px) {
+    .container {
+        padding-inline: 1rem;
+    }
+    .page-header {
+        padding: 7rem 0 2.5rem;
+    }
+    .page-title {
+        font-size: 1.5rem;
+    }
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    .hero-subtitle {
+        font-size: 0.88rem;
+    }
+    .section {
+        padding: 2.5rem 0;
+    }
+    .section-title {
+        font-size: 1.3rem;
+    }
+    .badge-tag {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.7rem;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+    .stat-number {
+        font-size: 1.6rem;
+    }
+    .stat-label {
+        font-size: 0.7rem;
+    }
+    .glass-card {
+        padding: 1.1rem;
+    }
+    .cta-card {
+        padding: 1.75rem 1rem;
+    }
+    .cta-title {
+        font-size: 1.2rem;
+    }
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.82rem;
+    }
+    .footer-grid {
+        gap: 2rem;
+    }
+    .footer-bottom-badges {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    .whatsapp-float svg {
+        width: 22px;
+        height: 22px;
+    }
+    .whatsapp-tooltip {
+        display: none;
+    }
+    .back-to-top {
+        width: 38px;
+        height: 38px;
+        bottom: 4.5rem;
+        right: 1rem;
+    }
+    /* Blog cards mobile */
+    .blog-card-body {
+        padding: 1.1rem;
+    }
+    .blog-card-title {
+        font-size: 1.05rem;
+    }
+    .blog-card-excerpt {
+        font-size: 0.82rem;
+    }
+    .blog-card-image,
+    .blog-card-image-placeholder {
+        height: 160px;
+    }
+}

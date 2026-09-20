@@ -557,3 +557,132 @@ msgstr "مركز طنجة"
 
 msgid "All rights reserved."
 msgstr "جميع الحقوق محفوظة."
+
+# ── URL Path Segments ──
+
+msgid "about/"
+msgstr "من-نحن/"
+
+msgid "services/"
+msgstr "خدمات/"
+
+msgid "projects/"
+msgstr "مشاريع/"
+
+msgid "blog/"
+msgstr "مدونة/"
+
+msgid "contact/"
+msgstr "تواصل/"
+
+# ── Blog Pages ──
+
+msgid "Blog"
+msgstr "المدونة"
+
+msgid "Insights & Articles"
+msgstr "رؤى ومقالات"
+
+msgid "Engineering"
+msgstr "الهندسة"
+
+msgid "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco."
+msgstr "رؤى متخصصة في تطوير الويب وتطبيقات الجوال وتصميم UI/UX والتحول الرقمي من فريق الهندسة في getNexiro بطنجة، المغرب."
+
+msgid "Expert insights on web development, mobile apps, UI/UX, and digital transformation from our team."
+msgstr "رؤى متخصصة في تطوير الويب وتطبيقات الجوال وUI/UX والتحول الرقمي من فريقنا."
+
+msgid "All"
+msgstr "الكل"
+
+msgid "min read"
+msgstr "دقائق للقراءة"
+
+msgid "Read article"
+msgstr "اقرأ المقال"
+
+msgid "No articles published yet. Check back soon!"
+msgstr "لم تُنشر أي مقالات بعد. تحقق مرة أخرى قريباً!"
+
+msgid "Have a Project in Mind?"
+msgstr "هل لديك مشروع في ذهنك؟"
+
+msgid "Let's turn your ideas into high-performance digital solutions."
+msgstr "دعنا نحوّل أفكارك إلى حلول رقمية عالية الأداء."
+
+msgid "Tags"
+msgstr "الوسوم"
+
+msgid "Share"
+msgstr "مشاركة"
+
+msgid "Need Expert Help?"
+msgstr "هل تحتاج مساعدة متخصصة؟"
+
+msgid "Let's discuss how we can build your next project."
+msgstr "دعنا نناقش كيف يمكننا بناء مشروعك القادم."
+
+msgid "Related Articles"
+msgstr "مقالات ذات صلة"
+
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+# ── Service Detail Page ──
+
+msgid "Enterprise Service"
+msgstr "خدمة مؤسسية"
+
+msgid "Overview"
+msgstr "نظرة عامة"
+
+msgid "Key Solutions"
+msgstr "الحلول الرئيسية"
+
+msgid "Methodology"
+msgstr "المنهجية"
+
+msgid "Deliverables"
+msgstr "المخرجات"
+
+msgid "Technologies"
+msgstr "التقنيات"
+
+msgid "Typical Timeline"
+msgstr "الجدول الزمني"
+
+msgid "Related Services"
+msgstr "خدمات ذات صلة"
+
+msgid "Explore More"
+msgstr "اكتشف المزيد"
+
+msgid "Ready to start?"
+msgstr "مستعد للبدء؟"
+
+msgid "Discuss your requirements with our team and let us build the perfect solution for your business."
+msgstr "ناقش متطلباتك مع فريقنا ودعنا نبني الحل المثالي لعملك."
+
+msgid "Let's work together"
+msgstr "لنعمل معاً"
+
+msgid "Chat on WhatsApp"
+msgstr "تحدث عبر واتساب"
+
+msgid "Call Studio Directly"
+msgstr "اتصل بالاستوديو مباشرة"
+
+msgid "View All"
+msgstr "عرض الكل"
+
+msgid "Learn more"
+msgstr "اعرف المزيد"
+
+msgid "Explore capability"
+msgstr "اكتشف الخدمة"
+
+msgid "Case Study"
+msgstr "دراسة حالة"
+
+msgid "Get a Free Consultation"
+msgstr "احصل على استشارة مجانية"

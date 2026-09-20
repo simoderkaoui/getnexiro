@@ -557,3 +557,132 @@ msgstr "Hub de Tanger"
 
 msgid "All rights reserved."
 msgstr "Tous droits réservés."
+
+# ── URL Path Segments (for translated URLs) ──
+
+msgid "about/"
+msgstr "a-propos/"
+
+msgid "services/"
+msgstr "services/"
+
+msgid "projects/"
+msgstr "projets/"
+
+msgid "blog/"
+msgstr "blog/"
+
+msgid "contact/"
+msgstr "contact/"
+
+# ── Blog Pages ──
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Insights & Articles"
+msgstr "Insights & Articles"
+
+msgid "Engineering"
+msgstr "Ingénierie"
+
+msgid "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco."
+msgstr "Conseils d'experts en développement web, applications mobiles, design UI/UX et transformation digitale par l'équipe d'ingénierie getNexiro à Tanger, Maroc."
+
+msgid "Expert insights on web development, mobile apps, UI/UX, and digital transformation from our team."
+msgstr "Conseils d'experts en développement web, applications mobiles, UI/UX et transformation digitale de notre équipe."
+
+msgid "All"
+msgstr "Tous"
+
+msgid "min read"
+msgstr "min de lecture"
+
+msgid "Read article"
+msgstr "Lire l'article"
+
+msgid "No articles published yet. Check back soon!"
+msgstr "Aucun article publié pour le moment. Revenez bientôt !"
+
+msgid "Have a Project in Mind?"
+msgstr "Un projet en tête ?"
+
+msgid "Let's turn your ideas into high-performance digital solutions."
+msgstr "Transformons vos idées en solutions digitales performantes."
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Share"
+msgstr "Partager"
+
+msgid "Need Expert Help?"
+msgstr "Besoin d'un expert ?"
+
+msgid "Let's discuss how we can build your next project."
+msgstr "Discutons de la manière dont nous pouvons construire votre prochain projet."
+
+msgid "Related Articles"
+msgstr "Articles connexes"
+
+msgid "Breadcrumb"
+msgstr "Fil d'Ariane"
+
+# ── Service Detail Page ──
+
+msgid "Enterprise Service"
+msgstr "Service Entreprise"
+
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+msgid "Key Solutions"
+msgstr "Solutions clés"
+
+msgid "Methodology"
+msgstr "Méthodologie"
+
+msgid "Deliverables"
+msgstr "Livrables"
+
+msgid "Technologies"
+msgstr "Technologies"
+
+msgid "Typical Timeline"
+msgstr "Délai typique"
+
+msgid "Related Services"
+msgstr "Services connexes"
+
+msgid "Explore More"
+msgstr "Découvrir"
+
+msgid "Ready to start?"
+msgstr "Prêt à commencer ?"
+
+msgid "Discuss your requirements with our team and let us build the perfect solution for your business."
+msgstr "Discutez de vos besoins avec notre équipe et laissez-nous construire la solution parfaite pour votre entreprise."
+
+msgid "Let's work together"
+msgstr "Travaillons ensemble"
+
+msgid "Chat on WhatsApp"
+msgstr "Discuter sur WhatsApp"
+
+msgid "Call Studio Directly"
+msgstr "Appeler le studio"
+
+msgid "View All"
+msgstr "Voir tout"
+
+msgid "Learn more"
+msgstr "En savoir plus"
+
+msgid "Explore capability"
+msgstr "Découvrir ce service"
+
+msgid "Case Study"
+msgstr "Étude de cas"
+
+msgid "Get a Free Consultation"
+msgstr "Obtenir une consultation gratuite"
