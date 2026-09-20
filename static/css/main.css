@@ -71,6 +71,7 @@ html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     color-scheme: dark;
+    overflow-x: hidden;
 }
 
 body {
@@ -3323,19 +3324,44 @@ ul {
    COMPREHENSIVE MOBILE RESPONSIVE FIXES
    ══════════════════════════════════════════════════ */
 
+/* ── Global overflow prevention ── */
+.hero-title,
+.page-title,
+.section-title,
+.cta-title {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.hero-subtitle,
+.page-subtitle,
+.section-subtitle,
+.cta-subtitle {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.main-content {
+    overflow-x: hidden;
+}
+
 /* ── Tablet (≤992px) ── */
 @media (max-width: 992px) {
     .container {
         padding-inline: 1.25rem;
+        max-width: 100%;
     }
     .section-title {
         font-size: clamp(1.6rem, 4vw, 2.2rem);
     }
     .hero-title {
-        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-size: clamp(2rem, 5vw, 3.2rem);
     }
     .hero-subtitle {
         font-size: 1.05rem;
+        max-width: 100%;
     }
     .hero-split {
         gap: 2.5rem;
@@ -3353,11 +3379,15 @@ ul {
 
 /* ── Mobile (≤768px) ── */
 @media (max-width: 768px) {
+    .container {
+        padding-inline: 1.15rem;
+        max-width: 100%;
+    }
     .page-header {
         padding: 8rem 0 3rem;
     }
     .page-title {
-        font-size: clamp(1.8rem, 5vw, 2.4rem);
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
     }
     .page-subtitle {
         font-size: 0.92rem;
@@ -3371,13 +3401,27 @@ ul {
     .section-subtitle {
         font-size: 0.88rem;
     }
+    /* Hero */
+    .hero-section {
+        min-height: auto;
+        padding-top: 7rem;
+        padding-bottom: 3.5rem;
+    }
     .hero-title {
-        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        font-size: clamp(1.65rem, 6.5vw, 2.5rem);
         letter-spacing: -0.02em;
     }
     .hero-subtitle {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         line-height: 1.65;
+        max-width: 100%;
+    }
+    .hero-badge-wrapper {
+        padding: 0.35rem 0.85rem;
+        font-size: 0.75rem;
+    }
+    .hero-badge-text {
+        font-size: 0.75rem;
     }
     .hero-actions {
         flex-direction: column;
@@ -3386,7 +3430,27 @@ ul {
     .hero-actions .btn {
         justify-content: center;
         width: 100%;
+        white-space: normal;
+        text-align: center;
     }
+    /* Buttons */
+    .btn {
+        white-space: normal;
+        text-align: center;
+        max-width: 100%;
+    }
+    .btn-lg {
+        padding: 0.85rem 1.5rem;
+        font-size: 0.88rem;
+    }
+    .btn-sm {
+        padding: 0.55rem 1rem;
+        font-size: 0.78rem;
+    }
+    .btn-full {
+        width: 100%;
+    }
+    /* Stats */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
@@ -3394,6 +3458,7 @@ ul {
     .stat-number {
         font-size: 2rem;
     }
+    /* CTA */
     .cta-card {
         padding: 2rem 1.25rem;
     }
@@ -3402,14 +3467,6 @@ ul {
     }
     .cta-subtitle {
         font-size: 0.88rem;
-    }
-    .btn-lg {
-        padding: 0.9rem 1.75rem;
-        font-size: 0.88rem;
-    }
-    .btn-sm {
-        padding: 0.55rem 1rem;
-        font-size: 0.78rem;
     }
     /* About page */
     .tangier-banner {
@@ -3465,7 +3522,7 @@ ul {
     .value-grid {
         gap: 1.25rem;
     }
-    /* Blog grid */
+    /* Blog */
     .blog-grid {
         grid-template-columns: 1fr;
     }
@@ -3476,30 +3533,57 @@ ul {
         font-size: 0.75rem;
         padding: 0.35rem 0.9rem;
     }
+    /* Ambient glows - reduce on mobile */
+    .glow-orb-1 {
+        width: 300px;
+        height: 300px;
+        opacity: 0.25;
+    }
+    .glow-orb-2 {
+        width: 250px;
+        height: 250px;
+        opacity: 0.2;
+    }
+    .hero-glow-center {
+        width: 350px;
+        height: 350px;
+    }
 }
 
 /* ── Small phones (≤480px) ── */
 @media (max-width: 480px) {
     .container {
-        padding-inline: 1rem;
+        padding-inline: 0.9rem;
     }
     .page-header {
         padding: 7rem 0 2.5rem;
     }
     .page-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+    }
+    .hero-section {
+        padding-top: 6.5rem;
+        padding-bottom: 2.5rem;
     }
     .hero-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        line-height: 1.2;
     }
     .hero-subtitle {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    .hero-badge-wrapper {
+        padding: 0.3rem 0.7rem;
+    }
+    .hero-badge-text {
+        font-size: 0.7rem;
     }
     .section {
         padding: 2.5rem 0;
     }
     .section-title {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
     .badge-tag {
         font-size: 0.65rem;
@@ -3510,34 +3594,40 @@ ul {
         gap: 0.75rem;
     }
     .stat-number {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     .stat-label {
         font-size: 0.7rem;
     }
     .glass-card {
-        padding: 1.1rem;
+        padding: 1rem;
     }
     .cta-card {
-        padding: 1.75rem 1rem;
+        padding: 1.5rem 1rem;
     }
     .cta-title {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
     .btn-lg {
-        padding: 0.75rem 1.5rem;
+        padding: 0.75rem 1.25rem;
         font-size: 0.82rem;
     }
     .footer-grid {
         gap: 2rem;
     }
+    .footer-bottom-inner {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
     .footer-bottom-badges {
         flex-wrap: wrap;
         justify-content: center;
     }
+    /* WhatsApp float */
     .whatsapp-float {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         bottom: 1rem;
         right: 1rem;
     }
@@ -3549,17 +3639,17 @@ ul {
         display: none;
     }
     .back-to-top {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
         bottom: 4.5rem;
         right: 1rem;
     }
-    /* Blog cards mobile */
+    /* Blog cards */
     .blog-card-body {
-        padding: 1.1rem;
+        padding: 1rem;
     }
     .blog-card-title {
-        font-size: 1.05rem;
+        font-size: 1rem;
     }
     .blog-card-excerpt {
         font-size: 0.82rem;
@@ -3568,4 +3658,25 @@ ul {
     .blog-card-image-placeholder {
         height: 160px;
     }
+    /* Navbar */
+    .navbar {
+        padding: 0.35rem 0.75rem;
+    }
+    .brand-logo-img {
+        height: 34px;
+    }
+    .flag-icon {
+        width: 18px;
+        height: auto;
+    }
+    .flag-btn {
+        width: 30px;
+        height: 30px;
+    }
+    /* Glow orbs hidden on very small screens */
+    .glow-orb-1,
+    .glow-orb-2 {
+        display: none;
+    }
 }
+
