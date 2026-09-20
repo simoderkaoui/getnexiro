@@ -261,9 +261,27 @@ class Service(models.Model):
     title_fr = models.CharField(_('Title (FR)'), max_length=120, blank=True, default='')
     title_ar = models.CharField(_('Title (AR)'), max_length=120, blank=True, default='')
 
-    description_en = models.TextField(_('Description (EN)'))
-    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
-    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+    slug = models.SlugField(_('Slug'), max_length=150, unique=True, null=True, blank=True)
+
+    subtitle_en = models.CharField(_('Tagline / Subtitle (EN)'), max_length=250, blank=True, default='')
+    subtitle_fr = models.CharField(_('Tagline / Subtitle (FR)'), max_length=250, blank=True, default='')
+    subtitle_ar = models.CharField(_('Tagline / Subtitle (AR)'), max_length=250, blank=True, default='')
+
+    description_en = models.TextField(_('Overview (EN)'))
+    description_fr = models.TextField(_('Overview (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Overview (AR)'), blank=True, default='')
+
+    # Deep Details: Methodology, Deliverables & Specifications
+    methodology_en = models.TextField(_('Engineering Methodology (EN)'), blank=True, default='')
+    methodology_fr = models.TextField(_('Engineering Methodology (FR)'), blank=True, default='')
+    methodology_ar = models.TextField(_('Engineering Methodology (AR)'), blank=True, default='')
+
+    deliverables_en = models.TextField(_('Core Deliverables (EN, newline-separated)'), blank=True, default='')
+    deliverables_fr = models.TextField(_('Core Deliverables (FR, newline-separated)'), blank=True, default='')
+    deliverables_ar = models.TextField(_('Core Deliverables (AR, newline-separated)'), blank=True, default='')
+
+    technologies = models.CharField(_('Technologies & Stacks (comma-separated)'), max_length=300, blank=True)
+    timeline = models.CharField(_('Typical Timeline'), max_length=60, blank=True, default='4 — 8 Weeks')
 
     icon = models.CharField(
         _('Icon'), max_length=30, choices=ICON_CHOICES, default='icon-web',
@@ -277,7 +295,45 @@ class Service(models.Model):
     def title(self): return get_localized(self, 'title')
 
     @property
+    def subtitle(self): return get_localized(self, 'subtitle')
+
+    @property
     def description(self): return get_localized(self, 'description')
+
+    @property
+    def methodology(self): return get_localized(self, 'methodology')
+
+    @property
+    def deliverables(self): return get_localized(self, 'deliverables')
+
+    @property
+    def deliverables_list(self):
+        text = self.deliverables
+        if not text:
+            return []
+        return [line.strip().lstrip('-•* ') for line in text.splitlines() if line.strip()]
+
+    @property
+    def tech_list(self):
+        if not self.technologies:
+            return []
+        return [t.strip() for t in self.technologies.split(',') if t.strip()]
+
+    def get_absolute_url(self):
+        return reverse('core:service_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title_en or f'service-{self.pk or ""}')
+            if not base_slug:
+                base_slug = 'service'
+            slug = base_slug
+            counter = 1
+            while Service.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('Service')
@@ -286,6 +342,40 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title_en or self.title_ar or f"Service #{self.pk}"
+
+
+class ServiceSolution(models.Model):
+    """Specific solution module/capability under a service."""
+
+    service = models.ForeignKey(
+        Service, on_delete=models.CASCADE, related_name='solutions',
+        verbose_name=_('Service'),
+    )
+    title_en = models.CharField(_('Solution Title (EN)'), max_length=150)
+    title_fr = models.CharField(_('Solution Title (FR)'), max_length=150, blank=True, default='')
+    title_ar = models.CharField(_('Solution Title (AR)'), max_length=150, blank=True, default='')
+
+    description_en = models.TextField(_('Solution Description (EN)'))
+    description_fr = models.TextField(_('Solution Description (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Solution Description (AR)'), blank=True, default='')
+
+    icon_emoji = models.CharField(_('Emoji Icon'), max_length=10, default='⚡')
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def description(self): return get_localized(self, 'description')
+
+    class Meta:
+        verbose_name = _('Service Solution')
+        verbose_name_plural = _('Service Solutions')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return f"{self.service.title_en} — {self.title_en}"
+
 
 
 # ── 3. Project Categories ──────────────────────────────────────
@@ -634,7 +724,133 @@ class ProcessStep(models.Model):
         return f"{self.step_number} — {self.title_en}"
 
 
-# ── 12. Store Items (Store Page) ───────────────────────────────
+# ── 12. Blog ───────────────────────────────────────────────────
+
+class BlogCategory(models.Model):
+    """Blog post categories."""
+
+    name_en = models.CharField(_('Name (EN)'), max_length=80)
+    name_fr = models.CharField(_('Name (FR)'), max_length=80, blank=True, default='')
+    name_ar = models.CharField(_('Name (AR)'), max_length=80, blank=True, default='')
+    slug = models.SlugField(_('Slug'), unique=True)
+
+    @property
+    def name(self): return get_localized(self, 'name')
+
+    class Meta:
+        verbose_name = _('Blog Category')
+        verbose_name_plural = _('Blog Categories')
+        ordering = ['name_en']
+
+    def __str__(self):
+        return self.name_en or self.slug
+
+
+class BlogPost(models.Model):
+    """SEO-optimized blog posts with full multilingual support."""
+
+    STATUS_CHOICES = [
+        ('draft', _('Draft')),
+        ('published', _('Published')),
+    ]
+
+    # Core content
+    title_en = models.CharField(_('Title (EN)'), max_length=250)
+    title_fr = models.CharField(_('Title (FR)'), max_length=250, blank=True, default='')
+    title_ar = models.CharField(_('Title (AR)'), max_length=250, blank=True, default='')
+
+    slug = models.SlugField(_('URL Slug'), max_length=280, unique=True, null=True, blank=True)
+
+    excerpt_en = models.TextField(_('Excerpt / Summary (EN)'), max_length=500, blank=True, default='')
+    excerpt_fr = models.TextField(_('Excerpt / Summary (FR)'), max_length=500, blank=True, default='')
+    excerpt_ar = models.TextField(_('Excerpt / Summary (AR)'), max_length=500, blank=True, default='')
+
+    body_en = models.TextField(_('Body (EN)'))
+    body_fr = models.TextField(_('Body (FR)'), blank=True, default='')
+    body_ar = models.TextField(_('Body (AR)'), blank=True, default='')
+
+    # SEO meta
+    meta_title_en = models.CharField(_('SEO Title (EN)'), max_length=70, blank=True, default='', help_text=_('Overrides title in <title> tag. Max 70 chars.'))
+    meta_title_fr = models.CharField(_('SEO Title (FR)'), max_length=70, blank=True, default='')
+    meta_title_ar = models.CharField(_('SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    meta_description_en = models.CharField(_('Meta Description (EN)'), max_length=160, blank=True, default='', help_text=_('Google snippet. Max 160 chars.'))
+    meta_description_fr = models.CharField(_('Meta Description (FR)'), max_length=160, blank=True, default='')
+    meta_description_ar = models.CharField(_('Meta Description (AR)'), max_length=160, blank=True, default='')
+
+    meta_keywords = models.CharField(_('Meta Keywords (comma-separated)'), max_length=300, blank=True, default='')
+
+    # Taxonomy & media
+    category = models.ForeignKey(
+        BlogCategory, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='posts', verbose_name=_('Category'),
+    )
+    featured_image = models.ImageField(_('Featured Image'), upload_to='blog/', blank=True, null=True)
+    featured_image_alt = models.CharField(_('Image Alt Text'), max_length=200, blank=True, default='')
+
+    # Author & metadata
+    author_name = models.CharField(_('Author Name'), max_length=100, default='getNexiro Team')
+    reading_time_minutes = models.PositiveIntegerField(_('Reading Time (minutes)'), default=5)
+    tags = models.CharField(_('Tags (comma-separated)'), max_length=300, blank=True, default='')
+
+    # Publishing
+    status = models.CharField(_('Status'), max_length=10, choices=STATUS_CHOICES, default='draft')
+    is_featured = models.BooleanField(_('Featured'), default=False)
+    published_at = models.DateTimeField(_('Published At'), null=True, blank=True)
+    created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def excerpt(self): return get_localized(self, 'excerpt')
+
+    @property
+    def body(self): return get_localized(self, 'body')
+
+    @property
+    def meta_title(self):
+        val = get_localized(self, 'meta_title')
+        return val if val else self.title
+
+    @property
+    def meta_description(self):
+        val = get_localized(self, 'meta_description')
+        return val if val else self.excerpt[:160]
+
+    @property
+    def tags_list(self):
+        if not self.tags:
+            return []
+        return [t.strip() for t in self.tags.split(',') if t.strip()]
+
+    def get_absolute_url(self):
+        return reverse('core:blog_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title_en or f'post-{self.pk or ""}')
+            if not base_slug:
+                base_slug = 'post'
+            slug = base_slug
+            counter = 1
+            while BlogPost.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _('Blog Post')
+        verbose_name_plural = _('Blog Posts')
+        ordering = ['-published_at', '-created_at']
+
+    def __str__(self):
+        return self.title_en or f"Post #{self.pk}"
+
+
+# ── 13. Store Items (Hidden — Coming Later) ────────────────────
 
 class StoreItem(models.Model):
     """Upcoming products/templates displayed on the Store page."""
@@ -671,4 +887,5 @@ class StoreItem(models.Model):
 
     def __str__(self):
         return self.title_en or f"Store Item #{self.pk}"
+
 

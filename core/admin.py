@@ -8,9 +8,9 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from .models import (
-    SiteConfig, Service, ProjectCategory, Project, ProjectImage,
+    SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
-    CompanyValue, ProcessStep, StoreItem,
+    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
 )
 
 
@@ -82,20 +82,42 @@ class SiteConfigAdmin(admin.ModelAdmin):
         return False
 
 
+class ServiceSolutionInline(admin.TabularInline):
+    model = ServiceSolution
+    extra = 2
+    fields = ('icon_emoji', 'title_en', 'title_fr', 'title_ar', 'description_en', 'description_fr', 'description_ar', 'order')
+
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'title_fr', 'title_ar', 'icon', 'is_featured', 'order')
+    list_display = ('title_en', 'slug', 'icon', 'is_featured', 'order')
     list_filter = ('is_featured', 'icon')
     list_editable = ('is_featured', 'order')
-    search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en', 'description_ar')
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en', 'slug')
+    prepopulated_fields = {'slug': ('title_en',)}
     ordering = ('order',)
+    inlines = [ServiceSolutionInline]
 
     fieldsets = (
-        (_('Titles (Multilingual)'), {
-            'fields': ('title_en', 'title_fr', 'title_ar'),
+        (_('Titles & Slug (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar', 'slug'),
         }),
-        (_('Descriptions (Multilingual)'), {
+        (_('Tagline / Subtitle (Multilingual)'), {
+            'fields': ('subtitle_en', 'subtitle_fr', 'subtitle_ar'),
+        }),
+        (_('Overview (Multilingual)'), {
             'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+        (_('Engineering Methodology (Multilingual)'), {
+            'fields': ('methodology_en', 'methodology_fr', 'methodology_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Core Deliverables (Multilingual)'), {
+            'fields': ('deliverables_en', 'deliverables_fr', 'deliverables_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Technologies & Timeline'), {
+            'fields': ('technologies', 'timeline'),
         }),
         (_('Configuration'), {
             'fields': ('icon', 'is_featured', 'order'),
@@ -323,7 +345,51 @@ class StoreItemAdmin(admin.ModelAdmin):
         }),
     )
 
+@admin.register(BlogCategory)
+class BlogCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name_en', 'name_fr', 'name_ar', 'slug')
+    prepopulated_fields = {'slug': ('name_en',)}
+
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ('title_en', 'category', 'status', 'is_featured', 'author_name', 'reading_time_minutes', 'published_at')
+    list_filter = ('status', 'is_featured', 'category')
+    list_editable = ('status', 'is_featured')
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'body_en', 'slug', 'tags')
+    prepopulated_fields = {'slug': ('title_en',)}
+    date_hierarchy = 'published_at'
+    ordering = ('-published_at', '-created_at')
+
+    fieldsets = (
+        (_('Title & Slug'), {
+            'fields': ('title_en', 'title_fr', 'title_ar', 'slug'),
+        }),
+        (_('Excerpt / Summary (Multilingual)'), {
+            'fields': ('excerpt_en', 'excerpt_fr', 'excerpt_ar'),
+        }),
+        (_('Body (Multilingual)'), {
+            'fields': ('body_en', 'body_fr', 'body_ar'),
+        }),
+        (_('SEO Meta (Multilingual)'), {
+            'fields': ('meta_title_en', 'meta_title_fr', 'meta_title_ar',
+                       'meta_description_en', 'meta_description_fr', 'meta_description_ar',
+                       'meta_keywords'),
+            'classes': ('collapse',),
+        }),
+        (_('Taxonomy & Media'), {
+            'fields': ('category', 'featured_image', 'featured_image_alt', 'tags'),
+        }),
+        (_('Author & Reading'), {
+            'fields': ('author_name', 'reading_time_minutes'),
+        }),
+        (_('Publishing'), {
+            'fields': ('status', 'is_featured', 'published_at'),
+        }),
+    )
+
 
 admin.site.site_header = 'getNexiro Admin'
 admin.site.site_title = 'getNexiro Dashboard'
 admin.site.index_title = 'Content Management'
+

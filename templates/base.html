@@ -144,9 +144,7 @@
                     <a href="{% url 'core:about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">{% trans "About" %}</a>
                     <a href="{% url 'core:services' %}" class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">{% trans "Services" %}</a>
                     <a href="{% url 'core:projects' %}" class="nav-link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">{% trans "Projects" %}</a>
-                    <a href="{% url 'core:store' %}" class="nav-link {% if request.resolver_match.url_name == 'store' %}active{% endif %}">
-                        {% trans "Store" %} <span class="badge-soon">{% trans "Soon" %}</span>
-                    </a>
+                    <a href="{% url 'core:blog' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'blog_detail' %}active{% endif %}">{% trans "Blog" %}</a>
                     <div class="mobile-nav-actions">
                         <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm btn-full">{% trans "Start a Project" %}</a>
                     </div>
@@ -255,6 +253,7 @@
                         <li><a href="{% url 'core:about' %}">{% trans "About Us" %}</a></li>
                         <li><a href="{% url 'core:services' %}">{% trans "Services" %}</a></li>
                         <li><a href="{% url 'core:projects' %}">{% trans "Selected Works" %}</a></li>
+                        <li><a href="{% url 'core:blog' %}">{% trans "Blog" %}</a></li>
                         <li><a href="{% url 'core:contact' %}">{% trans "Contact" %}</a></li>
                     </ul>
                 </div>

@@ -3,9 +3,9 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils.translation import activate
 from core.models import (
-    SiteConfig, Service, ProjectCategory, Project, ProjectImage,
+    SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, Stat, ContactMessage,
-    CompanyValue, ProcessStep, StoreItem,
+    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
 )
 from core.forms import ContactForm
 
@@ -100,9 +100,29 @@ class GetNexiroViewsTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-    def test_store_page(self):
-        response = self.client.get(reverse('core:store'))
+    def test_blog_page(self):
+        response = self.client.get(reverse('core:blog'))
         self.assertEqual(response.status_code, 200)
+
+    def test_blog_detail_page(self):
+        activate('en')
+        from django.utils import timezone
+        cat = BlogCategory.objects.create(name_en='Tech', slug='tech')
+        post = BlogPost.objects.create(
+            title_en='Test Blog Post',
+            body_en='<p>Test content</p>',
+            excerpt_en='Test excerpt',
+            category=cat,
+            status='published',
+            published_at=timezone.now(),
+        )
+        response = self.client.get(reverse('core:blog_detail', kwargs={'slug': post.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Test Blog Post')
+
+    def test_blog_detail_404(self):
+        response = self.client.get(reverse('core:blog_detail', kwargs={'slug': 'nonexistent-post'}))
+        self.assertEqual(response.status_code, 404)
 
     def test_contact_page_get(self):
         response = self.client.get(reverse('core:contact'))
@@ -222,6 +242,38 @@ class GetNexiroViewsTest(TestCase):
 
 
 
+    def test_service_detail_view(self):
+        activate('en')
+        response = self.client.get(
+            reverse('core:service_detail', kwargs={'slug': self.service.slug})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Web Development')
+        self.assertContains(response, 'Modern scalable websites.')
+
+    def test_service_detail_with_solutions(self):
+        activate('en')
+        ServiceSolution.objects.create(
+            service=self.service,
+            title_en='Corporate Sites',
+            title_fr='Sites Corporatifs',
+            title_ar='مواقع الشركات',
+            description_en='Professional corporate websites.',
+            icon_emoji='🌐',
+            order=1,
+        )
+        response = self.client.get(
+            reverse('core:service_detail', kwargs={'slug': self.service.slug})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Corporate Sites')
+
+    def test_service_detail_404(self):
+        response = self.client.get(
+            reverse('core:service_detail', kwargs={'slug': 'nonexistent-service'})
+        )
+        self.assertEqual(response.status_code, 404)
+
 
 class ModelLocalizationTest(TestCase):
     def test_localized_fallback(self):
@@ -299,4 +351,3 @@ class ModelLocalizationTest(TestCase):
         self.assertContains(response, 'https://example.com/hero.mp4')
         self.assertContains(response, 'PREMIUM SOFTWARE')
         self.assertContains(response, 'Call To Action Title')
-

@@ -12,9 +12,9 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from core.models import (
-    SiteConfig, Service, ProjectCategory, Project, ProjectImage,
+    SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat,
-    CompanyValue, ProcessStep, StoreItem,
+    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
 )
 
 
@@ -190,69 +190,165 @@ class Command(BaseCommand):
 
         # ── 3. Services ──
         Service.objects.all().delete()
+        ServiceSolution.objects.all().delete()
         services_data = [
-            (
-                'Web Development',
-                'Développement Web',
-                'تطوير مواقع وتطبيقات الويب',
-                'From responsive marketing sites to complex SaaS platforms, we architect and build robust web solutions using Django, React, and modern cloud stacks.',
-                'Des sites vitrines réactifs aux plateformes SaaS complexes, nous concevons et bâtissons des solutions web robustes avec Django, React et les stacks cloud modernes.',
-                'من المواقع التعريفية التفاعلية إلى منصات SaaS السحابية المعقدة، نصمم ونطور حلول ويب فائقة الأداء باستخدام Django و React وأحدث التقنيات.',
-                'icon-web', True, 1,
-            ),
-            (
-                'Mobile Applications',
-                'Applications Mobiles',
-                'تطوير تطبيقات الجوال',
-                'Native iOS/Android and cross-platform apps built with Flutter and React Native, delivering seamless performance and intuitive user interfaces.',
-                'Applications natives iOS/Android et multiplateformes avec Flutter et React Native, offrant une fluidité parfaite et une ergonomie intuitive.',
-                'تطبيقات أصلية لنظامي iOS و Android وتطبيقات هجينة عبر Flutter و React Native، بأداء سلس وتصميم واجهات مستخدم جذاب.',
-                'icon-mobile', True, 2,
-            ),
-            (
-                'UI/UX & Design Systems',
-                'UI/UX & Design Systems',
-                'تصميم تجربة وواجهة المستخدم',
-                'User research, wireframing, interactive prototyping, and pixel-perfect design systems that elevate your brand and maximize conversion.',
-                'Recherche utilisateur, prototypage interactif et design systems au pixel près pour sublimer votre marque et maximiser vos conversions.',
-                'أبحاث تجربة المستخدم، النماذج التفاعلية، وتصميم أنظمة واجهات متكاملة ترتقي بعلامتك التجارية وتضاعف معدلات التحويل.',
-                'icon-design', True, 3,
-            ),
-            (
-                'Technical Consulting',
-                'Conseil Technique',
-                'الاستشارات التقنية والمعمارية',
-                'Architecture reviews, security audits, and strategic technology roadmapping to ensure your digital investments deliver maximum enterprise ROI.',
-                'Audits d\'architecture, revues de sécurité et feuilles de route technologiques stratégiques pour rentabiliser vos investissements digitaux.',
-                'تدقيق معمارية الأنظمة، مراجعات الأمان والحماية، ووضع خطط تقنية استراتيجية تضمن تحقيق أعلى عائد على استثماراتكم الرقمية.',
-                'icon-consulting', False, 4,
-            ),
-            (
-                'API & Microservices',
-                'API & Microservices',
-                'واجهات البرمجة والخدمات المصغرة',
-                'High-throughput RESTful and GraphQL APIs, seamless third-party integrations, and fault-tolerant microservices architecture.',
-                'APIs RESTful et GraphQL haute performance, intégrations tierces fluides et architecture microservices résiliente.',
-                'واجهات برمجية RESTful و GraphQL عالية الأداء، تكاملات برمجية سلسة وبنية خدمات مصغرة ذات اعتمادية وموثوقية فائقة.',
-                'icon-api', False, 5,
-            ),
-            (
-                'Cloud & DevOps',
-                'Cloud & DevOps',
-                'الحوسبة السحابية و DevOps',
-                'Cloud infrastructure on AWS/GCP, automated CI/CD deployment pipelines, containerization with Docker, and 24/7 observability.',
-                'Infrastructures cloud sur AWS/GCP, pipelines CI/CD automatisés, conteneurisation Docker et observabilité continue.',
-                'بنية تحتية سحابية متطورة على AWS و GCP، أتمتة خطوط النشر CI/CD، حاويات Docker، ومراقبة أداء مستمرة على مدار الساعة.',
-                'icon-cloud', False, 6,
-            ),
+            {
+                'title_en': 'Web Development',
+                'title_fr': 'Développement Web',
+                'title_ar': 'تطوير مواقع وتطبيقات الويب',
+                'subtitle_en': 'Scalable web platforms engineered for growth',
+                'subtitle_fr': 'Plateformes web scalables conçues pour la croissance',
+                'subtitle_ar': 'منصات ويب قابلة للتوسع مصممة للنمو',
+                'description_en': 'From responsive marketing sites to complex SaaS platforms, we architect and build robust web solutions using Django, React, and modern cloud stacks.',
+                'description_fr': 'Des sites vitrines réactifs aux plateformes SaaS complexes, nous concevons et bâtissons des solutions web robustes avec Django, React et les stacks cloud modernes.',
+                'description_ar': 'من المواقع التعريفية التفاعلية إلى منصات SaaS السحابية المعقدة، نصمم ونطور حلول ويب فائقة الأداء باستخدام Django و React وأحدث التقنيات.',
+                'methodology_en': 'We follow an agile methodology with 2-week sprints, continuous integration via GitHub Actions, and automated testing at every stage. Our architecture-first approach ensures your application scales seamlessly from MVP to enterprise.',
+                'methodology_fr': 'Nous suivons une méthodologie agile avec des sprints de 2 semaines, intégration continue via GitHub Actions et tests automatisés à chaque étape.',
+                'methodology_ar': 'نتبع منهجية أجايل بدورات تطوير كل أسبوعين، تكامل مستمر عبر GitHub Actions، واختبارات آلية في كل مرحلة.',
+                'deliverables_en': 'Responsive website or web application\nAdmin dashboard & CMS\nAPI documentation\nPerformance optimization report\nSEO audit & implementation\nDeployment & hosting setup',
+                'deliverables_fr': 'Site web ou application web responsive\nTableau de bord admin & CMS\nDocumentation API\nRapport d\'optimisation des performances\nAudit SEO & implémentation\nDéploiement & configuration hébergement',
+                'deliverables_ar': 'موقع أو تطبيق ويب متجاوب\nلوحة إدارة ونظام إدارة محتوى\nتوثيق API\nتقرير تحسين الأداء\nتدقيق SEO والتنفيذ\nالنشر وإعداد الاستضافة',
+                'technologies': 'Django, React, Next.js, PostgreSQL, Redis, Docker, AWS, Tailwind CSS',
+                'timeline': '4 — 12 Weeks',
+                'icon': 'icon-web', 'is_featured': True, 'order': 1,
+                'solutions': [
+                    {'title_en': 'Corporate Websites', 'title_fr': 'Sites Corporatifs', 'title_ar': 'مواقع الشركات', 'description_en': 'Professional brand-forward websites with CMS, multilingual support, and conversion-optimized landing pages.', 'description_fr': 'Sites professionnels avec CMS, support multilingue et pages d\'atterrissage optimisées.', 'description_ar': 'مواقع احترافية مع نظام إدارة محتوى ودعم متعدد اللغات وصفحات هبوط محسنة.', 'icon_emoji': '🌐', 'order': 1},
+                    {'title_en': 'SaaS Platforms', 'title_fr': 'Plateformes SaaS', 'title_ar': 'منصات SaaS', 'description_en': 'Multi-tenant SaaS applications with subscription billing, user management, and analytics dashboards.', 'description_fr': 'Applications SaaS multi-locataires avec facturation par abonnement et tableaux de bord analytiques.', 'description_ar': 'تطبيقات SaaS متعددة المستأجرين مع فوترة اشتراك ولوحات تحليلية.', 'icon_emoji': '🚀', 'order': 2},
+                    {'title_en': 'E-Commerce Solutions', 'title_fr': 'Solutions E-Commerce', 'title_ar': 'حلول التجارة الإلكترونية', 'description_en': 'Full-featured online stores with payment gateways, inventory management, and order tracking systems.', 'description_fr': 'Boutiques en ligne complètes avec passerelles de paiement et gestion des stocks.', 'description_ar': 'متاجر إلكترونية متكاملة مع بوابات دفع وإدارة مخزون.', 'icon_emoji': '🛒', 'order': 3},
+                ],
+            },
+            {
+                'title_en': 'Mobile Applications',
+                'title_fr': 'Applications Mobiles',
+                'title_ar': 'تطوير تطبيقات الجوال',
+                'subtitle_en': 'Native & cross-platform apps that users love',
+                'subtitle_fr': 'Applications natives et multiplateformes que les utilisateurs adorent',
+                'subtitle_ar': 'تطبيقات أصلية ومتعددة المنصات يحبها المستخدمون',
+                'description_en': 'Native iOS/Android and cross-platform apps built with Flutter and React Native, delivering seamless performance and intuitive user interfaces.',
+                'description_fr': 'Applications natives iOS/Android et multiplateformes avec Flutter et React Native, offrant une fluidité parfaite et une ergonomie intuitive.',
+                'description_ar': 'تطبيقات أصلية لنظامي iOS و Android وتطبيقات هجينة عبر Flutter و React Native، بأداء سلس وتصميم واجهات مستخدم جذاب.',
+                'methodology_en': 'Component-driven development with atomic design principles. We prototype in Figma, build reusable widget libraries, and ship with automated CI/CD pipelines for both App Store and Google Play.',
+                'methodology_fr': 'Développement orienté composants avec principes de design atomique. Prototypage Figma et déploiement CI/CD automatisé.',
+                'methodology_ar': 'تطوير قائم على المكونات مع مبادئ التصميم الذري. نماذج أولية في Figma ونشر CI/CD آلي.',
+                'deliverables_en': 'iOS & Android applications\nUI/UX design files (Figma)\nBackend API integration\nPush notification system\nApp Store & Play Store submission\nPost-launch analytics setup',
+                'deliverables_fr': 'Applications iOS & Android\nFichiers design UI/UX (Figma)\nIntégration API backend\nSystème de notifications push\nSoumission App Store & Play Store\nConfiguration analytics post-lancement',
+                'deliverables_ar': 'تطبيقات iOS و Android\nملفات تصميم UI/UX (Figma)\nتكامل API الخلفية\nنظام إشعارات فورية\nنشر على App Store و Play Store\nإعداد التحليلات بعد الإطلاق',
+                'technologies': 'Flutter, React Native, Swift, Kotlin, Firebase, Supabase',
+                'timeline': '6 — 14 Weeks',
+                'icon': 'icon-mobile', 'is_featured': True, 'order': 2,
+                'solutions': [
+                    {'title_en': 'Consumer Apps', 'title_fr': 'Apps Grand Public', 'title_ar': 'تطبيقات المستهلكين', 'description_en': 'Engaging consumer-facing applications with social features, gamification, and real-time updates.', 'description_fr': 'Applications engageantes avec fonctionnalités sociales, gamification et mises à jour en temps réel.', 'description_ar': 'تطبيقات جذابة مع ميزات اجتماعية وألعاب وتحديثات فورية.', 'icon_emoji': '📱', 'order': 1},
+                    {'title_en': 'Enterprise Mobile', 'title_fr': 'Mobile Entreprise', 'title_ar': 'تطبيقات المؤسسات', 'description_en': 'Internal enterprise apps for field operations, inventory scanning, and workforce management.', 'description_fr': 'Apps internes pour opérations terrain, scan d\'inventaire et gestion du personnel.', 'description_ar': 'تطبيقات داخلية لعمليات الميدان ومسح المخزون وإدارة القوى العاملة.', 'icon_emoji': '🏢', 'order': 2},
+                    {'title_en': 'IoT Companion Apps', 'title_fr': 'Apps IoT Compagnon', 'title_ar': 'تطبيقات إنترنت الأشياء', 'description_en': 'Mobile apps that interface with IoT devices, sensors, and hardware via Bluetooth or Wi-Fi.', 'description_fr': 'Apps mobiles interfaçant avec appareils IoT, capteurs et hardware via Bluetooth ou Wi-Fi.', 'description_ar': 'تطبيقات جوال تتواصل مع أجهزة إنترنت الأشياء والمستشعرات عبر البلوتوث أو الواي فاي.', 'icon_emoji': '📡', 'order': 3},
+                ],
+            },
+            {
+                'title_en': 'UI/UX & Design Systems',
+                'title_fr': 'UI/UX & Design Systems',
+                'title_ar': 'تصميم تجربة وواجهة المستخدم',
+                'subtitle_en': 'Human-centered design that drives engagement',
+                'subtitle_fr': 'Design centré sur l\'humain qui stimule l\'engagement',
+                'subtitle_ar': 'تصميم محوره الإنسان يعزز التفاعل',
+                'description_en': 'User research, wireframing, interactive prototyping, and pixel-perfect design systems that elevate your brand and maximize conversion.',
+                'description_fr': 'Recherche utilisateur, prototypage interactif et design systems au pixel près pour sublimer votre marque et maximiser vos conversions.',
+                'description_ar': 'أبحاث تجربة المستخدم، النماذج التفاعلية، وتصميم أنظمة واجهات متكاملة ترتقي بعلامتك التجارية وتضاعف معدلات التحويل.',
+                'methodology_en': 'Design thinking methodology: Empathize → Define → Ideate → Prototype → Test. We validate every design decision with real user testing and A/B experiments.',
+                'methodology_fr': 'Méthodologie Design Thinking : Empathie → Définition → Idéation → Prototype → Test. Validation par tests utilisateurs réels.',
+                'methodology_ar': 'منهجية التفكير التصميمي: تعاطف ← تعريف ← توليد أفكار ← نموذج أولي ← اختبار. نتحقق من كل قرار تصميمي بالاختبار مع مستخدمين حقيقيين.',
+                'deliverables_en': 'User research report & personas\nWireframes & information architecture\nInteractive Figma prototypes\nDesign system & component library\nBrand style guide\nUsability testing report',
+                'deliverables_fr': 'Rapport de recherche utilisateur & personas\nWireframes & architecture de l\'information\nPrototypes interactifs Figma\nDesign system & bibliothèque de composants\nGuide de style de marque\nRapport de tests d\'utilisabilité',
+                'deliverables_ar': 'تقرير بحث المستخدم والشخصيات\nالهياكل السلكية وبنية المعلومات\nنماذج Figma التفاعلية\nنظام تصميم ومكتبة مكونات\nدليل هوية العلامة التجارية\nتقرير اختبارات قابلية الاستخدام',
+                'technologies': 'Figma, Adobe Creative Suite, Storybook, Tailwind CSS, Framer Motion',
+                'timeline': '3 — 8 Weeks',
+                'icon': 'icon-design', 'is_featured': True, 'order': 3,
+                'solutions': [
+                    {'title_en': 'UX Audits & Research', 'title_fr': 'Audits UX & Recherche', 'title_ar': 'تدقيق وأبحاث UX', 'description_en': 'Comprehensive UX audits with heuristic evaluation, user interviews, and analytics-driven recommendations.', 'description_fr': 'Audits UX complets avec évaluation heuristique, entretiens utilisateurs et recommandations basées sur les données.', 'description_ar': 'تدقيق شامل لتجربة المستخدم مع تقييم استكشافي ومقابلات وتوصيات مبنية على البيانات.', 'icon_emoji': '🔍', 'order': 1},
+                    {'title_en': 'Design Systems', 'title_fr': 'Design Systems', 'title_ar': 'أنظمة التصميم', 'description_en': 'Reusable component libraries with consistent tokens, patterns, and documentation for scalable product design.', 'description_fr': 'Bibliothèques de composants réutilisables avec tokens, patterns et documentation cohérents.', 'description_ar': 'مكتبات مكونات قابلة لإعادة الاستخدام مع رموز وأنماط وتوثيق متسق.', 'icon_emoji': '🎨', 'order': 2},
+                    {'title_en': 'Conversion Optimization', 'title_fr': 'Optimisation des Conversions', 'title_ar': 'تحسين معدلات التحويل', 'description_en': 'Data-driven landing page design and A/B testing strategies to maximize your conversion funnel.', 'description_fr': 'Design de pages d\'atterrissage basé sur les données et stratégies de test A/B.', 'description_ar': 'تصميم صفحات هبوط مبني على البيانات واستراتيجيات اختبار A/B لتعظيم قمع التحويل.', 'icon_emoji': '📈', 'order': 3},
+                ],
+            },
+            {
+                'title_en': 'Technical Consulting',
+                'title_fr': 'Conseil Technique',
+                'title_ar': 'الاستشارات التقنية والمعمارية',
+                'subtitle_en': 'Strategic technology guidance for enterprise growth',
+                'subtitle_fr': 'Conseils technologiques stratégiques pour la croissance',
+                'subtitle_ar': 'إرشادات تقنية استراتيجية لنمو المؤسسات',
+                'description_en': 'Architecture reviews, security audits, and strategic technology roadmapping to ensure your digital investments deliver maximum enterprise ROI.',
+                'description_fr': 'Audits d\'architecture, revues de sécurité et feuilles de route technologiques stratégiques pour rentabiliser vos investissements digitaux.',
+                'description_ar': 'تدقيق معمارية الأنظمة، مراجعات الأمان والحماية، ووضع خطط تقنية استراتيجية تضمن تحقيق أعلى عائد على استثماراتكم الرقمية.',
+                'methodology_en': 'We employ TOGAF and C4 architecture frameworks combined with threat modeling (STRIDE) for security. Our consulting engagements follow a structured assessment → recommendation → implementation roadmap.',
+                'methodology_fr': 'Nous utilisons les frameworks TOGAF et C4 combinés avec la modélisation de menaces (STRIDE) pour la sécurité.',
+                'methodology_ar': 'نستخدم أطر عمل TOGAF و C4 مع نمذجة التهديدات (STRIDE) للأمان.',
+                'deliverables_en': 'Architecture assessment report\nSecurity audit & penetration test results\nTechnology roadmap (12-24 months)\nCost optimization analysis\nVendor comparison matrix\nImplementation playbook',
+                'deliverables_fr': 'Rapport d\'évaluation d\'architecture\nRésultats d\'audit de sécurité\nFeuille de route technologique (12-24 mois)\nAnalyse d\'optimisation des coûts\nMatrice de comparaison des fournisseurs\nManuel d\'implémentation',
+                'deliverables_ar': 'تقرير تقييم المعمارية\nنتائج تدقيق الأمان واختبار الاختراق\nخارطة طريق تقنية (12-24 شهرًا)\nتحليل تحسين التكاليف\nمصفوفة مقارنة الموردين\nدليل التنفيذ',
+                'technologies': 'TOGAF, AWS Well-Architected, Terraform, OWASP',
+                'timeline': '2 — 6 Weeks',
+                'icon': 'icon-consulting', 'is_featured': False, 'order': 4,
+                'solutions': [
+                    {'title_en': 'Architecture Reviews', 'title_fr': 'Revues d\'Architecture', 'title_ar': 'مراجعات المعمارية', 'description_en': 'In-depth analysis of your system architecture with scalability, reliability, and cost recommendations.', 'description_fr': 'Analyse approfondie de votre architecture avec recommandations de scalabilité et fiabilité.', 'description_ar': 'تحليل عميق لمعمارية نظامكم مع توصيات للقابلية للتوسع والموثوقية.', 'icon_emoji': '🏗️', 'order': 1},
+                    {'title_en': 'Security Assessments', 'title_fr': 'Évaluations de Sécurité', 'title_ar': 'تقييمات الأمان', 'description_en': 'Comprehensive security audits including penetration testing, vulnerability scanning, and compliance checks.', 'description_fr': 'Audits de sécurité complets incluant tests d\'intrusion et vérifications de conformité.', 'description_ar': 'تدقيقات أمنية شاملة تشمل اختبار الاختراق ومسح الثغرات وفحوصات الامتثال.', 'icon_emoji': '🛡️', 'order': 2},
+                    {'title_en': 'Digital Transformation', 'title_fr': 'Transformation Digitale', 'title_ar': 'التحول الرقمي', 'description_en': 'Strategic roadmaps for modernizing legacy systems and adopting cloud-native architectures.', 'description_fr': 'Feuilles de route stratégiques pour moderniser les systèmes existants et adopter le cloud natif.', 'description_ar': 'خرائط طريق استراتيجية لتحديث الأنظمة القديمة واعتماد معماريات السحابة الأصلية.', 'icon_emoji': '🔄', 'order': 3},
+                ],
+            },
+            {
+                'title_en': 'API & Microservices',
+                'title_fr': 'API & Microservices',
+                'title_ar': 'واجهات البرمجة والخدمات المصغرة',
+                'subtitle_en': 'High-performance APIs that power your ecosystem',
+                'subtitle_fr': 'APIs haute performance qui alimentent votre écosystème',
+                'subtitle_ar': 'واجهات برمجية عالية الأداء تغذي نظامك البيئي',
+                'description_en': 'High-throughput RESTful and GraphQL APIs, seamless third-party integrations, and fault-tolerant microservices architecture.',
+                'description_fr': 'APIs RESTful et GraphQL haute performance, intégrations tierces fluides et architecture microservices résiliente.',
+                'description_ar': 'واجهات برمجية RESTful و GraphQL عالية الأداء، تكاملات برمجية سلسة وبنية خدمات مصغرة ذات اعتمادية وموثوقية فائقة.',
+                'methodology_en': 'API-first design with OpenAPI specifications, contract testing, and comprehensive documentation. We build event-driven microservices with message queues for reliability.',
+                'methodology_fr': 'Conception API-first avec spécifications OpenAPI, tests de contrat et documentation exhaustive.',
+                'methodology_ar': 'تصميم API-first مع مواصفات OpenAPI واختبارات العقود وتوثيق شامل.',
+                'deliverables_en': 'RESTful or GraphQL API\nOpenAPI/Swagger documentation\nSDK & client libraries\nRate limiting & authentication\nMonitoring & alerting dashboard\nLoad testing results',
+                'deliverables_fr': 'API RESTful ou GraphQL\nDocumentation OpenAPI/Swagger\nSDK & bibliothèques client\nLimitation de débit & authentification\nTableau de bord monitoring & alertes\nRésultats de tests de charge',
+                'deliverables_ar': 'واجهة برمجية RESTful أو GraphQL\nتوثيق OpenAPI/Swagger\nSDK ومكتبات العميل\nتحديد المعدل والمصادقة\nلوحة مراقبة وتنبيهات\nنتائج اختبارات التحميل',
+                'technologies': 'Django REST Framework, GraphQL, RabbitMQ, Celery, gRPC, Kong',
+                'timeline': '4 — 10 Weeks',
+                'icon': 'icon-api', 'is_featured': False, 'order': 5,
+                'solutions': [
+                    {'title_en': 'REST & GraphQL APIs', 'title_fr': 'APIs REST & GraphQL', 'title_ar': 'واجهات REST و GraphQL', 'description_en': 'Production-grade APIs with versioning, pagination, filtering, and comprehensive error handling.', 'description_fr': 'APIs de production avec versioning, pagination, filtrage et gestion d\'erreurs complète.', 'description_ar': 'واجهات برمجية بمستوى الإنتاج مع إصدارات وترقيم صفحات وتصفية ومعالجة أخطاء شاملة.', 'icon_emoji': '⚡', 'order': 1},
+                    {'title_en': 'Third-Party Integrations', 'title_fr': 'Intégrations Tierces', 'title_ar': 'تكاملات الطرف الثالث', 'description_en': 'Seamless integration with payment gateways, CRMs, ERPs, and external data providers.', 'description_fr': 'Intégration fluide avec passerelles de paiement, CRM, ERP et fournisseurs de données externes.', 'description_ar': 'تكامل سلس مع بوابات الدفع وأنظمة CRM وERP ومزودي البيانات الخارجيين.', 'icon_emoji': '🔗', 'order': 2},
+                    {'title_en': 'Event-Driven Architecture', 'title_fr': 'Architecture Événementielle', 'title_ar': 'معمارية مدفوعة بالأحداث', 'description_en': 'Scalable microservices with message queues, event sourcing, and CQRS patterns.', 'description_fr': 'Microservices scalables avec files de messages, event sourcing et patterns CQRS.', 'description_ar': 'خدمات مصغرة قابلة للتوسع مع طوابير رسائل ومصادر أحداث وأنماط CQRS.', 'icon_emoji': '📨', 'order': 3},
+                ],
+            },
+            {
+                'title_en': 'Cloud & DevOps',
+                'title_fr': 'Cloud & DevOps',
+                'title_ar': 'الحوسبة السحابية و DevOps',
+                'subtitle_en': 'Automated infrastructure for zero-downtime operations',
+                'subtitle_fr': 'Infrastructure automatisée pour des opérations sans interruption',
+                'subtitle_ar': 'بنية تحتية آلية لعمليات بدون توقف',
+                'description_en': 'Cloud infrastructure on AWS/GCP, automated CI/CD deployment pipelines, containerization with Docker, and 24/7 observability.',
+                'description_fr': 'Infrastructures cloud sur AWS/GCP, pipelines CI/CD automatisés, conteneurisation Docker et observabilité continue.',
+                'description_ar': 'بنية تحتية سحابية متطورة على AWS و GCP، أتمتة خطوط النشر CI/CD، حاويات Docker، ومراقبة أداء مستمرة على مدار الساعة.',
+                'methodology_en': 'Infrastructure as Code (IaC) with Terraform and Ansible. GitOps workflow with automated rollbacks, blue-green deployments, and comprehensive monitoring with Prometheus/Grafana.',
+                'methodology_fr': 'Infrastructure as Code (IaC) avec Terraform et Ansible. Workflow GitOps avec rollbacks automatisés et monitoring Prometheus/Grafana.',
+                'methodology_ar': 'البنية التحتية كشفرة (IaC) مع Terraform و Ansible. سير عمل GitOps مع تراجعات آلية ومراقبة Prometheus/Grafana.',
+                'deliverables_en': 'Cloud architecture design\nCI/CD pipeline setup\nDocker containerization\nInfrastructure as Code (Terraform)\nMonitoring & alerting (Prometheus/Grafana)\nDisaster recovery plan',
+                'deliverables_fr': 'Design d\'architecture cloud\nConfiguration pipeline CI/CD\nConteneurisation Docker\nInfrastructure as Code (Terraform)\nMonitoring & alertes (Prometheus/Grafana)\nPlan de reprise après sinistre',
+                'deliverables_ar': 'تصميم معمارية السحابة\nإعداد خطوط CI/CD\nحاويات Docker\nالبنية التحتية كشفرة (Terraform)\nمراقبة وتنبيهات (Prometheus/Grafana)\nخطة التعافي من الكوارث',
+                'technologies': 'AWS, GCP, Docker, Kubernetes, Terraform, Ansible, GitHub Actions, Prometheus',
+                'timeline': '2 — 8 Weeks',
+                'icon': 'icon-cloud', 'is_featured': False, 'order': 6,
+                'solutions': [
+                    {'title_en': 'Cloud Migration', 'title_fr': 'Migration Cloud', 'title_ar': 'الهجرة السحابية', 'description_en': 'Seamless migration from on-premises to cloud with minimal downtime and data integrity guarantees.', 'description_fr': 'Migration fluide du on-premise vers le cloud avec temps d\'arrêt minimal et garantie d\'intégrité des données.', 'description_ar': 'هجرة سلسة من البنية المحلية إلى السحابة مع حد أدنى من التوقف وضمان سلامة البيانات.', 'icon_emoji': '☁️', 'order': 1},
+                    {'title_en': 'CI/CD Automation', 'title_fr': 'Automatisation CI/CD', 'title_ar': 'أتمتة CI/CD', 'description_en': 'Automated build, test, and deployment pipelines that ship code to production multiple times per day.', 'description_fr': 'Pipelines automatisés de build, test et déploiement pour livrer du code en production plusieurs fois par jour.', 'description_ar': 'خطوط بناء واختبار ونشر آلية تنشر الكود في الإنتاج عدة مرات يوميًا.', 'icon_emoji': '🔄', 'order': 2},
+                    {'title_en': '24/7 Monitoring', 'title_fr': 'Monitoring 24/7', 'title_ar': 'مراقبة على مدار الساعة', 'description_en': 'Comprehensive observability with custom dashboards, alerting, and incident response automation.', 'description_fr': 'Observabilité complète avec tableaux de bord personnalisés, alertes et automatisation de la réponse aux incidents.', 'description_ar': 'رصد شامل مع لوحات معلومات مخصصة وتنبيهات وأتمتة الاستجابة للحوادث.', 'icon_emoji': '📊', 'order': 3},
+                ],
+            },
         ]
-        for t_en, t_fr, t_ar, d_en, d_fr, d_ar, icon, feat, order in services_data:
-            Service.objects.create(
-                title_en=t_en, title_fr=t_fr, title_ar=t_ar,
-                description_en=d_en, description_fr=d_fr, description_ar=d_ar,
-                icon=icon, is_featured=feat, order=order,
-            )
-        self.stdout.write(f'  [OK] Created {len(services_data)} multilingual services')
+        for svc_data in services_data:
+            solutions = svc_data.pop('solutions', [])
+            svc = Service.objects.create(**svc_data)
+            for sol_data in solutions:
+                ServiceSolution.objects.create(service=svc, **sol_data)
+        self.stdout.write(f'  [OK] Created {len(services_data)} multilingual services with solutions')
 
         # ── 4. Project Categories ──
         ProjectCategory.objects.all().delete()
@@ -780,5 +876,263 @@ class Command(BaseCommand):
             )
             created_store_items += 1
         self.stdout.write(f'  [OK] Created {created_store_items} store preview items')
+
+        # ── 12. Blog Categories & Posts ──
+        BlogCategory.objects.all().delete()
+        BlogPost.objects.all().delete()
+
+        blog_cats = {
+            'engineering': BlogCategory.objects.create(
+                name_en='Engineering', name_fr='Ingénierie', name_ar='الهندسة', slug='engineering',
+            ),
+            'design': BlogCategory.objects.create(
+                name_en='Design', name_fr='Design', name_ar='التصميم', slug='design',
+            ),
+            'business': BlogCategory.objects.create(
+                name_en='Business & Strategy', name_fr='Business & Stratégie', name_ar='الأعمال والاستراتيجية', slug='business-strategy',
+            ),
+        }
+
+        from django.utils import timezone
+        now = timezone.now()
+
+        blog_posts = [
+            {
+                'title_en': 'Why Django is the Best Framework for Enterprise Web Applications in 2026',
+                'title_fr': 'Pourquoi Django est le meilleur framework pour les applications web d\'entreprise en 2026',
+                'title_ar': 'لماذا يعد Django أفضل إطار عمل لتطبيقات الويب المؤسسية في 2026',
+                'slug': 'django-best-framework-enterprise-web-2026',
+                'excerpt_en': 'Discover why leading enterprises choose Django for building scalable, secure, and maintainable web applications. From rapid development to built-in security, explore the key advantages.',
+                'excerpt_fr': 'Découvrez pourquoi les grandes entreprises choisissent Django pour construire des applications web évolutives, sécurisées et maintenables.',
+                'excerpt_ar': 'اكتشف لماذا تختار المؤسسات الكبرى Django لبناء تطبيقات ويب قابلة للتوسع وآمنة وسهلة الصيانة.',
+                'body_en': '''<h2>The Enterprise Framework of Choice</h2>
+<p>In the ever-evolving landscape of web development, Django continues to stand out as the go-to framework for enterprise-grade applications. Companies like Instagram, Mozilla, and NASA trust Django for their mission-critical systems — and for good reason.</p>
+
+<h2>1. Batteries-Included Philosophy</h2>
+<p>Django ships with everything you need out of the box: an ORM, authentication system, admin dashboard, form handling, and more. This <strong>"batteries-included"</strong> approach means your team spends less time integrating third-party libraries and more time building business logic.</p>
+
+<h3>Built-in Admin Dashboard</h3>
+<p>One of Django's most powerful features is its auto-generated admin interface. With just a few lines of code, you get a fully functional content management system that non-technical team members can use immediately.</p>
+
+<h2>2. Security First</h2>
+<p>Django was designed with security as a priority. It provides built-in protection against:</p>
+<ul>
+<li><strong>SQL Injection</strong> — through its ORM and parameterized queries</li>
+<li><strong>Cross-Site Scripting (XSS)</strong> — automatic HTML escaping in templates</li>
+<li><strong>Cross-Site Request Forgery (CSRF)</strong> — built-in CSRF middleware</li>
+<li><strong>Clickjacking</strong> — X-Frame-Options middleware</li>
+</ul>
+
+<h2>3. Scalability That Grows With You</h2>
+<p>Django's architecture supports horizontal scaling through database routing, caching frameworks (Redis, Memcached), and async views introduced in Django 4.1+. Whether you're serving thousands or millions of users, Django can handle it.</p>
+
+<blockquote>Django's ORM makes database operations intuitive, while its migration system ensures schema changes are safe and reversible across distributed teams.</blockquote>
+
+<h2>4. Rich Ecosystem & Community</h2>
+<p>With over 80,000 packages on PyPI and one of the most active open-source communities, finding solutions and getting help is never a problem. Django REST Framework, Celery, and django-allauth are just a few of the battle-tested packages available.</p>
+
+<h2>Why getNexiro Builds With Django</h2>
+<p>At getNexiro, we've built dozens of enterprise applications using Django. Its combination of rapid development, security, and scalability makes it our framework of choice for clients who need reliable, production-grade solutions.</p>
+
+<p>Ready to build your next web application? <a href="/en/contact/">Get in touch with our team</a> for a free consultation.</p>''',
+                'body_fr': '''<h2>Le framework de choix pour l'entreprise</h2>
+<p>Dans le paysage en constante évolution du développement web, Django continue de se démarquer comme le framework incontournable pour les applications de niveau entreprise.</p>
+
+<h2>1. Philosophie "Batteries Incluses"</h2>
+<p>Django est livré avec tout ce dont vous avez besoin : un ORM, un système d'authentification, un tableau de bord admin, la gestion des formulaires et bien plus.</p>
+
+<h2>2. Sécurité d'abord</h2>
+<p>Django a été conçu avec la sécurité comme priorité, offrant une protection intégrée contre les injections SQL, XSS, CSRF et le clickjacking.</p>
+
+<h2>3. Évolutivité</h2>
+<p>L'architecture de Django supporte la mise à l'échelle horizontale grâce au routage de base de données, aux frameworks de cache et aux vues asynchrones.</p>
+
+<h2>Pourquoi getNexiro utilise Django</h2>
+<p>Chez getNexiro, nous avons construit des dizaines d'applications d'entreprise avec Django. Sa combinaison de développement rapide, de sécurité et d'évolutivité en fait notre choix de prédilection.</p>''',
+                'body_ar': '''<h2>إطار العمل المفضل للمؤسسات</h2>
+<p>في المشهد المتطور باستمرار لتطوير الويب، يستمر Django في التميز كإطار العمل المفضل للتطبيقات على مستوى المؤسسات.</p>
+
+<h2>1. فلسفة "البطاريات مضمنة"</h2>
+<p>يأتي Django مع كل ما تحتاجه: ORM ونظام مصادقة ولوحة إدارة ومعالجة نماذج والمزيد.</p>
+
+<h2>2. الأمان أولاً</h2>
+<p>تم تصميم Django مع الأمان كأولوية، حيث يوفر حماية مدمجة ضد حقن SQL وXSS وCSRF والنقر الخادع.</p>
+
+<h2>لماذا تبني getNexiro باستخدام Django</h2>
+<p>في getNexiro، قمنا ببناء عشرات التطبيقات المؤسسية باستخدام Django. مزيجه من التطوير السريع والأمان وقابلية التوسع يجعله خيارنا المفضل.</p>''',
+                'meta_title_en': 'Why Django is Best for Enterprise Web Apps in 2026',
+                'meta_title_fr': 'Pourquoi Django est le meilleur pour les apps web entreprise en 2026',
+                'meta_title_ar': 'لماذا Django الأفضل لتطبيقات الويب المؤسسية 2026',
+                'meta_description_en': 'Learn why Django remains the top choice for enterprise web development in 2026. Security, scalability, and rapid development explained.',
+                'meta_description_fr': 'Découvrez pourquoi Django reste le choix numéro un pour le développement web entreprise en 2026.',
+                'meta_description_ar': 'تعرف لماذا يظل Django الخيار الأول لتطوير تطبيقات الويب المؤسسية في 2026.',
+                'meta_keywords': 'Django, enterprise web development, Python framework, web application, scalability, security, getNexiro, Tangier',
+                'category': blog_cats['engineering'],
+                'author_name': 'getNexiro Team',
+                'reading_time_minutes': 7,
+                'tags': 'Django, Python, Web Development, Enterprise, Backend',
+                'status': 'published',
+                'is_featured': True,
+                'published_at': now,
+            },
+            {
+                'title_en': '10 UI/UX Design Principles That Convert Visitors Into Customers',
+                'title_fr': '10 principes de design UI/UX qui convertissent les visiteurs en clients',
+                'title_ar': '10 مبادئ تصميم UI/UX تحول الزوار إلى عملاء',
+                'slug': 'ui-ux-design-principles-convert-visitors-customers',
+                'excerpt_en': 'Master the design principles that leading agencies use to create high-converting digital experiences. From visual hierarchy to micro-interactions, here\'s what actually works.',
+                'excerpt_fr': 'Maîtrisez les principes de design que les agences leaders utilisent pour créer des expériences digitales à forte conversion.',
+                'excerpt_ar': 'أتقن مبادئ التصميم التي تستخدمها الوكالات الرائدة لإنشاء تجارب رقمية عالية التحويل.',
+                'body_en': '''<h2>Design That Drives Results</h2>
+<p>Great design isn't just about aesthetics — it's about creating experiences that guide users toward meaningful actions. After years of building digital products, we've distilled the most impactful UI/UX principles that consistently drive conversions.</p>
+
+<h2>1. Visual Hierarchy is Everything</h2>
+<p>Users should instantly understand what's most important on your page. Use size, color, contrast, and whitespace to create a clear hierarchy that guides the eye naturally.</p>
+
+<h2>2. The 3-Second Rule</h2>
+<p>You have approximately 3 seconds to communicate your value proposition. Your hero section must answer three questions: <strong>What do you do? Who is it for? Why should I care?</strong></p>
+
+<h2>3. Reduce Cognitive Load</h2>
+<p>Every decision you ask a user to make is friction. Simplify navigation, limit choices (Hick's Law), and use progressive disclosure to reveal complexity only when needed.</p>
+
+<h2>4. Strategic Use of Color</h2>
+<p>Color psychology plays a crucial role in conversion. Use your primary action color consistently for CTAs, and ensure sufficient contrast ratios (WCAG 2.1 AA minimum).</p>
+
+<h2>5. Mobile-First Design</h2>
+<p>With over 60% of web traffic coming from mobile devices, designing for mobile first ensures your most constrained experience is optimized before scaling up.</p>
+
+<h2>6. Micro-Interactions Build Trust</h2>
+<p>Subtle animations on button hovers, form submissions, and page transitions create a polished experience that builds unconscious trust with your users.</p>
+
+<h2>7. Social Proof Placement</h2>
+<p>Place testimonials, client logos, and case study results near your CTAs. Social proof reduces uncertainty at the exact moment users are making a decision.</p>
+
+<h2>8. F-Pattern & Z-Pattern Layouts</h2>
+<p>Eye-tracking studies show users scan pages in F or Z patterns. Align your most important content with these natural scanning behaviors.</p>
+
+<h2>9. Performance IS UX</h2>
+<p>A 1-second delay in page load time can reduce conversions by 7%. Optimize images, minimize HTTP requests, and leverage CDN caching.</p>
+
+<h2>10. Continuous Testing</h2>
+<p>The best-performing designs are never guessed — they're tested. Implement A/B testing, heatmaps, and session recordings to make data-driven design decisions.</p>
+
+<h2>Apply These Principles Today</h2>
+<p>At getNexiro, we integrate these principles into every project we deliver. Whether you need a complete redesign or a conversion optimization audit, <a href="/en/contact/">let's talk</a>.</p>''',
+                'body_fr': '''<h2>Un design qui génère des résultats</h2>
+<p>Le bon design n'est pas seulement une question d'esthétique — c'est créer des expériences qui guident les utilisateurs vers des actions significatives.</p>
+
+<h2>1. La hiérarchie visuelle est primordiale</h2>
+<p>Les utilisateurs doivent comprendre instantanément ce qui est le plus important sur votre page.</p>
+
+<h2>2. La règle des 3 secondes</h2>
+<p>Vous avez environ 3 secondes pour communiquer votre proposition de valeur.</p>
+
+<h2>Appliquez ces principes dès aujourd'hui</h2>
+<p>Chez getNexiro, nous intégrons ces principes dans chaque projet que nous livrons.</p>''',
+                'body_ar': '''<h2>تصميم يحقق النتائج</h2>
+<p>التصميم الجيد ليس مجرد جماليات — إنه إنشاء تجارب توجه المستخدمين نحو إجراءات ذات معنى.</p>
+
+<h2>1. التسلسل البصري هو كل شيء</h2>
+<p>يجب أن يفهم المستخدمون على الفور ما هو الأهم في صفحتك.</p>
+
+<h2>2. قاعدة الـ 3 ثوانٍ</h2>
+<p>لديك حوالي 3 ثوانٍ لتوصيل عرض القيمة الخاص بك.</p>
+
+<h2>طبق هذه المبادئ اليوم</h2>
+<p>في getNexiro، ندمج هذه المبادئ في كل مشروع نقدمه.</p>''',
+                'meta_title_en': '10 UI/UX Design Principles That Convert | getNexiro',
+                'meta_title_fr': '10 principes UI/UX qui convertissent | getNexiro',
+                'meta_title_ar': '10 مبادئ تصميم UI/UX تحول الزوار لعملاء',
+                'meta_description_en': 'Discover 10 proven UI/UX design principles that convert website visitors into paying customers. Expert tips from getNexiro design team.',
+                'meta_description_fr': 'Découvrez 10 principes de design UI/UX éprouvés qui convertissent les visiteurs en clients payants.',
+                'meta_description_ar': 'اكتشف 10 مبادئ تصميم UI/UX مثبتة تحول زوار الموقع إلى عملاء يدفعون.',
+                'meta_keywords': 'UI/UX design, conversion optimization, web design principles, user experience, visual hierarchy, getNexiro',
+                'category': blog_cats['design'],
+                'author_name': 'getNexiro Team',
+                'reading_time_minutes': 9,
+                'tags': 'UI/UX, Design, Conversion, Web Design, User Experience',
+                'status': 'published',
+                'is_featured': True,
+                'published_at': now - timezone.timedelta(days=3),
+            },
+            {
+                'title_en': 'How to Choose the Right Tech Stack for Your Startup in Morocco',
+                'title_fr': 'Comment choisir la bonne stack technique pour votre startup au Maroc',
+                'title_ar': 'كيف تختار المجموعة التقنية المناسبة لشركتك الناشئة في المغرب',
+                'slug': 'choose-right-tech-stack-startup-morocco',
+                'excerpt_en': 'Choosing the right technology stack can make or break your startup. Here\'s a practical guide for Moroccan entrepreneurs on selecting technologies that balance speed, cost, and scalability.',
+                'excerpt_fr': 'Choisir la bonne stack technique peut faire ou défaire votre startup. Guide pratique pour les entrepreneurs marocains.',
+                'excerpt_ar': 'اختيار المجموعة التقنية المناسبة يمكن أن يصنع أو يدمر شركتك الناشئة. دليل عملي لرواد الأعمال المغاربة.',
+                'body_en': '''<h2>The Technology Decision That Shapes Your Future</h2>
+<p>For startups in Morocco's growing tech ecosystem — from Casablanca to Tangier — choosing the right tech stack is one of the most consequential decisions you'll make. The wrong choice can lead to expensive rewrites, slow development, and difficulty hiring talent.</p>
+
+<h2>Understanding Your Requirements First</h2>
+<p>Before looking at specific technologies, answer these critical questions:</p>
+<ul>
+<li><strong>Time to market:</strong> How quickly do you need to launch your MVP?</li>
+<li><strong>Scale expectations:</strong> Will you serve hundreds or millions of users?</li>
+<li><strong>Team availability:</strong> What talent pool exists in your region?</li>
+<li><strong>Budget constraints:</strong> What's your runway for development?</li>
+</ul>
+
+<h2>Recommended Stacks by Use Case</h2>
+
+<h3>For Web Applications: Django + React</h3>
+<p>This combination offers rapid backend development with Django's batteries-included approach, paired with React's component-based frontend architecture. It's our most recommended stack for B2B SaaS products.</p>
+
+<h3>For Mobile Apps: Flutter</h3>
+<p>Flutter provides a single codebase for iOS and Android with native performance. For startups watching their budget, it eliminates the need for two separate development teams.</p>
+
+<h3>For E-Commerce: Django + Next.js</h3>
+<p>Server-side rendering with Next.js provides the SEO benefits e-commerce sites need, while Django handles complex business logic, inventory, and payment processing.</p>
+
+<h2>The Morocco Factor</h2>
+<p>When building a startup in Morocco, consider the local developer ecosystem. Python/Django and JavaScript developers are abundant in cities like Casablanca, Rabat, and Tangier, making hiring easier and more cost-effective.</p>
+
+<blockquote>The best tech stack is the one your team can build, maintain, and scale with confidence.</blockquote>
+
+<h2>Need Help Deciding?</h2>
+<p>At getNexiro, we offer free technical consultations to help startups choose the right technologies. <a href="/en/contact/">Schedule a call</a> with our engineering team today.</p>''',
+                'body_fr': '''<h2>La décision technologique qui façonne votre avenir</h2>
+<p>Pour les startups dans l'écosystème tech croissant du Maroc, choisir la bonne stack technique est l'une des décisions les plus importantes.</p>
+
+<h2>Comprendre vos besoins d'abord</h2>
+<p>Avant de regarder des technologies spécifiques, répondez à ces questions critiques sur le temps de mise en marché, les attentes d'échelle, la disponibilité des talents et les contraintes budgétaires.</p>
+
+<h2>Stacks recommandées par cas d'utilisation</h2>
+<p>Pour les applications web: Django + React. Pour les apps mobiles: Flutter. Pour le e-commerce: Django + Next.js.</p>
+
+<h2>Besoin d'aide pour décider ?</h2>
+<p>Chez getNexiro, nous offrons des consultations techniques gratuites pour aider les startups à choisir les bonnes technologies.</p>''',
+                'body_ar': '''<h2>القرار التقني الذي يشكل مستقبلك</h2>
+<p>بالنسبة للشركات الناشئة في النظام البيئي التقني المتنامي في المغرب، يعد اختيار المجموعة التقنية المناسبة من أهم القرارات.</p>
+
+<h2>فهم متطلباتك أولاً</h2>
+<p>قبل النظر في تقنيات محددة، أجب على هذه الأسئلة الحرجة حول وقت الوصول للسوق وتوقعات النطاق وتوفر الفريق وقيود الميزانية.</p>
+
+<h2>المجموعات الموصى بها حسب حالة الاستخدام</h2>
+<p>لتطبيقات الويب: Django + React. لتطبيقات الجوال: Flutter. للتجارة الإلكترونية: Django + Next.js.</p>
+
+<h2>هل تحتاج مساعدة في القرار؟</h2>
+<p>في getNexiro، نقدم استشارات تقنية مجانية لمساعدة الشركات الناشئة على اختيار التقنيات المناسبة.</p>''',
+                'meta_title_en': 'Choosing the Right Tech Stack for Your Moroccan Startup',
+                'meta_title_fr': 'Choisir la bonne stack tech pour votre startup marocaine',
+                'meta_title_ar': 'اختيار المجموعة التقنية لشركتك الناشئة المغربية',
+                'meta_description_en': 'Practical guide for Moroccan startups on choosing the best tech stack. Django, React, Flutter compared for speed, cost, and scalability.',
+                'meta_description_fr': 'Guide pratique pour les startups marocaines sur le choix de la meilleure stack technique.',
+                'meta_description_ar': 'دليل عملي للشركات الناشئة المغربية حول اختيار أفضل مجموعة تقنية.',
+                'meta_keywords': 'tech stack, startup Morocco, Django, React, Flutter, web development Tangier, mobile app Morocco, getNexiro',
+                'category': blog_cats['business'],
+                'author_name': 'getNexiro Team',
+                'reading_time_minutes': 6,
+                'tags': 'Startup, Morocco, Tech Stack, Django, React, Flutter, Strategy',
+                'status': 'published',
+                'is_featured': False,
+                'published_at': now - timezone.timedelta(days=7),
+            },
+        ]
+        for post_data in blog_posts:
+            BlogPost.objects.create(**post_data)
+        self.stdout.write(f'  [OK] Created {len(blog_cats)} blog categories and {len(blog_posts)} SEO-optimized blog posts')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))

@@ -10,9 +10,9 @@ from django.utils.translation import gettext as _
 from django.contrib import messages
 from .forms import ContactForm
 from .models import (
-    SiteConfig, Service, ProjectCategory, Project,
+    SiteConfig, Service, ServiceSolution, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
-    CompanyValue, ProcessStep, StoreItem,
+    CompanyValue, ProcessStep, BlogCategory, BlogPost,
 )
 from .emails import send_contact_emails
 
@@ -33,6 +33,7 @@ def home(request):
         'stats': Stat.objects.all()[:4],
         'testimonials': Testimonial.objects.filter(is_featured=True)[:3],
         'client_logos': ClientLogo.objects.all()[:8],
+        'latest_posts': BlogPost.objects.filter(status='published')[:3],
     })
     return render(request, 'core/home.html', ctx)
 
@@ -90,14 +91,60 @@ def project_detail(request, slug):
     return render(request, 'core/project_detail.html', ctx)
 
 
-
-def store(request):
-    """Store page: coming soon placeholder."""
+def service_detail(request, slug):
+    """Service detail page with solutions grid, methodology, deliverables, tech stack, and CTAs."""
     ctx = _get_common_context()
+    service = get_object_or_404(
+        Service.objects.prefetch_related('solutions'),
+        slug=slug
+    )
+
+    # Related services (same order, exclude current)
+    related_services = Service.objects.exclude(pk=service.pk)[:3]
+
     ctx.update({
-        'store_items': StoreItem.objects.filter(is_active=True),
+        'service': service,
+        'related_services': related_services,
     })
-    return render(request, 'core/store.html', ctx)
+    return render(request, 'core/service_detail.html', ctx)
+
+
+def blog(request):
+    """Blog listing page with SEO-optimized structure."""
+    ctx = _get_common_context()
+    category_slug = request.GET.get('category')
+    posts = BlogPost.objects.filter(status='published').select_related('category')
+
+    if category_slug:
+        posts = posts.filter(category__slug=category_slug)
+
+    ctx.update({
+        'posts': posts,
+        'categories': BlogCategory.objects.all(),
+        'active_category': category_slug,
+    })
+    return render(request, 'core/blog.html', ctx)
+
+
+def blog_detail(request, slug):
+    """Individual blog post with full SEO meta, structured data, and related posts."""
+    ctx = _get_common_context()
+    post = get_object_or_404(
+        BlogPost.objects.select_related('category'),
+        slug=slug, status='published'
+    )
+
+    related_posts = BlogPost.objects.filter(
+        status='published', category=post.category
+    ).exclude(pk=post.pk)[:3]
+    if not related_posts.exists():
+        related_posts = BlogPost.objects.filter(status='published').exclude(pk=post.pk)[:3]
+
+    ctx.update({
+        'post': post,
+        'related_posts': related_posts,
+    })
+    return render(request, 'core/blog_detail.html', ctx)
 
 
 def contact(request):
