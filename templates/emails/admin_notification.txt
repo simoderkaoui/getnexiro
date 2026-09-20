@@ -11,7 +11,11 @@ Email Address: {{ email }}
 Subject:       {{ subject }}
 Received At:   {{ created_at|date:"Y-m-d H:i:s" }} (Casablanca / GMT+1)
 Language:      {{ language|upper }}
-Client IP:     {{ ip_address }}
+Client IP:     {{ ip_address }}{% if geo_location %}
+Location:      {{ geo_location }}{% endif %}{% if geo_isp %}
+ISP / Network: {{ geo_isp }}{% endif %}{% if geo_timezone %}
+Timezone:      {{ geo_timezone }}{% endif %}{% if geo_lat and geo_lon %}
+Google Maps:   https://www.google.com/maps?q={{ geo_lat }},{{ geo_lon }}{% endif %}
 
 MESSAGE CONTENT
 ------------------------------------------------------------

@@ -5,8 +5,10 @@ Engineered for maximum deliverability (SPF/DKIM/DMARC compliance, CAN-SPAM,
 multipart/alternative, and proper RFC headers) to ensure messages land in the inbox.
 """
 
+import json
 import logging
 import threading
+import urllib.request
 from django.conf import settings
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
@@ -27,11 +29,75 @@ def get_client_ip(request):
     return request.META.get('REMOTE_ADDR', 'Unknown')
 
 
+def geolocate_ip(ip_address):
+    """
+    Lookup geographic location from IP address using free APIs.
+    Returns a dict with city, region, country, country_code, lat, lon, isp, timezone.
+    Falls back gracefully if the lookup fails or IP is local/unknown.
+    """
+    empty = {
+        'city': '', 'region': '', 'country': '', 'country_code': '',
+        'lat': '', 'lon': '', 'isp': '', 'timezone': '', 'location_str': '',
+    }
+
+    if not ip_address or ip_address in ('Unknown', '127.0.0.1', 'localhost', '::1'):
+        return empty
+
+    # Try multiple free geo APIs in priority order
+    apis = [
+        {
+            'url': f'http://ip-api.com/json/{ip_address}?fields=status,country,countryCode,regionName,city,lat,lon,timezone,isp,org',
+            'parse': lambda d: {
+                'city': d.get('city', ''),
+                'region': d.get('regionName', ''),
+                'country': d.get('country', ''),
+                'country_code': d.get('countryCode', ''),
+                'lat': str(d.get('lat', '')),
+                'lon': str(d.get('lon', '')),
+                'isp': d.get('isp') or d.get('org', ''),
+                'timezone': d.get('timezone', ''),
+            } if d.get('status') == 'success' else None,
+        },
+        {
+            'url': f'https://freeipapi.com/api/json/{ip_address}',
+            'parse': lambda d: {
+                'city': d.get('cityName', ''),
+                'region': d.get('regionName', ''),
+                'country': d.get('countryName', ''),
+                'country_code': d.get('countryCode', ''),
+                'lat': str(d.get('latitude', '')),
+                'lon': str(d.get('longitude', '')),
+                'isp': '',
+                'timezone': str(d.get('timeZone', '')),
+            } if d.get('cityName') else None,
+        },
+    ]
+
+    for api in apis:
+        try:
+            req = urllib.request.Request(api['url'], headers={'User-Agent': 'getNexiro-GeoLookup/1.0'})
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                result = api['parse'](data)
+                if result and result.get('city'):
+                    # Build human-readable location string
+                    parts = [p for p in [result['city'], result['region'], result['country']] if p]
+                    result['location_str'] = ', '.join(parts)
+                    return result
+        except Exception:
+            continue
+
+    return empty
+
+
 def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, admin_url):
     """Synchronous worker that compiles and sends both emails."""
     try:
         config = SiteConfig.load()
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <getnexiro@gmail.com>')
+
+        # ── Geo-locate the sender's IP ──────────────────────────
+        geo = geolocate_ip(ip_address)
 
         # ── 1. Admin Notification Email ──────────────────────────
         admin_subject = f"[getNexiro Inquiry] {contact_message.subject} — {contact_message.name}"
@@ -46,6 +112,16 @@ def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, ad
             'admin_recipient': admin_recipient,
             'admin_url': admin_url,
             'config': config,
+            # Geolocation data
+            'geo_city': geo.get('city', ''),
+            'geo_region': geo.get('region', ''),
+            'geo_country': geo.get('country', ''),
+            'geo_country_code': geo.get('country_code', ''),
+            'geo_location': geo.get('location_str', ''),
+            'geo_lat': geo.get('lat', ''),
+            'geo_lon': geo.get('lon', ''),
+            'geo_isp': geo.get('isp', ''),
+            'geo_timezone': geo.get('timezone', ''),
         }
 
         admin_text = render_to_string('emails/admin_notification.txt', admin_context)
