@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default:'en' }}" {% if lang == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>getNexiro — Confirmation</title>
+    <!--[if mso]>
+    <style type="text/css">
+        table {border-collapse:collapse;border-spacing:0;margin:0;}
+        div, td {padding:0;}
+        div {margin:0 !important;}
+    </style>
+    <![endif]-->
+</head>
+<body style="margin: 0; padding: 0; background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color: #f1f5f9; {% if lang == 'ar' %}text-align: right; direction: rtl;{% else %}text-align: left; direction: ltr;{% endif %}">
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #0b0f19; padding: 32px 16px;">
+        <tr>
+            <td align="center">
+                <!-- Main Email Card -->
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #111827; border: 1px solid #1f2937; border-radius: 14px; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);">
+                    
+                    <!-- Header with Logo -->
+                    <tr>
+                        <td style="padding: 28px 32px; background: linear-gradient(135deg, #131d33 0%, #0d1526 100%); border-bottom: 1px solid #1e293b;">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td valign="middle">
+                                        <!-- Logo Brand Mark (SVG + Typography) -->
+                                        <table role="presentation" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td valign="middle" style="padding-right: 12px; {% if lang == 'ar' %}padding-right: 0; padding-left: 12px;{% endif %}">
+                                                    <!-- Vector Emblem SVG -->
+                                                    <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                        <rect width="40" height="40" rx="10" fill="#0f172a" stroke="#06b6d4" stroke-width="1.5"/>
+                                                        <path d="M12 26L18 14L22 21L28 14" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <circle cx="28" cy="26" r="2.5" fill="#38bdf8"/>
+                                                    </svg>
+                                                </td>
+                                                <td valign="middle">
+                                                    <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #ffffff; line-height: 1;">
+                                                        get<span style="color: #06b6d4;">Nexiro</span>
+                                                    </div>
+                                                    <div style="font-size: 11px; color: #94a3b8; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; font-weight: 600;">
+                                                        Software Studio • Tangier
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="{% if lang == 'ar' %}left{% else %}right{% endif %}" valign="middle">
+                                        <span style="display: inline-block; background-color: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.3); color: #22d3ee; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            {% if lang == 'fr' %}Message Reçu{% elif lang == 'ar' %}تم الاستلام{% else %}Inquiry Received{% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 32px;">
+                            {% if lang == 'fr' %}
+                            <!-- FRENCH VERSION -->
+                            <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #ffffff; line-height: 1.3;">
+                                Bonjour {{ name }},
+                            </h1>
+                            <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #cbd5e1;">
+                                Merci d'avoir contacté <strong>getNexiro</strong>. Nous vous confirmons la bonne réception de votre message concernant <span style="color: #38bdf8; font-weight: 600;">&laquo;&nbsp;{{ subject }}&nbsp;&raquo;</span>.
+                            </p>
+                            <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: #94a3b8;">
+                                Notre équipe d'ingénierie logicielle basée à Tanger examine actuellement votre demande. Nous nous engageons à vous apporter une réponse personnalisée et détaillée sous <strong>24 heures ouvrées</strong>.
+                            </p>
+                            {% elif lang == 'ar' %}
+                            <!-- ARABIC VERSION -->
+                            <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #ffffff; line-height: 1.4;">
+                                مرحباً {{ name }}،
+                            </h1>
+                            <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.8; color: #cbd5e1;">
+                                شكراً لتواصلك مع <strong>getNexiro</strong>. نؤكد لك استلامنا لرسالتك بخصوص <span style="color: #38bdf8; font-weight: 600;">&laquo;&nbsp;{{ subject }}&nbsp;&raquo;</span>.
+                            </p>
+                            <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.8; color: #94a3b8;">
+                                يعكف فريقنا الهندسي في طنجة حالياً على مراجعة طلبك باهتمام. نحرص دائماً على الرد عليك والتواصل معك خلال <strong>24 ساعة عمل</strong>.
+                            </p>
+                            {% else %}
+                            <!-- ENGLISH VERSION (DEFAULT) -->
+                            <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #ffffff; line-height: 1.3;">
+                                Hi {{ name }},
+                            </h1>
+                            <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #cbd5e1;">
+                                Thank you for reaching out to <strong>getNexiro</strong>. We have safely received your inquiry regarding <span style="color: #38bdf8; font-weight: 600;">"{{ subject }}"</span>.
+                            </p>
+                            <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: #94a3b8;">
+                                Our software engineering team in Tangier is currently reviewing your project details. We typically respond with technical insights and next steps within <strong>24 business hours</strong>.
+                            </p>
+                            {% endif %}
+
+                            <!-- Summary Box -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 10px; margin-bottom: 28px;">
+                                <tr>
+                                    <td style="padding: 18px 22px;">
+                                        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; color: #06b6d4; margin-bottom: 8px;">
+                                            {% if lang == 'fr' %}Récapitulatif de votre message{% elif lang == 'ar' %}ملخص رسالتك{% else %}Summary of Your Inquiry{% endif %}
+                                        </div>
+                                        <div style="font-size: 13px; font-weight: 600; color: #ffffff; margin-bottom: 6px;">
+                                            {% if lang == 'fr' %}Sujet :{% elif lang == 'ar' %}الموضوع:{% else %}Subject:{% endif %} {{ subject }}
+                                        </div>
+                                        <div style="font-size: 13px; color: #94a3b8; line-height: 1.5; white-space: pre-wrap; background-color: #0b1120; padding: 12px 14px; border-radius: 6px; border: 1px solid #1e293b;">{{ message }}</div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Direct Contact Options / WhatsApp -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(30, 41, 59, 0.4) 100%); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 10px; margin-bottom: 28px;">
+                                <tr>
+                                    <td style="padding: 18px 22px;">
+                                        <div style="font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 4px;">
+                                            {% if lang == 'fr' %}Besoin d'une réponse urgente ?{% elif lang == 'ar' %}هل طلبك ذو أولوية عاجلة؟{% else %}Need immediate assistance?{% endif %}
+                                        </div>
+                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">
+                                            {% if lang == 'fr' %}Notre équipe est joignable directement par WhatsApp ou téléphone :{% elif lang == 'ar' %}فريقنا متاح أيضاً مباشرة عبر واتساب أو الاتصال الهاتفي:{% else %}You can connect directly with our engineering team via WhatsApp or phone:{% endif %}
+                                        </div>
+                                        <table role="presentation" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td style="border-radius: 6px; background-color: #059669; padding: 8px 16px;">
+                                                    <a href="https://wa.me/212787862187?text={{ 'Hello getNexiro, following up on inquiry: ' | urlencode }}{{ subject | urlencode }}" target="_blank" style="color: #ffffff; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-block;">
+                                                        WhatsApp: +212 787 862 187 &rarr;
+                                                    </a>
+                                                </td>
+                                                <td style="padding-left: 12px; {% if lang == 'ar' %}padding-left: 0; padding-right: 12px;{% endif %}">
+                                                    <a href="tel:+212663017817" style="color: #38bdf8; font-size: 12px; font-weight: 600; text-decoration: none;">
+                                                        +212 663 017 817
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Signature Block -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top: 1px solid #1f2937; padding-top: 24px;">
+                                <tr>
+                                    <td>
+                                        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 3px;">
+                                            {% if lang == 'fr' %}L'équipe getNexiro{% elif lang == 'ar' %}فريق getNexiro{% else %}The getNexiro Team{% endif %}
+                                        </div>
+                                        <div style="font-size: 12px; color: #06b6d4; font-weight: 600; margin-bottom: 3px;">
+                                            {% if lang == 'fr' %}Ingénierie Logicielle & Architectures Numériques{% elif lang == 'ar' %}هندسة البرمجيات والحلول الرقمية المتقدمة{% else %}Software Engineering & Digital Architecture{% endif %}
+                                        </div>
+                                        <div style="font-size: 11px; color: #64748b; margin-bottom: 12px;">
+                                            {% if lang == 'fr' %}Tanger, Maroc &bull; Porte d'entrée entre l'Europe et l'Afrique{% elif lang == 'ar' %}طنجة، المغرب &bull; بوابة أوروبا وإفريقيا{% else %}Tangier, Morocco &bull; Gateway to Europe & Africa{% endif %}
+                                        </div>
+                                        <div style="font-size: 12px; color: #94a3b8; line-height: 1.6;">
+                                            <a href="https://getnexiro.com" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 500;">getnexiro.com</a>
+                                            &nbsp;&bull;&nbsp;
+                                            <a href="mailto:{{ config.email|default:'getnexiro@gmail.com' }}" style="color: #94a3b8; text-decoration: none;">{{ config.email|default:'getnexiro@gmail.com' }}</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- CAN-SPAM Compliant Footer -->
+                    <tr>
+                        <td style="padding: 22px 32px; background-color: #0d1322; border-top: 1px solid #1e293b; text-align: center;">
+                            <p style="margin: 0 0 6px 0; font-size: 11px; color: #64748b; line-height: 1.5;">
+                                <strong>getNexiro</strong> &bull; Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine, Tangier 90000, Morocco
+                            </p>
+                            <p style="margin: 0; font-size: 10px; color: #475569; line-height: 1.4;">
+                                {% if lang == 'fr' %}
+                                Vous recevez cet email automatique de confirmation suite à votre message envoyé sur getnexiro.com.
+                                {% elif lang == 'ar' %}
+                                وصلتك هذه الرسالة التلقائية لتأكيد استلام طلبك عبر نموذج التواصل في getnexiro.com.
+                                {% else %}
+                                You received this automated confirmation because you contacted us through the getnexiro.com contact form.
+                                {% endif %}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

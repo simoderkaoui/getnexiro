@@ -12,11 +12,24 @@ from django.utils.translation import gettext_lazy as _
 # ──────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env file if present
+_env_file = BASE_DIR / '.env'
+if _env_file.exists():
+    try:
+        with open(_env_file, 'r', encoding='utf-8') as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if _line and not _line.startswith('#') and '=' in _line:
+                    _k, _v = _line.split('=', 1)
+                    os.environ.setdefault(_k.strip(), _v.strip().strip('\'"'))
+    except Exception:
+        pass
+
 # ──────────────────────────────────────────────
 # Security
 # ──────────────────────────────────────────────
-SECRET_KEY = 'django-insecure-change-me-in-production-getnexiro-2025'
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-production-getnexiro-2025')
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't')
 ALLOWED_HOSTS = ['*', 'getnexiro.com', 'www.getnexiro.com', 'getnexiro.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = [
     'https://getnexiro.com',
@@ -142,3 +155,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # ──────────────────────────────────────────────
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ──────────────────────────────────────────────
+# Email Configuration (SMTP & Anti-Spam Deliverability)
+# ──────────────────────────────────────────────
+# In local development without credentials, console backend safely displays emails in terminal.
+# When EMAIL_HOST_USER is provided (or in production), SMTP backend delivers live emails.
+EMAIL_BACKEND = os.environ.get(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.smtp.EmailBackend' if os.environ.get('EMAIL_HOST_USER')
+    else 'django.core.mail.backends.console.EmailBackend'
+)
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 't')
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() in ('true', '1', 't')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'getNexiro <getnexiro@gmail.com>')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', DEFAULT_FROM_EMAIL)
+EMAIL_TIMEOUT = int(os.environ.get('EMAIL_TIMEOUT', '10'))

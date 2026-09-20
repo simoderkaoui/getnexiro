@@ -1,0 +1,100 @@
+{% if lang == 'fr' %}Bonjour {{ name }},
+
+Merci d'avoir contacté getNexiro.
+
+Nous vous confirmons la bonne réception de votre message concernant "{{ subject }}". Notre équipe d'ingénierie logicielle basée à Tanger examine actuellement votre demande avec la plus grande attention.
+
+Nous nous engageons à vous apporter une réponse personnalisée sous 24 heures ouvrées.
+
+RÉCAPITULATIF DE VOTRE DEMANDE :
+------------------------------------------------------------
+Sujet :   {{ subject }}
+Message :
+{{ message }}
+------------------------------------------------------------
+
+Une urgence concernant votre projet ?
+Vous pouvez nous contacter directement par WhatsApp ou téléphone :
+- WhatsApp : +212 787 862 187 (https://wa.me/212787862187)
+- Téléphone : +212 663 017 817
+
+Cordialement,
+
+L'équipe getNexiro
+Ingénierie Logicielle & Architectures Numériques
+Tanger, Maroc • Porte d'entrée entre l'Europe et l'Afrique
+
+Site web : https://getnexiro.com
+Email : {{ config.email|default:"getnexiro@gmail.com" }}
+Téléphone : {{ config.phone|default:"+212 663 017 817" }}
+Adresse : Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine, Tanger 90000, Maroc
+
+------------------------------------------------------------
+Vous recevez cet email automatique car vous avez soumis un formulaire de contact sur getnexiro.com.
+{% elif lang == 'ar' %}مرحباً {{ name }}،
+
+شكراً لتواصلك مع getNexiro.
+
+نؤكد لك استلامنا لرسالتك بخصوص "{{ subject }}". يعكف فريقنا الهندسي في طنجة حالياً على دراسة طلبك بكل اهتمام.
+
+نحرص دائماً على الرد والتواصل معك خلال 24 ساعة عمل.
+
+ملخص رسالتك:
+------------------------------------------------------------
+الموضوع: {{ subject }}
+نص الرسالة:
+{{ message }}
+------------------------------------------------------------
+
+هل مشروعك ذو أولوية عاجلة؟
+يمكنك التواصل معنا مباشرة عبر واتساب أو الهاتف:
+- واتساب: +212 787 862 187 (https://wa.me/212787862187)
+- الهاتف: +212 663 017 817
+
+مع أطيب التحيات،
+
+فريق getNexiro
+هندسة البرمجيات والبنيات الرقمية المتقدمة
+طنجة، المغرب • بوابة أوروبا وإفريقيا
+
+الموقع: https://getnexiro.com
+البريد الإلكتروني: {{ config.email|default:"getnexiro@gmail.com" }}
+الهاتف: {{ config.phone|default:"+212 663 017 817" }}
+العنوان: مكاتب ابن بطوطة، شارع يوسف بن تاشفين، طنجة 90000، المغرب
+
+------------------------------------------------------------
+وصلك هذا البريد التلقائي لتأكيد استلام رسالتك عبر موقع getnexiro.com.
+{% else %}Hi {{ name }},
+
+Thank you for reaching out to getNexiro.
+
+We have successfully received your message regarding "{{ subject }}". Our software engineering team in Tangier is currently reviewing your inquiry with close attention.
+
+We typically respond within 24 business hours.
+
+SUMMARY OF YOUR INQUIRY:
+------------------------------------------------------------
+Subject: {{ subject }}
+Message:
+{{ message }}
+------------------------------------------------------------
+
+Have an urgent inquiry or need immediate assistance?
+You can reach our team directly via WhatsApp or phone:
+- WhatsApp: +212 787 862 187 (https://wa.me/212787862187)
+- Phone: +212 663 017 817
+
+Best regards,
+
+The getNexiro Team
+Software Engineering & Digital Architecture
+Tangier, Morocco • Gateway to Europe & Africa
+
+Website: https://getnexiro.com
+Email:   {{ config.email|default:"getnexiro@gmail.com" }}
+Phone:   {{ config.phone|default:"+212 663 017 817" }}
+Address: Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine, Tangier 90000, Morocco
+
+------------------------------------------------------------
+You received this automated confirmation because you submitted a contact inquiry on getnexiro.com.
+{% endif %}

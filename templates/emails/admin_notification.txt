@@ -1,0 +1,30 @@
+============================================================
+[NEW INQUIRY] getNexiro Website Contact Form
+============================================================
+
+A new message has been submitted via the contact form on getnexiro.com.
+
+SENDER DETAILS
+------------------------------------------------------------
+Full Name:     {{ name }}
+Email Address: {{ email }}
+Subject:       {{ subject }}
+Received At:   {{ created_at|date:"Y-m-d H:i:s" }} (Casablanca / GMT+1)
+Language:      {{ language|upper }}
+Client IP:     {{ ip_address }}
+
+MESSAGE CONTENT
+------------------------------------------------------------
+{{ message }}
+
+------------------------------------------------------------
+ACTION REQUIRED:
+To reply to the sender, simply reply directly to this email
+or email {{ name }} at: {{ email }}
+
+Manage inquiries in Django Admin:
+{{ admin_url }}
+
+============================================================
+getNexiro — B2B Software Studio • Tangier, Morocco
+============================================================

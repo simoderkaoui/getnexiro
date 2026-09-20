@@ -14,6 +14,7 @@ from .models import (
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, StoreItem,
 )
+from .emails import send_contact_emails
 
 
 def _get_common_context():
@@ -82,12 +83,15 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            ContactMessage.objects.create(
+            contact_msg = ContactMessage.objects.create(
                 name=form.cleaned_data['name'],
                 email=form.cleaned_data['email'],
                 subject=form.cleaned_data['subject'],
                 message=form.cleaned_data['message'],
             )
+            # Dispatch both admin notification and sender confirmation emails
+            send_contact_emails(contact_msg, request=request)
+
             messages.success(request, _('Thank you for your message! We will get back to you shortly.'))
             return redirect('core:contact')
     else:
