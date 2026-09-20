@@ -4,94 +4,600 @@
 {% block title %}{{ project.title }} — {% trans "Case Study" %} | {{ config.site_name }}{% endblock %}
 
 {% block content %}
-{# ═══════════════════════════════════════════ #}
-{# BREADCRUMBS & PROJECT HERO HEADER           #}
-{# ═══════════════════════════════════════════ #}
-<section class="page-header project-detail-header">
+<style>
+/* ═════════════════════════════════════════════════════════════════════
+   PROJECT DETAILS PAGE — SCOPED PREMIUM STYLES (Self-Contained)
+   ═════════════════════════════════════════════════════════════════════ */
+.project-detail-page {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+/* ── Breadcrumb Bar ── */
+.project-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    margin-bottom: 1.75rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.project-breadcrumb a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.project-breadcrumb a:hover {
+    color: #38bdf8;
+}
+.project-breadcrumb .sep {
+    color: #475569;
+}
+.project-breadcrumb .current {
+    color: #f8fafc;
+    font-weight: 600;
+}
+
+/* ── Hero Section ── */
+.project-hero {
+    margin-bottom: 2.5rem;
+}
+.project-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    margin-bottom: 1rem;
+}
+.project-hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+}
+.project-hero-subtitle {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #94a3b8;
+    max-width: 860px;
+    margin-bottom: 2.25rem;
+}
+
+/* ── Metadata Specs Grid (4 Cards) ── */
+.project-specs-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+.spec-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+.spec-box:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.spec-box-icon {
+    font-size: 1.6rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+.spec-box-meta {
+    display: flex;
+    flex-direction: column;
+}
+.spec-box-k {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    color: #64748b;
+    font-weight: 600;
+}
+.spec-box-v {
+    font-size: 0.95rem;
+    color: #f1f5f9;
+    font-weight: 700;
+    margin-top: 0.15rem;
+}
+.spec-box-btn {
+    text-decoration: none;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+    border-color: rgba(14, 165, 233, 0.35);
+}
+.spec-box-btn:hover {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%);
+    border-color: #38bdf8;
+}
+
+/* ── Interactive Carousel Gallery ── */
+.showcase-carousel-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #080c14;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(6, 182, 212, 0.08);
+    margin-bottom: 3.5rem;
+}
+.showcase-viewport {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 520px;
+    background: #050811;
+}
+@media (max-width: 768px) {
+    .showcase-viewport {
+        height: 320px;
+    }
+}
+.showcase-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+.showcase-slide {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #070b14;
+    user-select: none;
+}
+.showcase-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.showcase-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 2rem;
+    background: linear-gradient(to top, rgba(7, 11, 20, 0.95) 0%, rgba(7, 11, 20, 0.5) 65%, transparent 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #f1f5f9;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.showcase-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.showcase-btn:hover {
+    background: #0ea5e9;
+    color: #ffffff;
+    border-color: #38bdf8;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.6);
+    transform: translateY(-50%) scale(1.1);
+}
+.showcase-prev { left: 1.25rem; }
+.showcase-next { right: 1.25rem; }
+
+[dir="rtl"] .showcase-prev { left: auto; right: 1.25rem; transform: translateY(-50%) rotate(180deg); }
+[dir="rtl"] .showcase-next { right: auto; left: 1.25rem; transform: translateY(-50%) rotate(180deg); }
+[dir="rtl"] .showcase-prev:hover { transform: translateY(-50%) rotate(180deg) scale(1.1); }
+[dir="rtl"] .showcase-next:hover { transform: translateY(-50%) rotate(180deg) scale(1.1); }
+
+.showcase-counter {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #38bdf8;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+[dir="rtl"] .showcase-counter {
+    right: auto;
+    left: 1.25rem;
+}
+
+.showcase-thumbnails {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1rem 1.5rem;
+    overflow-x: auto;
+    background: rgba(11, 17, 32, 0.9);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.showcase-thumb-btn {
+    width: 90px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+.showcase-thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.showcase-thumb-btn.active, .showcase-thumb-btn:hover {
+    opacity: 1;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.45);
+    transform: translateY(-2px);
+}
+
+/* ── Content Grid (Narrative + Sticky Sidebar) ── */
+.case-study-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.15fr;
+    gap: 3rem;
+    align-items: start;
+}
+@media (max-width: 992px) {
+    .case-study-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+.narrative-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+}
+
+.narrative-card {
+    padding: 2.25rem;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+}
+.narrative-card.accent-cyan {
+    border-left: 3px solid #06b6d4;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.04) 0%, rgba(15, 23, 42, 0.65) 100%);
+}
+[dir="rtl"] .narrative-card.accent-cyan {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 3px solid #06b6d4;
+}
+
+.narrative-card.accent-indigo {
+    border-left: 3px solid #6366f1;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(15, 23, 42, 0.65) 100%);
+}
+[dir="rtl"] .narrative-card.accent-indigo {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 3px solid #6366f1;
+}
+
+.narrative-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+}
+.narrative-body {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #cbd5e1;
+}
+
+/* ── Testimonial Card ── */
+.testimonial-card-deluxe {
+    position: relative;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(17, 24, 39, 0.95) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+.testimonial-card-deluxe .quote-text {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    font-style: italic;
+    color: #f1f5f9;
+    margin-bottom: 1.5rem;
+}
+.testimonial-card-deluxe .author-name {
+    display: block;
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+.testimonial-card-deluxe .author-role {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* ── Sidebar Cards ── */
+.sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 6rem;
+}
+@media (max-width: 992px) {
+    .sidebar-col {
+        position: static;
+    }
+}
+
+.sidebar-box {
+    padding: 2rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+}
+.sidebar-box-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tech-pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.tech-badge {
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    color: #38bdf8;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ── Call To Action Box (High Conversion) ── */
+.sidebar-cta-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(8, 14, 26, 0.98) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.45);
+    box-shadow: 0 15px 45px rgba(6, 182, 212, 0.15);
+}
+.cta-heading {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+.cta-text {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+}
+.cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+.btn-cta-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    box-shadow: 0 0 25px rgba(14, 165, 233, 0.45);
+    transition: all 0.25s ease;
+}
+.btn-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(14, 165, 233, 0.65);
+}
+.btn-cta-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #ffffff !important;
+    background: #059669;
+    transition: all 0.25s ease;
+}
+.btn-cta-whatsapp:hover {
+    background: #047857;
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(5, 150, 105, 0.45);
+}
+.btn-cta-call {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #cbd5e1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.25s ease;
+}
+.btn-cta-call:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff !important;
+}
+
+/* ── Related Projects Section ── */
+.related-section {
+    margin-top: 5rem;
+    padding-top: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+</style>
+
+<div class="project-detail-page">
     <div class="container">
-        <!-- Breadcrumbs -->
-        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        {# ── 1. BREADCRUMBS ── #}
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
             <a href="{% url 'core:home' %}">{% trans "Home" %}</a>
-            <span class="breadcrumb-separator">/</span>
+            <span class="sep">/</span>
             <a href="{% url 'core:projects' %}">{% trans "Projects" %}</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">{{ project.title }}</span>
+            <span class="sep">/</span>
+            <span class="current">{{ project.title }}</span>
         </nav>
 
-        <div class="project-hero-content">
+        {# ── 2. HERO HEADER ── #}
+        <header class="project-hero">
             {% if project.category %}
-            <span class="badge-tag">{{ project.category.name }}</span>
+            <div class="project-badge">
+                <span>🏷️</span> {{ project.category.name }}
+            </div>
             {% endif %}
-            <h1 class="page-title project-detail-title">{{ project.title }}</h1>
-            <p class="page-subtitle project-detail-subtitle">{{ project.description }}</p>
 
-            <!-- Project Specs Bar -->
-            <div class="project-specs-grid glass-card">
-                {% if project.client_name %}
-                <div class="project-spec-item">
-                    <span class="spec-label">{% trans "Client" %}</span>
-                    <span class="spec-value">{{ project.client_name }}</span>
+            <h1 class="project-hero-title">
+                <span class="text-gradient">{{ project.title }}</span>
+            </h1>
+
+            <p class="project-hero-subtitle">
+                {{ project.description }}
+            </p>
+
+            {# ── 3. SPECS METADATA DECK (4 Frosted Mini-Cards) ── #}
+            <div class="project-specs-deck">
+                <div class="spec-box">
+                    <div class="spec-box-icon">🏢</div>
+                    <div class="spec-box-meta">
+                        <span class="spec-box-k">{% trans "Client" %}</span>
+                        <strong class="spec-box-v">{{ project.client_name|default:_("Enterprise Client") }}</strong>
+                    </div>
                 </div>
-                {% endif %}
+
                 {% if project.category %}
-                <div class="project-spec-item">
-                    <span class="spec-label">{% trans "Category" %}</span>
-                    <span class="spec-value">{{ project.category.name }}</span>
+                <div class="spec-box">
+                    <div class="spec-box-icon">🏷️</div>
+                    <div class="spec-box-meta">
+                        <span class="spec-box-k">{% trans "Domain / Sector" %}</span>
+                        <strong class="spec-box-v">{{ project.category.name }}</strong>
+                    </div>
                 </div>
                 {% endif %}
-                <div class="project-spec-item">
-                    <span class="spec-label">{% trans "Year" %}</span>
-                    <span class="spec-value">{{ project.year|default:"2025" }}</span>
+
+                <div class="spec-box">
+                    <div class="spec-box-icon">📅</div>
+                    <div class="spec-box-meta">
+                        <span class="spec-box-k">{% trans "Year & Duration" %}</span>
+                        <strong class="spec-box-v">{{ project.year|default:"2025" }} • {{ project.duration|default:"3 Months" }}</strong>
+                    </div>
                 </div>
-                <div class="project-spec-item">
-                    <span class="spec-label">{% trans "Timeline" %}</span>
-                    <span class="spec-value">{{ project.duration|default:"3 Months" }}</span>
-                </div>
+
                 {% if project.live_url %}
-                <div class="project-spec-item spec-action">
-                    <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                        <span>{% trans "Visit Live Platform" %}</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                </div>
-                {% endif %}
-                {% if project.github_url %}
-                <div class="project-spec-item spec-action">
-                    <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        <span>{% trans "Source Code" %}</span>
-                    </a>
-                </div>
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="spec-box spec-box-btn">
+                    <div class="spec-box-icon">🚀</div>
+                    <div class="spec-box-meta">
+                        <span class="spec-box-k">{% trans "Live Platform" %}</span>
+                        <strong class="spec-box-v" style="color:#38bdf8;">{% trans "Visit Platform" %} &nearr;</strong>
+                    </div>
+                </a>
                 {% endif %}
             </div>
-        </div>
-    </div>
-</section>
+        </header>
 
-{# ═══════════════════════════════════════════ #}
-{# INTERACTIVE GALLERY CAROUSEL                #}
-{# ═══════════════════════════════════════════ #}
-<section class="section project-gallery-section">
-    <div class="container">
-        <div class="project-carousel-wrapper glass-card" id="projectCarousel">
-            <div class="carousel-viewport">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Slide 1: Primary Cover Image -->
+        {# ── 4. INTERACTIVE SHOWCASE CAROUSEL ── #}
+        <section class="showcase-carousel-wrap" id="projectShowcase">
+            <div class="showcase-viewport">
+                <div class="showcase-track" id="showcaseTrack">
+                    <!-- Slide 1: Primary Cover Architecture -->
                     {% if project.image %}
-                    <div class="carousel-slide active" data-index="0">
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="carousel-img">
-                        <div class="carousel-caption">
-                            <span>{% trans "Cover Architecture" %} — {{ project.title }}</span>
+                    <div class="showcase-slide active" data-index="0">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        <div class="showcase-caption">
+                            <span>{% trans "Architecture Overview" %} — {{ project.title }}</span>
                         </div>
                     </div>
                     {% endif %}
 
                     <!-- Gallery Slides -->
                     {% for item in gallery_images %}
-                    <div class="carousel-slide {% if not project.image and forloop.first %}active{% endif %}" data-index="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}">
-                        <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }}" class="carousel-img">
+                    <div class="showcase-slide {% if not project.image and forloop.first %}active{% endif %}" data-index="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}">
+                        <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }}">
                         {% if item.caption %}
-                        <div class="carousel-caption">
+                        <div class="showcase-caption">
                             <span>{{ item.caption }}</span>
                         </div>
                         {% endif %}
@@ -100,226 +606,209 @@
                 </div>
 
                 <!-- Navigation Controls -->
-                <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="{% trans 'Previous slide' %}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <button class="showcase-btn showcase-prev" id="showcasePrev" aria-label="{% trans 'Previous image' %}">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
-                <button class="carousel-btn carousel-next" id="carouselNext" aria-label="{% trans 'Next slide' %}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <button class="showcase-btn showcase-next" id="showcaseNext" aria-label="{% trans 'Next image' %}">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
 
-                <!-- Counter Badge -->
-                <div class="carousel-counter" id="carouselCounter">
-                    <span id="carouselCurrent">1</span> / <span id="carouselTotal">1</span>
+                <!-- Live Counter -->
+                <div class="showcase-counter" id="showcaseCounter">
+                    <span id="showcaseCurrent">1</span> / <span id="showcaseTotal">1</span>
                 </div>
             </div>
 
-            <!-- Carousel Thumbnails Strip -->
-            <div class="carousel-thumbnails" id="carouselThumbs">
+            <!-- Clickable Thumbnails Strip -->
+            <div class="showcase-thumbnails" id="showcaseThumbs">
                 {% if project.image %}
-                <button class="thumb-btn active" data-thumb="0" aria-label="{% trans 'Slide 1' %}">
+                <button class="showcase-thumb-btn active" data-thumb="0" aria-label="{% trans 'Slide 1' %}">
                     <img src="{{ project.image.url }}" alt="Thumb 0">
                 </button>
                 {% endif %}
                 {% for item in gallery_images %}
-                <button class="thumb-btn {% if not project.image and forloop.first %}active{% endif %}" data-thumb="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}" aria-label="Slide {{ forloop.counter }}">
+                <button class="showcase-thumb-btn {% if not project.image and forloop.first %}active{% endif %}" data-thumb="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}" aria-label="Slide {{ forloop.counter }}">
                     <img src="{{ item.image.url }}" alt="Thumb {{ forloop.counter }}">
                 </button>
                 {% endfor %}
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-{# ═══════════════════════════════════════════ #}
-{# CASE STUDY DEEP-DIVE (CHALLENGE / SOLUTION) #}
-{# ═══════════════════════════════════════════ #}
-<section class="section project-content-section">
-    <div class="container">
-        <div class="project-content-grid">
-            <!-- Left / Main Column: Case Study Narrative -->
-            <div class="project-narrative">
+        {# ── 5. CASE STUDY CONTENT GRID ── #}
+        <div class="case-study-grid">
+            <!-- Left Column: Story Narrative -->
+            <main class="narrative-col">
                 <!-- Overview -->
-                <div class="project-block glass-card">
-                    <h2 class="project-block-title">
-                        <span class="block-icon">📌</span>
-                        {% trans "Project Overview" %}
+                <article class="narrative-card">
+                    <h2 class="narrative-title">
+                        <span>📌</span> {% trans "Project Overview" %}
                     </h2>
-                    <div class="project-text-content">
+                    <div class="narrative-body">
                         <p>{{ project.description|linebreaksbr }}</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- The Challenge -->
+                <!-- Challenge -->
                 {% if project.challenge %}
-                <div class="project-block glass-card">
-                    <h2 class="project-block-title">
-                        <span class="block-icon">🎯</span>
-                        {% trans "The Challenge" %}
+                <article class="narrative-card accent-indigo">
+                    <h2 class="narrative-title">
+                        <span>🎯</span> {% trans "The Challenge" %}
                     </h2>
-                    <div class="project-text-content">
+                    <div class="narrative-body">
                         <p>{{ project.challenge|linebreaksbr }}</p>
                     </div>
-                </div>
+                </article>
                 {% endif %}
 
                 <!-- Architecture & Solution -->
                 {% if project.solution %}
-                <div class="project-block glass-card highlight-border">
-                    <h2 class="project-block-title">
-                        <span class="block-icon">⚡</span>
-                        {% trans "Architecture & Engineering Solution" %}
+                <article class="narrative-card accent-cyan">
+                    <h2 class="narrative-title">
+                        <span>⚡</span> {% trans "Architecture & Solution" %}
                     </h2>
-                    <div class="project-text-content">
+                    <div class="narrative-body">
                         <p>{{ project.solution|linebreaksbr }}</p>
                     </div>
-                </div>
+                </article>
                 {% endif %}
 
-                <!-- Results & Business Impact -->
+                <!-- Results & Impact -->
                 {% if project.results %}
-                <div class="project-block glass-card">
-                    <h2 class="project-block-title">
-                        <span class="block-icon">📈</span>
-                        {% trans "Results & Business Impact" %}
+                <article class="narrative-card">
+                    <h2 class="narrative-title">
+                        <span>📈</span> {% trans "Results & Business Impact" %}
                     </h2>
-                    <div class="project-text-content">
+                    <div class="narrative-body">
                         <p>{{ project.results|linebreaksbr }}</p>
                     </div>
-                </div>
+                </article>
                 {% endif %}
 
-                <!-- Client Testimonial / Feedback -->
+                <!-- Client Testimonial -->
                 {% if project.client_feedback_quote %}
-                <div class="project-testimonial-card glass-card">
-                    <div class="quote-mark">“</div>
-                    <blockquote class="client-quote">
-                        {{ project.client_feedback_quote }}
-                    </blockquote>
-                    <div class="quote-author-info">
+                <div class="testimonial-card-deluxe">
+                    <p class="quote-text">“{{ project.client_feedback_quote }}”</p>
+                    <div>
                         {% if project.client_feedback_author %}
-                        <strong>{{ project.client_feedback_author }}</strong>
+                        <strong class="author-name">{{ project.client_feedback_author }}</strong>
                         {% endif %}
                         {% if project.client_feedback_role %}
-                        <span>{{ project.client_feedback_role }}</span>
+                        <span class="author-role">{{ project.client_feedback_role }}</span>
                         {% endif %}
                     </div>
                 </div>
                 {% endif %}
-            </div>
+            </main>
 
-            <!-- Right Column / Sidebar: Tech Stack & Easy Quick CTAs -->
-            <aside class="project-sidebar">
-                <!-- Tech Stack Card -->
+            <!-- Right Column: Sidebar Specs & Quick CTAs -->
+            <aside class="sidebar-col">
+                <!-- Tech Stack -->
                 {% if project.tech_list %}
-                <div class="sidebar-card glass-card">
-                    <h3 class="sidebar-card-title">
+                <div class="sidebar-box">
+                    <h3 class="sidebar-box-title">
                         <span>🛠️</span> {% trans "Technologies & Tools" %}
                     </h3>
-                    <div class="tech-pills-wrap">
+                    <div class="tech-pill-grid">
                         {% for tech in project.tech_list %}
-                        <span class="tech-pill">{{ tech }}</span>
+                        <span class="tech-badge">{{ tech }}</span>
                         {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
-                <!-- EASY REMINDER CALL TO ACTION CARD -->
-                <div class="sidebar-card cta-sidebar-card glass-card">
-                    <div class="badge-tag">{% trans "Ready to Build?" %}</div>
-                    <h3 class="cta-sidebar-title">{% trans "Inspired by this Project?" %}</h3>
-                    <p class="cta-sidebar-desc">
-                        {% trans "Let's architect a high-velocity digital platform tailored to your specific business requirements." %}
+                <!-- High-Converting CTA Box -->
+                <div class="sidebar-box sidebar-cta-card">
+                    <div class="project-badge" style="margin-bottom:0.5rem;">
+                        <span>✨</span> {% trans "Start Your Project" %}
+                    </div>
+                    <h3 class="cta-heading">{% trans "Inspired by this Project?" %}</h3>
+                    <p class="cta-text">
+                        {% trans "Let's engineer a high-velocity digital platform tailored to your specific business requirements." %}
                     </p>
 
-                    <div class="cta-sidebar-buttons">
-                        <!-- Primary CTA: Direct Contact with Pre-filled Subject -->
-                        <a href="{% url 'core:contact' %}?subject={{ 'Project Inquiry: '|urlencode }}{{ project.title_en|urlencode }}" class="btn btn-primary btn-full btn-glow">
+                    <div class="cta-stack">
+                        <!-- 1. Contact Form (Pre-filled Subject) -->
+                        <a href="{% url 'core:contact' %}?subject={{ 'Project Inquiry: '|urlencode }}{{ project.title_en|urlencode }}" class="btn-cta-primary">
                             <span>{% trans "Start a Similar Project" %}</span>
-                            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
 
-                        <!-- Secondary CTA: Instant WhatsApp Connection -->
-                        <a href="https://wa.me/212787862187?text={{ 'Hello getNexiro, I am interested in building a solution like: '|urlencode }}{{ project.title_en|urlencode }}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-full">
+                        <!-- 2. WhatsApp Instant Chat -->
+                        <a href="https://wa.me/212787862187?text={{ 'Hello getNexiro, I am interested in building a solution like: '|urlencode }}{{ project.title_en|urlencode }}" target="_blank" rel="noopener noreferrer" class="btn-cta-whatsapp">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                             <span>{% trans "Chat on WhatsApp" %}</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                         </a>
 
-                        <!-- Tertiary CTA: Phone Call -->
-                        <a href="tel:{{ config.phone|default:'+212663017817' }}" class="btn btn-outline btn-full">
+                        <!-- 3. Phone Call -->
+                        <a href="tel:{{ config.phone|default:'+212663017817' }}" class="btn-cta-call">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                             <span>{% trans "Call Studio Directly" %}</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                         </a>
                     </div>
                 </div>
             </aside>
         </div>
-    </div>
-</section>
 
-{# ═══════════════════════════════════════════ #}
-{# MORE PROJECTS / RELATED CASE STUDIES        #}
-{# ═══════════════════════════════════════════ #}
-{% if related_projects %}
-<section class="section section-related-projects">
-    <div class="container">
-        <div class="section-header-flex">
-            <div>
-                <div class="badge-tag">{% trans "Portfolio" %}</div>
-                <h2 class="section-title">{% trans "Explore More Case Studies" %}</h2>
+        {# ── 6. RELATED CASE STUDIES ── #}
+        {% if related_projects %}
+        <section class="related-section">
+            <div class="section-header-flex" style="margin-bottom:2rem;">
+                <div>
+                    <div class="project-badge">{% trans "Portfolio" %}</div>
+                    <h2 style="font-size:1.85rem; font-weight:800; color:#fff;">{% trans "Explore More Case Studies" %}</h2>
+                </div>
+                <a href="{% url 'core:projects' %}" class="btn btn-outline btn-sm">
+                    <span>{% trans "View All Projects" %}</span>
+                    <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
             </div>
-            <a href="{% url 'core:projects' %}" class="btn btn-outline btn-sm">
-                <span>{% trans "View All Projects" %}</span>
-                <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-        </div>
 
-        <div class="projects-preview-grid">
-            {% for rel_proj in related_projects %}
-            <div class="project-preview-card glass-card">
-                <div class="project-preview-img-wrapper">
-                    {% if rel_proj.image %}
-                    <img src="{{ rel_proj.image.url }}" alt="{{ rel_proj.title }}" loading="lazy">
-                    {% else %}
-                    <img src="{% static 'images/logo.png' %}" alt="{{ rel_proj.title }}" loading="lazy">
-                    {% endif %}
-                    <div class="project-preview-overlay">
-                        {% if rel_proj.category %}<span class="project-category-badge">{{ rel_proj.category.name }}</span>{% endif %}
-                        <a href="{% url 'core:project_detail' rel_proj.slug %}" class="project-view-btn" aria-label="{% trans 'View Case Study' %}">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                        </a>
+            <div class="projects-preview-grid">
+                {% for rel_proj in related_projects %}
+                <div class="project-preview-card glass-card">
+                    <div class="project-preview-img-wrapper">
+                        {% if rel_proj.image %}
+                        <img src="{{ rel_proj.image.url }}" alt="{{ rel_proj.title }}" loading="lazy">
+                        {% else %}
+                        <img src="{% static 'images/logo.png' %}" alt="{{ rel_proj.title }}" loading="lazy">
+                        {% endif %}
+                        <div class="project-preview-overlay">
+                            {% if rel_proj.category %}<span class="project-category-badge">{{ rel_proj.category.name }}</span>{% endif %}
+                            <a href="{% url 'core:project_detail' rel_proj.slug %}" class="project-view-btn" aria-label="{% trans 'View Case Study' %}">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-preview-footer">
+                        <div class="project-card-text">
+                            {% if rel_proj.category %}<span class="project-category-small">{{ rel_proj.category.name }}</span>{% endif %}
+                            <h3 class="project-preview-title">
+                                <a href="{% url 'core:project_detail' rel_proj.slug %}" style="color:inherit; text-decoration:none;">{{ rel_proj.title }}</a>
+                            </h3>
+                        </div>
+                        {% if rel_proj.technologies %}
+                        <span class="project-verified-badge">{{ rel_proj.technologies|truncatewords:2 }}</span>
+                        {% endif %}
                     </div>
                 </div>
-
-                <div class="project-preview-footer">
-                    <div class="project-card-text">
-                        {% if rel_proj.category %}<span class="project-category-small">{{ rel_proj.category.name }}</span>{% endif %}
-                        <h3 class="project-preview-title">
-                            <a href="{% url 'core:project_detail' rel_proj.slug %}" style="color:inherit; text-decoration:none;">{{ rel_proj.title }}</a>
-                        </h3>
-                    </div>
-                    {% if rel_proj.technologies %}
-                    <span class="project-verified-badge">{{ rel_proj.technologies|truncatewords:2 }}</span>
-                    {% endif %}
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        </section>
+        {% endif %}
     </div>
-</section>
-{% endif %}
+</div>
 
-{# ═══════════════════════════════════════════ #}
-{# CAROUSEL CONTROLLER JAVASCRIPT              #}
-{# ═══════════════════════════════════════════ #}
+{# ── 7. CAROUSEL CONTROLLER JAVASCRIPT ── #}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var track = document.getElementById('carouselTrack');
-    var slides = track ? track.querySelectorAll('.carousel-slide') : [];
-    var thumbs = document.querySelectorAll('.thumb-btn');
-    var prevBtn = document.getElementById('carouselPrev');
-    var nextBtn = document.getElementById('carouselNext');
-    var currentEl = document.getElementById('carouselCurrent');
-    var totalEl = document.getElementById('carouselTotal');
+    var track = document.getElementById('showcaseTrack');
+    var slides = track ? track.querySelectorAll('.showcase-slide') : [];
+    var thumbs = document.querySelectorAll('.showcase-thumb-btn');
+    var prevBtn = document.getElementById('showcasePrev');
+    var nextBtn = document.getElementById('showcaseNext');
+    var currentEl = document.getElementById('showcaseCurrent');
+    var totalEl = document.getElementById('showcaseTotal');
 
     if (!slides.length) return;
 
@@ -372,7 +861,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
     });
 
-    // Touch swipe support for mobile
+    // Mobile touch swipe
     var touchStartX = 0;
     var touchEndX = 0;
     track.addEventListener('touchstart', function(e) {
