@@ -152,6 +152,23 @@ class SiteConfig(models.Model):
     hero_bg_video = models.FileField(_('Hero Background Video (MP4/WebM)'), upload_to='hero/', blank=True, null=True)
     hero_bg_video_url = models.URLField(_('Hero Background Video URL (Direct MP4 or external)'), blank=True, default='')
 
+    # Page Header Background Videos (Per Page)
+    about_bg_video = models.FileField(_('About Page Video (MP4/WebM)'), upload_to='headers/', blank=True, null=True, help_text=_('Custom video background for About page header'))
+    about_bg_video_url = models.URLField(_('About Page Video URL'), blank=True, default='', help_text=_('Direct MP4/WebM URL for About page header'))
+
+    services_bg_video = models.FileField(_('Services Page Video (MP4/WebM)'), upload_to='headers/', blank=True, null=True, help_text=_('Custom video background for Services page header'))
+    services_bg_video_url = models.URLField(_('Services Page Video URL'), blank=True, default='', help_text=_('Direct MP4/WebM URL for Services page header'))
+
+    projects_bg_video = models.FileField(_('Projects Page Video (MP4/WebM)'), upload_to='headers/', blank=True, null=True, help_text=_('Custom video background for Projects page header'))
+    projects_bg_video_url = models.URLField(_('Projects Page Video URL'), blank=True, default='', help_text=_('Direct MP4/WebM URL for Projects page header'))
+
+    blog_bg_video = models.FileField(_('Blog Page Video (MP4/WebM)'), upload_to='headers/', blank=True, null=True, help_text=_('Custom video background for Blog page header'))
+    blog_bg_video_url = models.URLField(_('Blog Page Video URL'), blank=True, default='', help_text=_('Direct MP4/WebM URL for Blog page header'))
+
+    contact_bg_video = models.FileField(_('Contact Page Video (MP4/WebM)'), upload_to='headers/', blank=True, null=True, help_text=_('Custom video background for Contact page header'))
+    contact_bg_video_url = models.URLField(_('Contact Page Video URL'), blank=True, default='', help_text=_('Direct MP4/WebM URL for Contact page header'))
+
+
     # Hero Badges & Buttons
     hero_badge_en = models.CharField(_('Hero Badge (EN)'), max_length=150, default='B2B Software Studio • Tangier, Morocco')
     hero_badge_fr = models.CharField(_('Hero Badge (FR)'), max_length=150, blank=True, default='Studio Logiciel B2B • Tanger, Maroc')

@@ -352,3 +352,30 @@ class ModelLocalizationTest(TestCase):
         self.assertContains(response, 'https://example.com/hero.mp4')
         self.assertContains(response, 'PREMIUM SOFTWARE')
         self.assertContains(response, 'Call To Action Title')
+
+    def test_per_page_header_video_customization(self):
+        activate('en')
+        client = Client()
+        config = SiteConfig.objects.create(
+            site_name='getNexiro',
+            services_bg_video_url='https://example.com/custom-services.mp4',
+            about_bg_video_url='https://example.com/custom-about.mp4',
+            projects_bg_video_url='https://example.com/custom-projects.mp4',
+            blog_bg_video_url='https://example.com/custom-blog.mp4',
+            contact_bg_video_url='https://example.com/custom-contact.mp4',
+        )
+        res_services = client.get(reverse('core:services'))
+        self.assertContains(res_services, 'https://example.com/custom-services.mp4')
+
+        res_about = client.get(reverse('core:about'))
+        self.assertContains(res_about, 'https://example.com/custom-about.mp4')
+
+        res_projects = client.get(reverse('core:projects'))
+        self.assertContains(res_projects, 'https://example.com/custom-projects.mp4')
+
+        res_blog = client.get(reverse('core:blog'))
+        self.assertContains(res_blog, 'https://example.com/custom-blog.mp4')
+
+        res_contact = client.get(reverse('core:contact'))
+        self.assertContains(res_contact, 'https://example.com/custom-contact.mp4')
+

@@ -25,6 +25,16 @@ class SiteConfigAdmin(admin.ModelAdmin):
             'fields': ('hero_bg_type', 'hero_bg_image', 'hero_bg_video', 'hero_bg_video_url'),
             'description': _('Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL).'),
         }),
+        (_('Page Header Background Videos (Per Page)'), {
+            'fields': (
+                ('about_bg_video', 'about_bg_video_url'),
+                ('services_bg_video', 'services_bg_video_url'),
+                ('projects_bg_video', 'projects_bg_video_url'),
+                ('blog_bg_video', 'blog_bg_video_url'),
+                ('contact_bg_video', 'contact_bg_video_url'),
+            ),
+            'description': _('Upload an MP4/WebM video file or enter a direct video URL for each page header. If left empty, the site default video will be used.'),
+        }),
         (_('Hero Badge (Multilingual)'), {
             'fields': ('hero_badge_en', 'hero_badge_fr', 'hero_badge_ar'),
         }),
