@@ -16,6 +16,11 @@
         <source src="{{ config.hero_bg_video_url }}" type="video/mp4">
     </video>
     <div class="hero-video-overlay" aria-hidden="true"></div>
+    {% elif config.hero_bg_type == 'video' %}
+    <video autoplay muted loop playsinline class="hero-bg-video">
+        <source src="{% static 'videos/header-bg.mp4' %}" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay" aria-hidden="true"></div>
     {% elif config.hero_bg_type == 'image' and config.hero_bg_image %}
     <div class="hero-bg-wallpaper" style="background-image: url('{{ config.hero_bg_image.url }}');" aria-hidden="true"></div>
     <div class="hero-video-overlay" aria-hidden="true"></div>

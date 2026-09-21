@@ -83,6 +83,7 @@ class Command(BaseCommand):
         config.site_name = 'getNexiro'
         config.email = 'getnexiro@gmail.com'
         config.phone = '+212 787 862 187'
+        config.hero_bg_type = 'video'
 
         config.tagline_en = 'Tech & Dev Services'
         config.tagline_fr = 'Services Tech & Dev'

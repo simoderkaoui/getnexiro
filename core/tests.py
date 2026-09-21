@@ -91,7 +91,7 @@ class GetNexiroViewsTest(TestCase):
 
     def test_project_detail_multilingual_ar(self):
         activate('ar')
-        response = self.client.get(f'/ar/projects/{self.project.slug}/')
+        response = self.client.get(reverse('core:project_detail', kwargs={'slug': self.project.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'منصة FinFlow')
 
