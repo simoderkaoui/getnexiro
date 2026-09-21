@@ -28,8 +28,8 @@ def home(request):
     """Landing page: hero, stats, value proposition, services preview, projects preview, testimonials, CTA."""
     ctx = _get_common_context()
     ctx.update({
-        'featured_services': Service.objects.filter(is_featured=True)[:3],
-        'featured_projects': Project.objects.filter(is_featured=True)[:3],
+        'featured_services': Service.objects.filter(is_featured=True)[:6],
+        'featured_projects': Project.objects.filter(is_featured=True)[:6],
         'stats': Stat.objects.all()[:4],
         'testimonials': Testimonial.objects.filter(is_featured=True)[:3],
         'client_logos': ClientLogo.objects.all()[:8],
