@@ -1,0 +1,13 @@
+{% load static %}
+{# Video background for page headers — include inside .page-header #}
+{% if config.hero_bg_type == 'video' and config.hero_bg_video %}
+<video autoplay muted loop playsinline class="page-header-video">
+    <source src="{{ config.hero_bg_video.url }}" type="video/mp4">
+</video>
+<div class="page-header-overlay" aria-hidden="true"></div>
+{% elif config.hero_bg_type == 'video' and config.hero_bg_video_url %}
+<video autoplay muted loop playsinline class="page-header-video">
+    <source src="{{ config.hero_bg_video_url }}" type="video/mp4">
+</video>
+<div class="page-header-overlay" aria-hidden="true"></div>
+{% endif %}
