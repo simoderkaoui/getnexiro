@@ -352,6 +352,7 @@
         <span class="whatsapp-tooltip">{% trans "Chat with us" %}</span>
     </a>
 
+    <script src="{% static 'js/analytics.js' %}" defer></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
 <!-- Back to Top Button -->
@@ -396,7 +397,7 @@
             });
         }
 
-        // WhatsApp UTM tracking
+        // WhatsApp UTM tracking + analytics event
         var waBtn = document.getElementById('whatsappFloat');
         if (waBtn) {
             var currentPage = encodeURIComponent(window.location.pathname);
@@ -405,6 +406,11 @@
                 var separator = href.indexOf('?') > -1 ? '%0A' : '?text=';
                 waBtn.setAttribute('href', href + '%0ASource:%20' + currentPage);
             }
+            waBtn.addEventListener('click', function() {
+                if (typeof trackEvent === 'function') {
+                    trackEvent('whatsapp_click', { page: window.location.pathname });
+                }
+            });
         }
     })();
     </script>

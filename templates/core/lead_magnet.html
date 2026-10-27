@@ -129,3 +129,13 @@
     </div>
 </section>
 {% endblock %}
+
+{% block extra_scripts %}
+<script>
+{% if download_ready %}
+if (typeof trackEvent === 'function') {
+    trackEvent('checklist_download', { page: 'lead_magnet' });
+}
+{% endif %}
+</script>
+{% endblock %}

@@ -105,3 +105,15 @@
     </div>
 </section>
 {% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Fire contact_form_submitted when success message is displayed
+(function() {
+    var alerts = document.querySelectorAll('.alert-success');
+    if (alerts.length > 0 && typeof trackEvent === 'function') {
+        trackEvent('contact_form_submitted', { page: 'contact' });
+    }
+})();
+</script>
+{% endblock %}

@@ -55,3 +55,11 @@
     </div>
 </section>
 {% endblock %}
+
+{% block extra_scripts %}
+<script>
+if (typeof trackEvent === 'function') {
+    trackEvent('quote_submitted', { page: 'quote_success' });
+}
+</script>
+{% endblock %}
