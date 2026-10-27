@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
 from django.conf import settings
-from core.models import Service, Project, BlogPost, BlogCategory
+from core.models import Service, Project, BlogPost, BlogCategory, CityServicePage
 
 
 def robots_txt(request):
@@ -131,6 +131,23 @@ def sitemap_xml(request):
             'lastmod': now,
             'changefreq': 'weekly',
             'priority': '0.5',
+            'alternates': alternates,
+        })
+
+
+    # Dynamic pages: City service pages
+    for page in CityServicePage.objects.filter(is_published=True).select_related('service'):
+        alternates = []
+        for lang in languages:
+            alternates.append({
+                'lang': lang,
+                'url': f'{site_url}/{lang}/services/{page.service.slug}/{page.slug}/',
+            })
+        urls.append({
+            'loc': f'{site_url}/en/services/{page.service.slug}/{page.slug}/',
+            'lastmod': page.updated_at.strftime('%Y-%m-%d') if page.updated_at else now,
+            'changefreq': 'monthly',
+            'priority': '0.6',
             'alternates': alternates,
         })
 

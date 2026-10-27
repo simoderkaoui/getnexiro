@@ -571,6 +571,23 @@
         </div>
 
         {# ── RELATED SERVICES ── #}
+        
+        {# ── Areas We Serve ── #}
+        {% if service.city_pages.all %}
+        <div style="margin-top:2rem;">
+            <h2 style="font-size:1.3rem; font-weight:700; color:#f8fafc; margin-bottom:1rem;">{% trans "Areas We Serve" %}</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                {% for cp in service.city_pages.all %}
+                {% if cp.is_published %}
+                <a href="{% url 'core:city_service_page' service.slug cp.slug %}" style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.4rem 1rem; border-radius:20px; font-size:0.82rem; font-weight:600; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#38bdf8; text-decoration:none; transition:all 0.2s;">
+                    &#x1F4CD; {{ cp.city_name }}
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         {% if related_services %}
         <section class="related-section">
             <div class="section-header-flex" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">

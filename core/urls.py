@@ -17,6 +17,7 @@ urlpatterns = [
     path(_('services/'), include([
         path('', views.services, name='services'),
         path('<slug:slug>/', views.service_detail, name='service_detail'),
+        path('<slug:service_slug>/<slug:city_slug>/', views.city_service_page, name='city_service_page'),
     ])),
     path(_('projects/'), include([
         path('', views.projects, name='projects'),

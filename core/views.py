@@ -25,6 +25,7 @@ from .models import (
     LegalPage, FAQ,
     Package, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
+    CityServicePage,
 )
 from .emails import send_contact_emails
 
@@ -641,6 +642,34 @@ def confirm_subscription(request, token):
     return render(request, 'core/lead_magnet.html', ctx)
 
 
+
+
+
+def city_service_page(request, service_slug, city_slug):
+    """Service x City landing page for local SEO."""
+    ctx = _get_common_context()
+    page = get_object_or_404(
+        CityServicePage.objects.select_related('service'),
+        slug=city_slug, service__slug=service_slug, is_published=True
+    )
+
+    # Get other city pages for this service (for internal linking)
+    other_cities = CityServicePage.objects.filter(
+        service=page.service, is_published=True
+    ).exclude(pk=page.pk)
+
+    ctx.update({
+        'page': page,
+        'service': page.service,
+        'other_cities': other_cities,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': '/'},
+            {'name': _('Services'), 'url': '/' + (get_language() or 'en') + '/services/'},
+            {'name': page.service.title, 'url': '/' + (get_language() or 'en') + '/services/' + page.service.slug + '/'},
+            {'name': page.h1, 'url': request.path},
+        ],
+    })
+    return render(request, 'core/city_service_page.html', ctx)
 
 
 def blog_rss_feed(request):

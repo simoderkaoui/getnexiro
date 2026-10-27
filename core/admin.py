@@ -14,6 +14,7 @@ from .models import (
     LegalPage, FAQ,
     Package, PackageFeature, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
+    CityServicePage,
 )
 import csv
 from django.http import HttpResponse
@@ -634,6 +635,46 @@ class SubscriberAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+
+
+@admin.register(CityServicePage)
+class CityServicePageAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'city', 'service', 'is_published', 'updated_at')
+    list_filter = ('is_published', 'city', 'service')
+    list_editable = ('is_published',)
+    search_fields = ('h1_en', 'h1_fr', 'h1_ar', 'slug')
+    prepopulated_fields = {'slug': ('h1_en',)}
+    ordering = ('service', 'city')
+
+    fieldsets = (
+        (_('Service & City'), {
+            'fields': ('service', 'city', 'slug', 'is_published'),
+        }),
+        (_('H1 Title (Multilingual)'), {
+            'fields': ('h1_en', 'h1_fr', 'h1_ar'),
+        }),
+        (_('Intro Paragraph (Multilingual)'), {
+            'fields': ('intro_en', 'intro_fr', 'intro_ar'),
+        }),
+        (_('Main Body (Multilingual)'), {
+            'fields': ('body_en', 'body_fr', 'body_ar'),
+        }),
+        (_('Why Choose Us (Multilingual)'), {
+            'fields': ('why_choose_us_en', 'why_choose_us_fr', 'why_choose_us_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('Local Industries (Multilingual)'), {
+            'fields': ('industries_served_en', 'industries_served_fr', 'industries_served_ar'),
+            'classes': ('collapse',),
+        }),
+        (_('SEO Overrides'), {
+            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+                       'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
+            'classes': ('collapse',),
+        }),
+    )
 
 
 admin.site.site_header = 'getNexiro Admin'

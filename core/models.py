@@ -1370,3 +1370,110 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return f"{self.email} ({self.get_status_display()})"
+
+
+# ── 21. City Service Landing Pages ────────────────────────────
+
+class CityServicePage(SEOMixin):
+    """Service x City landing pages for local SEO (e.g. Web Development in Tangier)."""
+
+    CITY_CHOICES = [
+        ('tangier', _('Tangier')),
+        ('tetouan', _('Tetouan')),
+        ('fes', _('Fes')),
+        ('meknes', _('Meknes')),
+        ('mdiq', _("M'diq")),
+        ('chefchaouen', _('Chefchaouen')),
+        ('larache', _('Larache')),
+        ('kenitra', _('Kenitra')),
+    ]
+
+    service = models.ForeignKey(
+        Service, on_delete=models.CASCADE, related_name='city_pages',
+        verbose_name=_('Service'),
+    )
+    city = models.CharField(_('City'), max_length=30, choices=CITY_CHOICES)
+    slug = models.SlugField(_('URL Slug'), max_length=200, unique=True,
+        help_text=_('Auto-generated from service + city, e.g. web-development-tangier'))
+
+    # Trilingual content
+    h1_en = models.CharField(_('H1 Title (EN)'), max_length=200)
+    h1_fr = models.CharField(_('H1 Title (FR)'), max_length=200, blank=True, default='')
+    h1_ar = models.CharField(_('H1 Title (AR)'), max_length=200, blank=True, default='')
+
+    intro_en = models.TextField(_('Intro Paragraph (EN)'), help_text=_('2-3 sentences specific to this city+service'))
+    intro_fr = models.TextField(_('Intro Paragraph (FR)'), blank=True, default='')
+    intro_ar = models.TextField(_('Intro Paragraph (AR)'), blank=True, default='')
+
+    body_en = models.TextField(_('Main Body (EN)'), help_text=_('Detailed city-specific content. HTML allowed.'))
+    body_fr = models.TextField(_('Main Body (FR)'), blank=True, default='')
+    body_ar = models.TextField(_('Main Body (AR)'), blank=True, default='')
+
+    why_choose_us_en = models.TextField(_('Why Choose Us in This City (EN)'), blank=True, default='')
+    why_choose_us_fr = models.TextField(_('Why Choose Us in This City (FR)'), blank=True, default='')
+    why_choose_us_ar = models.TextField(_('Why Choose Us in This City (AR)'), blank=True, default='')
+
+    industries_served_en = models.TextField(_('Local Industries Served (EN)'), blank=True, default='',
+        help_text=_('Industries specific to this city, newline-separated'))
+    industries_served_fr = models.TextField(_('Local Industries Served (FR)'), blank=True, default='')
+    industries_served_ar = models.TextField(_('Local Industries Served (AR)'), blank=True, default='')
+
+    is_published = models.BooleanField(_('Published'), default=False,
+        help_text=_('Only publish pages with genuinely distinct content'))
+    created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
+
+    @property
+    def h1(self): return get_localized(self, 'h1')
+
+    @property
+    def intro(self): return get_localized(self, 'intro')
+
+    @property
+    def body(self): return get_localized(self, 'body')
+
+    @property
+    def why_choose_us(self): return get_localized(self, 'why_choose_us')
+
+    @property
+    def industries_served(self): return get_localized(self, 'industries_served')
+
+    @property
+    def industries_list(self):
+        text = self.industries_served
+        if not text:
+            return []
+        return [line.strip() for line in text.splitlines() if line.strip()]
+
+    @property
+    def city_name(self):
+        return dict(self.CITY_CHOICES).get(self.city, self.city)
+
+    def get_absolute_url(self):
+        return reverse('core:city_service_page', kwargs={
+            'service_slug': self.service.slug,
+            'city_slug': self.slug,
+        })
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            base_slug = slugify(f'{self.service.title_en}-{self.get_city_display()}')
+            if not base_slug:
+                base_slug = f'service-{self.city}'
+            slug = base_slug
+            counter = 1
+            while CityServicePage.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _('City Service Page')
+        verbose_name_plural = _('City Service Pages')
+        ordering = ['service', 'city']
+        unique_together = [['service', 'city']]
+
+    def __str__(self):
+        return f"{self.service.title_en} - {self.get_city_display()}"

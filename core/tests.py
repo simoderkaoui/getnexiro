@@ -13,6 +13,7 @@ from core.models import (
     LegalPage, FAQ,
     Package, PackageFeature, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
+    CityServicePage,
 )
 from core.forms import (
     ContactForm, QuoteStep1Form, QuoteStep2Form, QuoteStep3Form, QuoteStep4Form,
@@ -1294,4 +1295,61 @@ class BlogUpgradesTest(TestCase):
         activate('en')
         response = self.client.get(reverse('core:blog_tag_archive', args=['nonexistent-tag']))
         self.assertEqual(response.status_code, 200)
+
+
+
+class CityServicePageTest(TestCase):
+    """Tests for Task 4: City x Service landing pages."""
+
+    def setUp(self):
+        SiteConfig.objects.get_or_create(pk=1)
+        self.service = Service.objects.create(
+            title_en='Web Development', title_fr='Dev Web', title_ar='تطوير ويب',
+            slug='web-development', description_en='Web dev services',
+            icon='icon-web', is_featured=True, order=1,
+        )
+        self.page = CityServicePage.objects.create(
+            service=self.service, city='tangier', slug='web-development-tangier',
+            h1_en='Web Development in Tangier', h1_fr='Dev Web Tanger', h1_ar='تطوير ويب طنجة',
+            intro_en='Intro text', intro_fr='Texte intro', intro_ar='نص تمهيدي',
+            body_en='<p>Body content</p>', body_fr='<p>Contenu</p>', body_ar='<p>محتوى</p>',
+            is_published=True,
+        )
+
+    def test_city_page_published(self):
+        """Test published city page renders."""
+        activate('en')
+        response = self.client.get(
+            reverse('core:city_service_page', args=['web-development', 'web-development-tangier'])
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Web Development in Tangier')
+
+    def test_city_page_unpublished_404(self):
+        """Test unpublished city page returns 404."""
+        activate('en')
+        self.page.is_published = False
+        self.page.save()
+        response = self.client.get(
+            reverse('core:city_service_page', args=['web-development', 'web-development-tangier'])
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_city_page_wrong_service_404(self):
+        """Test city page with wrong service slug returns 404."""
+        activate('en')
+        response = self.client.get(
+            reverse('core:city_service_page', args=['nonexistent-service', 'web-development-tangier'])
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_city_page_model_str(self):
+        """Test CityServicePage string representation."""
+        self.assertEqual(str(self.page), 'Web Development - Tangier')
+
+    def test_city_page_industries_list(self):
+        """Test industries_list property."""
+        self.page.industries_served_en = 'Tourism\nRetail\nLogistics'
+        self.page.save()
+        self.assertEqual(len(self.page.industries_list), 3)
 
