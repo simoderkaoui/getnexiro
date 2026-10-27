@@ -1,5 +1,6 @@
 from decimal import Decimal
 import datetime
+from datetime import timedelta
 from django.core import mail
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
@@ -720,7 +721,7 @@ class SubscriberTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_lead_magnet_post_creates_subscriber(self):
-        """Test POST creates a subscriber."""
+        """Test POST creates a subscriber with pending status (double opt-in)."""
         activate('en')
         post_data = {
             'email': 'subscriber@example.com',
@@ -732,8 +733,49 @@ class SubscriberTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(Subscriber.objects.filter(email='subscriber@example.com').exists())
         sub = Subscriber.objects.get(email='subscriber@example.com')
-        self.assertEqual(sub.status, 'confirmed')
+        self.assertEqual(sub.status, 'pending')  # Double opt-in: starts as pending
         self.assertTrue(sub.consent)
+        self.assertTrue(sub.confirmation_token)  # Token should be set
+        self.assertIsNotNone(sub.token_created_at)
+
+    def test_confirm_subscription_valid_token(self):
+        """Test confirming subscription with a valid token."""
+        activate('en')
+        sub = Subscriber.objects.create(
+            email='confirm@example.com',
+            name='Confirm Test',
+            consent=True,
+            status='pending',
+            confirmation_token='valid-test-token-123',
+            token_created_at=timezone.now(),
+        )
+        response = self.client.get(reverse('core:confirm_subscription', args=['valid-test-token-123']))
+        self.assertEqual(response.status_code, 200)
+        sub.refresh_from_db()
+        self.assertEqual(sub.status, 'confirmed')
+        self.assertEqual(sub.confirmation_token, '')  # Token cleared after use
+
+    def test_confirm_subscription_invalid_token(self):
+        """Test confirming subscription with invalid token redirects."""
+        activate('en')
+        response = self.client.get(reverse('core:confirm_subscription', args=['nonexistent-token']), follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_confirm_subscription_expired_token(self):
+        """Test confirming subscription with expired token redirects."""
+        activate('en')
+        sub = Subscriber.objects.create(
+            email='expired@example.com',
+            name='Expired Test',
+            consent=True,
+            status='pending',
+            confirmation_token='expired-token-123',
+            token_created_at=timezone.now() - timedelta(hours=49),  # Expired
+        )
+        response = self.client.get(reverse('core:confirm_subscription', args=['expired-token-123']), follow=True)
+        self.assertEqual(response.status_code, 200)
+        sub.refresh_from_db()
+        self.assertEqual(sub.status, 'pending')  # Still pending
 
     def test_lead_magnet_honeypot(self):
         """Test honeypot blocks bots."""
