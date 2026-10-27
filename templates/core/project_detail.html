@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{{ project.title }} — {% trans "Case Study" %} | {{ config.site_name }}{% endblock %}
+{% block title %}{% if project.seo_title %}{{ project.seo_title }}{% else %}{{ project.title }}{% endif %}{% endblock %}
 
 {% block content %}
 <style>

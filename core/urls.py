@@ -39,4 +39,5 @@ urlpatterns = [
     path(_('booking/'), views.booking, name='booking'),
     path(_('checklist/'), views.lead_magnet, name='lead_magnet'),
     path(_('unsubscribe/'), views.unsubscribe, name='unsubscribe'),
+    path(_('confirm/') + '<str:token>/', views.confirm_subscription, name='confirm_subscription'),
 ]

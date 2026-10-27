@@ -43,6 +43,36 @@ def get_localized(instance, field_name):
 
 
 
+
+
+# ── SEO Mixin (reusable abstract model) ────────────────────────
+
+class SEOMixin(models.Model):
+    """Abstract model providing per-page SEO fields (meta_title, meta_description, og_image) in EN/FR/AR."""
+
+    seo_title_en = models.CharField(_('SEO Title (EN)'), max_length=70, blank=True, default='', help_text=_('Max ~60 chars. Overrides page title in <title> tag.'))
+    seo_title_fr = models.CharField(_('SEO Title (FR)'), max_length=70, blank=True, default='')
+    seo_title_ar = models.CharField(_('SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    seo_description_en = models.CharField(_('SEO Description (EN)'), max_length=170, blank=True, default='', help_text=_('Max ~160 chars. Google snippet.'))
+    seo_description_fr = models.CharField(_('SEO Description (FR)'), max_length=170, blank=True, default='')
+    seo_description_ar = models.CharField(_('SEO Description (AR)'), max_length=170, blank=True, default='')
+
+    og_image = models.ImageField(_('OG Image'), upload_to='seo/', blank=True, null=True, help_text=_('Social sharing image (1200x630 recommended)'))
+
+    @property
+    def seo_title(self):
+        val = get_localized(self, 'seo_title')
+        return val if val else ''
+
+    @property
+    def seo_description(self):
+        val = get_localized(self, 'seo_description')
+        return val if val else ''
+
+    class Meta:
+        abstract = True
+
 # ── 1. Site Configuration (Singleton) ──────────────────────────
 
 class SiteConfig(models.Model):
@@ -195,6 +225,40 @@ class SiteConfig(models.Model):
     cta_button_text_fr = models.CharField(_('CTA Button (FR)'), max_length=60, blank=True, default='Démarrer votre projet')
     cta_button_text_ar = models.CharField(_('CTA Button (AR)'), max_length=60, blank=True, default='ابدأ مشروعك معنا')
 
+
+    # ── Page-Level SEO (for pages without their own model) ──
+    home_seo_title_en = models.CharField(_('Home Page SEO Title (EN)'), max_length=70, blank=True, default='getNexiro — Web & App Development Agency')
+    home_seo_title_fr = models.CharField(_('Home Page SEO Title (FR)'), max_length=70, blank=True, default='getNexiro — Agence de Developpement Web')
+    home_seo_title_ar = models.CharField(_('Home Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    home_seo_description_en = models.CharField(_('Home Page SEO Desc (EN)'), max_length=170, blank=True, default='Professional web development, mobile apps & software engineering agency in Tangier, Morocco.')
+    home_seo_description_fr = models.CharField(_('Home Page SEO Desc (FR)'), max_length=170, blank=True, default='Agence de developpement web, apps mobiles et ingenierie logicielle a Tanger, Maroc.')
+    home_seo_description_ar = models.CharField(_('Home Page SEO Desc (AR)'), max_length=170, blank=True, default='')
+
+    about_seo_title_en = models.CharField(_('About Page SEO Title (EN)'), max_length=70, blank=True, default='About getNexiro — Our Story & Team')
+    about_seo_title_fr = models.CharField(_('About Page SEO Title (FR)'), max_length=70, blank=True, default='A Propos de getNexiro')
+    about_seo_title_ar = models.CharField(_('About Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    services_seo_title_en = models.CharField(_('Services Page SEO Title (EN)'), max_length=70, blank=True, default='Our Services — Web, Mobile & Cloud')
+    services_seo_title_fr = models.CharField(_('Services Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Services — Web, Mobile & Cloud')
+    services_seo_title_ar = models.CharField(_('Services Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    projects_seo_title_en = models.CharField(_('Projects Page SEO Title (EN)'), max_length=70, blank=True, default='Our Work — Selected Projects')
+    projects_seo_title_fr = models.CharField(_('Projects Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Realisations — Projets')
+    projects_seo_title_ar = models.CharField(_('Projects Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    blog_seo_title_en = models.CharField(_('Blog Page SEO Title (EN)'), max_length=70, blank=True, default='Blog — Tech Insights & Tutorials')
+    blog_seo_title_fr = models.CharField(_('Blog Page SEO Title (FR)'), max_length=70, blank=True, default='Blog — Insights Tech & Tutoriels')
+    blog_seo_title_ar = models.CharField(_('Blog Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    contact_seo_title_en = models.CharField(_('Contact Page SEO Title (EN)'), max_length=70, blank=True, default='Contact Us — Get a Free Consultation')
+    contact_seo_title_fr = models.CharField(_('Contact Page SEO Title (FR)'), max_length=70, blank=True, default='Contactez-Nous — Consultation Gratuite')
+    contact_seo_title_ar = models.CharField(_('Contact Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
+    packages_seo_title_en = models.CharField(_('Packages Page SEO Title (EN)'), max_length=70, blank=True, default='Pricing Packages — Transparent Pricing')
+    packages_seo_title_fr = models.CharField(_('Packages Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Forfaits — Tarification Transparente')
+    packages_seo_title_ar = models.CharField(_('Packages Page SEO Title (AR)'), max_length=70, blank=True, default='')
+
     # Localized Property Getters
     @property
     def tagline(self): return get_localized(self, 'tagline')
@@ -260,7 +324,7 @@ class SiteConfig(models.Model):
 
 # ── 2. Services ────────────────────────────────────────────────
 
-class Service(models.Model):
+class Service(SEOMixin):
     """Service offerings with full multilingual title and description."""
 
     ICON_CHOICES = [
@@ -419,7 +483,7 @@ class ProjectCategory(models.Model):
 
 # ── 4. Projects ────────────────────────────────────────────────
 
-class Project(models.Model):
+class Project(SEOMixin):
     """Portfolio case studies."""
 
     title_en = models.CharField(_('Title (EN)'), max_length=150)
@@ -909,7 +973,7 @@ class StoreItem(models.Model):
 
 # ── 14. Legal Pages (Privacy Policy, Terms, etc.) ──────────────
 
-class LegalPage(models.Model):
+class LegalPage(SEOMixin):
     """Admin-editable legal/policy pages (Privacy Policy, Terms of Service, etc.)."""
 
     SLUG_CHOICES = [
@@ -990,7 +1054,7 @@ class FAQ(models.Model):
 
 # ── 16. Pricing Packages ───────────────────────────────────────
 
-class Package(models.Model):
+class Package(SEOMixin):
     """Admin-editable pricing packages (Showcase, E-commerce, Custom Platform, etc.)."""
 
     name_en = models.CharField(_('Package Name (EN)'), max_length=120)
@@ -1290,6 +1354,10 @@ class Subscriber(models.Model):
 
     lead_magnet = models.CharField(_('Lead Magnet'), max_length=100, blank=True, default='checklist',
         help_text=_('Which resource they downloaded'))
+
+    confirmation_token = models.CharField(_('Confirmation Token'), max_length=64, blank=True, default='',
+        help_text=_('Token sent via email for double opt-in confirmation'))
+    token_created_at = models.DateTimeField(_('Token Created At'), null=True, blank=True)
 
     source_page = models.CharField(_('Source Page'), max_length=300, blank=True, default='')
     honeypot = models.CharField(max_length=200, blank=True, default='')

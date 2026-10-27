@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Contact" %}{% endblock %}
+{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Contact Us" %}{% endif %}{% endblock %}
 
 {% block content %}
 {# ═══════════════════════════════════════════ #}

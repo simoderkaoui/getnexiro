@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{{ service.title }} — {% trans "Services" %} | {{ config.site_name }}{% endblock %}
+{% block title %}{% if service.seo_title %}{{ service.seo_title }}{% else %}{{ service.title }}{% endif %}{% endblock %}
 
 {% block structured_data %}{% include "core/includes/jsonld_service.html" %}{% endblock %}
 

@@ -1,20 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Home" %}
-{# ═══ FAQ SECTION ═══ #}
-{% include "core/includes/faq_section.html" %}
-
-{# ═══ START A PROJECT CTA ═══ #}
-<section class="section" style="padding:3rem 0 5rem; text-align:center;">
-    <div class="container">
-        <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-lg btn-glow" style="font-size:1.1rem; padding:1rem 2.5rem;">
-            {% trans "Start a Project" %} →
-        </a>
-    </div>
-</section>
-
-{% endblock %}
+{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Home" %}{% endif %}{% endblock %}
 
 {% block content %}
 {# ══════ HERO ══════ #}
@@ -393,4 +380,17 @@
         </div>
     </div>
 </section>
+
+{# ═══ FAQ SECTION ═══ #}
+{% include "core/includes/faq_section.html" %}
+
+{# ═══ START A PROJECT CTA ═══ #}
+<section class="section" style="padding:3rem 0 5rem; text-align:center;">
+    <div class="container">
+        <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-lg btn-glow" style="font-size:1.1rem; padding:1rem 2.5rem;">
+            {% trans "Start a Project" %} →
+        </a>
+    </div>
+</section>
+
 {% endblock %}

@@ -88,6 +88,18 @@ class SiteConfigAdmin(admin.ModelAdmin):
         (_('Social Links'), {
             'fields': ('instagram_url', 'linkedin_url', 'github_url', 'twitter_url'),
         }),
+        (_('Page-Level SEO Titles (Multilingual)'), {
+            'fields': (
+                'home_seo_title_en', 'home_seo_title_fr', 'home_seo_title_ar',
+                'about_seo_title_en', 'about_seo_title_fr', 'about_seo_title_ar',
+                'services_seo_title_en', 'services_seo_title_fr', 'services_seo_title_ar',
+                'projects_seo_title_en', 'projects_seo_title_fr', 'projects_seo_title_ar',
+                'blog_seo_title_en', 'blog_seo_title_fr', 'blog_seo_title_ar',
+                'contact_seo_title_en', 'contact_seo_title_fr', 'contact_seo_title_ar',
+                'packages_seo_title_en', 'packages_seo_title_fr', 'packages_seo_title_ar',
+            ),
+            'classes': ('collapse',),
+        }),
     )
 
     def has_add_permission(self, request):
@@ -136,6 +148,11 @@ class ServiceAdmin(admin.ModelAdmin):
         }),
         (_('Configuration'), {
             'fields': ('icon', 'is_featured', 'order'),
+        }),
+        (_('SEO Overrides'), {
+            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+                       'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
+            'classes': ('collapse',),
         }),
     )
 
@@ -200,6 +217,11 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         (_('Settings'), {
             'fields': ('is_featured', 'order'),
+        }),
+        (_('SEO Overrides'), {
+            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+                       'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
+            'classes': ('collapse',),
         }),
     )
 
@@ -422,6 +444,11 @@ class LegalPageAdmin(admin.ModelAdmin):
             'fields': ('body_en', 'body_fr', 'body_ar'),
             'description': _('HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure.'),
         }),
+        (_('SEO Overrides'), {
+            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+                       'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
+            'classes': ('collapse',),
+        }),
     )
 
 
@@ -495,6 +522,11 @@ class PackageAdmin(admin.ModelAdmin):
         }),
         (_('Configuration'), {
             'fields': ('icon_emoji', 'is_featured', 'is_active', 'order', 'prefill_project_type'),
+        }),
+        (_('SEO Overrides'), {
+            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+                       'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
+            'classes': ('collapse',),
         }),
     )
 
@@ -595,7 +627,7 @@ class SubscriberAdmin(admin.ModelAdmin):
     list_filter = ('status', 'consent', 'lead_magnet', 'created_at')
     list_editable = ('status',)
     search_fields = ('email', 'name')
-    readonly_fields = ('email', 'name', 'consent', 'lead_magnet', 'source_page', 'created_at')
+    readonly_fields = ('email', 'name', 'consent', 'lead_magnet', 'source_page', 'created_at', 'confirmation_token', 'token_created_at')
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
     actions = [export_as_csv]

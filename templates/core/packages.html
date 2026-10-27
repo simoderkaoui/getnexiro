@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Packages & Pricing" %}{% endblock %}
+{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Packages" %}{% endif %}{% endblock %}
 
 {% block content %}
 <style>

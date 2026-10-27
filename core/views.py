@@ -17,6 +17,7 @@ from .forms import (
     ContactForm, QuoteStep1Form, QuoteStep2Form, QuoteStep3Form, QuoteStep4Form,
     BookingForm, SubscriberForm,
 )
+from .models import get_localized
 from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
@@ -47,6 +48,7 @@ def home(request):
         'latest_posts': BlogPost.objects.filter(status='published')[:3],
         'faqs': FAQ.objects.filter(is_active=True, section='general')[:6],
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'home_seo_title')
     return render(request, 'core/home.html', ctx)
 
 
@@ -57,6 +59,7 @@ def about(request):
         'team_members': TeamMember.objects.all(),
         'company_values': CompanyValue.objects.all(),
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'about_seo_title')
     return render(request, 'core/about.html', ctx)
 
 
@@ -68,6 +71,7 @@ def services(request):
         'process_steps': ProcessStep.objects.all(),
         'faqs': FAQ.objects.filter(is_active=True, section='services')[:6],
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'services_seo_title')
     return render(request, 'core/services.html', ctx)
 
 
@@ -78,6 +82,7 @@ def projects(request):
         'categories': ProjectCategory.objects.all(),
         'projects_list': Project.objects.select_related('category').all(),
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'projects_seo_title')
     return render(request, 'core/projects.html', ctx)
 
 
@@ -146,6 +151,7 @@ def blog(request):
         'categories': BlogCategory.objects.all(),
         'active_category': category_slug,
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'blog_seo_title')
     return render(request, 'core/blog.html', ctx)
 
 
@@ -197,6 +203,7 @@ def contact(request):
         form = ContactForm()
 
     ctx['form'] = form
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'contact_seo_title')
     return render(request, 'core/contact.html', ctx)
 
 
@@ -415,6 +422,7 @@ def packages(request):
         'packages': Package.objects.filter(is_active=True).prefetch_related('features'),
         'faqs': FAQ.objects.filter(is_active=True, section='pricing')[:6],
     })
+    ctx['page_seo_title'] = get_localized(ctx['config'], 'packages_seo_title')
     return render(request, 'core/packages.html', ctx)
 
 
@@ -526,7 +534,7 @@ def booking(request):
 
 
 def lead_magnet(request):
-    """Lead magnet download page (free checklist PDF)."""
+    """Lead magnet download page with double opt-in."""
     ctx = _get_common_context()
 
     if request.method == 'POST':
@@ -534,11 +542,13 @@ def lead_magnet(request):
 
         # Honeypot check
         if form.is_valid() and form.cleaned_data.get('website_url'):
-            messages.success(request, _('Thank you! Check your email for the download link.'))
+            messages.success(request, _('Thank you! Check your email to confirm.'))
             return redirect('core:lead_magnet')
 
         if form.is_valid():
             email = form.cleaned_data['email']
+            import secrets
+            from django.utils import timezone as tz
 
             # Update or create subscriber
             sub, created = Subscriber.objects.get_or_create(
@@ -548,26 +558,42 @@ def lead_magnet(request):
                     'consent': form.cleaned_data['consent'],
                     'lead_magnet': 'checklist',
                     'source_page': request.META.get('HTTP_REFERER', ''),
+                    'status': 'pending',
+                    'confirmation_token': secrets.token_urlsafe(32),
+                    'token_created_at': tz.now(),
                 }
             )
-            if not created:
-                sub.consent = form.cleaned_data['consent']
-                sub.save(update_fields=['consent'])
 
-            # Send download link email
+            if not created:
+                if sub.status == 'confirmed':
+                    # Already confirmed — show download directly
+                    ctx['download_ready'] = True
+                    ctx['form'] = SubscriberForm()
+                    messages.success(request, _('You are already confirmed! Download your checklist below.'))
+                    return render(request, 'core/lead_magnet.html', ctx)
+                # Re-send confirmation for pending/unsubscribed
+                sub.confirmation_token = secrets.token_urlsafe(32)
+                sub.token_created_at = tz.now()
+                sub.status = 'pending'
+                sub.consent = form.cleaned_data['consent']
+                sub.save(update_fields=['consent', 'status', 'confirmation_token', 'token_created_at'])
+
+            # Send confirmation email with token link
             try:
                 from django.core.mail import EmailMultiAlternatives
                 from django.conf import settings
 
+                site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com')
+                confirm_url = f"{site_url}/{(get_language() or 'en')}/confirm/{sub.confirmation_token}/"
+
                 visitor_email = EmailMultiAlternatives(
-                    subject=str(_('Your Free Website Launch Checklist — getNexiro')),
+                    subject=str(_('Confirm your email — getNexiro')),
                     body=(
                         f"Hi {sub.name or 'there'},\n\n"
-                        f"Thank you for downloading our Website Launch Checklist!\n\n"
-                        f"You can download the checklist here:\n"
-                        f"https://getnexiro.com/static/downloads/website-launch-checklist.pdf\n\n"
-                        f"Need help with your project? Book a free discovery call:\n"
-                        f"https://getnexiro.com/en/booking/\n\n"
+                        f"Please confirm your email address to download the Website Launch Checklist:\n\n"
+                        f"{confirm_url}\n\n"
+                        f"This link expires in 48 hours.\n\n"
+                        f"If you did not request this, you can safely ignore this email.\n\n"
                         f"Best regards,\nThe getNexiro Team\n"
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
@@ -577,14 +603,41 @@ def lead_magnet(request):
             except Exception:
                 pass
 
-            messages.success(request, _('Check your email for the download link!'))
-            ctx['download_ready'] = True
+            messages.success(request, _('Check your email to confirm and get your download link!'))
             ctx['form'] = SubscriberForm()
             return render(request, 'core/lead_magnet.html', ctx)
     else:
         form = SubscriberForm()
 
     ctx['form'] = form
+    return render(request, 'core/lead_magnet.html', ctx)
+
+
+def confirm_subscription(request, token):
+    """Confirm a subscriber's email via token. Reveal PDF download link."""
+    from django.utils import timezone as tz
+    ctx = _get_common_context()
+
+    try:
+        sub = Subscriber.objects.get(confirmation_token=token)
+    except Subscriber.DoesNotExist:
+        messages.error(request, _('Invalid or expired confirmation link. Please try subscribing again.'))
+        return redirect('core:lead_magnet')
+
+    # Check token expiry (48 hours)
+    if sub.token_created_at and (tz.now() - sub.token_created_at).total_seconds() > 48 * 3600:
+        messages.error(request, _('This confirmation link has expired. Please subscribe again to receive a new link.'))
+        return redirect('core:lead_magnet')
+
+    # Confirm the subscriber
+    sub.status = 'confirmed'
+    sub.confirmation_token = ''  # Clear token after use
+    sub.save(update_fields=['status', 'confirmation_token'])
+
+    messages.success(request, _('Email confirmed! You can now download your checklist.'))
+    ctx['download_ready'] = True
+    ctx['confirmed'] = True
+    ctx['form'] = SubscriberForm()
     return render(request, 'core/lead_magnet.html', ctx)
 
 

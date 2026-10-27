@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Blog" %}{% endblock %}
+{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 {% block meta_description %}{% trans "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco." %}{% endblock %}
 
 {% block content %}

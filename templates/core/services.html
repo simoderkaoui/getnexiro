@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Services" %}
-{% include "core/includes/faq_section.html" %}
-{% endblock %}
+{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Services" %}{% endif %}{% endblock %}
 
 {% block content %}
 <section class="page-header">
