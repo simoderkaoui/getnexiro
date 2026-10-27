@@ -51,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=7.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=8.0">
     {% if LANGUAGE_BIDI %}
     <link rel="stylesheet" href="{% static 'css/rtl.css' %}?v=7.0">
     {% endif %}
@@ -113,16 +113,7 @@
                         {% endfor %}
                     </div>
 
-                    {# ── THEME TOGGLE ── #}
-                    <button class="theme-toggle-btn" id="themeToggle" aria-label="{% trans 'Toggle dark/light theme' %}" title="{% trans 'Toggle theme' %}" style="
-                        background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
-                        border-radius:8px; padding:0.4rem 0.5rem; cursor:pointer;
-                        color:rgba(255,255,255,0.7); transition:all 0.2s; display:flex; align-items:center;
-                        margin-right:0.5rem;
-                    ">
-                        <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                        <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    </button>
+                    
 
                     <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm nav-cta-desktop">
                         <span>{% trans "Contact Us" %}</span>
@@ -304,41 +295,15 @@
 </button>
 
 
-    {# ── Theme Toggle + WhatsApp Tracking JS ── #}
+    {# ── WhatsApp Tracking & Dark Theme Enforcement ── #}
     <script>
     (function() {
-        // Theme toggle
-        var toggle = document.getElementById('themeToggle');
-        var moonIcon = document.getElementById('themeIconMoon');
-        var sunIcon = document.getElementById('themeIconSun');
-        var html = document.documentElement;
-
-        function setTheme(theme) {
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('nexiro-theme', theme);
-            if (theme === 'light') {
-                moonIcon.style.display = 'none';
-                sunIcon.style.display = 'block';
-            } else {
-                moonIcon.style.display = 'block';
-                sunIcon.style.display = 'none';
+        // Enforce dark theme exclusively (clear any legacy theme preferences)
+        try {
+            if (localStorage.getItem('nexiro-theme')) {
+                localStorage.removeItem('nexiro-theme');
             }
-        }
-
-        // Initialize: check localStorage, then prefers-color-scheme
-        var saved = localStorage.getItem('nexiro-theme');
-        if (saved) {
-            setTheme(saved);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            setTheme('light');
-        }
-
-        if (toggle) {
-            toggle.addEventListener('click', function() {
-                var current = html.getAttribute('data-theme') || 'dark';
-                setTheme(current === 'dark' ? 'light' : 'dark');
-            });
-        }
+        } catch (e) {}
 
         // WhatsApp UTM tracking + analytics event
         var waBtn = document.getElementById('whatsappFloat');

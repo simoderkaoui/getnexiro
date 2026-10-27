@@ -1062,18 +1062,20 @@ class BlogSEOTest(TestCase):
 # ══════════════════════════════════════════════════════════════════
 
 
-class ThemeToggleTest(TestCase):
-    """Tests for dark/light theme toggle."""
+class DarkThemeOnlyTest(TestCase):
+    """Tests to verify the site is exclusively dark theme (no light theme toggle)."""
 
     def setUp(self):
         SiteConfig.objects.create(site_name='getNexiro')
 
-    def test_theme_toggle_in_navbar(self):
-        """Test that the theme toggle button exists in the base template."""
+    def test_no_light_theme_toggle_in_navbar(self):
+        """Test that the light theme toggle button is removed from the navbar."""
         activate('en')
         response = self.client.get(reverse('core:home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'theme-toggle')
+        self.assertNotContains(response, 'themeToggle')
+        self.assertNotContains(response, 'theme-toggle-btn')
+        self.assertNotContains(response, 'data-theme="light"')
 
 
 class WhatsAppTrackingTest(TestCase):
