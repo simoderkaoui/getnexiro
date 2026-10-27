@@ -9,6 +9,7 @@ Includes:
 """
 
 from django.contrib import admin
+from core.admin import nexiro_admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
@@ -29,7 +30,7 @@ from django.urls import re_path
 
 # Language-prefixed URL patterns
 urlpatterns += i18n_patterns(
-    path('admin/', admin.site.urls),
+    path('admin/', nexiro_admin.urls),
     path('', include('core.urls')),
     prefix_default_language=True,
 )

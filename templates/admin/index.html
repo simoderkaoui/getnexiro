@@ -1,0 +1,49 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="nexiro-dashboard" style="margin-bottom:2rem;">
+    <h2 style="margin-bottom:1rem;">{% trans "Dashboard Summary" %}</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-bottom:2rem;">
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#f59e0b;">{{ new_quotes }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "New Quote Requests" %}</div>
+            <a href="{% url 'admin:core_quoterequest_changelist' %}?status=new" style="font-size:0.78rem; color:#38bdf8;">{% trans "View all" %} &rarr;</a>
+        </div>
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#38bdf8;">{{ upcoming_bookings }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "Upcoming Bookings" %}</div>
+            <a href="{% url 'admin:core_booking_changelist' %}?status=new" style="font-size:0.78rem; color:#38bdf8;">{% trans "View all" %} &rarr;</a>
+        </div>
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#10b981;">{{ confirmed_subscribers }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "Confirmed Subscribers" %}</div>
+            <a href="{% url 'admin:core_subscriber_changelist' %}" style="font-size:0.78rem; color:#38bdf8;">{% trans "View all" %} &rarr;</a>
+        </div>
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#a78bfa;">{{ pending_subscribers }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "Pending Confirmations" %}</div>
+            <a href="{% url 'admin:core_subscriber_changelist' %}?status=pending" style="font-size:0.78rem; color:#38bdf8;">{% trans "View all" %} &rarr;</a>
+        </div>
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#ef4444;">{{ unread_messages }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "Unread Messages" %}</div>
+            <a href="{% url 'admin:core_contactmessage_changelist' %}?is_read__exact=0" style="font-size:0.78rem; color:#38bdf8;">{% trans "View all" %} &rarr;</a>
+        </div>
+
+        <div style="background:#1a2332; border:1px solid #2d3748; border-radius:12px; padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem; font-weight:700; color:#64748b;">{{ total_services }}</div>
+            <div style="font-size:0.85rem; color:#94a3b8;">{% trans "Services" %}</div>
+            <a href="{% url 'admin:core_service_changelist' %}" style="font-size:0.78rem; color:#38bdf8;">{% trans "Manage" %} &rarr;</a>
+        </div>
+
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}

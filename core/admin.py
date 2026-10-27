@@ -677,7 +677,41 @@ class CityServicePageAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.site_header = 'getNexiro Admin'
-admin.site.site_title = 'getNexiro Dashboard'
-admin.site.index_title = 'Content Management'
 
+
+
+# ── Admin Dashboard Summary ──────────────────────────────────────
+import datetime as _dt
+from django.contrib.admin import AdminSite as _OrigAdminSite
+
+class NexiroAdminSite(_OrigAdminSite):
+    site_header = 'getNexiro Admin'
+    site_title = 'getNexiro Dashboard'
+    index_title = 'Content Management'
+
+    def each_context(self, request):
+        ctx = super().each_context(request)
+        try:
+            from core.models import QuoteRequest, Booking, Subscriber, ContactMessage, Service
+            today = _dt.date.today()
+            ctx['new_quotes'] = QuoteRequest.objects.filter(status='new').count()
+            ctx['upcoming_bookings'] = Booking.objects.filter(
+                date__gte=today, status='new'
+            ).count()
+            ctx['confirmed_subscribers'] = Subscriber.objects.filter(status='confirmed').count()
+            ctx['pending_subscribers'] = Subscriber.objects.filter(status='pending').count()
+            ctx['unread_messages'] = ContactMessage.objects.filter(is_read=False).count()
+            ctx['total_services'] = Service.objects.count()
+        except Exception:
+            pass
+        return ctx
+
+nexiro_admin = NexiroAdminSite(name='admin')
+
+
+# Copy all registrations from default admin.site to nexiro_admin
+for model, model_admin in admin.site._registry.copy().items():
+    try:
+        nexiro_admin.register(model, type(model_admin))
+    except admin.sites.AlreadyRegistered:
+        pass
