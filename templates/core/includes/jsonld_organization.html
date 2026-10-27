@@ -1,0 +1,53 @@
+{% load static %}
+{# Organization + ProfessionalService JSON-LD — values from SiteConfig model #}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "Organization"],
+    "name": "{{ config.site_name|default:'getNexiro' }}",
+    "description": "{{ config.meta_description|escapejs }}",
+    "url": "{{ SITE_URL }}",
+    "logo": "{{ SITE_URL }}{% static 'images/logo.png' %}",
+    "image": "{{ SITE_URL }}{% static 'images/logo.png' %}",
+    "telephone": "{{ config.phone|default:'+212663017817' }}",
+    "email": "{{ config.email|default:'getnexiro@gmail.com' }}",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ config.address_detail_en|escapejs }}",
+        "addressLocality": "Tangier",
+        "postalCode": "90000",
+        "addressRegion": "Tanger-Tetouan-Al Hoceima",
+        "addressCountry": "MA"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "35.7796",
+        "longitude": "-5.8030"
+    },
+    "areaServed": [
+        {"@type": "City", "name": "Tangier"},
+        {"@type": "City", "name": "Tetouan"},
+        {"@type": "City", "name": "Fes"},
+        {"@type": "City", "name": "Meknes"},
+        {"@type": "City", "name": "M'diq"},
+        {"@type": "City", "name": "Chefchaouen"},
+        {"@type": "City", "name": "Larache"},
+        {"@type": "City", "name": "Kenitra"},
+        {"@type": "AdministrativeArea", "name": "Northern Morocco"}
+    ],
+    "priceRange": "$$",
+    "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+    },
+    "sameAs": [
+        {% if config.instagram_url %}"{{ config.instagram_url }}"{% endif %}{% if config.instagram_url and config.linkedin_url %},{% endif %}
+        {% if config.linkedin_url %}"{{ config.linkedin_url }}"{% endif %}{% if config.linkedin_url and config.github_url %},{% endif %}
+        {% if config.github_url %}"{{ config.github_url }}"{% endif %}{% if config.github_url and config.twitter_url %},{% endif %}
+        {% if config.twitter_url %}"{{ config.twitter_url }}"{% endif %}
+    ],
+    "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"]
+}
+</script>

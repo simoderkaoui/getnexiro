@@ -5,29 +5,9 @@
 {% block meta_description %}{{ post.meta_description }}{% endblock %}
 {% block og_title %}{{ post.meta_title }} | {{ config.site_name }}{% endblock %}
 
+{% block structured_data %}{% include "core/includes/jsonld_article.html" %}{% endblock %}
+
 {% block extra_head %}
-{# ── Blog Post JSON-LD Structured Data ── #}
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "{{ post.title|escapejs }}",
-    "description": "{{ post.meta_description|escapejs }}",
-    "author": {"@type": "Person", "name": "{{ post.author_name|escapejs }}"},
-    "publisher": {
-        "@type": "Organization",
-        "name": "getNexiro",
-        "logo": {"@type": "ImageObject", "url": "https://getnexiro.com{% static 'images/logo.png' %}"}
-    },
-    {% if post.featured_image %}"image": "https://getnexiro.com{{ post.featured_image.url }}",{% endif %}
-    "datePublished": "{{ post.published_at|date:'Y-m-d' }}",
-    "dateModified": "{{ post.updated_at|date:'Y-m-d' }}",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://getnexiro.com{{ request.path }}"},
-    "wordCount": "{{ post.body|length }}",
-    "timeRequired": "PT{{ post.reading_time_minutes }}M"
-    {% if post.meta_keywords %},"keywords": "{{ post.meta_keywords|escapejs }}"{% endif %}
-}
-</script>
 {% if post.meta_keywords %}
 <meta name="keywords" content="{{ post.meta_keywords }}">
 {% endif %}

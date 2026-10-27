@@ -1,0 +1,26 @@
+{% load static %}
+{# Service JSON-LD for service detail pages #}
+{% if service %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ service.title|escapejs }}",
+    "description": "{{ service.description|truncatewords:30|escapejs }}",
+    "url": "{{ SITE_URL }}{{ request.path }}",
+    "provider": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "url": "{{ SITE_URL }}"
+    },
+    "areaServed": [
+        {"@type": "City", "name": "Tangier"},
+        {"@type": "City", "name": "Tetouan"},
+        {"@type": "City", "name": "Fes"},
+        {"@type": "City", "name": "Meknes"},
+        {"@type": "AdministrativeArea", "name": "Northern Morocco"}
+    ],
+    "serviceType": "{{ service.title|escapejs }}"
+}
+</script>
+{% endif %}

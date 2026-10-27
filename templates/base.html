@@ -56,67 +56,9 @@
     <link rel="stylesheet" href="{% static 'css/rtl.css' %}?v=6.0">
     {% endif %}
 
-    {# ── JSON-LD Structured Data (LocalBusiness) ── #}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "getNexiro",
-        "description": "Professional web development, mobile applications & software engineering agency in Tangier, Morocco",
-        "url": "{{ SITE_URL }}",
-        "logo": "{{ SITE_URL }}{% static 'images/logo.png' %}",
-        "image": "{{ SITE_URL }}{% static 'images/logo.png' %}",
-        "telephone": "+212787862187",
-        "email": "getnexiro@gmail.com",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine",
-            "addressLocality": "Tangier",
-            "postalCode": "90000",
-            "addressRegion": "Tanger-Tetouan-Al Hoceima",
-            "addressCountry": "MA"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "35.7796",
-            "longitude": "-5.8030"
-        },
-        "areaServed": [
-            {"@type": "City", "name": "Tangier"},
-            {"@type": "City", "name": "Tetouan"},
-            {"@type": "City", "name": "Fes"},
-            {"@type": "City", "name": "Meknes"},
-            {"@type": "City", "name": "M'diq"},
-            {"@type": "City", "name": "Chefchaouen"},
-            {"@type": "City", "name": "Larache"},
-            {"@type": "City", "name": "Kenitra"},
-            {"@type": "AdministrativeArea", "name": "Northern Morocco"}
-        ],
-        "priceRange": "$$",
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "18:00"
-        },
-        "sameAs": [
-            "https://www.instagram.com/getnexiro",
-            "https://github.com/simoderkaoui/getnexiro"
-        ],
-        "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"],
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Web & Software Development Services",
-            "itemListElement": [
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Web Development"}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mobile App Development"}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "UI/UX Design"}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Technical Consulting"}},
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cloud & DevOps"}}
-            ]
-        }
-    }
-    </script>
+    {# ── JSON-LD Structured Data (Organization + LocalBusiness) ── #}
+    {% include "core/includes/jsonld_organization.html" %}
+    {% block structured_data %}{% endblock %}
     {% block extra_head %}{% endblock %}
 </head>
 <body class="{% if LANGUAGE_BIDI %}rtl-body{% endif %}">

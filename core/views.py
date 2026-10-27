@@ -9,7 +9,7 @@ from decimal import Decimal
 import json
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, get_language
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -100,6 +100,11 @@ def project_detail(request, slug):
         'project': project,
         'gallery_images': gallery_images,
         'related_projects': related_projects,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': '/'},
+            {'name': _('Projects'), 'url': '/' + (get_language() or 'en') + '/projects/'},
+            {'name': project.title, 'url': request.path},
+        ],
     })
     return render(request, 'core/project_detail.html', ctx)
 
@@ -118,6 +123,11 @@ def service_detail(request, slug):
     ctx.update({
         'service': service,
         'related_services': related_services,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': '/'},
+            {'name': _('Services'), 'url': '/' + (get_language() or 'en') + '/services/'},
+            {'name': service.title, 'url': request.path},
+        ],
     })
     return render(request, 'core/service_detail.html', ctx)
 
@@ -156,6 +166,11 @@ def blog_detail(request, slug):
     ctx.update({
         'post': post,
         'related_posts': related_posts,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': '/'},
+            {'name': _('Blog'), 'url': '/' + (get_language() or 'en') + '/blog/'},
+            {'name': post.title, 'url': request.path},
+        ],
     })
     return render(request, 'core/blog_detail.html', ctx)
 

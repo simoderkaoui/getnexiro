@@ -3,6 +3,8 @@
 
 {% block title %}{{ service.title }} — {% trans "Services" %} | {{ config.site_name }}{% endblock %}
 
+{% block structured_data %}{% include "core/includes/jsonld_service.html" %}{% endblock %}
+
 {% block content %}
 <style>
 /* ═════════════════════════════════════════════════════════════════════

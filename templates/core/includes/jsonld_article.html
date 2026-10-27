@@ -1,0 +1,34 @@
+{% load static %}
+{# Article JSON-LD for blog detail pages #}
+{% if post %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ post.title|escapejs }}",
+    "description": "{{ post.meta_description|escapejs }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ post.author_name|escapejs }}"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ SITE_URL }}{% static 'images/logo.png' %}"
+        }
+    },
+    {% if post.featured_image %}"image": "{{ SITE_URL }}{{ post.featured_image.url }}",{% endif %}
+    "datePublished": "{{ post.published_at|date:'Y-m-d' }}",
+    "dateModified": "{{ post.updated_at|date:'Y-m-d' }}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ SITE_URL }}{{ request.path }}"
+    },
+    "wordCount": "{{ post.body|length }}",
+    "timeRequired": "PT{{ post.reading_time_minutes }}M"
+    {% if post.meta_keywords %},"keywords": "{{ post.meta_keywords|escapejs }}"{% endif %}
+}
+</script>
+{% endif %}
