@@ -1245,3 +1245,53 @@ class MultilingualViewsTest(TestCase):
         self.assertContains(response, 'dir="rtl"')
         response = self.client.get(reverse('core:packages'))
         self.assertContains(response, 'dir="rtl"')
+
+
+class BlogUpgradesTest(TestCase):
+    """Tests for Task 5: Blog upgrades — RSS feed, category archive, tag archive."""
+
+    def setUp(self):
+        SiteConfig.objects.get_or_create(pk=1)
+        self.cat = BlogCategory.objects.create(name_en='Web Dev', name_fr='Dev Web', name_ar='تطوير ويب', slug='web-dev')
+        self.post = BlogPost.objects.create(
+            title_en='Test Post', title_fr='Article Test', title_ar='مقال اختبار',
+            slug='test-post', body_en='Test body content', excerpt_en='Test excerpt',
+            category=self.cat, status='published', author_name='Test Author',
+            tags='django, python, web',
+            published_at=timezone.now(),
+        )
+
+    def test_blog_rss_feed(self):
+        """Test RSS feed returns valid XML."""
+        activate('en')
+        response = self.client.get(reverse('core:blog_rss_feed'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('application/rss+xml', response['Content-Type'])
+        self.assertIn(b'Test Post', response.content)
+
+    def test_blog_category_archive(self):
+        """Test category archive page shows filtered posts."""
+        activate('en')
+        response = self.client.get(reverse('core:blog_category_archive', args=['web-dev']))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Test Post')
+
+    def test_blog_category_archive_404(self):
+        """Test category archive returns 404 for nonexistent category."""
+        activate('en')
+        response = self.client.get(reverse('core:blog_category_archive', args=['nonexistent']))
+        self.assertEqual(response.status_code, 404)
+
+    def test_blog_tag_archive(self):
+        """Test tag archive page shows posts with matching tag."""
+        activate('en')
+        response = self.client.get(reverse('core:blog_tag_archive', args=['django']))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Test Post')
+
+    def test_blog_tag_archive_empty(self):
+        """Test tag archive with no matching posts shows empty state."""
+        activate('en')
+        response = self.client.get(reverse('core:blog_tag_archive', args=['nonexistent-tag']))
+        self.assertEqual(response.status_code, 200)
+

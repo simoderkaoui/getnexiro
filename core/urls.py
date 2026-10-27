@@ -24,6 +24,9 @@ urlpatterns = [
     ])),
     path(_('blog/'), include([
         path('', views.blog, name='blog'),
+        path('feed/', views.blog_rss_feed, name='blog_rss_feed'),
+        path('category/<slug:slug>/', views.blog_category_archive, name='blog_category_archive'),
+        path('tag/<str:tag>/', views.blog_tag_archive, name='blog_tag_archive'),
         path('<slug:slug>/', views.blog_detail, name='blog_detail'),
     ])),
     path(_('contact/'), views.contact, name='contact'),

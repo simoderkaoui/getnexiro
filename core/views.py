@@ -641,6 +641,77 @@ def confirm_subscription(request, token):
     return render(request, 'core/lead_magnet.html', ctx)
 
 
+
+
+def blog_rss_feed(request):
+    """RSS 2.0 feed per language for blog posts."""
+    from django.utils.feedgenerator import Rss201rev2Feed
+    from django.conf import settings
+
+    lang = get_language() or 'en'
+    site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com')
+    config = SiteConfig.load()
+
+    feed = Rss201rev2Feed(
+        title=f'{config.site_name} Blog',
+        link=f'{site_url}/{lang}/blog/',
+        description=str(_('Expert insights on web development, mobile apps, and digital transformation.')),
+        language=lang,
+    )
+
+    posts = BlogPost.objects.filter(status='published').order_by('-published_at')[:20]
+    for post in posts:
+        feed.add_item(
+            title=post.title,
+            link=f'{site_url}/{lang}/blog/{post.slug}/',
+            description=post.excerpt or post.body[:300],
+            author_name=post.author_name,
+            pubdate=post.published_at,
+            updateddate=post.updated_at,
+            categories=[post.category.name] if post.category else [],
+        )
+
+    response = feed.writeString('utf-8')
+    return __import__('django.http', fromlist=['HttpResponse']).HttpResponse(
+        response, content_type='application/rss+xml; charset=utf-8'
+    )
+
+
+def blog_category_archive(request, slug):
+    """Blog posts filtered by category."""
+    ctx = _get_common_context()
+    category = get_object_or_404(BlogCategory, slug=slug)
+    posts = BlogPost.objects.filter(status='published', category=category).select_related('category')
+
+    ctx.update({
+        'posts': posts,
+        'categories': BlogCategory.objects.all(),
+        'active_category': slug,
+        'archive_title': category.name,
+        'archive_type': 'category',
+    })
+    ctx['page_seo_title'] = f'{category.name} — {_("Blog")}'
+    return render(request, 'core/blog.html', ctx)
+
+
+def blog_tag_archive(request, tag):
+    """Blog posts filtered by tag."""
+    ctx = _get_common_context()
+    posts = BlogPost.objects.filter(
+        status='published', tags__icontains=tag
+    ).select_related('category')
+
+    ctx.update({
+        'posts': posts,
+        'categories': BlogCategory.objects.all(),
+        'active_tag': tag,
+        'archive_title': tag,
+        'archive_type': 'tag',
+    })
+    ctx['page_seo_title'] = f'{tag} — {_("Blog")}'
+    return render(request, 'core/blog.html', ctx)
+
+
 def unsubscribe(request):
     """Handle unsubscribe requests."""
     ctx = _get_common_context()

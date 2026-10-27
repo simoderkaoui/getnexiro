@@ -1,0 +1,14 @@
+{% load i18n %}
+{# Newsletter signup block — reuses SubscriberForm #}
+<div class="newsletter-signup-block glass-card" style="padding:2rem; border-radius:16px; margin-top:2rem; text-align:center; background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(99,102,241,0.06)); border:1px solid rgba(56,189,248,0.15);">
+    <h3 style="font-size:1.1rem; color:#f8fafc; margin-bottom:0.4rem;">📬 {% trans "Stay Updated" %}</h3>
+    <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:1rem; line-height:1.5;">{% trans "Get the latest articles and resources delivered to your inbox." %}</p>
+    <form method="post" action="{% url 'core:lead_magnet' %}" style="display:flex; gap:0.5rem; max-width:400px; margin:0 auto; flex-wrap:wrap;">
+        {% csrf_token %}
+        <input type="email" name="email" required placeholder="{% trans 'your@email.com' %}" class="form-input" style="flex:1; min-width:180px; padding:0.6rem 1rem; border-radius:10px; background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.1); color:#f8fafc; font-size:0.85rem;">
+        <input type="hidden" name="consent" value="on">
+        <input type="text" name="website_url" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-sm" style="white-space:nowrap;">{% trans "Subscribe" %}</button>
+    </form>
+    <p style="font-size:0.7rem; color:#64748b; margin-top:0.6rem;">{% trans "No spam. Unsubscribe anytime." %}</p>
+</div>

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
 from django.conf import settings
-from core.models import Service, Project, BlogPost
+from core.models import Service, Project, BlogPost, BlogCategory
 
 
 def robots_txt(request):
@@ -42,6 +42,7 @@ def sitemap_xml(request):
         ('quote/', '0.7'),
         ('booking/', '0.7'),
         ('checklist/', '0.6'),
+        ('blog/feed/', '0.3'),
         ('privacy-policy/', '0.3'),
         ('terms-of-service/', '0.3'),
     ]
@@ -113,6 +114,23 @@ def sitemap_xml(request):
             'lastmod': post.updated_at.strftime('%Y-%m-%d') if post.updated_at else now,
             'changefreq': 'weekly',
             'priority': '0.6',
+            'alternates': alternates,
+        })
+
+
+    # Dynamic pages: Blog categories
+    for cat in BlogCategory.objects.all():
+        alternates = []
+        for lang in languages:
+            alternates.append({
+                'lang': lang,
+                'url': f'{site_url}/{lang}/blog/category/{cat.slug}/',
+            })
+        urls.append({
+            'loc': f'{site_url}/en/blog/category/{cat.slug}/',
+            'lastmod': now,
+            'changefreq': 'weekly',
+            'priority': '0.5',
             'alternates': alternates,
         })
 

@@ -4,6 +4,10 @@
 {% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 {% block meta_description %}{% trans "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco." %}{% endblock %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="{% trans 'getNexiro Blog RSS' %}" href="{% url 'core:blog_rss_feed' %}">
+{% endblock %}
+
 {% block content %}
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -107,7 +111,7 @@
     {% include "core/includes/page_header_video.html" with page_video=config.blog_bg_video page_video_url=config.blog_bg_video_url %}
     <div class="container text-center">
         <div class="badge-tag">{% trans "Insights & Articles" %}</div>
-        <h1 class="page-title">{% trans "Engineering" %} <span class="text-gradient">{% trans "Blog" %}</span></h1>
+        <h1 class="page-title">{% if archive_title %}{{ archive_title }} <span class="text-gradient">{% if archive_type == 'category' %}{% trans "Articles" %}{% else %}{% trans "Posts" %}{% endif %}</span>{% else %}{% trans "Engineering" %} <span class="text-gradient">{% trans "Blog" %}</span>{% endif %}</h1>
         <p class="page-subtitle">{% trans "Expert insights on web development, mobile apps, UI/UX, and digital transformation from our team." %}</p>
     </div>
 </section>
@@ -118,7 +122,7 @@
         <div class="blog-filter-bar">
             <a href="{% url 'core:blog' %}" class="blog-filter-pill {% if not active_category %}active{% endif %}">{% trans "All" %}</a>
             {% for cat in categories %}
-            <a href="{% url 'core:blog' %}?category={{ cat.slug }}" class="blog-filter-pill {% if active_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
+            <a href="{% url 'core:blog_category_archive' cat.slug %}" class="blog-filter-pill {% if active_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
             {% endfor %}
         </div>
         {% endif %}
