@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Get a Quote" %}{% endblock %}
+
+{% block content %}
+<style>
+/* ── Quote Wizard Styles ── */
+.wizard-section { padding: 4rem 0 6rem; }
+.wizard-container { max-width: 720px; margin: 0 auto; }
+.wizard-progress { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; }
+.wizard-progress-step {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: rgba(255,255,255,0.08);
+    transition: background 0.4s ease;
+}
+.wizard-progress-step.active { background: linear-gradient(90deg, #38bdf8, #818cf8); }
+.wizard-progress-step.completed { background: #38bdf8; }
+.wizard-step-labels { display: flex; justify-content: space-between; margin-bottom: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+.wizard-step-labels span.active { color: #38bdf8; font-weight: 600; }
+
+.wizard-step { display: none; animation: fadeInUp 0.3s ease; }
+.wizard-step.active { display: block; }
+
+.wizard-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px; padding: 2rem;
+}
+.wizard-card h2 { font-size: 1.4rem; margin-bottom: 0.5rem; color: #f1f5f9; }
+.wizard-card p.subtitle { color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+.features-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem; margin: 1rem 0;
+}
+.feature-checkbox {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1rem; border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer; transition: all 0.2s;
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+}
+.feature-checkbox:hover { border-color: rgba(56,189,248,0.3); }
+.feature-checkbox.selected {
+    border-color: #38bdf8; background: rgba(56,189,248,0.08);
+    color: #f1f5f9;
+}
+.feature-checkbox input[type="checkbox"] { display: none; }
+
+.wizard-nav { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; }
+.btn-wizard {
+    padding: 0.75rem 2rem; border-radius: 10px; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+    border: none; display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-wizard-prev {
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-wizard-prev:hover { background: rgba(255,255,255,0.1); color: #f1f5f9; }
+.btn-wizard-next {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: #fff; margin-left: auto;
+}
+.btn-wizard-next:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(56,189,248,0.3); }
+
+.estimate-preview {
+    margin-top: 1.5rem; padding: 1.2rem; border-radius: 12px;
+    background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+    text-align: center;
+}
+.estimate-range { font-size: 1.5rem; font-weight: 700; color: #38bdf8; }
+.estimate-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem; }
+
+.honeypot-field { position: absolute; left: -9999px; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .wizard-container { padding: 0 1rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .wizard-card { padding: 1.5rem; }
+}
+</style>
+
+{# ═══ PAGE HEADER ═══ #}
+<section class="page-header">
+    {% include "core/includes/page_header_video.html" with page_video=config.contact_bg_video page_video_url=config.contact_bg_video_url %}
+    <div class="container text-center">
+        <div class="badge-tag">{% trans "Start a Project" %}</div>
+        <h1 class="page-title">{% trans "Get Your" %} <span class="text-gradient">{% trans "Free Quote" %}</span></h1>
+        <p class="page-subtitle">{% trans "Tell us about your project and get an indicative estimate in minutes." %}</p>
+    </div>
+</section>
+
+{# ═══ WIZARD ═══ #}
+<section class="wizard-section">
+    <div class="container wizard-container">
+
+        {# Progress Bar #}
+        <div class="wizard-progress">
+            <div class="wizard-progress-step active" data-step="1"></div>
+            <div class="wizard-progress-step" data-step="2"></div>
+            <div class="wizard-progress-step" data-step="3"></div>
+            <div class="wizard-progress-step" data-step="4"></div>
+        </div>
+        <div class="wizard-step-labels">
+            <span class="active" data-step="1">{% trans "Project" %}</span>
+            <span data-step="2">{% trans "Features" %}</span>
+            <span data-step="3">{% trans "Timeline" %}</span>
+            <span data-step="4">{% trans "Contact" %}</span>
+        </div>
+
+        <form method="post" action="{% url 'core:quote_wizard' %}" id="quoteForm">
+            {% csrf_token %}
+
+            {# Step 1: Project Type #}
+            <div class="wizard-step active" data-step="1">
+                <div class="wizard-card">
+                    <h2>{% trans "What do you want to build?" %}</h2>
+                    <p class="subtitle">{% trans "Select your project type and give us a brief overview." %}</p>
+                    <div class="form-group">
+                        <label class="form-label">{{ form1.project_type.label }}</label>
+                        {{ form1.project_type }}
+                        {% if form1.project_type.errors %}<div class="form-error">{{ form1.project_type.errors.0 }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form1.project_description.label }}</label>
+                        {{ form1.project_description }}
+                    </div>
+                </div>
+                <div class="wizard-nav">
+                    <div></div>
+                    <button type="button" class="btn-wizard btn-wizard-next" onclick="wizardNext(2)">
+                        {% trans "Next" %} →
+                    </button>
+                </div>
+            </div>
+
+            {# Step 2: Features #}
+            <div class="wizard-step" data-step="2">
+                <div class="wizard-card">
+                    <h2>{% trans "What features do you need?" %}</h2>
+                    <p class="subtitle">{% trans "Select all that apply. This helps us estimate more accurately." %}</p>
+
+                    <div class="features-grid" id="featuresGrid">
+                        {% for rule in feature_rules %}
+                        <label class="feature-checkbox" data-key="{{ rule.key }}" data-value="{{ rule.value }}">
+                            <input type="checkbox" value="{{ rule.key }}">
+                            <span>{{ rule.label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    {{ form2.features }}
+
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label class="form-label">{{ form2.num_pages.label }}</label>
+                        {{ form2.num_pages }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form2.num_languages.label }}</label>
+                        {{ form2.num_languages }}
+                    </div>
+                </div>
+                <div class="wizard-nav">
+                    <button type="button" class="btn-wizard btn-wizard-prev" onclick="wizardNext(1)">
+                        ← {% trans "Back" %}
+                    </button>
+                    <button type="button" class="btn-wizard btn-wizard-next" onclick="wizardNext(3)">
+                        {% trans "Next" %} →
+                    </button>
+                </div>
+            </div>
+
+            {# Step 3: Timeline & Budget #}
+            <div class="wizard-step" data-step="3">
+                <div class="wizard-card">
+                    <h2>{% trans "Timeline & Budget" %}</h2>
+                    <p class="subtitle">{% trans "Help us understand your expectations." %}</p>
+
+                    <div class="form-group">
+                        <label class="form-label">{{ form3.timeline.label }}</label>
+                        {{ form3.timeline }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form3.budget_range.label }}</label>
+                        {{ form3.budget_range }}
+                    </div>
+
+                    <div class="estimate-preview" id="estimatePreview" style="display:none;">
+                        <div class="estimate-label">{% trans "Indicative Estimate" %}</div>
+                        <div class="estimate-range" id="estimateRange">—</div>
+                        <div class="estimate-label">{% trans "Final price depends on exact requirements" %}</div>
+                    </div>
+                </div>
+                <div class="wizard-nav">
+                    <button type="button" class="btn-wizard btn-wizard-prev" onclick="wizardNext(2)">
+                        ← {% trans "Back" %}
+                    </button>
+                    <button type="button" class="btn-wizard btn-wizard-next" onclick="wizardNext(4)">
+                        {% trans "Next" %} →
+                    </button>
+                </div>
+            </div>
+
+            {# Step 4: Contact Info #}
+            <div class="wizard-step" data-step="4">
+                <div class="wizard-card">
+                    <h2>{% trans "Your Contact Details" %}</h2>
+                    <p class="subtitle">{% trans "We'll send your detailed quote to this email." %}</p>
+
+                    <div class="form-group">
+                        <label class="form-label">{{ form4.name.label }}</label>
+                        {{ form4.name }}
+                        {% if form4.name.errors %}<div class="form-error">{{ form4.name.errors.0 }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form4.email.label }}</label>
+                        {{ form4.email }}
+                        {% if form4.email.errors %}<div class="form-error">{{ form4.email.errors.0 }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form4.phone.label }}</label>
+                        {{ form4.phone }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">{{ form4.company.label }}</label>
+                        {{ form4.company }}
+                    </div>
+                    {# Honeypot #}
+                    <div class="honeypot-field">{{ form4.website_url }}</div>
+                </div>
+                <div class="wizard-nav">
+                    <button type="button" class="btn-wizard btn-wizard-prev" onclick="wizardNext(3)">
+                        ← {% trans "Back" %}
+                    </button>
+                    <button type="submit" class="btn-wizard btn-wizard-next">
+                        {% trans "Submit Quote Request" %} ✨
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+    let currentStep = 1;
+
+    window.wizardNext = function(step) {
+        // Validate current step
+        if (step > currentStep) {
+            const currentStepEl = document.querySelector('.wizard-step[data-step="' + currentStep + '"]');
+            const requiredInputs = currentStepEl.querySelectorAll('select[required], input[required]');
+            let valid = true;
+            requiredInputs.forEach(function(inp) {
+                if (!inp.value) { inp.classList.add('error'); valid = false; }
+                else { inp.classList.remove('error'); }
+            });
+            // Step 1: project_type is required
+            if (currentStep === 1) {
+                const pt = document.getElementById('id_project_type');
+                if (pt && !pt.value) { pt.classList.add('error'); valid = false; }
+            }
+        }
+
+        currentStep = step;
+
+        // Update steps visibility
+        document.querySelectorAll('.wizard-step').forEach(function(el) {
+            el.classList.remove('active');
+        });
+        document.querySelector('.wizard-step[data-step="' + step + '"]').classList.add('active');
+
+        // Update progress bar
+        document.querySelectorAll('.wizard-progress-step').forEach(function(el) {
+            const s = parseInt(el.dataset.step);
+            el.classList.remove('active', 'completed');
+            if (s === step) el.classList.add('active');
+            if (s < step) el.classList.add('completed');
+        });
+
+        // Update labels
+        document.querySelectorAll('.wizard-step-labels span').forEach(function(el) {
+            el.classList.remove('active');
+            if (parseInt(el.dataset.step) === step) el.classList.add('active');
+        });
+
+        // Update features hidden field
+        if (step === 3) updateFeatures();
+    };
+
+    // Feature checkboxes
+    document.querySelectorAll('.feature-checkbox').forEach(function(label) {
+        label.addEventListener('click', function() {
+            const cb = this.querySelector('input[type="checkbox"]');
+            cb.checked = !cb.checked;
+            this.classList.toggle('selected', cb.checked);
+        });
+    });
+
+    function updateFeatures() {
+        const selected = [];
+        document.querySelectorAll('.feature-checkbox input:checked').forEach(function(cb) {
+            selected.push(cb.value);
+        });
+        const featuresInput = document.getElementById('id_features');
+        if (featuresInput) featuresInput.value = selected.join(',');
+    }
+})();
+</script>
+{% endblock %}

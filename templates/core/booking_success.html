@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Booking Confirmed" %}{% endblock %}
+
+{% block content %}
+<style>
+.success-section { padding: 6rem 0; text-align: center; }
+.success-card {
+    max-width: 600px; margin: 0 auto;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 3rem 2rem;
+}
+.success-icon { font-size: 4rem; margin-bottom: 1rem; }
+.success-card h1 { font-size: 1.8rem; color: #f1f5f9; margin-bottom: 0.5rem; }
+.success-card p { color: rgba(255,255,255,0.6); line-height: 1.7; }
+.booking-details {
+    margin: 2rem 0; padding: 1.5rem; border-radius: 14px;
+    background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+    text-align: left;
+}
+.booking-details .detail-row {
+    display: flex; justify-content: space-between; padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem;
+}
+.booking-details .detail-row .label { color: rgba(255,255,255,0.5); }
+.booking-details .detail-row .value { color: #f1f5f9; font-weight: 600; }
+.success-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
+</style>
+
+<section class="success-section">
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">📅</div>
+            <h1>{% trans "Call Booked!" %}</h1>
+            <p>{% trans "Your discovery call has been confirmed. We've sent a confirmation email with all the details." %}</p>
+
+            {% if booking %}
+            <div class="booking-details">
+                <div class="detail-row">
+                    <span class="label">{% trans "Date" %}</span>
+                    <span class="value">{{ booking.date|date:"l, F j, Y" }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">{% trans "Time" %}</span>
+                    <span class="value">{{ booking.time_slot|time:"H:i" }} (GMT+1)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">{% trans "Duration" %}</span>
+                    <span class="value">30 {% trans "minutes" %}</span>
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <a href="{{ booking.google_calendar_url }}" target="_blank" class="btn btn-primary btn-sm">
+                    📅 {% trans "Add to Google Calendar" %}
+                </a>
+                <a href="{% url 'core:home' %}" class="btn btn-secondary btn-sm">
+                    {% trans "Back to Home" %}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

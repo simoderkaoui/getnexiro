@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Quote Submitted" %}{% endblock %}
+
+{% block content %}
+<style>
+.success-section { padding: 6rem 0; text-align: center; }
+.success-card {
+    max-width: 600px; margin: 0 auto;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 3rem 2rem;
+}
+.success-icon { font-size: 4rem; margin-bottom: 1rem; }
+.success-card h1 { font-size: 1.8rem; color: #f1f5f9; margin-bottom: 0.5rem; }
+.success-card p { color: rgba(255,255,255,0.6); line-height: 1.7; }
+.estimate-box {
+    margin: 2rem 0; padding: 1.5rem; border-radius: 14px;
+    background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);
+}
+.estimate-box .label { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-bottom: 0.3rem; }
+.estimate-box .range { font-size: 2rem; font-weight: 700; color: #38bdf8; }
+.estimate-box .note { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+.success-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
+</style>
+
+<section class="success-section">
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">🎉</div>
+            <h1>{% trans "Quote Request Received!" %}</h1>
+            <p>{% trans "Thank you! We've received your project details and will get back to you within 24 hours with a detailed proposal." %}</p>
+
+            {% if quote and quote.estimated_min and quote.estimated_max %}
+            <div class="estimate-box">
+                <div class="label">{% trans "Indicative Price Range" %}</div>
+                <div class="range">{{ quote.estimated_min|floatformat:0 }} — {{ quote.estimated_max|floatformat:0 }} MAD</div>
+                <div class="note">{% trans "This is an estimate. Final price depends on exact requirements." %}</div>
+            </div>
+            {% endif %}
+
+            <div class="success-actions">
+                <a href="{% url 'core:booking' %}" class="btn btn-primary btn-sm">
+                    {% trans "Book a Discovery Call" %}
+                </a>
+                <a href="https://wa.me/212787862187?text={% trans 'Hi! I just submitted a quote request on getnexiro.com.' %}" target="_blank" class="btn btn-secondary btn-sm" style="background:rgba(37,211,102,0.15); border-color:rgba(37,211,102,0.3); color:#25d366;">
+                    {% trans "Chat on WhatsApp" %}
+                </a>
+                <a href="{% url 'core:home' %}" class="btn btn-secondary btn-sm">
+                    {% trans "Back to Home" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

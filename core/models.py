@@ -981,3 +981,324 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question_en[:80] or f"FAQ #{self.pk}"
+
+
+# ══════════════════════════════════════════════════════════════════
+# PHASE 2: Lead Generation Models
+# ══════════════════════════════════════════════════════════════════
+
+
+# ── 16. Pricing Packages ───────────────────────────────────────
+
+class Package(models.Model):
+    """Admin-editable pricing packages (Showcase, E-commerce, Custom Platform, etc.)."""
+
+    name_en = models.CharField(_('Package Name (EN)'), max_length=120)
+    name_fr = models.CharField(_('Package Name (FR)'), max_length=120, blank=True, default='')
+    name_ar = models.CharField(_('Package Name (AR)'), max_length=120, blank=True, default='')
+
+    slug = models.SlugField(_('Slug'), max_length=140, unique=True)
+
+    tagline_en = models.CharField(_('Tagline (EN)'), max_length=200, blank=True, default='')
+    tagline_fr = models.CharField(_('Tagline (FR)'), max_length=200, blank=True, default='')
+    tagline_ar = models.CharField(_('Tagline (AR)'), max_length=200, blank=True, default='')
+
+    description_en = models.TextField(_('Description (EN)'), blank=True, default='')
+    description_fr = models.TextField(_('Description (FR)'), blank=True, default='')
+    description_ar = models.TextField(_('Description (AR)'), blank=True, default='')
+
+    icon_emoji = models.CharField(_('Icon / Emoji'), max_length=20, default='\U0001f680')
+
+    price_starting_from = models.DecimalField(
+        _('Starting From (MAD)'), max_digits=10, decimal_places=0,
+        help_text=_('Starting price in Moroccan Dirhams. Set to 0 for "Contact Us" pricing.'),
+        default=0,
+    )
+    price_label_en = models.CharField(_('Price Label (EN)'), max_length=60, blank=True, default='Starting from')
+    price_label_fr = models.CharField(_('Price Label (FR)'), max_length=60, blank=True, default='\u00c0 partir de')
+    price_label_ar = models.CharField(_('Price Label (AR)'), max_length=60, blank=True, default='\u0627\u0628\u062a\u062f\u0627\u0621\u064b \u0645\u0646')
+
+    is_featured = models.BooleanField(_('Featured / Highlighted'), default=False, help_text=_('Highlight this as the recommended package'))
+    is_active = models.BooleanField(_('Active'), default=True)
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    # Pre-fill quote wizard
+    prefill_project_type = models.CharField(_('Pre-fill Project Type'), max_length=50, blank=True, default='',
+        help_text=_('Value to pre-fill in the quote wizard when CTA is clicked'))
+
+    @property
+    def name(self): return get_localized(self, 'name')
+
+    @property
+    def tagline(self): return get_localized(self, 'tagline')
+
+    @property
+    def description(self): return get_localized(self, 'description')
+
+    @property
+    def price_label(self): return get_localized(self, 'price_label')
+
+    class Meta:
+        verbose_name = _('Package')
+        verbose_name_plural = _('Packages')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return self.name_en or f"Package #{self.pk}"
+
+
+class PackageFeature(models.Model):
+    """Individual feature line items for a Package."""
+
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='features')
+
+    text_en = models.CharField(_('Feature (EN)'), max_length=200)
+    text_fr = models.CharField(_('Feature (FR)'), max_length=200, blank=True, default='')
+    text_ar = models.CharField(_('Feature (AR)'), max_length=200, blank=True, default='')
+
+    is_included = models.BooleanField(_('Included'), default=True, help_text=_('If unchecked, shown as crossed out'))
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+
+    @property
+    def text(self): return get_localized(self, 'text')
+
+    class Meta:
+        verbose_name = _('Package Feature')
+        verbose_name_plural = _('Package Features')
+        ordering = ['order', 'pk']
+
+    def __str__(self):
+        return self.text_en[:60] or f"Feature #{self.pk}"
+
+
+# ── 17. Pricing Rules (Quote Calculator) ──────────────────────
+
+class PricingRule(models.Model):
+    """Admin-editable pricing rules for the quote estimator calculator."""
+
+    CATEGORY_CHOICES = [
+        ('project_type', _('Project Type Base Price')),
+        ('feature', _('Feature Add-on')),
+        ('pages', _('Number of Pages/Screens')),
+        ('language', _('Additional Language')),
+        ('timeline', _('Timeline Multiplier')),
+    ]
+
+    category = models.CharField(_('Category'), max_length=30, choices=CATEGORY_CHOICES)
+    key = models.CharField(_('Key / Identifier'), max_length=80, help_text=_('e.g. "website", "ecommerce", "auth", "5-10"'))
+
+    label_en = models.CharField(_('Label (EN)'), max_length=200)
+    label_fr = models.CharField(_('Label (FR)'), max_length=200, blank=True, default='')
+    label_ar = models.CharField(_('Label (AR)'), max_length=200, blank=True, default='')
+
+    value = models.DecimalField(_('Value (MAD or multiplier)'), max_digits=10, decimal_places=2,
+        help_text=_('For project_type/feature/pages/language: price in MAD. For timeline: multiplier (e.g. 1.0, 1.3, 0.9)'))
+
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    @property
+    def label(self): return get_localized(self, 'label')
+
+    class Meta:
+        verbose_name = _('Pricing Rule')
+        verbose_name_plural = _('Pricing Rules')
+        ordering = ['category', 'order']
+
+    def __str__(self):
+        return f"{self.get_category_display()} — {self.label_en} ({self.value})"
+
+
+# ── 18. Quote Requests ────────────────────────────────────────
+
+class QuoteRequest(models.Model):
+    """Multi-step quote wizard submissions."""
+
+    STATUS_CHOICES = [
+        ('new', _('New')),
+        ('contacted', _('Contacted')),
+        ('proposal_sent', _('Proposal Sent')),
+        ('won', _('Won')),
+        ('lost', _('Lost')),
+    ]
+
+    PROJECT_TYPE_CHOICES = [
+        ('website', _('Corporate Website')),
+        ('ecommerce', _('E-Commerce Store')),
+        ('webapp', _('Web Application / SaaS')),
+        ('mobile', _('Mobile Application')),
+        ('redesign', _('Website Redesign')),
+        ('other', _('Other / Custom')),
+    ]
+
+    BUDGET_CHOICES = [
+        ('5k-15k', '5,000 — 15,000 MAD'),
+        ('15k-30k', '15,000 — 30,000 MAD'),
+        ('30k-60k', '30,000 — 60,000 MAD'),
+        ('60k-100k', '60,000 — 100,000 MAD'),
+        ('100k+', '100,000+ MAD'),
+        ('unsure', _('Not sure yet')),
+    ]
+
+    TIMELINE_CHOICES = [
+        ('asap', _('ASAP (rush)')),
+        ('1-2months', _('1 — 2 months')),
+        ('2-4months', _('2 — 4 months')),
+        ('4-6months', _('4 — 6 months')),
+        ('flexible', _('Flexible')),
+    ]
+
+    # Step 1: Project info
+    project_type = models.CharField(_('Project Type'), max_length=30, choices=PROJECT_TYPE_CHOICES)
+    project_description = models.TextField(_('Project Description'), blank=True, default='')
+
+    # Step 2: Features & scope
+    features = models.TextField(_('Selected Features'), blank=True, default='',
+        help_text=_('Comma-separated list of selected feature keys'))
+    num_pages = models.CharField(_('Number of Pages/Screens'), max_length=20, blank=True, default='')
+    num_languages = models.PositiveIntegerField(_('Number of Languages'), default=1)
+
+    # Step 3: Timeline & budget
+    timeline = models.CharField(_('Timeline'), max_length=20, choices=TIMELINE_CHOICES, blank=True, default='')
+    budget_range = models.CharField(_('Budget Range'), max_length=20, choices=BUDGET_CHOICES, blank=True, default='')
+
+    # Step 4: Contact info
+    name = models.CharField(_('Full Name'), max_length=150)
+    email = models.EmailField(_('Email'))
+    phone = models.CharField(_('Phone'), max_length=30, blank=True, default='')
+    company = models.CharField(_('Company'), max_length=150, blank=True, default='')
+
+    # Computed estimate
+    estimated_min = models.DecimalField(_('Estimated Min (MAD)'), max_digits=10, decimal_places=0, null=True, blank=True)
+    estimated_max = models.DecimalField(_('Estimated Max (MAD)'), max_digits=10, decimal_places=0, null=True, blank=True)
+
+    # Tracking
+    status = models.CharField(_('Status'), max_length=20, choices=STATUS_CHOICES, default='new')
+    source_page = models.CharField(_('Source Page'), max_length=300, blank=True, default='')
+    honeypot = models.CharField(max_length=200, blank=True, default='')
+    created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
+    admin_notes = models.TextField(_('Admin Notes'), blank=True, default='')
+
+    class Meta:
+        verbose_name = _('Quote Request')
+        verbose_name_plural = _('Quote Requests')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Quote #{self.pk} — {self.name} ({self.get_project_type_display()})"
+
+
+# ── 19. Discovery Call Bookings ───────────────────────────────
+
+class WeeklyAvailability(models.Model):
+    """Admin-editable weekly time slots for discovery calls."""
+
+    DAY_CHOICES = [
+        (0, _('Monday')),
+        (1, _('Tuesday')),
+        (2, _('Wednesday')),
+        (3, _('Thursday')),
+        (4, _('Friday')),
+        (5, _('Saturday')),
+        (6, _('Sunday')),
+    ]
+
+    day_of_week = models.IntegerField(_('Day of Week'), choices=DAY_CHOICES)
+    start_time = models.TimeField(_('Start Time'))
+    end_time = models.TimeField(_('End Time'))
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    class Meta:
+        verbose_name = _('Weekly Availability Slot')
+        verbose_name_plural = _('Weekly Availability')
+        ordering = ['day_of_week', 'start_time']
+        unique_together = [['day_of_week', 'start_time', 'end_time']]
+
+    def __str__(self):
+        return f"{self.get_day_of_week_display()} {self.start_time.strftime('%H:%M')} — {self.end_time.strftime('%H:%M')}"
+
+
+class Booking(models.Model):
+    """Discovery call booking submissions."""
+
+    STATUS_CHOICES = [
+        ('new', _('New / Confirmed')),
+        ('contacted', _('Contacted')),
+        ('completed', _('Completed')),
+        ('cancelled', _('Cancelled')),
+        ('no_show', _('No Show')),
+    ]
+
+    name = models.CharField(_('Full Name'), max_length=150)
+    email = models.EmailField(_('Email'))
+    phone = models.CharField(_('Phone'), max_length=30, blank=True, default='')
+    company = models.CharField(_('Company'), max_length=150, blank=True, default='')
+
+    date = models.DateField(_('Booking Date'))
+    time_slot = models.TimeField(_('Time Slot'))
+    timezone_name = models.CharField(_('Visitor Timezone'), max_length=60, blank=True, default='')
+
+    message = models.TextField(_('Project Brief'), blank=True, default='')
+
+    status = models.CharField(_('Status'), max_length=20, choices=STATUS_CHOICES, default='new')
+    source_page = models.CharField(_('Source Page'), max_length=300, blank=True, default='')
+    honeypot = models.CharField(max_length=200, blank=True, default='')
+    created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
+    admin_notes = models.TextField(_('Admin Notes'), blank=True, default='')
+
+    class Meta:
+        verbose_name = _('Discovery Call Booking')
+        verbose_name_plural = _('Discovery Call Bookings')
+        ordering = ['-date', '-time_slot']
+        unique_together = [['date', 'time_slot']]
+
+    def __str__(self):
+        return f"Booking #{self.pk} — {self.name} on {self.date} at {self.time_slot}"
+
+    @property
+    def google_calendar_url(self):
+        """Generate an 'Add to Google Calendar' link."""
+        import datetime
+        start_dt = datetime.datetime.combine(self.date, self.time_slot)
+        end_dt = start_dt + datetime.timedelta(minutes=30)
+        fmt = '%Y%m%dT%H%M%S'
+        return (
+            f"https://calendar.google.com/calendar/render?action=TEMPLATE"
+            f"&text=getNexiro+Discovery+Call"
+            f"&dates={start_dt.strftime(fmt)}/{end_dt.strftime(fmt)}"
+            f"&details=Discovery+call+with+getNexiro+team"
+            f"&location=Video+Call"
+        )
+
+
+# ── 20. Lead Magnet Subscribers ───────────────────────────────
+
+class Subscriber(models.Model):
+    """Email subscribers for lead magnets (checklist downloads, newsletter)."""
+
+    STATUS_CHOICES = [
+        ('pending', _('Pending Confirmation')),
+        ('confirmed', _('Confirmed')),
+        ('unsubscribed', _('Unsubscribed')),
+    ]
+
+    email = models.EmailField(_('Email'), unique=True)
+    name = models.CharField(_('Name'), max_length=150, blank=True, default='')
+    consent = models.BooleanField(_('Marketing Consent'), default=False)
+    status = models.CharField(_('Status'), max_length=20, choices=STATUS_CHOICES, default='confirmed')
+
+    lead_magnet = models.CharField(_('Lead Magnet'), max_length=100, blank=True, default='checklist',
+        help_text=_('Which resource they downloaded'))
+
+    source_page = models.CharField(_('Source Page'), max_length=300, blank=True, default='')
+    honeypot = models.CharField(max_length=200, blank=True, default='')
+    created_at = models.DateTimeField(_('Subscribed At'), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Subscriber')
+        verbose_name_plural = _('Subscribers')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.email} ({self.get_status_display()})"

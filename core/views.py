@@ -5,15 +5,25 @@ All content is fetched from the database (admin-editable).
 Falls back to empty lists gracefully if no data exists yet.
 """
 
+from decimal import Decimal
+import json
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from django.contrib import messages
-from .forms import ContactForm
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .forms import (
+    ContactForm, QuoteStep1Form, QuoteStep2Form, QuoteStep3Form, QuoteStep4Form,
+    BookingForm, SubscriberForm,
+)
 from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, BlogCategory, BlogPost,
     LegalPage, FAQ,
+    Package, PricingRule, QuoteRequest,
+    WeeklyAvailability, Booking, Subscriber,
 )
 from .emails import send_contact_emails
 
@@ -183,6 +193,404 @@ def legal_page(request, slug):
     ctx = _get_common_context()
     ctx['page'] = page
     return render(request, 'core/legal_page.html', ctx)
+
+
+# ══════════════════════════════════════════════════════════════════
+# PHASE 2: Lead Generation Views
+# ══════════════════════════════════════════════════════════════════
+
+
+def _compute_quote_estimate(project_type, features_str, num_pages, num_languages, timeline):
+    """Calculate indicative price range from admin-editable PricingRules."""
+    rules = PricingRule.objects.filter(is_active=True)
+    base = Decimal('0')
+    multiplier = Decimal('1.0')
+
+    # Base price from project type
+    type_rule = rules.filter(category='project_type', key=project_type).first()
+    if type_rule:
+        base += type_rule.value
+
+    # Feature add-ons
+    if features_str:
+        feature_keys = [f.strip() for f in features_str.split(',') if f.strip()]
+        for rule in rules.filter(category='feature', key__in=feature_keys):
+            base += rule.value
+
+    # Pages/screens
+    if num_pages:
+        pages_rule = rules.filter(category='pages', key=num_pages).first()
+        if pages_rule:
+            base += pages_rule.value
+
+    # Additional languages (beyond 1)
+    if num_languages and num_languages > 1:
+        lang_rule = rules.filter(category='language').first()
+        if lang_rule:
+            base += lang_rule.value * (num_languages - 1)
+
+    # Timeline multiplier
+    if timeline:
+        timeline_rule = rules.filter(category='timeline', key=timeline).first()
+        if timeline_rule:
+            multiplier = timeline_rule.value
+
+    if base == 0:
+        return None, None
+
+    estimated = base * multiplier
+    # Return a range: -15% to +25%
+    est_min = int(estimated * Decimal('0.85'))
+    est_max = int(estimated * Decimal('1.25'))
+    return est_min, est_max
+
+
+def quote_wizard(request):
+    """Multi-step quote estimator wizard."""
+    ctx = _get_common_context()
+
+    # Get pricing rules for feature checkboxes
+    feature_rules = PricingRule.objects.filter(category='feature', is_active=True).order_by('order')
+
+    if request.method == 'POST':
+        # Validate all steps at once on final submit
+        form1 = QuoteStep1Form(request.POST)
+        form2 = QuoteStep2Form(request.POST)
+        form3 = QuoteStep3Form(request.POST)
+        form4 = QuoteStep4Form(request.POST)
+
+        all_valid = all([form1.is_valid(), form2.is_valid(), form3.is_valid(), form4.is_valid()])
+
+        # Honeypot check
+        if form4.is_valid() and form4.cleaned_data.get('website_url'):
+            # Bot detected — silently accept
+            messages.success(request, _('Thank you! Your quote request has been submitted.'))
+            return redirect('core:quote_wizard')
+
+        if all_valid:
+            # Compute estimate
+            est_min, est_max = _compute_quote_estimate(
+                form1.cleaned_data['project_type'],
+                form2.cleaned_data.get('features', ''),
+                form2.cleaned_data.get('num_pages', ''),
+                form2.cleaned_data.get('num_languages', 1),
+                form3.cleaned_data.get('timeline', ''),
+            )
+
+            quote = QuoteRequest.objects.create(
+                project_type=form1.cleaned_data['project_type'],
+                project_description=form1.cleaned_data.get('project_description', ''),
+                features=form2.cleaned_data.get('features', ''),
+                num_pages=form2.cleaned_data.get('num_pages', ''),
+                num_languages=form2.cleaned_data.get('num_languages', 1),
+                timeline=form3.cleaned_data.get('timeline', ''),
+                budget_range=form3.cleaned_data.get('budget_range', ''),
+                name=form4.cleaned_data['name'],
+                email=form4.cleaned_data['email'],
+                phone=form4.cleaned_data.get('phone', ''),
+                company=form4.cleaned_data.get('company', ''),
+                estimated_min=est_min,
+                estimated_max=est_max,
+                source_page=request.META.get('HTTP_REFERER', ''),
+            )
+
+            # Send notification emails (reuse pattern from contact)
+            try:
+                from django.core.mail import EmailMultiAlternatives
+                from django.conf import settings
+
+                # Admin notification
+                admin_subject = f'[getNexiro] New Quote Request from {quote.name}'
+                admin_body = (
+                    f"New quote request received:\n\n"
+                    f"Name: {quote.name}\n"
+                    f"Email: {quote.email}\n"
+                    f"Phone: {quote.phone}\n"
+                    f"Company: {quote.company}\n"
+                    f"Project Type: {quote.get_project_type_display()}\n"
+                    f"Description: {quote.project_description}\n"
+                    f"Features: {quote.features}\n"
+                    f"Pages: {quote.num_pages}\n"
+                    f"Languages: {quote.num_languages}\n"
+                    f"Timeline: {quote.timeline}\n"
+                    f"Budget: {quote.budget_range}\n"
+                    f"Estimate: {quote.estimated_min} — {quote.estimated_max} MAD\n"
+                )
+                admin_email = EmailMultiAlternatives(
+                    subject=admin_subject,
+                    body=admin_body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.DEFAULT_FROM_EMAIL],
+                )
+                admin_email.send(fail_silently=True)
+
+                # Visitor confirmation
+                visitor_subject = _('Your getNexiro Quote Request — Received!')
+                visitor_body = (
+                    f"Hi {quote.name},\n\n"
+                    f"Thank you for your quote request! We've received your project details and "
+                    f"will get back to you within 24 hours with a detailed proposal.\n\n"
+                )
+                if est_min and est_max:
+                    visitor_body += f"Indicative estimate: {est_min:,} — {est_max:,} MAD\n\n"
+                visitor_body += (
+                    f"In the meantime, feel free to book a discovery call or reach us on WhatsApp.\n\n"
+                    f"Best regards,\nThe getNexiro Team\n"
+                )
+                visitor_email = EmailMultiAlternatives(
+                    subject=str(visitor_subject),
+                    body=visitor_body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[quote.email],
+                )
+                visitor_email.send(fail_silently=True)
+            except Exception:
+                pass  # Form saved to DB even if email fails
+
+            # Redirect to success page with estimate
+            request.session['quote_submitted'] = True
+            request.session['quote_id'] = quote.pk
+            return redirect('core:quote_success')
+
+        ctx.update({
+            'form1': form1, 'form2': form2, 'form3': form3, 'form4': form4,
+            'feature_rules': feature_rules,
+        })
+    else:
+        # Pre-fill from package CTA
+        initial1 = {}
+        prefill = request.GET.get('type', '')
+        if prefill:
+            initial1['project_type'] = prefill
+
+        ctx.update({
+            'form1': QuoteStep1Form(initial=initial1),
+            'form2': QuoteStep2Form(),
+            'form3': QuoteStep3Form(),
+            'form4': QuoteStep4Form(),
+            'feature_rules': feature_rules,
+        })
+
+    return render(request, 'core/quote_wizard.html', ctx)
+
+
+def quote_success(request):
+    """Quote submission success page with estimate."""
+    if not request.session.get('quote_submitted'):
+        return redirect('core:quote_wizard')
+
+    ctx = _get_common_context()
+    quote_id = request.session.pop('quote_id', None)
+    request.session.pop('quote_submitted', None)
+
+    if quote_id:
+        try:
+            quote = QuoteRequest.objects.get(pk=quote_id)
+            ctx['quote'] = quote
+        except QuoteRequest.DoesNotExist:
+            pass
+
+    return render(request, 'core/quote_success.html', ctx)
+
+
+def packages(request):
+    """Pricing packages page."""
+    ctx = _get_common_context()
+    ctx.update({
+        'packages': Package.objects.filter(is_active=True).prefetch_related('features'),
+        'faqs': FAQ.objects.filter(is_active=True, section='pricing')[:6],
+    })
+    return render(request, 'core/packages.html', ctx)
+
+
+def booking(request):
+    """Discovery call booking page."""
+    ctx = _get_common_context()
+
+    # Get available weekly slots
+    available_slots = WeeklyAvailability.objects.filter(is_active=True)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+
+        # Honeypot check
+        if form.is_valid() and form.cleaned_data.get('website_url'):
+            messages.success(request, _('Your booking has been confirmed!'))
+            return redirect('core:booking')
+
+        if form.is_valid():
+            book_date = form.cleaned_data['date']
+            book_time = form.cleaned_data['time_slot']
+
+            # Check if slot is available
+            if Booking.objects.filter(date=book_date, time_slot=book_time).exclude(status='cancelled').exists():
+                form.add_error('time_slot', _('This time slot is already booked. Please choose another.'))
+            else:
+                bk = Booking.objects.create(
+                    name=form.cleaned_data['name'],
+                    email=form.cleaned_data['email'],
+                    phone=form.cleaned_data.get('phone', ''),
+                    company=form.cleaned_data.get('company', ''),
+                    date=book_date,
+                    time_slot=book_time,
+                    timezone_name=form.cleaned_data.get('timezone_name', 'Africa/Casablanca'),
+                    message=form.cleaned_data.get('message', ''),
+                    source_page=request.META.get('HTTP_REFERER', ''),
+                )
+
+                # Send emails
+                try:
+                    from django.core.mail import EmailMultiAlternatives
+                    from django.conf import settings
+
+                    admin_email = EmailMultiAlternatives(
+                        subject=f'[getNexiro] New Booking from {bk.name} — {bk.date} at {bk.time_slot}',
+                        body=(
+                            f"New discovery call booked:\n\n"
+                            f"Name: {bk.name}\nEmail: {bk.email}\nPhone: {bk.phone}\n"
+                            f"Company: {bk.company}\nDate: {bk.date}\nTime: {bk.time_slot}\n"
+                            f"Message: {bk.message}\n"
+                        ),
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        to=[settings.DEFAULT_FROM_EMAIL],
+                    )
+                    admin_email.send(fail_silently=True)
+
+                    visitor_email = EmailMultiAlternatives(
+                        subject=str(_('Your getNexiro Discovery Call — Confirmed!')),
+                        body=(
+                            f"Hi {bk.name},\n\n"
+                            f"Your discovery call is confirmed!\n\n"
+                            f"Date: {bk.date.strftime('%A, %B %d, %Y')}\n"
+                            f"Time: {bk.time_slot.strftime('%H:%M')} (GMT+1 / Morocco time)\n\n"
+                            f"We'll contact you at the provided email or phone number.\n\n"
+                            f"Add to Google Calendar:\n{bk.google_calendar_url}\n\n"
+                            f"Best regards,\nThe getNexiro Team\n"
+                        ),
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        to=[bk.email],
+                    )
+                    visitor_email.send(fail_silently=True)
+                except Exception:
+                    pass
+
+                messages.success(request, _('Your discovery call has been booked! Check your email for confirmation.'))
+                ctx['booking'] = bk
+                return render(request, 'core/booking_success.html', ctx)
+    else:
+        form = BookingForm()
+
+    # Build available time slots for JS
+    slots_by_day = {}
+    for slot in available_slots:
+        day = slot.day_of_week
+        if day not in slots_by_day:
+            slots_by_day[day] = []
+        slots_by_day[day].append({
+            'start': slot.start_time.strftime('%H:%M'),
+            'end': slot.end_time.strftime('%H:%M'),
+        })
+
+    # Get already booked slots for the next 60 days
+    today = datetime.date.today()
+    booked = Booking.objects.filter(
+        date__gte=today,
+        date__lte=today + datetime.timedelta(days=60),
+    ).exclude(status='cancelled').values_list('date', 'time_slot')
+    booked_json = [
+        {'date': d.isoformat(), 'time': t.strftime('%H:%M')}
+        for d, t in booked
+    ]
+
+    ctx.update({
+        'form': form,
+        'slots_by_day_json': json.dumps(slots_by_day),
+        'booked_slots_json': json.dumps(booked_json),
+    })
+    return render(request, 'core/booking.html', ctx)
+
+
+def lead_magnet(request):
+    """Lead magnet download page (free checklist PDF)."""
+    ctx = _get_common_context()
+
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST)
+
+        # Honeypot check
+        if form.is_valid() and form.cleaned_data.get('website_url'):
+            messages.success(request, _('Thank you! Check your email for the download link.'))
+            return redirect('core:lead_magnet')
+
+        if form.is_valid():
+            email = form.cleaned_data['email']
+
+            # Update or create subscriber
+            sub, created = Subscriber.objects.get_or_create(
+                email=email,
+                defaults={
+                    'name': form.cleaned_data.get('name', ''),
+                    'consent': form.cleaned_data['consent'],
+                    'lead_magnet': 'checklist',
+                    'source_page': request.META.get('HTTP_REFERER', ''),
+                }
+            )
+            if not created:
+                sub.consent = form.cleaned_data['consent']
+                sub.save(update_fields=['consent'])
+
+            # Send download link email
+            try:
+                from django.core.mail import EmailMultiAlternatives
+                from django.conf import settings
+
+                visitor_email = EmailMultiAlternatives(
+                    subject=str(_('Your Free Website Launch Checklist — getNexiro')),
+                    body=(
+                        f"Hi {sub.name or 'there'},\n\n"
+                        f"Thank you for downloading our Website Launch Checklist!\n\n"
+                        f"You can download the checklist here:\n"
+                        f"https://getnexiro.com/static/downloads/website-launch-checklist.pdf\n\n"
+                        f"Need help with your project? Book a free discovery call:\n"
+                        f"https://getnexiro.com/en/booking/\n\n"
+                        f"Best regards,\nThe getNexiro Team\n"
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[email],
+                )
+                visitor_email.send(fail_silently=True)
+            except Exception:
+                pass
+
+            messages.success(request, _('Check your email for the download link!'))
+            ctx['download_ready'] = True
+            ctx['form'] = SubscriberForm()
+            return render(request, 'core/lead_magnet.html', ctx)
+    else:
+        form = SubscriberForm()
+
+    ctx['form'] = form
+    return render(request, 'core/lead_magnet.html', ctx)
+
+
+def unsubscribe(request):
+    """Handle unsubscribe requests."""
+    ctx = _get_common_context()
+    email = request.GET.get('email', '')
+
+    if request.method == 'POST':
+        email = request.POST.get('email', '')
+        try:
+            sub = Subscriber.objects.get(email=email)
+            sub.status = 'unsubscribed'
+            sub.save(update_fields=['status'])
+            messages.success(request, _('You have been unsubscribed successfully.'))
+        except Subscriber.DoesNotExist:
+            messages.info(request, _('Email address not found in our records.'))
+        return redirect('core:home')
+
+    ctx['email'] = email
+    return render(request, 'core/unsubscribe.html', ctx)
 
 
 # ── Error Handlers ───────────────────────────────────────────────

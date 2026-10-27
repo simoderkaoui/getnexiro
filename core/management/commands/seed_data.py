@@ -16,6 +16,7 @@ from core.models import (
     TeamMember, Testimonial, ClientLogo, Stat,
     CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
     LegalPage, FAQ,
+    Package, PackageFeature, PricingRule, WeeklyAvailability,
 )
 
 
@@ -1546,5 +1547,131 @@ class Command(BaseCommand):
         for faq_data in faqs_data:
             FAQ.objects.create(**faq_data)
         self.stdout.write(f'  [OK] Created {len(faqs_data)} multilingual FAQs')
+
+        # ── 14. Packages ──
+        Package.objects.all().delete()
+        PackageFeature.objects.all().delete()
+        packages_data = [
+            {
+                'name_en': 'Showcase', 'name_fr': 'Vitrine', 'name_ar': '\u0645\u0648\u0642\u0639 \u062a\u0639\u0631\u064a\u0641\u064a',
+                'slug': 'showcase',
+                'tagline_en': 'Perfect for small businesses and professionals',
+                'tagline_fr': 'Id\u00e9al pour les petites entreprises et professionnels',
+                'tagline_ar': '\u0645\u062b\u0627\u0644\u064a \u0644\u0644\u0634\u0631\u0643\u0627\u062a \u0627\u0644\u0635\u063a\u064a\u0631\u0629 \u0648\u0627\u0644\u0645\u0647\u0646\u064a\u064a\u0646',
+                'icon_emoji': '\U0001f310', 'price_starting_from': 8000,
+                'is_featured': False, 'order': 1, 'prefill_project_type': 'website',
+                'features': [
+                    ('Up to 5 pages', 'Jusqu\u2019\u00e0 5 pages', '\u062d\u062a\u0649 5 \u0635\u0641\u062d\u0627\u062a', True),
+                    ('Responsive design', 'Design responsive', '\u062a\u0635\u0645\u064a\u0645 \u0645\u062a\u062c\u0627\u0648\u0628', True),
+                    ('Contact form', 'Formulaire de contact', '\u0646\u0645\u0648\u0630\u062c \u0627\u062a\u0635\u0627\u0644', True),
+                    ('Basic SEO setup', 'SEO de base', '\u0625\u0639\u062f\u0627\u062f SEO \u0623\u0633\u0627\u0633\u064a', True),
+                    ('1 language', '1 langue', '\u0644\u063a\u0629 \u0648\u0627\u062d\u062f\u0629', True),
+                    ('CMS / Admin panel', 'CMS / Panneau admin', '\u0646\u0638\u0627\u0645 \u0625\u062f\u0627\u0631\u0629 \u0645\u062d\u062a\u0648\u0649', True),
+                    ('E-commerce', 'E-commerce', '\u062a\u062c\u0627\u0631\u0629 \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629', False),
+                    ('Custom API', 'API personnalis\u00e9e', 'API \u0645\u062e\u0635\u0635\u0629', False),
+                ],
+            },
+            {
+                'name_en': 'E-Commerce', 'name_fr': 'E-Commerce', 'name_ar': '\u0645\u062a\u062c\u0631 \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a',
+                'slug': 'ecommerce',
+                'tagline_en': 'Full-featured online store ready to sell',
+                'tagline_fr': 'Boutique en ligne compl\u00e8te pr\u00eate \u00e0 vendre',
+                'tagline_ar': '\u0645\u062a\u062c\u0631 \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0645\u062a\u0643\u0627\u0645\u0644 \u062c\u0627\u0647\u0632 \u0644\u0644\u0628\u064a\u0639',
+                'icon_emoji': '\U0001f6d2', 'price_starting_from': 20000,
+                'is_featured': True, 'order': 2, 'prefill_project_type': 'ecommerce',
+                'features': [
+                    ('Up to 15 pages', 'Jusqu\u2019\u00e0 15 pages', '\u062d\u062a\u0649 15 \u0635\u0641\u062d\u0629', True),
+                    ('Responsive design', 'Design responsive', '\u062a\u0635\u0645\u064a\u0645 \u0645\u062a\u062c\u0627\u0648\u0628', True),
+                    ('Product catalog & cart', 'Catalogue produits & panier', '\u0643\u062a\u0627\u0644\u0648\u062c \u0645\u0646\u062a\u062c\u0627\u062a \u0648\u0633\u0644\u0629', True),
+                    ('Payment gateway', 'Passerelle de paiement', '\u0628\u0648\u0627\u0628\u0629 \u062f\u0641\u0639', True),
+                    ('Order management', 'Gestion des commandes', '\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0637\u0644\u0628\u0627\u062a', True),
+                    ('Up to 2 languages', 'Jusqu\u2019\u00e0 2 langues', '\u062d\u062a\u0649 \u0644\u063a\u062a\u064a\u0646', True),
+                    ('Advanced SEO', 'SEO avanc\u00e9', 'SEO \u0645\u062a\u0642\u062f\u0645', True),
+                    ('Analytics dashboard', 'Tableau de bord analytique', '\u0644\u0648\u062d\u0629 \u062a\u062d\u0644\u064a\u0644\u0627\u062a', True),
+                ],
+            },
+            {
+                'name_en': 'Custom Platform', 'name_fr': 'Plateforme Sur Mesure', 'name_ar': '\u0645\u0646\u0635\u0629 \u0645\u062e\u0635\u0635\u0629',
+                'slug': 'custom-platform',
+                'tagline_en': 'Enterprise-grade custom web applications',
+                'tagline_fr': 'Applications web sur mesure de niveau entreprise',
+                'tagline_ar': '\u062a\u0637\u0628\u064a\u0642\u0627\u062a \u0648\u064a\u0628 \u0645\u062e\u0635\u0635\u0629 \u0628\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a',
+                'icon_emoji': '\U0001f680', 'price_starting_from': 0,
+                'is_featured': False, 'order': 3, 'prefill_project_type': 'webapp',
+                'features': [
+                    ('Unlimited pages', 'Pages illimit\u00e9es', '\u0635\u0641\u062d\u0627\u062a \u063a\u064a\u0631 \u0645\u062d\u062f\u0648\u062f\u0629', True),
+                    ('Custom UI/UX design', 'Design UI/UX sur mesure', '\u062a\u0635\u0645\u064a\u0645 UI/UX \u0645\u062e\u0635\u0635', True),
+                    ('API development', 'D\u00e9veloppement API', '\u062a\u0637\u0648\u064a\u0631 API', True),
+                    ('User authentication', 'Authentification', '\u0645\u0635\u0627\u062f\u0642\u0629 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646', True),
+                    ('Cloud deployment', 'D\u00e9ploiement cloud', '\u0646\u0634\u0631 \u0633\u062d\u0627\u0628\u064a', True),
+                    ('Multilingual (3+)', 'Multilingue (3+)', '\u0645\u062a\u0639\u062f\u062f \u0627\u0644\u0644\u063a\u0627\u062a (3+)', True),
+                    ('CI/CD pipeline', 'Pipeline CI/CD', '\u062e\u0637 CI/CD', True),
+                    ('Dedicated support', 'Support d\u00e9di\u00e9', '\u062f\u0639\u0645 \u0645\u062e\u0635\u0635', True),
+                ],
+            },
+        ]
+        for pkg_data in packages_data:
+            features_list = pkg_data.pop('features')
+            pkg = Package.objects.create(**pkg_data)
+            for i, (en, fr, ar, included) in enumerate(features_list):
+                PackageFeature.objects.create(
+                    package=pkg, text_en=en, text_fr=fr, text_ar=ar,
+                    is_included=included, order=i+1,
+                )
+        self.stdout.write(f'  [OK] Created {len(packages_data)} pricing packages with features')
+
+        # ── 15. Pricing Rules ──
+        PricingRule.objects.all().delete()
+        pricing_rules = [
+            # Project type base prices
+            ('project_type', 'website', 'Corporate Website', 'Site Vitrine', '\u0645\u0648\u0642\u0639 \u062a\u0639\u0631\u064a\u0641\u064a', 8000, 1),
+            ('project_type', 'ecommerce', 'E-Commerce Store', 'Boutique E-Commerce', '\u0645\u062a\u062c\u0631 \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a', 20000, 2),
+            ('project_type', 'webapp', 'Web Application / SaaS', 'Application Web / SaaS', '\u062a\u0637\u0628\u064a\u0642 \u0648\u064a\u0628 / SaaS', 35000, 3),
+            ('project_type', 'mobile', 'Mobile Application', 'Application Mobile', '\u062a\u0637\u0628\u064a\u0642 \u062c\u0648\u0627\u0644', 30000, 4),
+            ('project_type', 'redesign', 'Website Redesign', 'Refonte de Site', '\u0625\u0639\u0627\u062f\u0629 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639', 10000, 5),
+            ('project_type', 'other', 'Other / Custom', 'Autre / Sur Mesure', '\u0623\u062e\u0631\u0649 / \u0645\u062e\u0635\u0635', 15000, 6),
+            # Feature add-ons
+            ('feature', 'auth', 'User Authentication', 'Authentification', '\u0645\u0635\u0627\u062f\u0642\u0629 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646', 3000, 1),
+            ('feature', 'payment', 'Payment Integration', 'Int\u00e9gration Paiement', '\u062a\u0643\u0627\u0645\u0644 \u0627\u0644\u062f\u0641\u0639', 5000, 2),
+            ('feature', 'cms', 'CMS / Admin Panel', 'CMS / Panneau Admin', '\u0646\u0638\u0627\u0645 \u0625\u062f\u0627\u0631\u0629 \u0645\u062d\u062a\u0648\u0649', 2000, 3),
+            ('feature', 'seo', 'Advanced SEO', 'SEO Avanc\u00e9', 'SEO \u0645\u062a\u0642\u062f\u0645', 2000, 4),
+            ('feature', 'analytics', 'Analytics Dashboard', 'Tableau de Bord', '\u0644\u0648\u062d\u0629 \u062a\u062d\u0644\u064a\u0644\u0627\u062a', 3000, 5),
+            ('feature', 'api', 'REST API', 'API REST', 'API REST', 5000, 6),
+            ('feature', 'chat', 'Live Chat Widget', 'Widget Chat En Direct', '\u062f\u0631\u062f\u0634\u0629 \u0645\u0628\u0627\u0634\u0631\u0629', 2000, 7),
+            ('feature', 'email', 'Email Notifications', 'Notifications Email', '\u0625\u0634\u0639\u0627\u0631\u0627\u062a \u0628\u0631\u064a\u062f', 1500, 8),
+            # Pages pricing
+            ('pages', '1-5', '1 \u2014 5 pages', '1 \u2014 5 pages', '1 \u2014 5 \u0635\u0641\u062d\u0627\u062a', 0, 1),
+            ('pages', '5-10', '5 \u2014 10 pages', '5 \u2014 10 pages', '5 \u2014 10 \u0635\u0641\u062d\u0627\u062a', 3000, 2),
+            ('pages', '10-20', '10 \u2014 20 pages', '10 \u2014 20 pages', '10 \u2014 20 \u0635\u0641\u062d\u0629', 6000, 3),
+            ('pages', '20+', '20+ pages', '20+ pages', '20+ \u0635\u0641\u062d\u0629', 10000, 4),
+            # Language add-on
+            ('language', 'extra', 'Additional Language', 'Langue Suppl\u00e9mentaire', '\u0644\u063a\u0629 \u0625\u0636\u0627\u0641\u064a\u0629', 3000, 1),
+            # Timeline multipliers
+            ('timeline', 'asap', 'ASAP (rush)', 'ASAP (urgent)', 'ASAP (\u0639\u0627\u062c\u0644)', 1.5, 1),
+            ('timeline', '1-2months', '1 \u2014 2 months', '1 \u2014 2 mois', '1 \u2014 2 \u0634\u0647\u0631', 1.2, 2),
+            ('timeline', '2-4months', '2 \u2014 4 months', '2 \u2014 4 mois', '2 \u2014 4 \u0623\u0634\u0647\u0631', 1.0, 3),
+            ('timeline', '4-6months', '4 \u2014 6 months', '4 \u2014 6 mois', '4 \u2014 6 \u0623\u0634\u0647\u0631', 0.95, 4),
+            ('timeline', 'flexible', 'Flexible', 'Flexible', '\u0645\u0631\u0646', 1.0, 5),
+        ]
+        for cat, key, en, fr, ar, val, order in pricing_rules:
+            PricingRule.objects.create(
+                category=cat, key=key,
+                label_en=en, label_fr=fr, label_ar=ar,
+                value=val, order=order, is_active=True,
+            )
+        self.stdout.write(f'  [OK] Created {len(pricing_rules)} pricing rules')
+
+        # ── 16. Weekly Availability Slots ──
+        WeeklyAvailability.objects.all().delete()
+        import datetime as dt
+        for day in range(5):  # Monday to Friday
+            for hour in [9, 10, 11, 14, 15, 16, 17]:
+                WeeklyAvailability.objects.create(
+                    day_of_week=day,
+                    start_time=dt.time(hour, 0),
+                    end_time=dt.time(hour, 30),
+                    is_active=True,
+                )
+        self.stdout.write('  [OK] Created weekly availability slots (Mon-Fri, 9-17h)')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))

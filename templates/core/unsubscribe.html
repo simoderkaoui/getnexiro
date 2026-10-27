@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Unsubscribe" %}{% endblock %}
+
+{% block content %}
+<style>
+.unsub-section { padding: 6rem 0; text-align: center; }
+.unsub-card {
+    max-width: 500px; margin: 0 auto;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 3rem 2rem;
+}
+.unsub-card h1 { font-size: 1.5rem; color: #f1f5f9; margin-bottom: 0.5rem; }
+.unsub-card p { color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-size: 0.9rem; }
+</style>
+
+<section class="unsub-section">
+    <div class="container">
+        <div class="unsub-card">
+            <h1>{% trans "Unsubscribe" %}</h1>
+            <p>{% trans "We're sorry to see you go. Click below to unsubscribe from our emails." %}</p>
+
+            <form method="post" action="{% url 'core:unsubscribe' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">{% trans "Email Address" %}</label>
+                    <input type="email" name="email" value="{{ email }}" class="form-input" required placeholder="{% trans 'your@email.com' %}">
+                </div>
+                <button type="submit" class="btn btn-secondary btn-full" style="margin-top:1rem;">
+                    {% trans "Unsubscribe" %}
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

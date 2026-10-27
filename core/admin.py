@@ -12,7 +12,11 @@ from .models import (
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
     LegalPage, FAQ,
+    Package, PackageFeature, PricingRule, QuoteRequest,
+    WeeklyAvailability, Booking, Subscriber,
 )
+import csv
+from django.http import HttpResponse
 
 
 @admin.register(SiteConfig)
@@ -440,6 +444,164 @@ class FAQAdmin(admin.ModelAdmin):
             'fields': ('section', 'order', 'is_active'),
         }),
     )
+
+
+
+# ══════════════════════════════════════════════════════════════
+# PHASE 2: Lead Generation Admin
+# ══════════════════════════════════════════════════════════════
+
+def export_as_csv(modeladmin, request, queryset):
+    """Generic CSV export admin action."""
+    meta = modeladmin.model._meta
+    field_names = [f.name for f in meta.fields]
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename={meta.verbose_name_plural.replace(" ", "_")}.csv'
+    writer = csv.writer(response)
+    writer.writerow(field_names)
+    for obj in queryset:
+        writer.writerow([getattr(obj, f) for f in field_names])
+    return response
+export_as_csv.short_description = _('Export selected as CSV')
+
+
+class PackageFeatureInline(admin.TabularInline):
+    model = PackageFeature
+    extra = 3
+    fields = ('text_en', 'text_fr', 'text_ar', 'is_included', 'order')
+
+
+@admin.register(Package)
+class PackageAdmin(admin.ModelAdmin):
+    list_display = ('name_en', 'price_starting_from', 'is_featured', 'is_active', 'order')
+    list_filter = ('is_featured', 'is_active')
+    list_editable = ('is_featured', 'is_active', 'order')
+    prepopulated_fields = {'slug': ('name_en',)}
+    ordering = ('order',)
+    inlines = [PackageFeatureInline]
+
+    fieldsets = (
+        (_('Package Name (Multilingual)'), {
+            'fields': ('name_en', 'name_fr', 'name_ar', 'slug'),
+        }),
+        (_('Tagline (Multilingual)'), {
+            'fields': ('tagline_en', 'tagline_fr', 'tagline_ar'),
+        }),
+        (_('Description (Multilingual)'), {
+            'fields': ('description_en', 'description_fr', 'description_ar'),
+        }),
+        (_('Pricing'), {
+            'fields': ('price_starting_from', 'price_label_en', 'price_label_fr', 'price_label_ar'),
+        }),
+        (_('Configuration'), {
+            'fields': ('icon_emoji', 'is_featured', 'is_active', 'order', 'prefill_project_type'),
+        }),
+    )
+
+
+@admin.register(PricingRule)
+class PricingRuleAdmin(admin.ModelAdmin):
+    list_display = ('label_en', 'category', 'key', 'value', 'is_active', 'order')
+    list_filter = ('category', 'is_active')
+    list_editable = ('value', 'is_active', 'order')
+    search_fields = ('label_en', 'key')
+    ordering = ('category', 'order')
+
+    fieldsets = (
+        (_('Rule Settings'), {
+            'fields': ('category', 'key', 'value', 'is_active', 'order'),
+        }),
+        (_('Label (Multilingual)'), {
+            'fields': ('label_en', 'label_fr', 'label_ar'),
+        }),
+    )
+
+
+@admin.register(QuoteRequest)
+class QuoteRequestAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'project_type', 'budget_range', 'timeline', 'status', 'created_at')
+    list_filter = ('status', 'project_type', 'budget_range', 'created_at')
+    list_editable = ('status',)
+    search_fields = ('name', 'email', 'company', 'project_description')
+    readonly_fields = ('name', 'email', 'phone', 'company', 'project_type', 'project_description',
+                       'features', 'num_pages', 'num_languages', 'timeline', 'budget_range',
+                       'estimated_min', 'estimated_max', 'source_page', 'created_at', 'updated_at')
+    date_hierarchy = 'created_at'
+    ordering = ('-created_at',)
+    actions = [export_as_csv]
+
+    fieldsets = (
+        (_('Contact Info'), {
+            'fields': ('name', 'email', 'phone', 'company'),
+        }),
+        (_('Project Details'), {
+            'fields': ('project_type', 'project_description', 'features', 'num_pages', 'num_languages'),
+        }),
+        (_('Budget & Timeline'), {
+            'fields': ('timeline', 'budget_range', 'estimated_min', 'estimated_max'),
+        }),
+        (_('Status & Notes'), {
+            'fields': ('status', 'admin_notes', 'source_page', 'created_at', 'updated_at'),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return False
+
+
+@admin.register(WeeklyAvailability)
+class WeeklyAvailabilityAdmin(admin.ModelAdmin):
+    list_display = ('get_day_of_week_display', 'start_time', 'end_time', 'is_active')
+    list_filter = ('day_of_week', 'is_active')
+    list_editable = ('is_active',)
+    ordering = ('day_of_week', 'start_time')
+
+    @admin.display(description=_('Day'))
+    def get_day_of_week_display(self, obj):
+        return obj.get_day_of_week_display()
+
+
+@admin.register(Booking)
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'date', 'time_slot', 'status', 'created_at')
+    list_filter = ('status', 'date', 'created_at')
+    list_editable = ('status',)
+    search_fields = ('name', 'email', 'company', 'message')
+    readonly_fields = ('name', 'email', 'phone', 'company', 'date', 'time_slot',
+                       'timezone_name', 'message', 'source_page', 'created_at')
+    date_hierarchy = 'date'
+    ordering = ('-date', '-time_slot')
+    actions = [export_as_csv]
+
+    fieldsets = (
+        (_('Contact Info'), {
+            'fields': ('name', 'email', 'phone', 'company'),
+        }),
+        (_('Booking Details'), {
+            'fields': ('date', 'time_slot', 'timezone_name', 'message'),
+        }),
+        (_('Status & Notes'), {
+            'fields': ('status', 'admin_notes', 'source_page', 'created_at'),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return False
+
+
+@admin.register(Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'name', 'lead_magnet', 'status', 'consent', 'created_at')
+    list_filter = ('status', 'consent', 'lead_magnet', 'created_at')
+    list_editable = ('status',)
+    search_fields = ('email', 'name')
+    readonly_fields = ('email', 'name', 'consent', 'lead_magnet', 'source_page', 'created_at')
+    date_hierarchy = 'created_at'
+    ordering = ('-created_at',)
+    actions = [export_as_csv]
+
+    def has_add_permission(self, request):
+        return False
 
 
 admin.site.site_header = 'getNexiro Admin'

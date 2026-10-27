@@ -1,7 +1,7 @@
 """
 Core app URL configuration.
 
-Maps all main pages: Home, About, Services, Projects, Blog, Contact, Legal.
+Maps all main pages: Home, About, Services, Projects, Blog, Contact, Legal, Quote, Booking, Packages.
 URL path segments are translated for SEO (e.g. /fr/services/ vs /ar/خدمات/).
 """
 
@@ -31,4 +31,12 @@ urlpatterns = [
     # Legal pages
     path(_('privacy-policy/'), views.legal_page, {'slug': 'privacy-policy'}, name='privacy_policy'),
     path(_('terms-of-service/'), views.legal_page, {'slug': 'terms-of-service'}, name='terms_of_service'),
+
+    # Phase 2: Lead Generation
+    path(_('quote/'), views.quote_wizard, name='quote_wizard'),
+    path(_('quote/success/'), views.quote_success, name='quote_success'),
+    path(_('packages/'), views.packages, name='packages'),
+    path(_('booking/'), views.booking, name='booking'),
+    path(_('checklist/'), views.lead_magnet, name='lead_magnet'),
+    path(_('unsubscribe/'), views.unsubscribe, name='unsubscribe'),
 ]

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Packages & Pricing" %}{% endblock %}
+
+{% block content %}
+<style>
+.packages-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem; margin-top: 3rem;
+}
+.package-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+}
+.package-card:hover { transform: translateY(-4px); border-color: rgba(56,189,248,0.2); }
+.package-card.featured {
+    border-color: rgba(56,189,248,0.3);
+    background: linear-gradient(135deg, rgba(56,189,248,0.05), rgba(129,140,248,0.05));
+}
+.package-badge {
+    position: absolute; top: -12px; right: 24px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: #fff; font-size: 0.72rem; font-weight: 700;
+    padding: 0.3rem 1rem; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+}
+.package-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.package-name { font-size: 1.4rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.3rem; }
+.package-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; }
+
+.package-price { margin-bottom: 1.5rem; }
+.package-price .label { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+.package-price .amount {
+    font-size: 2.2rem; font-weight: 800; color: #38bdf8;
+    line-height: 1.1;
+}
+.package-price .currency { font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.5); }
+
+.package-features { flex: 1; margin-bottom: 2rem; }
+.package-features ul { list-style: none; padding: 0; margin: 0; }
+.package-features li {
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    display: flex; align-items: center; gap: 0.6rem;
+}
+.package-features li .check { color: #38bdf8; font-size: 1rem; }
+.package-features li.excluded { opacity: 0.35; text-decoration: line-through; }
+.package-features li.excluded .check { color: rgba(255,255,255,0.3); }
+
+.package-cta { margin-top: auto; }
+
+.faq-section { padding: 4rem 0; }
+.faq-grid { max-width: 800px; margin: 2rem auto 0; }
+.faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 1.2rem 0;
+}
+.faq-question {
+    font-size: 1rem; font-weight: 600; color: #f1f5f9;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+}
+.faq-question .toggle { color: rgba(255,255,255,0.3); transition: transform 0.3s; }
+.faq-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.7;
+}
+.faq-item.open .faq-answer { max-height: 300px; padding-top: 0.8rem; }
+.faq-item.open .faq-question .toggle { transform: rotate(45deg); }
+
+@media (max-width: 768px) {
+    .packages-grid { grid-template-columns: 1fr; }
+    .package-card { padding: 2rem 1.5rem; }
+}
+</style>
+
+{# ═══ PAGE HEADER ═══ #}
+<section class="page-header">
+    {% include "core/includes/page_header_video.html" with page_video=config.services_bg_video page_video_url=config.services_bg_video_url %}
+    <div class="container text-center">
+        <div class="badge-tag">{% trans "Packages" %}</div>
+        <h1 class="page-title">{% trans "Transparent" %} <span class="text-gradient">{% trans "Pricing" %}</span></h1>
+        <p class="page-subtitle">{% trans "Choose the package that fits your needs. All packages are fully customizable." %}</p>
+    </div>
+</section>
+
+{# ═══ PACKAGES GRID ═══ #}
+<section class="section">
+    <div class="container">
+        <div class="packages-grid">
+            {% for pkg in packages %}
+            <div class="package-card {% if pkg.is_featured %}featured{% endif %}">
+                {% if pkg.is_featured %}
+                <div class="package-badge">{% trans "Most Popular" %}</div>
+                {% endif %}
+                <div class="package-icon">{{ pkg.icon_emoji }}</div>
+                <h2 class="package-name">{{ pkg.name }}</h2>
+                <p class="package-tagline">{{ pkg.tagline }}</p>
+
+                <div class="package-price">
+                    {% if pkg.price_starting_from > 0 %}
+                    <div class="label">{{ pkg.price_label }}</div>
+                    <div class="amount">{{ pkg.price_starting_from|floatformat:0 }} <span class="currency">MAD</span></div>
+                    {% else %}
+                    <div class="amount" style="font-size:1.4rem;">{% trans "Contact Us" %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="package-features">
+                    <ul>
+                        {% for feature in pkg.features.all %}
+                        <li class="{% if not feature.is_included %}excluded{% endif %}">
+                            <span class="check">{% if feature.is_included %}✓{% else %}✗{% endif %}</span>
+                            {{ feature.text }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="package-cta">
+                    <a href="{% url 'core:quote_wizard' %}{% if pkg.prefill_project_type %}?type={{ pkg.prefill_project_type }}{% endif %}"
+                       class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-secondary{% endif %} btn-full">
+                        {% trans "Get Started" %} →
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center" style="grid-column: 1/-1; padding: 3rem; color: rgba(255,255,255,0.5);">
+                <p>{% trans "Packages coming soon. Contact us for a custom quote." %}</p>
+                <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary" style="margin-top:1rem;">{% trans "Request a Quote" %}</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align:center; margin-top:3rem;">
+            <p style="color:rgba(255,255,255,0.5); font-size:0.9rem;">{% trans "Need something different?" %}</p>
+            <a href="{% url 'core:quote_wizard' %}" class="btn btn-secondary" style="margin-top:0.5rem;">{% trans "Get a Custom Quote" %}</a>
+        </div>
+    </div>
+</section>
+
+{# ═══ PRICING FAQS ═══ #}
+{% if faqs %}
+<section class="faq-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">{% trans "Frequently Asked Questions" %}</h2>
+        </div>
+        <div class="faq-grid">
+            {% for faq in faqs %}
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-question">
+                    <span>{{ faq.question }}</span>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">{{ faq.answer }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

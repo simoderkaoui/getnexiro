@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Book a Discovery Call" %}{% endblock %}
+
+{% block content %}
+<style>
+.booking-section { padding: 4rem 0 6rem; }
+.booking-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; max-width: 1000px; margin: 0 auto;
+}
+.booking-form-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 2.5rem;
+}
+.booking-form-card h2 { font-size: 1.4rem; color: #f1f5f9; margin-bottom: 0.3rem; }
+.booking-form-card .subtitle { color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+.booking-info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; padding: 2.5rem;
+}
+.booking-info-card h3 { font-size: 1.1rem; color: #f1f5f9; margin-bottom: 1rem; }
+.booking-info-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem; color: rgba(255,255,255,0.7);
+}
+.booking-info-item .icon { font-size: 1.2rem; flex-shrink: 0; }
+.booking-info-item strong { color: #f1f5f9; display: block; margin-bottom: 0.2rem; }
+
+.tz-note {
+    margin-top: 1.5rem; padding: 1rem; border-radius: 10px;
+    background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.12);
+    font-size: 0.82rem; color: rgba(255,255,255,0.6);
+    display: flex; align-items: center; gap: 0.6rem;
+}
+
+.honeypot-field { position: absolute; left: -9999px; }
+
+@media (max-width: 768px) {
+    .booking-grid { grid-template-columns: 1fr; }
+    .booking-form-card, .booking-info-card { padding: 1.5rem; }
+}
+</style>
+
+{# ═══ PAGE HEADER ═══ #}
+<section class="page-header">
+    {% include "core/includes/page_header_video.html" with page_video=config.contact_bg_video page_video_url=config.contact_bg_video_url %}
+    <div class="container text-center">
+        <div class="badge-tag">{% trans "Discovery Call" %}</div>
+        <h1 class="page-title">{% trans "Book a" %} <span class="text-gradient">{% trans "Free Call" %}</span></h1>
+        <p class="page-subtitle">{% trans "Schedule a 30-minute call with our team to discuss your project." %}</p>
+    </div>
+</section>
+
+{# ═══ BOOKING FORM ═══ #}
+<section class="booking-section">
+    <div class="container">
+        <div class="booking-grid">
+            <div class="booking-form-card">
+                <h2>{% trans "Choose Your Slot" %}</h2>
+                <p class="subtitle">{% trans "Select a date and time that works for you." %}</p>
+
+                <form method="post" action="{% url 'core:booking' %}">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                    {% if field.name != 'website_url' %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="form-error">
+                            {% for error in field.errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {# Honeypot #}
+                    <div class="honeypot-field">{{ form.website_url }}</div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-full btn-glow" style="margin-top:1.5rem;">
+                        <span>{% trans "Book My Call" %}</span> 🗓️
+                    </button>
+                </form>
+            </div>
+
+            <div>
+                <div class="booking-info-card">
+                    <h3>{% trans "What to expect" %}</h3>
+                    <div class="booking-info-item">
+                        <span class="icon">⏱️</span>
+                        <div>
+                            <strong>{% trans "30 minutes" %}</strong>
+                            {% trans "A focused call to understand your project needs and goals." %}
+                        </div>
+                    </div>
+                    <div class="booking-info-item">
+                        <span class="icon">💡</span>
+                        <div>
+                            <strong>{% trans "Free consultation" %}</strong>
+                            {% trans "No obligations. Get expert advice on your project approach." %}
+                        </div>
+                    </div>
+                    <div class="booking-info-item">
+                        <span class="icon">📋</span>
+                        <div>
+                            <strong>{% trans "Tailored proposal" %}</strong>
+                            {% trans "Receive a detailed proposal within 48 hours after the call." %}
+                        </div>
+                    </div>
+                    <div class="booking-info-item">
+                        <span class="icon">🌐</span>
+                        <div>
+                            <strong>{% trans "Video or phone" %}</strong>
+                            {% trans "We'll reach you via your preferred channel." %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tz-note">
+                    <span>🕐</span>
+                    {% trans "All times are shown in GMT+1 (Morocco / Western European Time). We're available Monday — Friday." %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
