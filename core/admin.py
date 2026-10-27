@@ -11,6 +11,7 @@ from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
+    LegalPage, FAQ,
 )
 
 
@@ -395,6 +396,48 @@ class BlogPostAdmin(admin.ModelAdmin):
         }),
         (_('Publishing'), {
             'fields': ('status', 'is_featured', 'published_at'),
+        }),
+    )
+
+
+
+
+@admin.register(LegalPage)
+class LegalPageAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'title_en', 'title_fr', 'title_ar', 'updated_at')
+    search_fields = ('title_en', 'title_fr', 'title_ar', 'body_en')
+
+    fieldsets = (
+        (_('Page Identifier'), {
+            'fields': ('slug',),
+        }),
+        (_('Title (Multilingual)'), {
+            'fields': ('title_en', 'title_fr', 'title_ar'),
+        }),
+        (_('Content (Multilingual)'), {
+            'fields': ('body_en', 'body_fr', 'body_ar'),
+            'description': _('HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure.'),
+        }),
+    )
+
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('question_en', 'section', 'is_active', 'order')
+    list_filter = ('section', 'is_active')
+    list_editable = ('section', 'is_active', 'order')
+    search_fields = ('question_en', 'question_fr', 'question_ar', 'answer_en')
+    ordering = ('section', 'order')
+
+    fieldsets = (
+        (_('Question (Multilingual)'), {
+            'fields': ('question_en', 'question_fr', 'question_ar'),
+        }),
+        (_('Answer (Multilingual)'), {
+            'fields': ('answer_en', 'answer_fr', 'answer_ar'),
+        }),
+        (_('Settings'), {
+            'fields': ('section', 'order', 'is_active'),
         }),
     )
 

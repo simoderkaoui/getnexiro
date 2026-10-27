@@ -41,6 +41,13 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.pythonanywhere.com',
 ]
 
+# Canonical site URL (no trailing slash) -- used for hreflang, og:url, sitemap
+SITE_URL = os.environ.get('SITE_URL', 'https://getnexiro.com')
+
+# Analytics (loaded only after cookie consent)
+ANALYTICS_PROVIDER = os.environ.get('ANALYTICS_PROVIDER', '')  # 'ga4' or 'plausible'
+ANALYTICS_ID = os.environ.get('ANALYTICS_ID', '')  # e.g. 'G-XXXXXXXXXX'
+
 # ──────────────────────────────────────────────
 # Installed Apps
 # ──────────────────────────────────────────────
@@ -88,6 +95,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.site_settings',
             ],
         },
     },

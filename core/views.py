@@ -13,6 +13,7 @@ from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
     CompanyValue, ProcessStep, BlogCategory, BlogPost,
+    LegalPage, FAQ,
 )
 from .emails import send_contact_emails
 
@@ -34,6 +35,7 @@ def home(request):
         'testimonials': Testimonial.objects.filter(is_featured=True)[:3],
         'client_logos': ClientLogo.objects.all()[:8],
         'latest_posts': BlogPost.objects.filter(status='published')[:3],
+        'faqs': FAQ.objects.filter(is_active=True, section='general')[:6],
     })
     return render(request, 'core/home.html', ctx)
 
@@ -54,6 +56,7 @@ def services(request):
     ctx.update({
         'services_list': Service.objects.all(),
         'process_steps': ProcessStep.objects.all(),
+        'faqs': FAQ.objects.filter(is_active=True, section='services')[:6],
     })
     return render(request, 'core/services.html', ctx)
 
@@ -170,3 +173,32 @@ def contact(request):
 
     ctx['form'] = form
     return render(request, 'core/contact.html', ctx)
+
+
+# ── Legal Pages ──────────────────────────────────────────────────
+
+def legal_page(request, slug):
+    """Render a legal page (Privacy Policy, Terms, etc.) from the database."""
+    page = get_object_or_404(LegalPage, slug=slug)
+    ctx = _get_common_context()
+    ctx['page'] = page
+    return render(request, 'core/legal_page.html', ctx)
+
+
+# ── Error Handlers ───────────────────────────────────────────────
+
+def handler404_view(request, exception=None):
+    """Custom 404 page in the site's design."""
+    ctx = _get_common_context()
+    return render(request, 'core/404.html', ctx, status=404)
+
+
+def handler500_view(request):
+    """Custom 500 page in the site's design."""
+    # Don't rely on DB for 500 — use minimal context
+    ctx = {'config': None}
+    try:
+        ctx = _get_common_context()
+    except Exception:
+        pass
+    return render(request, 'core/500.html', ctx, status=500)

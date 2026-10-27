@@ -14,8 +14,8 @@
     <meta property="og:title" content="{% block og_title %}getNexiro — {% trans 'Web & App Development Agency' %} | Tangier{% endblock %}">
     <meta property="og:description" content="{% trans 'Professional web development, mobile apps & digital solutions in Tangier, Morocco. Serving Tangier, Tetouan, Fes, Meknes & Northern Morocco.' %}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://getnexiro.com{{ request.path }}">
-    <meta property="og:image" content="https://getnexiro.com{% static 'images/logo.png' %}">
+    <meta property="og:url" content="{{ SITE_URL }}{{ request.path }}">
+    <meta property="og:image" content="{{ SITE_URL }}{% static 'images/logo.png' %}">
     <meta property="og:locale" content="{{ LANGUAGE_CODE }}">
     <meta property="og:site_name" content="getNexiro">
 
@@ -23,15 +23,15 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="getNexiro — {% trans 'Web & App Development Agency' %} | Tangier">
     <meta name="twitter:description" content="{% trans 'Professional web development, mobile apps & digital solutions in Tangier, Morocco.' %}">
-    <meta name="twitter:image" content="https://getnexiro.com{% static 'images/logo.png' %}">
+    <meta name="twitter:image" content="{{ SITE_URL }}{% static 'images/logo.png' %}">
 
     {# ── Canonical & Hreflang ── #}
-    <link rel="canonical" href="https://getnexiro.com{{ request.path }}">
+    <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
     {% get_available_languages as ALL_LANGS %}
     {% for lc, ln in ALL_LANGS %}
-    <link rel="alternate" hreflang="{{ lc }}" href="https://getnexiro.com/{{ lc }}{{ request.resolver_match.url_name|default:'' }}">
+    <link rel="alternate" hreflang="{{ lc }}" href="{{ SITE_URL }}/{{ lc }}/">
     {% endfor %}
-    <link rel="alternate" hreflang="x-default" href="https://getnexiro.com/en/">
+    <link rel="alternate" hreflang="x-default" href="{{ SITE_URL }}/en/">
 
     {# ── Geo & Local SEO Meta ── #}
     <meta name="geo.region" content="MA-TNG">
@@ -51,9 +51,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=6.0">
     {% if LANGUAGE_BIDI %}
-    <link rel="stylesheet" href="{% static 'css/rtl.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/rtl.css' %}?v=6.0">
     {% endif %}
 
     {# ── JSON-LD Structured Data (LocalBusiness) ── #}
@@ -63,9 +63,9 @@
         "@type": "ProfessionalService",
         "name": "getNexiro",
         "description": "Professional web development, mobile applications & software engineering agency in Tangier, Morocco",
-        "url": "https://getnexiro.com",
-        "logo": "https://getnexiro.com{% static 'images/logo.png' %}",
-        "image": "https://getnexiro.com{% static 'images/logo.png' %}",
+        "url": "{{ SITE_URL }}",
+        "logo": "{{ SITE_URL }}{% static 'images/logo.png' %}",
+        "image": "{{ SITE_URL }}{% static 'images/logo.png' %}",
         "telephone": "+212787862187",
         "email": "getnexiro@gmail.com",
         "address": {
@@ -315,6 +315,13 @@
                 <p>{% trans "Serving businesses in" %}: <span>Tangier</span> · <span>Tetouan</span> · <span>Fes</span> · <span>Meknes</span> · <span>M'diq</span> · <span>Chefchaouen</span> · <span>Larache</span> · <span>Kenitra</span> · <span>{% trans "Northern Morocco" %}</span></p>
             </div>
 
+
+            {# ── Legal Links ── #}
+            <div class="footer-legal-links" style="text-align:center; padding:1rem 0 0; border-top:1px solid rgba(255,255,255,0.06);">
+                <a href="{% url 'core:privacy_policy' %}" style="color:rgba(255,255,255,0.45); font-size:0.82rem; margin:0 1rem; text-decoration:none; transition:color .2s;">{% trans "Privacy Policy" %}</a>
+                <span style="color:rgba(255,255,255,0.2);">|</span>
+                <a href="{% url 'core:terms_of_service' %}" style="color:rgba(255,255,255,0.45); font-size:0.82rem; margin:0 1rem; text-decoration:none; transition:color .2s;">{% trans "Terms of Service" %}</a>
+            </div>
             <div class="footer-bottom">
                 <div class="footer-bottom-inner">
                     <p>&copy; 2026 getNexiro. {% trans "All rights reserved." %}</p>
@@ -340,5 +347,7 @@
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
 </button>
+
+    {% include "core/includes/cookie_consent.html" %}
 </body>
 </html>

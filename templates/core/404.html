@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Page Not Found" %} — getNexiro{% endblock %}
+
+{% block content %}
+<section class="section" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div class="container">
+        <div style="margin-bottom: 2rem;">
+            <span style="font-size: 6rem; font-weight: 800; background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;">404</span>
+        </div>
+        <h1 class="section-title" style="margin-bottom: 1rem;">{% trans "Page Not Found" %}</h1>
+        <p class="section-subtitle" style="margin-bottom: 2.5rem; max-width: 500px; margin-inline: auto;">
+            {% trans "The page you're looking for doesn't exist or has been moved." %}
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'core:home' %}" class="btn btn-primary btn-lg">
+                {% trans "Back to Home" %}
+            </a>
+            <a href="{% url 'core:contact' %}" class="btn btn-outline btn-lg">
+                {% trans "Contact Us" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

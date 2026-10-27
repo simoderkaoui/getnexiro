@@ -5,6 +5,7 @@ Includes:
 - i18n URL patterns with language prefix (en/, fr/, ar/)
 - Language switcher endpoint (i18n/setlang/)
 - Core app URLs
+- Custom error handlers (404, 500)
 """
 
 from django.contrib import admin
@@ -37,3 +38,7 @@ urlpatterns += [
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
+
+# Custom error handlers
+handler404 = 'core.views.handler404_view'
+handler500 = 'core.views.handler500_view'

@@ -906,3 +906,78 @@ class StoreItem(models.Model):
         return self.title_en or f"Store Item #{self.pk}"
 
 
+
+# ── 14. Legal Pages (Privacy Policy, Terms, etc.) ──────────────
+
+class LegalPage(models.Model):
+    """Admin-editable legal/policy pages (Privacy Policy, Terms of Service, etc.)."""
+
+    SLUG_CHOICES = [
+        ('privacy-policy', _('Privacy Policy')),
+        ('terms-of-service', _('Terms of Service')),
+    ]
+
+    slug = models.SlugField(_('Page Identifier'), max_length=80, unique=True, choices=SLUG_CHOICES)
+
+    title_en = models.CharField(_('Title (EN)'), max_length=200)
+    title_fr = models.CharField(_('Title (FR)'), max_length=200, blank=True, default='')
+    title_ar = models.CharField(_('Title (AR)'), max_length=200, blank=True, default='')
+
+    body_en = models.TextField(_('Content (EN)'), help_text=_('HTML allowed. Use headings, paragraphs, lists.'))
+    body_fr = models.TextField(_('Content (FR)'), blank=True, default='')
+    body_ar = models.TextField(_('Content (AR)'), blank=True, default='')
+
+    updated_at = models.DateTimeField(_('Last Updated'), auto_now=True)
+
+    @property
+    def title(self): return get_localized(self, 'title')
+
+    @property
+    def body(self): return get_localized(self, 'body')
+
+    class Meta:
+        verbose_name = _('Legal Page')
+        verbose_name_plural = _('Legal Pages')
+        ordering = ['slug']
+
+    def __str__(self):
+        return self.title_en or self.slug
+
+
+# ── 15. FAQ ────────────────────────────────────────────────────
+
+class FAQ(models.Model):
+    """Frequently Asked Questions displayed on home, services, and packages pages."""
+
+    SECTION_CHOICES = [
+        ('general', _('General')),
+        ('services', _('Services')),
+        ('pricing', _('Pricing & Packages')),
+        ('process', _('Process & Delivery')),
+    ]
+
+    question_en = models.CharField(_('Question (EN)'), max_length=300)
+    question_fr = models.CharField(_('Question (FR)'), max_length=300, blank=True, default='')
+    question_ar = models.CharField(_('Question (AR)'), max_length=300, blank=True, default='')
+
+    answer_en = models.TextField(_('Answer (EN)'))
+    answer_fr = models.TextField(_('Answer (FR)'), blank=True, default='')
+    answer_ar = models.TextField(_('Answer (AR)'), blank=True, default='')
+
+    section = models.CharField(_('Section'), max_length=30, choices=SECTION_CHOICES, default='general')
+    order = models.PositiveIntegerField(_('Display Order'), default=0)
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    @property
+    def question(self): return get_localized(self, 'question')
+
+    @property
+    def answer(self): return get_localized(self, 'answer')
+
+    class Meta:
+        verbose_name = _('FAQ')
+        verbose_name_plural = _('FAQs')
+        ordering = ['section', 'order', 'pk']
+
+    def __str__(self):
+        return self.question_en[:80] or f"FAQ #{self.pk}"

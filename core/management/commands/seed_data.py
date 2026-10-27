@@ -15,6 +15,7 @@ from core.models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat,
     CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
+    LegalPage, FAQ,
 )
 
 
@@ -178,6 +179,8 @@ class Command(BaseCommand):
         self.stdout.write('  [OK] SiteConfig updated with EN / FR / AR')
 
         # ── 2. Statistics ──
+        # TODO_REAL_DATA: All stats below should be verified with real data.
+        # '50+' is overstated (actual ~11 projects), '99.98%' and '<80ms' are unverified.
         Stat.objects.all().delete()
         stats_data = [
             ('99.98%', 'System Reliability SLA', 'SLA de Fiabilité Système', 'اتفاقية مستوى موثوقية 99.98%', 1),
@@ -858,6 +861,10 @@ class Command(BaseCommand):
         self.stdout.write(f'  [OK] Created {created_team} multilingual team members')
 
         # ── 7. Testimonials ──
+        # TODO_REAL_DATA: All testimonials below are FABRICATED placeholders.
+        # Names (Ahmed Benkirane, Claire Dubois, Dr. Omar Fassi) and companies
+        # (Atlas Capital, EuroMed Freight, MedConnect Health) are fictional.
+        # Replace with real client testimonials.
         Testimonial.objects.all().delete()
         testimonials_data = [
             (
@@ -1338,5 +1345,206 @@ class Command(BaseCommand):
         for post_data in blog_posts:
             BlogPost.objects.create(**post_data)
         self.stdout.write(f'  [OK] Created {len(blog_cats)} blog categories and {len(blog_posts)} SEO-optimized blog posts')
+
+        # ── 12. Legal Pages ──
+        LegalPage.objects.all().delete()
+        LegalPage.objects.create(
+            slug='privacy-policy',
+            title_en='Privacy Policy',
+            title_fr='Politique de Confidentialit\u00e9',
+            title_ar='\u0633\u064a\u0627\u0633\u0629 \u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629',
+            body_en=(
+                '<h2>Introduction</h2>'
+                '<p>getNexiro (\"we\", \"us\", or \"our\") operates the website getnexiro.com. '
+                'This page informs you of our policies regarding the collection, use, and disclosure of personal data.</p>'
+                '<h2>Information We Collect</h2>'
+                '<p>We collect information you provide directly: name, email, phone, company name, and project details '
+                'when you fill out a contact form, request a quote, subscribe to our newsletter, or book a discovery call.</p>'
+                '<h2>How We Use Your Information</h2>'
+                '<p>We use the information to respond to inquiries, send proposals, improve our website, '
+                'and send newsletters (only with your consent).</p>'
+                '<h2>Cookies</h2>'
+                '<p>We use cookies only after obtaining your consent via our cookie banner. '
+                'You can withdraw consent at any time by clearing your browser cookies.</p>'
+                '<h2>Data Sharing</h2>'
+                '<p>We do not sell, trade, or rent your personal information.</p>'
+                '<h2>Your Rights</h2>'
+                '<p>You have the right to access, correct, or delete your personal data. '
+                'Contact us at <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+                '<p><em>Last updated: 2026</em></p>'
+            ),
+            body_fr=(
+                '<h2>Introduction</h2>'
+                '<p>getNexiro exploite le site web getnexiro.com. Cette page vous informe de nos politiques '
+                'concernant la collecte et l\u2019utilisation de donn\u00e9es personnelles.</p>'
+                '<h2>Informations collect\u00e9es</h2>'
+                '<p>Nous collectons les informations que vous nous fournissez : nom, email, t\u00e9l\u00e9phone, '
+                'entreprise et d\u00e9tails du projet via nos formulaires.</p>'
+                '<h2>Cookies</h2>'
+                '<p>Nous n\u2019utilisons des cookies qu\u2019apr\u00e8s avoir obtenu votre consentement.</p>'
+                '<h2>Vos droits</h2>'
+                '<p>Vous avez le droit d\u2019acc\u00e9der, de corriger ou de supprimer vos donn\u00e9es. '
+                'Contactez-nous \u00e0 <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+                '<p><em>Derni\u00e8re mise \u00e0 jour : 2026</em></p>'
+            ),
+            body_ar=(
+                '<h2>\u0645\u0642\u062f\u0645\u0629</h2>'
+                '<p>\u062a\u0634\u063a\u0651\u0644 getNexiro \u0645\u0648\u0642\u0639 getnexiro.com. '
+                '\u062a\u0648\u0636\u062d \u0647\u0630\u0647 \u0627\u0644\u0635\u0641\u062d\u0629 '
+                '\u0633\u064a\u0627\u0633\u0627\u062a\u0646\u0627 \u0627\u0644\u0645\u062a\u0639\u0644\u0642\u0629 '
+                '\u0628\u062c\u0645\u0639 \u0648\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a.</p>'
+                '<h2>\u062d\u0642\u0648\u0642\u0643</h2>'
+                '<p>\u0644\u062f\u064a\u0643 \u0627\u0644\u062d\u0642 \u0641\u064a \u0627\u0644\u0648\u0635\u0648\u0644 '
+                '\u0625\u0644\u0649 \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0623\u0648 \u062a\u0635\u062d\u064a\u062d\u0647\u0627 '
+                '\u0623\u0648 \u062d\u0630\u0641\u0647\u0627. '
+                '\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627 \u0639\u0644\u0649 '
+                '<a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+            ),
+        )
+        LegalPage.objects.create(
+            slug='terms-of-service',
+            title_en='Terms of Service',
+            title_fr='Conditions G\u00e9n\u00e9rales d\u2019Utilisation',
+            title_ar='\u0634\u0631\u0648\u0637 \u0627\u0644\u062e\u062f\u0645\u0629',
+            body_en=(
+                '<h2>Acceptance of Terms</h2>'
+                '<p>By accessing getnexiro.com, you agree to be bound by these Terms of Service.</p>'
+                '<h2>Services</h2>'
+                '<p>getNexiro provides web development, mobile apps, UI/UX design, technical consulting, '
+                'and related digital services. All project engagements are subject to separate contracts.</p>'
+                '<h2>Intellectual Property</h2>'
+                '<p>All content on this website is the property of getNexiro and protected by intellectual property laws.</p>'
+                '<h2>Limitation of Liability</h2>'
+                '<p>getNexiro shall not be liable for any indirect or consequential damages arising from the use of this website.</p>'
+                '<h2>Governing Law</h2>'
+                '<p>These terms are governed by the laws of the Kingdom of Morocco. '
+                'Disputes shall be subject to the jurisdiction of the courts of Tangier.</p>'
+                '<h2>Contact</h2>'
+                '<p>Questions? Contact us at <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+                '<p><em>Last updated: 2026</em></p>'
+            ),
+            body_fr=(
+                '<h2>Acceptation des conditions</h2>'
+                '<p>En acc\u00e9dant \u00e0 getnexiro.com, vous acceptez ces Conditions G\u00e9n\u00e9rales.</p>'
+                '<h2>Services</h2>'
+                '<p>getNexiro fournit des services de d\u00e9veloppement web, applications mobiles, '
+                'design UI/UX et conseil technique.</p>'
+                '<h2>Loi applicable</h2>'
+                '<p>Ces conditions sont r\u00e9gies par les lois du Royaume du Maroc.</p>'
+                '<h2>Contact</h2>'
+                '<p>Contactez-nous \u00e0 <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+                '<p><em>Derni\u00e8re mise \u00e0 jour : 2026</em></p>'
+            ),
+            body_ar=(
+                '<h2>\u0642\u0628\u0648\u0644 \u0627\u0644\u0634\u0631\u0648\u0637</h2>'
+                '<p>\u0628\u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 getnexiro.com '
+                '\u0641\u0625\u0646\u0643 \u062a\u0648\u0627\u0641\u0642 \u0639\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0634\u0631\u0648\u0637.</p>'
+                '<h2>\u0627\u0644\u062e\u062f\u0645\u0627\u062a</h2>'
+                '<p>\u062a\u0642\u062f\u0645 getNexiro \u062e\u062f\u0645\u0627\u062a \u062a\u0637\u0648\u064a\u0631 '
+                '\u0627\u0644\u0648\u064a\u0628 \u0648\u062a\u0637\u0628\u064a\u0642\u0627\u062a \u0627\u0644\u062c\u0648\u0627\u0644 '
+                '\u0648\u062a\u0635\u0645\u064a\u0645 UI/UX.</p>'
+                '<h2>\u0627\u062a\u0635\u0644 \u0628\u0646\u0627</h2>'
+                '<p><a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+            ),
+        )
+        self.stdout.write('  [OK] Created 2 legal pages (Privacy Policy + Terms)')
+
+        # ── 13. FAQs ──
+        FAQ.objects.all().delete()
+        faqs_data = [
+            {
+                'question_en': 'Where is getNexiro located?',
+                'question_fr': 'O\u00f9 se trouve getNexiro ?',
+                'question_ar': '\u0623\u064a\u0646 \u064a\u0642\u0639 \u0645\u0642\u0631 getNexiro\u061f',
+                'answer_en': 'We are based in Tangier, Morocco (GMT+1), strategically positioned for seamless collaboration with European and North African clients.',
+                'answer_fr': 'Nous sommes bas\u00e9s \u00e0 Tanger, au Maroc (GMT+1), strat\u00e9giquement positionn\u00e9s pour une collaboration fluide avec les clients europ\u00e9ens et nord-africains.',
+                'answer_ar': '\u0646\u062d\u0646 \u0645\u0642\u0631\u0646\u0627 \u0641\u064a \u0637\u0646\u062c\u0629\u060c \u0627\u0644\u0645\u063a\u0631\u0628 (GMT+1)\u060c \u0641\u064a \u0645\u0648\u0642\u0639 \u0627\u0633\u062a\u0631\u0627\u062a\u064a\u062c\u064a \u0644\u0644\u062a\u0639\u0627\u0648\u0646 \u0627\u0644\u0633\u0644\u0633 \u0645\u0639 \u0627\u0644\u0639\u0645\u0644\u0627\u0621.',
+                'section': 'general', 'order': 1, 'is_active': True,
+            },
+            {
+                'question_en': 'What technologies do you work with?',
+                'question_fr': 'Avec quelles technologies travaillez-vous ?',
+                'question_ar': '\u0645\u0627 \u0647\u064a \u0627\u0644\u062a\u0642\u0646\u064a\u0627\u062a \u0627\u0644\u062a\u064a \u062a\u0639\u0645\u0644\u0648\u0646 \u0628\u0647\u0627\u061f',
+                'answer_en': 'We specialize in Django, React, Next.js, Flutter, React Native, PostgreSQL, Docker, and cloud platforms (AWS, GCP).',
+                'answer_fr': 'Nous sommes sp\u00e9cialis\u00e9s dans Django, React, Next.js, Flutter, React Native, PostgreSQL, Docker et les plateformes cloud (AWS, GCP).',
+                'answer_ar': '\u0646\u062d\u0646 \u0645\u062a\u062e\u0635\u0635\u0648\u0646 \u0641\u064a Django \u0648React \u0648Next.js \u0648Flutter \u0648PostgreSQL \u0648Docker \u0648\u0645\u0646\u0635\u0627\u062a \u0627\u0644\u0633\u062d\u0627\u0628\u0629.',
+                'section': 'general', 'order': 2, 'is_active': True,
+            },
+            {
+                'question_en': 'Do you work with international clients?',
+                'question_fr': 'Travaillez-vous avec des clients internationaux ?',
+                'question_ar': '\u0647\u0644 \u062a\u0639\u0645\u0644\u0648\u0646 \u0645\u0639 \u0639\u0645\u0644\u0627\u0621 \u062f\u0648\u0644\u064a\u064a\u0646\u061f',
+                'answer_en': 'Yes! While based in Morocco, we serve clients across Europe, the Middle East, and North Africa. Our GMT+1 timezone ensures excellent overlap with European business hours.',
+                'answer_fr': 'Oui ! Bien que bas\u00e9s au Maroc, nous servons des clients en Europe, au Moyen-Orient et en Afrique du Nord.',
+                'answer_ar': '\u0646\u0639\u0645! \u0628\u064a\u0646\u0645\u0627 \u0646\u062d\u0646 \u0645\u0642\u0631\u0646\u0627 \u0641\u064a \u0627\u0644\u0645\u063a\u0631\u0628\u060c \u0646\u062e\u062f\u0645 \u0639\u0645\u0644\u0627\u0621 \u0641\u064a \u0623\u0648\u0631\u0648\u0628\u0627 \u0648\u0627\u0644\u0634\u0631\u0642 \u0627\u0644\u0623\u0648\u0633\u0637 \u0648\u0634\u0645\u0627\u0644 \u0623\u0641\u0631\u064a\u0642\u064a\u0627.',
+                'section': 'general', 'order': 3, 'is_active': True,
+            },
+            {
+                'question_en': 'How long does it take to build a website?',
+                'question_fr': 'Combien de temps faut-il pour cr\u00e9er un site web ?',
+                'question_ar': '\u0643\u0645 \u064a\u0633\u062a\u063a\u0631\u0642 \u0628\u0646\u0627\u0621 \u0645\u0648\u0642\u0639 \u0648\u064a\u0628\u061f',
+                'answer_en': 'A typical corporate website takes 4-8 weeks, while complex web applications or SaaS platforms may take 8-16 weeks.',
+                'answer_fr': 'Un site vitrine typique prend 4 \u00e0 8 semaines, tandis que les applications complexes peuvent prendre 8 \u00e0 16 semaines.',
+                'answer_ar': '\u064a\u0633\u062a\u063a\u0631\u0642 \u0645\u0648\u0642\u0639 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0646\u0645\u0648\u0630\u062c\u064a 4-8 \u0623\u0633\u0627\u0628\u064a\u0639.',
+                'section': 'services', 'order': 1, 'is_active': True,
+            },
+            {
+                'question_en': 'Do you provide ongoing maintenance and support?',
+                'question_fr': 'Proposez-vous une maintenance et un support continus ?',
+                'question_ar': '\u0647\u0644 \u062a\u0642\u062f\u0645\u0648\u0646 \u0635\u064a\u0627\u0646\u0629 \u0648\u062f\u0639\u0645 \u0645\u0633\u062a\u0645\u0631\u061f',
+                'answer_en': 'Yes, we offer maintenance packages including bug fixes, security updates, performance monitoring, and feature enhancements.',
+                'answer_fr': 'Oui, nous proposons des forfaits de maintenance incluant corrections de bugs, mises \u00e0 jour de s\u00e9curit\u00e9 et am\u00e9liorations.',
+                'answer_ar': '\u0646\u0639\u0645\u060c \u0646\u0642\u062f\u0645 \u062d\u0632\u0645 \u0635\u064a\u0627\u0646\u0629 \u062a\u0634\u0645\u0644 \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0623\u062e\u0637\u0627\u0621 \u0648\u062a\u062d\u062f\u064a\u062b\u0627\u062a \u0627\u0644\u0623\u0645\u0627\u0646.',
+                'section': 'services', 'order': 2, 'is_active': True,
+            },
+            {
+                'question_en': 'Can you redesign an existing website or application?',
+                'question_fr': 'Pouvez-vous refondre un site web ou une application existante ?',
+                'question_ar': '\u0647\u0644 \u064a\u0645\u0643\u0646\u0643\u0645 \u0625\u0639\u0627\u062f\u0629 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639 \u0623\u0648 \u062a\u0637\u0628\u064a\u0642 \u0645\u0648\u062c\u0648\u062f\u061f',
+                'answer_en': 'Absolutely. We regularly help businesses modernize their digital presence.',
+                'answer_fr': 'Absolument. Nous aidons r\u00e9guli\u00e8rement les entreprises \u00e0 moderniser leur pr\u00e9sence digitale.',
+                'answer_ar': '\u0628\u0627\u0644\u062a\u0623\u0643\u064a\u062f. \u0646\u0633\u0627\u0639\u062f \u0627\u0644\u0634\u0631\u0643\u0627\u062a \u0628\u0627\u0646\u062a\u0638\u0627\u0645 \u0639\u0644\u0649 \u062a\u062d\u062f\u064a\u062b \u062d\u0636\u0648\u0631\u0647\u0627 \u0627\u0644\u0631\u0642\u0645\u064a.',
+                'section': 'services', 'order': 3, 'is_active': True,
+            },
+            {
+                'question_en': 'How much does a project cost?',
+                'question_fr': 'Combien co\u00fbte un projet ?',
+                'question_ar': '\u0643\u0645 \u064a\u0643\u0644\u0641 \u0627\u0644\u0645\u0634\u0631\u0648\u0639\u061f',
+                'answer_en': 'Every project is unique. Our pricing depends on scope, complexity, and timeline. Use our quote estimator for an indicative range, or book a free discovery call.',
+                'answer_fr': 'Chaque projet est unique. Nos tarifs d\u00e9pendent de la port\u00e9e, de la complexit\u00e9 et des d\u00e9lais. Utilisez notre estimateur de devis ou r\u00e9servez un appel d\u00e9couverte gratuit.',
+                'answer_ar': '\u0643\u0644 \u0645\u0634\u0631\u0648\u0639 \u0641\u0631\u064a\u062f. \u062a\u0639\u062a\u0645\u062f \u0623\u0633\u0639\u0627\u0631\u0646\u0627 \u0639\u0644\u0649 \u0627\u0644\u0646\u0637\u0627\u0642 \u0648\u0627\u0644\u062a\u0639\u0642\u064a\u062f \u0648\u0627\u0644\u062c\u062f\u0648\u0644 \u0627\u0644\u0632\u0645\u0646\u064a.',
+                'section': 'pricing', 'order': 1, 'is_active': True,
+            },
+            {
+                'question_en': 'What payment methods do you accept?',
+                'question_fr': 'Quels modes de paiement acceptez-vous ?',
+                'question_ar': '\u0645\u0627 \u0647\u064a \u0637\u0631\u0642 \u0627\u0644\u062f\u0641\u0639 \u0627\u0644\u062a\u064a \u062a\u0642\u0628\u0644\u0648\u0646\u0647\u0627\u061f',
+                'answer_en': 'We accept bank transfers, with milestone-based payment schedules. Projects typically start with a deposit followed by payments at agreed milestones.',
+                'answer_fr': 'Nous acceptons les virements bancaires avec des calendriers de paiement par jalons.',
+                'answer_ar': '\u0646\u0642\u0628\u0644 \u0627\u0644\u062a\u062d\u0648\u064a\u0644\u0627\u062a \u0627\u0644\u0628\u0646\u0643\u064a\u0629 \u0645\u0639 \u062c\u062f\u0627\u0648\u0644 \u062f\u0641\u0639 \u0639\u0644\u0649 \u0623\u0633\u0627\u0633 \u0627\u0644\u0645\u0631\u0627\u062d\u0644.',
+                'section': 'pricing', 'order': 2, 'is_active': True,
+            },
+            {
+                'question_en': 'What is your development process?',
+                'question_fr': 'Quel est votre processus de d\u00e9veloppement ?',
+                'question_ar': '\u0645\u0627 \u0647\u064a \u0639\u0645\u0644\u064a\u0629 \u0627\u0644\u062a\u0637\u0648\u064a\u0631 \u0644\u062f\u064a\u0643\u0645\u061f',
+                'answer_en': 'We follow agile methodology: Discovery \u2192 Design \u2192 Development (2-week sprints) \u2192 Testing \u2192 Deployment \u2192 Ongoing Support.',
+                'answer_fr': 'Nous suivons une m\u00e9thodologie agile : D\u00e9couverte \u2192 Design \u2192 D\u00e9veloppement \u2192 Tests \u2192 D\u00e9ploiement \u2192 Support.',
+                'answer_ar': '\u0646\u062a\u0628\u0639 \u0645\u0646\u0647\u062c\u064a\u0629 \u0623\u062c\u0627\u064a\u0644: \u0627\u0633\u062a\u0643\u0634\u0627\u0641 \u2192 \u062a\u0635\u0645\u064a\u0645 \u2192 \u062a\u0637\u0648\u064a\u0631 \u2192 \u0627\u062e\u062a\u0628\u0627\u0631 \u2192 \u0646\u0634\u0631 \u2192 \u062f\u0639\u0645 \u0645\u0633\u062a\u0645\u0631.',
+                'section': 'process', 'order': 1, 'is_active': True,
+            },
+            {
+                'question_en': 'How do you communicate during a project?',
+                'question_fr': 'Comment communiquez-vous pendant un projet ?',
+                'question_ar': '\u0643\u064a\u0641 \u062a\u062a\u0648\u0627\u0635\u0644\u0648\u0646 \u062e\u0644\u0627\u0644 \u0627\u0644\u0645\u0634\u0631\u0648\u0639\u061f',
+                'answer_en': 'We use scheduled video calls, a shared project management tool, WhatsApp for quick updates, and email for formal communications.',
+                'answer_fr': 'Nous utilisons des appels vid\u00e9o planifi\u00e9s, un outil de gestion de projet partag\u00e9, WhatsApp et email.',
+                'answer_ar': '\u0646\u0633\u062a\u062e\u062f\u0645 \u0645\u0643\u0627\u0644\u0645\u0627\u062a \u0641\u064a\u062f\u064a\u0648 \u0645\u062c\u062f\u0648\u0644\u0629 \u0648\u0623\u062f\u0627\u0629 \u0625\u062f\u0627\u0631\u0629 \u0645\u0634\u0627\u0631\u064a\u0639 \u0645\u0634\u062a\u0631\u0643\u0629 \u0648\u0648\u0627\u062a\u0633\u0627\u0628 \u0648\u0628\u0631\u064a\u062f \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a.',
+                'section': 'process', 'order': 2, 'is_active': True,
+            },
+        ]
+        for faq_data in faqs_data:
+            FAQ.objects.create(**faq_data)
+        self.stdout.write(f'  [OK] Created {len(faqs_data)} multilingual FAQs')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))
