@@ -144,25 +144,6 @@
     </div>
 </section>
 
-{# ═══ PRICING FAQS ═══ #}
-{% if faqs %}
-<section class="faq-section">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-title">{% trans "Frequently Asked Questions" %}</h2>
-        </div>
-        <div class="faq-grid">
-            {% for faq in faqs %}
-            <div class="faq-item" onclick="this.classList.toggle('open')">
-                <div class="faq-question">
-                    <span>{{ faq.question }}</span>
-                    <span class="toggle">+</span>
-                </div>
-                <div class="faq-answer">{{ faq.answer }}</div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
+
+{% include "core/includes/faq_section.html" %}
 {% endblock %}

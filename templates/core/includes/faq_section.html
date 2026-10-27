@@ -1,0 +1,58 @@
+{% load i18n %}
+{# ═══ FAQ Section with FAQPage Structured Data ═══ #}
+{% if faqs %}
+<section class="section faq-section-component">
+    <div class="container">
+        <div class="text-center" style="margin-bottom:2.5rem;">
+            <div class="badge-tag">{% trans "FAQ" %}</div>
+            <h2 class="section-title">{% trans "Frequently Asked" %} <span class="text-gradient">{% trans "Questions" %}</span></h2>
+        </div>
+        <div style="max-width:800px; margin:0 auto;">
+            {% for faq in faqs %}
+            <div class="faq-accordion-item" style="border-bottom:1px solid rgba(255,255,255,0.06); padding:1.2rem 0;">
+                <button class="faq-accordion-btn" onclick="this.parentElement.classList.toggle('open')" style="
+                    width:100%; background:none; border:none; cursor:pointer;
+                    display:flex; justify-content:space-between; align-items:center;
+                    font-size:1rem; font-weight:600; color:#f1f5f9; text-align:left; padding:0;
+                    font-family:inherit;
+                ">
+                    <span>{{ faq.question }}</span>
+                    <span class="faq-toggle-icon" style="color:rgba(255,255,255,0.3); transition:transform 0.3s; font-size:1.2rem;">+</span>
+                </button>
+                <div class="faq-accordion-body" style="
+                    max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s;
+                    font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.7;
+                ">
+                    <div style="padding-top:0.8rem;">{{ faq.answer }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+.faq-accordion-item.open .faq-accordion-body { max-height: 300px; }
+.faq-accordion-item.open .faq-toggle-icon { transform: rotate(45deg); }
+</style>
+
+{# FAQPage JSON-LD Structured Data #}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {% for faq in faqs %}
+        {
+            "@type": "Question",
+            "name": "{{ faq.question|escapejs }}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ faq.answer|escapejs }}"
+            }
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>
+{% endif %}

@@ -12,10 +12,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
-# Non-prefixed URLs (language switcher endpoint)
+# Non-prefixed URLs (language switcher endpoint, SEO)
+from core.seo import robots_txt, sitemap_xml
 urlpatterns = [
     # Django's built-in set_language view for the language switcher
     path('i18n/', include('django.conf.urls.i18n')),
+    # SEO: sitemap and robots
+    path('robots.txt', robots_txt, name='robots_txt'),
+    path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
 ]
 
 from django.conf import settings
