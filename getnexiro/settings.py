@@ -152,6 +152,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_MAX_AGE = 31536000  # 1 year cache for static files (hashed names)
 
 # ──────────────────────────────────────────────
 # Media files (User uploads)

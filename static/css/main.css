@@ -4002,3 +4002,26 @@ ul {
     border-color: rgba(0,0,0,0.1) !important;
     color: #374151 !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY: Global Reduced Motion Override
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    .ambient-glow,
+    .glow-orb-1,
+    .glow-orb-2,
+    .footer-ambient-glow {
+        display: none !important;
+    }
+    .page-loader {
+        display: none !important;
+    }
+}
+
+/* Performance: will-change for animated elements */
+.ambient-glow,
+.glow-orb-1,
+.glow-orb-2 {
+    will-change: transform, opacity;
+    contain: layout style paint;
+}
