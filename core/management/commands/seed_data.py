@@ -17,6 +17,7 @@ from core.models import (
     CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
     LegalPage, FAQ,
     Package, PackageFeature, PricingRule, WeeklyAvailability,
+    CityServicePage,
 )
 
 
@@ -175,6 +176,39 @@ class Command(BaseCommand):
         config.meta_description_en = 'getNexiro — Professional web development, mobile apps & software engineering agency in Tangier, Morocco.'
         config.meta_description_fr = 'getNexiro — Agence de développement web, applications mobiles et ingénierie logicielle à Tanger, Maroc.'
         config.meta_description_ar = 'getNexiro — وكالة رائدة في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات في طنجة، المغرب.'
+
+        # Explicit Page-Level SEO Defaults
+        config.home_seo_title_en = 'getNexiro — Web & App Development Agency | Tangier'
+        config.home_seo_title_fr = 'getNexiro — Agence de Développement Web & Mobile | Tanger'
+        config.home_seo_title_ar = 'getNexiro — وكالة تطوير الويب وتطبيقات الجوال | طنجة'
+
+        config.home_seo_description_en = 'Professional web development, mobile apps & software engineering agency in Tangier, Morocco.'
+        config.home_seo_description_fr = 'Agence de développement web, apps mobiles et ingénierie logicielle à Tanger, Maroc.'
+        config.home_seo_description_ar = 'وكالة متخصصة في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات بطنجة، المغرب.'
+
+        config.about_seo_title_en = 'About getNexiro — Our Story & Engineering Team'
+        config.about_seo_title_fr = 'À Propos de getNexiro — Notre Histoire & Équipe'
+        config.about_seo_title_ar = 'من نحن — قصة وفريق عمل getNexiro | طنجة'
+
+        config.services_seo_title_en = 'Our Services — Web, Mobile & Cloud Engineering'
+        config.services_seo_title_fr = 'Nos Services — Ingénierie Web, Mobile & Cloud'
+        config.services_seo_title_ar = 'خدماتنا — تطوير الويب، الجوال والسحابة | getNexiro'
+
+        config.projects_seo_title_en = 'Our Work — Selected Projects & Case Studies'
+        config.projects_seo_title_fr = 'Nos Réalisations — Projets & Études de Cas'
+        config.projects_seo_title_ar = 'أعمالنا — مشاريع مميزة ودراسات حالة | getNexiro'
+
+        config.blog_seo_title_en = 'Blog — Tech Insights, Architecture & Tutorials'
+        config.blog_seo_title_fr = "Blog — Insights Tech & Tutoriels d'Ingénierie"
+        config.blog_seo_title_ar = 'المدونة — مقالات ورؤى تقنية | getNexiro'
+
+        config.contact_seo_title_en = 'Contact Us — Get a Free Technical Consultation'
+        config.contact_seo_title_fr = 'Contactez-Nous — Consultation Technique Gratuite'
+        config.contact_seo_title_ar = 'تواصل معنا — استشارة تقنية مجانية | getNexiro'
+
+        config.packages_seo_title_en = 'Pricing Packages — Transparent Software Pricing'
+        config.packages_seo_title_fr = 'Nos Forfaits — Tarification Logicielle Transparente'
+        config.packages_seo_title_ar = 'باقات الأسعار — تسعير شفاف ومخصص | getNexiro'
 
         config.save()
         self.stdout.write('  [OK] SiteConfig updated with EN / FR / AR')
@@ -1673,5 +1707,39 @@ class Command(BaseCommand):
                     is_active=True,
                 )
         self.stdout.write('  [OK] Created weekly availability slots (Mon-Fri, 9-17h)')
+
+        # ── 17. City Service Pages (Local SEO) ──
+        web_dev_service = Service.objects.filter(slug='web-development').first()
+        if web_dev_service:
+            city_page, created = CityServicePage.objects.get_or_create(
+                service=web_dev_service,
+                city='tangier',
+                defaults={
+                    'slug': 'web-development-tangier',
+                    'is_published': True,
+                    'h1_en': 'Professional Web Development in Tangier, Morocco',
+                    'h1_fr': 'Développement Web Professionnel à Tanger, Maroc',
+                    'h1_ar': 'تطوير مواقع وتطبيقات الويب الاحترافية في طنجة، المغرب',
+                    'intro_en': "getNexiro is Tangier's premier software studio, engineering scalable web platforms, custom SaaS products, and high-performance business applications.",
+                    'intro_fr': "getNexiro est le studio logiciel de référence à Tanger, concevant des plateformes web scalables, des solutions SaaS sur mesure et des applications métier haute performance.",
+                    'intro_ar': "تعتبر getNexiro استوديو البرمجيات الرائد في طنجة، المتخصص في بناء منصات الويب القابلة للتوسع، حلول SaaS السحابية وتطبيقات الأعمال فائقة الأداء.",
+                    'body_en': '<p>Located at the crossroads of Europe and Africa in Tangier, our engineering team delivers world-class web applications for Moroccan enterprises and international corporations. We leverage modern frameworks like Django, React, and cloud native architectures to ensure high reliability, enterprise-grade security, and fast loading speeds.</p>',
+                    'body_fr': '<p>Située au carrefour de l\'Europe et de l\'Afrique à Tanger, notre équipe d\'ingénieurs conçoit des applications web de classe mondiale pour les entreprises marocaines et internationales. Nous utilisons les technologies modernes (Django, React, architectures Cloud) pour garantir fiabilité, sécurité et rapidité d\'exécution.</p>',
+                    'body_ar': '<p>من موقعنا الاستراتيجي في طنجة عند نقطة التقاء إفريقيا بأوروبا، يقدم فريقنا الهندسي حلول ويب بمعايير دولية للشركات المغربية والمؤسسات العالمية، بالاعتماد على أحدث أطر العمل مثل Django و React والتقنيات السحابية المتقدمة لضمان أقصى درجات الأمان والسرعة.</p>',
+                    'why_choose_us_en': 'Strategic GMT+1 location aligned with European and Moroccan business hours\nSenior full-stack engineering expertise in Django, Python, React, and AWS\nMultilingual digital platforms built with native SEO for English, French, and Arabic markets\nTransparent milestones with agile 2-week sprint delivery',
+                    'why_choose_us_fr': 'Emplacement stratégique en fuseau GMT+1 synchronisé avec les horaires européens et marocains\nExpertise senior full-stack en Django, Python, React et Cloud AWS\nPlateformes multilingues avec référencement SEO natif pour les marchés français, arabe et anglophone\nLivraisons transparentes en méthodologie agile par sprints de 2 semaines',
+                    'why_choose_us_ar': 'موقع استراتيجي بتوقيت GMT+1 متوافق مع ساعات العمل في المغرب وأوروبا\nخبرة هندسية رفيعة في Django و Python و React وحوسبة AWS السحابية\nمنصات متعددة اللغات مجهزة بتهيئة محركات البحث SEO للأسواق العربية والفرنسية والإنجليزية\nشفافية تامة في الإنجاز بمنهجية أجايل بدورات تسليم كل أسبوعين',
+                    'industries_served_en': 'Logistics & Maritime (Tanger Med & Port Ecosystem)\nIndustrial Manufacturing & Automotive (TFZ & TAC)\nHospitality, Tourism & Luxury Real Estate\nE-Commerce & Retail\nFinancial Services & Consulting',
+                    'industries_served_fr': 'Logistique & Maritime (Écosystème Tanger Med & Port)\nIndustrie & Automobile (TFZ & TAC)\nHôtellerie, Tourisme & Immobilier de Luxe\nE-Commerce & Distribution\nServices Financiers & Cabinets de Conseil',
+                    'industries_served_ar': 'اللوجستيات والملاحة البحرية (منظومة ميناء طنجة المتوسط)\nالصناعة وقطاع السيارات (المناطق الحرة TFZ و TAC)\nالضيافة والسياحة والعقارات الفاخرة\nالتجارة الإلكترونية والتجزئة\nالخدمات المالية والاستشارات',
+                    'seo_title_en': 'Web Development in Tangier, Morocco | getNexiro',
+                    'seo_title_fr': 'Développement Web à Tanger, Maroc | Agence getNexiro',
+                    'seo_title_ar': 'تطوير مواقع الويب في طنجة، المغرب | getNexiro',
+                    'seo_description_en': 'Premier web development agency in Tangier, Morocco. High-performance custom web apps, e-commerce, and SaaS platforms built for growth.',
+                    'seo_description_fr': 'Agence de développement web à Tanger, Maroc. Applications web sur mesure, e-commerce et plateformes SaaS performantes.',
+                    'seo_description_ar': 'وكالة تطوير مواقع وتطبيقات الويب في طنجة، المغرب. حلول ويب متطورة، متاجر إلكترونية ومنصات SaaS مصممة لتحقيق أعلى عائد.',
+                }
+            )
+            self.stdout.write(f'  [OK] CityServicePage Tangier (created={created})')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))

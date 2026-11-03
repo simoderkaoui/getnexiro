@@ -2,6 +2,9 @@
 {% load static i18n %}
 
 {% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Our Projects" %}{% endif %}{% endblock %}
+{% block meta_description %}{% trans "Discover selected case studies and engineering projects delivered by getNexiro: high-impact web architectures, SaaS platforms, and digital products for businesses in Tangier and beyond." %}{% endblock %}
+{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Our Projects" %}{% endif %} — getNexiro{% endblock %}
+{% block og_description %}{% trans "A curated showcase of high-impact architectures, enterprise web platforms, and bespoke digital products delivered by getNexiro." %}{% endblock %}
 
 {% block content %}
 <section class="page-header">

@@ -3,6 +3,8 @@
 
 {% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 {% block meta_description %}{% trans "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco." %}{% endblock %}
+{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Blog" %}{% endif %} — getNexiro{% endblock %}
+{% block og_description %}{% trans "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco." %}{% endblock %}
 
 {% block extra_head %}
 <link rel="alternate" type="application/rss+xml" title="{% trans 'getNexiro Blog RSS' %}" href="{% url 'core:blog_rss_feed' %}">

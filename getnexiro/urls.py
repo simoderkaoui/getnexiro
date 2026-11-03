@@ -13,7 +13,9 @@ from core.admin import nexiro_admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
-# Non-prefixed URLs (language switcher endpoint, SEO)
+from django.views.generic import RedirectView
+
+# Non-prefixed URLs (language switcher endpoint, SEO, icons)
 from core.seo import robots_txt, sitemap_xml
 urlpatterns = [
     # Django's built-in set_language view for the language switcher
@@ -21,6 +23,8 @@ urlpatterns = [
     # SEO: sitemap and robots
     path('robots.txt', robots_txt, name='robots_txt'),
     path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
+    path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
+    path('site.webmanifest', RedirectView.as_view(url='/static/site.webmanifest', permanent=True)),
 ]
 
 from django.conf import settings

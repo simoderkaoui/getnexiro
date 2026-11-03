@@ -1,11 +1,13 @@
 """
 getNexiro — Sitemap and robots.txt views.
+Generates 100% accurate multilingual sitemap.xml with hreflang alternates using dynamic reverse.
 """
 
 from django.http import HttpResponse
-from django.template import loader
 from django.utils import timezone
 from django.conf import settings
+from django.urls import reverse
+from django.utils.translation import activate
 from core.models import Service, Project, BlogPost, BlogCategory, CityServicePage
 
 
@@ -17,139 +19,87 @@ Allow: /
 
 Sitemap: {site_url}/sitemap.xml
 
-# Disallow admin and private paths
+# Disallow private and administrative paths
 Disallow: /admin/
 Disallow: /i18n/
+Disallow: */confirm/
+Disallow: */unsubscribe/
 """
     return HttpResponse(content, content_type='text/plain')
 
 
 def sitemap_xml(request):
-    """Generate a multilingual sitemap.xml with hreflang alternates."""
+    """Generate a 100% accurate multilingual sitemap.xml with hreflang alternates."""
     site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com')
     languages = ['en', 'fr', 'ar']
     now = timezone.now().strftime('%Y-%m-%d')
 
-    # Static pages with their URL names
-    static_pages = [
-        ('', '1.0'),       # Home
-        ('about/', '0.8'),
-        ('services/', '0.9'),
-        ('projects/', '0.9'),
-        ('blog/', '0.8'),
-        ('contact/', '0.8'),
-        ('packages/', '0.8'),
-        ('quote/', '0.7'),
-        ('booking/', '0.7'),
-        ('checklist/', '0.6'),
-        ('blog/feed/', '0.3'),
-        ('privacy-policy/', '0.3'),
-        ('terms-of-service/', '0.3'),
-    ]
-
     urls = []
 
-    # Static pages with hreflang alternates
-    for path, priority in static_pages:
+    def add_entry(view_name, kwargs=None, priority='0.5', changefreq='weekly', lastmod=None):
+        if lastmod is None:
+            lastmod = now
         alternates = []
+        en_url = ''
         for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/{path}',
-            })
-        alternates.append({
-            'lang': 'x-default',
-            'url': f'{site_url}/en/{path}',
-        })
+            activate(lang)
+            rel_url = reverse(view_name, kwargs=kwargs)
+            full_url = f"{site_url}{rel_url}"
+            alternates.append({'lang': lang, 'url': full_url})
+            if lang == 'en':
+                en_url = full_url
+
+        alternates.append({'lang': 'x-default', 'url': en_url})
         urls.append({
-            'loc': f'{site_url}/en/{path}',
-            'lastmod': now,
-            'changefreq': 'weekly',
+            'loc': en_url,
+            'lastmod': lastmod,
+            'changefreq': changefreq,
             'priority': priority,
             'alternates': alternates,
         })
 
-    # Dynamic pages: Services
-    for service in Service.objects.all():
-        alternates = []
-        for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/services/{service.slug}/',
-            })
-        urls.append({
-            'loc': f'{site_url}/en/services/{service.slug}/',
-            'lastmod': now,
-            'changefreq': 'monthly',
-            'priority': '0.7',
-            'alternates': alternates,
-        })
+    # 1. Static Pages
+    static_routes = [
+        ('core:home', None, '1.0', 'weekly'),
+        ('core:about', None, '0.8', 'monthly'),
+        ('core:services', None, '0.9', 'weekly'),
+        ('core:projects', None, '0.9', 'weekly'),
+        ('core:blog', None, '0.8', 'daily'),
+        ('core:blog_rss_feed', None, '0.4', 'daily'),
+        ('core:contact', None, '0.8', 'monthly'),
+        ('core:packages', None, '0.8', 'monthly'),
+        ('core:quote_wizard', None, '0.7', 'monthly'),
+        ('core:booking', None, '0.7', 'monthly'),
+        ('core:lead_magnet', None, '0.6', 'monthly'),
+        ('core:privacy_policy', None, '0.3', 'yearly'),
+        ('core:terms_of_service', None, '0.3', 'yearly'),
+    ]
 
-    # Dynamic pages: Projects
-    for project in Project.objects.all():
-        alternates = []
-        for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/projects/{project.slug}/',
-            })
-        urls.append({
-            'loc': f'{site_url}/en/projects/{project.slug}/',
-            'lastmod': project.created_at.strftime('%Y-%m-%d') if project.created_at else now,
-            'changefreq': 'monthly',
-            'priority': '0.7',
-            'alternates': alternates,
-        })
+    for name, kw, prio, freq in static_routes:
+        add_entry(name, kw, prio, freq)
 
-    # Dynamic pages: Blog posts
-    for post in BlogPost.objects.filter(status='published'):
-        alternates = []
-        for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/blog/{post.slug}/',
-            })
-        urls.append({
-            'loc': f'{site_url}/en/blog/{post.slug}/',
-            'lastmod': post.updated_at.strftime('%Y-%m-%d') if post.updated_at else now,
-            'changefreq': 'weekly',
-            'priority': '0.6',
-            'alternates': alternates,
-        })
+    # 2. Dynamic pages: Services
+    for svc in Service.objects.all():
+        add_entry('core:service_detail', {'slug': svc.slug}, '0.8', 'monthly')
 
+    # 3. Dynamic pages: Projects
+    for prj in Project.objects.all():
+        lm = prj.created_at.strftime('%Y-%m-%d') if prj.created_at else now
+        add_entry('core:project_detail', {'slug': prj.slug}, '0.7', 'monthly', lastmod=lm)
 
-    # Dynamic pages: Blog categories
+    # 4. Dynamic pages: Blog categories
     for cat in BlogCategory.objects.all():
-        alternates = []
-        for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/blog/category/{cat.slug}/',
-            })
-        urls.append({
-            'loc': f'{site_url}/en/blog/category/{cat.slug}/',
-            'lastmod': now,
-            'changefreq': 'weekly',
-            'priority': '0.5',
-            'alternates': alternates,
-        })
+        add_entry('core:blog_category_archive', {'slug': cat.slug}, '0.6', 'weekly')
 
+    # 5. Dynamic pages: Blog posts
+    for post in BlogPost.objects.filter(status='published'):
+        lm = post.updated_at.strftime('%Y-%m-%d') if post.updated_at else now
+        add_entry('core:blog_detail', {'slug': post.slug}, '0.7', 'weekly', lastmod=lm)
 
-    # Dynamic pages: City service pages
-    for page in CityServicePage.objects.filter(is_published=True).select_related('service'):
-        alternates = []
-        for lang in languages:
-            alternates.append({
-                'lang': lang,
-                'url': f'{site_url}/{lang}/services/{page.service.slug}/{page.slug}/',
-            })
-        urls.append({
-            'loc': f'{site_url}/en/services/{page.service.slug}/{page.slug}/',
-            'lastmod': page.updated_at.strftime('%Y-%m-%d') if page.updated_at else now,
-            'changefreq': 'monthly',
-            'priority': '0.6',
-            'alternates': alternates,
-        })
+    # 6. Dynamic pages: City service pages
+    for cp in CityServicePage.objects.filter(is_published=True).select_related('service'):
+        lm = cp.updated_at.strftime('%Y-%m-%d') if cp.updated_at else now
+        add_entry('core:city_service_page', {'service_slug': cp.service.slug, 'city_slug': cp.slug}, '0.8', 'monthly', lastmod=lm)
 
     # Build XML
     xml_parts = ['<?xml version="1.0" encoding="UTF-8"?>']

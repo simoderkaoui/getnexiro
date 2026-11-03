@@ -347,25 +347,56 @@ def quote_wizard(request):
                 )
                 admin_email.send(fail_silently=True)
 
-                # Visitor confirmation
-                visitor_subject = _('Your getNexiro Quote Request — Received!')
-                visitor_body = (
-                    f"Hi {quote.name},\n\n"
-                    f"Thank you for your quote request! We've received your project details and "
-                    f"will get back to you within 24 hours with a detailed proposal.\n\n"
-                )
-                if est_min and est_max:
-                    visitor_body += f"Indicative estimate: {est_min:,} — {est_max:,} MAD\n\n"
-                visitor_body += (
-                    f"In the meantime, feel free to book a discovery call or reach us on WhatsApp.\n\n"
-                    f"Best regards,\nThe getNexiro Team\n"
-                )
+                # Visitor confirmation (Multilingual EN/FR/AR)
+                user_lang = getattr(request, 'LANGUAGE_CODE', None) or 'en'
+                if user_lang.startswith('fr'):
+                    visitor_subject = "Votre demande de devis getNexiro a bien été reçue !"
+                    visitor_body = (
+                        f"Bonjour {quote.name},\n\n"
+                        f"Merci pour votre demande de devis ! Nous avons bien reçu les détails de votre projet et "
+                        f"nous vous recontacterons sous 24 heures avec une proposition détaillée.\n\n"
+                    )
+                    if est_min and est_max:
+                        visitor_body += f"Estimation indicative : {est_min:,} — {est_max:,} MAD\n\n"
+                    visitor_body += (
+                        f"En attendant, vous pouvez planifier un appel de découverte ou nous joindre sur WhatsApp.\n\n"
+                        f"Cordialement,\nL'équipe getNexiro\n"
+                    )
+                elif user_lang.startswith('ar'):
+                    visitor_subject = "تم استلام طلب عرض السعر — getNexiro"
+                    visitor_body = (
+                        f"مرحباً {quote.name}،\n\n"
+                        f"شكراً لاهتمامك بخدماتنا! لقد استلمنا تفاصيل مشروعك وسنتواصل معك خلال 24 ساعة بمقترح تقني ومالي مفصل.\n\n"
+                    )
+                    if est_min and est_max:
+                        visitor_body += f"التقدير الأولي للمشروع: {est_min:,} — {est_max:,} درهم مغربي\n\n"
+                    visitor_body += (
+                        f"يمكنك أيضاً حجز مكالمة استكشافية مباشرة أو مراسلتنا عبر واتساب.\n\n"
+                        f"مع خالص التحية،\nفريق عمل getNexiro\n"
+                    )
+                else:
+                    visitor_subject = "Your getNexiro Quote Request — Received!"
+                    visitor_body = (
+                        f"Hi {quote.name},\n\n"
+                        f"Thank you for your quote request! We've received your project details and "
+                        f"will get back to you within 24 hours with a detailed proposal.\n\n"
+                    )
+                    if est_min and est_max:
+                        visitor_body += f"Indicative estimate: {est_min:,} — {est_max:,} MAD\n\n"
+                    visitor_body += (
+                        f"In the meantime, feel free to book a discovery call or reach us on WhatsApp.\n\n"
+                        f"Best regards,\nThe getNexiro Team\n"
+                    )
+
                 visitor_email = EmailMultiAlternatives(
-                    subject=str(visitor_subject),
+                    subject=visitor_subject,
                     body=visitor_body,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     to=[quote.email],
                 )
+                visitor_email.extra_headers['Auto-Submitted'] = 'auto-replied'
+                visitor_email.extra_headers['X-Auto-Response-Suppress'] = 'All'
+                visitor_email.extra_headers['Precedence'] = 'auto_reply'
                 visitor_email.send(fail_silently=True)
             except Exception:
                 pass  # Form saved to DB even if email fails
@@ -480,9 +511,32 @@ def booking(request):
                     )
                     admin_email.send(fail_silently=True)
 
-                    visitor_email = EmailMultiAlternatives(
-                        subject=str(_('Your getNexiro Discovery Call — Confirmed!')),
-                        body=(
+                    user_lang = getattr(request, 'LANGUAGE_CODE', None) or 'en'
+                    if user_lang.startswith('fr'):
+                        visitor_subject = "Votre appel de découverte avec getNexiro est confirmé !"
+                        visitor_body = (
+                            f"Bonjour {bk.name},\n\n"
+                            f"Votre appel de découverte est bien confirmé !\n\n"
+                            f"Date : {bk.date.strftime('%d/%m/%Y')}\n"
+                            f"Heure : {bk.time_slot.strftime('%H:%M')} (GMT+1 / Heure du Maroc)\n\n"
+                            f"Nous vous contacterons à l'adresse e-mail ou au numéro de téléphone indiqué.\n\n"
+                            f"Ajouter à Google Agenda :\n{bk.google_calendar_url}\n\n"
+                            f"Cordialement,\nL'équipe getNexiro\n"
+                        )
+                    elif user_lang.startswith('ar'):
+                        visitor_subject = "تم تأكيد مكالمتك الاستكشافية مع getNexiro!"
+                        visitor_body = (
+                            f"مرحباً {bk.name}،\n\n"
+                            f"تم تأكيد موعد مكالمتك الاستكشافية بنجاح!\n\n"
+                            f"التاريخ: {bk.date.strftime('%Y-%m-%d')}\n"
+                            f"الوقت: {bk.time_slot.strftime('%H:%M')} (بتوقيت المغرب GMT+1)\n\n"
+                            f"سيتواصل معك فريقنا الهندسي عبر الهاتف أو البريد الإلكتروني المحدد.\n\n"
+                            f"إضافة إلى تقويم Google:\n{bk.google_calendar_url}\n\n"
+                            f"مع أطيب التحيات،\nفريق getNexiro\n"
+                        )
+                    else:
+                        visitor_subject = "Your getNexiro Discovery Call — Confirmed!"
+                        visitor_body = (
                             f"Hi {bk.name},\n\n"
                             f"Your discovery call is confirmed!\n\n"
                             f"Date: {bk.date.strftime('%A, %B %d, %Y')}\n"
@@ -490,10 +544,17 @@ def booking(request):
                             f"We'll contact you at the provided email or phone number.\n\n"
                             f"Add to Google Calendar:\n{bk.google_calendar_url}\n\n"
                             f"Best regards,\nThe getNexiro Team\n"
-                        ),
+                        )
+
+                    visitor_email = EmailMultiAlternatives(
+                        subject=visitor_subject,
+                        body=visitor_body,
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         to=[bk.email],
                     )
+                    visitor_email.extra_headers['Auto-Submitted'] = 'auto-replied'
+                    visitor_email.extra_headers['X-Auto-Response-Suppress'] = 'All'
+                    visitor_email.extra_headers['Precedence'] = 'auto_reply'
                     visitor_email.send(fail_silently=True)
                 except Exception:
                     pass
@@ -587,19 +648,47 @@ def lead_magnet(request):
                 site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com')
                 confirm_url = f"{site_url}/{(get_language() or 'en')}/confirm/{sub.confirmation_token}/"
 
-                visitor_email = EmailMultiAlternatives(
-                    subject=str(_('Confirm your email — getNexiro')),
-                    body=(
+                user_lang = getattr(request, 'LANGUAGE_CODE', None) or 'en'
+                if user_lang.startswith('fr'):
+                    visitor_subject = "Confirmez votre e-mail — getNexiro"
+                    visitor_body = (
+                        f"Bonjour {sub.name or ''},\n\n"
+                        f"Veuillez confirmer votre adresse e-mail pour télécharger la Checklist de Lancement de Site Web :\n\n"
+                        f"{confirm_url}\n\n"
+                        f"Ce lien expire dans 48 heures.\n\n"
+                        f"Si vous n'avez pas demandé ce téléchargement, vous pouvez ignorer cet e-mail en toute sécurité.\n\n"
+                        f"Cordialement,\nL'équipe getNexiro\n"
+                    )
+                elif user_lang.startswith('ar'):
+                    visitor_subject = "تأكيد بريدك الإلكتروني — getNexiro"
+                    visitor_body = (
+                        f"مرحباً {sub.name or ''}،\n\n"
+                        f"يرجى تأكيد بريدك الإلكتروني لتحميل قائمة مراجعة إطلاق المواقع الإلكترونية المجانية:\n\n"
+                        f"{confirm_url}\n\n"
+                        f"تنتهي صلاحية هذا الرابط بعد 48 ساعة.\n\n"
+                        f"إذا لم تكن قد طلبت هذا التحميل، يمكنك تجاهل هذه الرسالة بأمان.\n\n"
+                        f"مع خالص التحية،\nفريق getNexiro\n"
+                    )
+                else:
+                    visitor_subject = "Confirm your email — getNexiro"
+                    visitor_body = (
                         f"Hi {sub.name or 'there'},\n\n"
                         f"Please confirm your email address to download the Website Launch Checklist:\n\n"
                         f"{confirm_url}\n\n"
                         f"This link expires in 48 hours.\n\n"
                         f"If you did not request this, you can safely ignore this email.\n\n"
                         f"Best regards,\nThe getNexiro Team\n"
-                    ),
+                    )
+
+                visitor_email = EmailMultiAlternatives(
+                    subject=visitor_subject,
+                    body=visitor_body,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     to=[email],
                 )
+                visitor_email.extra_headers['Auto-Submitted'] = 'auto-replied'
+                visitor_email.extra_headers['X-Auto-Response-Suppress'] = 'All'
+                visitor_email.extra_headers['Precedence'] = 'auto_reply'
                 visitor_email.send(fail_silently=True)
             except Exception:
                 pass

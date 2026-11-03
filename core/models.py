@@ -136,7 +136,7 @@ class SiteConfig(models.Model):
 
     # Contact & location
     email = models.EmailField(_('Contact Email'), default='getnexiro@gmail.com')
-    phone = models.CharField(_('Phone Number'), max_length=30, default='+212 663 017 817')
+    phone = models.CharField(_('Phone Number'), max_length=30, default='+212 787 862 187')
 
     address_en = models.CharField(_('Address (EN)'), max_length=200, default='Tangier 90000, Morocco')
     address_fr = models.CharField(_('Address (FR)'), max_length=200, blank=True, default='Tanger 90000, Maroc')
@@ -227,37 +227,37 @@ class SiteConfig(models.Model):
 
 
     # ── Page-Level SEO (for pages without their own model) ──
-    home_seo_title_en = models.CharField(_('Home Page SEO Title (EN)'), max_length=70, blank=True, default='getNexiro — Web & App Development Agency')
-    home_seo_title_fr = models.CharField(_('Home Page SEO Title (FR)'), max_length=70, blank=True, default='getNexiro — Agence de Developpement Web')
-    home_seo_title_ar = models.CharField(_('Home Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    home_seo_title_en = models.CharField(_('Home Page SEO Title (EN)'), max_length=70, blank=True, default='getNexiro — Web & App Development Agency | Tangier')
+    home_seo_title_fr = models.CharField(_('Home Page SEO Title (FR)'), max_length=70, blank=True, default='getNexiro — Agence de Développement Web & Mobile | Tanger')
+    home_seo_title_ar = models.CharField(_('Home Page SEO Title (AR)'), max_length=70, blank=True, default='getNexiro — وكالة تطوير الويب وتطبيقات الجوال | طنجة')
 
     home_seo_description_en = models.CharField(_('Home Page SEO Desc (EN)'), max_length=170, blank=True, default='Professional web development, mobile apps & software engineering agency in Tangier, Morocco.')
-    home_seo_description_fr = models.CharField(_('Home Page SEO Desc (FR)'), max_length=170, blank=True, default='Agence de developpement web, apps mobiles et ingenierie logicielle a Tanger, Maroc.')
-    home_seo_description_ar = models.CharField(_('Home Page SEO Desc (AR)'), max_length=170, blank=True, default='')
+    home_seo_description_fr = models.CharField(_('Home Page SEO Desc (FR)'), max_length=170, blank=True, default='Agence de développement web, apps mobiles et ingénierie logicielle à Tanger, Maroc.')
+    home_seo_description_ar = models.CharField(_('Home Page SEO Desc (AR)'), max_length=170, blank=True, default='وكالة متخصصة في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات بطنجة، المغرب.')
 
-    about_seo_title_en = models.CharField(_('About Page SEO Title (EN)'), max_length=70, blank=True, default='About getNexiro — Our Story & Team')
-    about_seo_title_fr = models.CharField(_('About Page SEO Title (FR)'), max_length=70, blank=True, default='A Propos de getNexiro')
-    about_seo_title_ar = models.CharField(_('About Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    about_seo_title_en = models.CharField(_('About Page SEO Title (EN)'), max_length=70, blank=True, default='About getNexiro — Our Story & Engineering Team')
+    about_seo_title_fr = models.CharField(_('About Page SEO Title (FR)'), max_length=70, blank=True, default='À Propos de getNexiro — Notre Histoire & Équipe')
+    about_seo_title_ar = models.CharField(_('About Page SEO Title (AR)'), max_length=70, blank=True, default='من نحن — قصة وفريق عمل getNexiro | طنجة')
 
-    services_seo_title_en = models.CharField(_('Services Page SEO Title (EN)'), max_length=70, blank=True, default='Our Services — Web, Mobile & Cloud')
-    services_seo_title_fr = models.CharField(_('Services Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Services — Web, Mobile & Cloud')
-    services_seo_title_ar = models.CharField(_('Services Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    services_seo_title_en = models.CharField(_('Services Page SEO Title (EN)'), max_length=70, blank=True, default='Our Services — Web, Mobile & Cloud Engineering')
+    services_seo_title_fr = models.CharField(_('Services Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Services — Ingénierie Web, Mobile & Cloud')
+    services_seo_title_ar = models.CharField(_('Services Page SEO Title (AR)'), max_length=70, blank=True, default='خدماتنا — تطوير الويب، الجوال والسحابة | getNexiro')
 
-    projects_seo_title_en = models.CharField(_('Projects Page SEO Title (EN)'), max_length=70, blank=True, default='Our Work — Selected Projects')
-    projects_seo_title_fr = models.CharField(_('Projects Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Realisations — Projets')
-    projects_seo_title_ar = models.CharField(_('Projects Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    projects_seo_title_en = models.CharField(_('Projects Page SEO Title (EN)'), max_length=70, blank=True, default='Our Work — Selected Projects & Case Studies')
+    projects_seo_title_fr = models.CharField(_('Projects Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Réalisations — Projets & Études de Cas')
+    projects_seo_title_ar = models.CharField(_('Projects Page SEO Title (AR)'), max_length=70, blank=True, default='أعمالنا — مشاريع مميزة ودراسات حالة | getNexiro')
 
-    blog_seo_title_en = models.CharField(_('Blog Page SEO Title (EN)'), max_length=70, blank=True, default='Blog — Tech Insights & Tutorials')
-    blog_seo_title_fr = models.CharField(_('Blog Page SEO Title (FR)'), max_length=70, blank=True, default='Blog — Insights Tech & Tutoriels')
-    blog_seo_title_ar = models.CharField(_('Blog Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    blog_seo_title_en = models.CharField(_('Blog Page SEO Title (EN)'), max_length=70, blank=True, default='Blog — Tech Insights, Architecture & Tutorials')
+    blog_seo_title_fr = models.CharField(_('Blog Page SEO Title (FR)'), max_length=70, blank=True, default="Blog — Insights Tech & Tutoriels d'Ingénierie")
+    blog_seo_title_ar = models.CharField(_('Blog Page SEO Title (AR)'), max_length=70, blank=True, default='المدونة — مقالات ورؤى تقنية | getNexiro')
 
-    contact_seo_title_en = models.CharField(_('Contact Page SEO Title (EN)'), max_length=70, blank=True, default='Contact Us — Get a Free Consultation')
-    contact_seo_title_fr = models.CharField(_('Contact Page SEO Title (FR)'), max_length=70, blank=True, default='Contactez-Nous — Consultation Gratuite')
-    contact_seo_title_ar = models.CharField(_('Contact Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    contact_seo_title_en = models.CharField(_('Contact Page SEO Title (EN)'), max_length=70, blank=True, default='Contact Us — Get a Free Technical Consultation')
+    contact_seo_title_fr = models.CharField(_('Contact Page SEO Title (FR)'), max_length=70, blank=True, default='Contactez-Nous — Consultation Technique Gratuite')
+    contact_seo_title_ar = models.CharField(_('Contact Page SEO Title (AR)'), max_length=70, blank=True, default='تواصل معنا — استشارة تقنية مجانية | getNexiro')
 
-    packages_seo_title_en = models.CharField(_('Packages Page SEO Title (EN)'), max_length=70, blank=True, default='Pricing Packages — Transparent Pricing')
-    packages_seo_title_fr = models.CharField(_('Packages Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Forfaits — Tarification Transparente')
-    packages_seo_title_ar = models.CharField(_('Packages Page SEO Title (AR)'), max_length=70, blank=True, default='')
+    packages_seo_title_en = models.CharField(_('Packages Page SEO Title (EN)'), max_length=70, blank=True, default='Pricing Packages — Transparent Software Pricing')
+    packages_seo_title_fr = models.CharField(_('Packages Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Forfaits — Tarification Logicielle Transparente')
+    packages_seo_title_ar = models.CharField(_('Packages Page SEO Title (AR)'), max_length=70, blank=True, default='باقات الأسعار — تسعير شفاف ومخصص | getNexiro')
 
     # Localized Property Getters
     @property

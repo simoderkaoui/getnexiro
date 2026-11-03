@@ -2,6 +2,11 @@
 {% load static i18n %}
 
 {% block title %}{% if service.seo_title %}{{ service.seo_title }}{% else %}{{ service.title }}{% endif %}{% endblock %}
+{% block meta_description %}{% if service.seo_description %}{{ service.seo_description }}{% else %}{{ service.description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
+{% block og_title %}{% if service.seo_title %}{{ service.seo_title }}{% else %}{{ service.title }}{% endif %} — getNexiro{% endblock %}
+{% block og_description %}{% if service.seo_description %}{{ service.seo_description }}{% else %}{{ service.description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
+{% block twitter_title %}{% if service.seo_title %}{{ service.seo_title }}{% else %}{{ service.title }}{% endif %} — getNexiro{% endblock %}
+{% block twitter_description %}{% if service.seo_description %}{{ service.seo_description }}{% else %}{{ service.description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
 
 {% block structured_data %}{% include "core/includes/jsonld_service.html" %}{% endblock %}
 

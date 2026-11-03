@@ -163,3 +163,76 @@
     direction: ltr;
     display: inline-block;
 }
+
+/* ── Additional RTL Polish for Inner Pages ── */
+
+/* Breadcrumbs RTL chevrons */
+[dir="rtl"] .breadcrumb-separator,
+[dir="rtl"] .service-breadcrumb svg,
+[dir="rtl"] .project-breadcrumb svg,
+[dir="rtl"] .blog-breadcrumb svg {
+    transform: scaleX(-1);
+}
+
+/* Blog Table of Contents & Typography */
+[dir="rtl"] .toc-widget,
+[dir="rtl"] .blog-toc {
+    border-left: none;
+    border-right: 2px solid rgba(56, 189, 248, 0.4);
+    text-align: right;
+}
+
+[dir="rtl"] .toc-link,
+[dir="rtl"] .blog-toc a {
+    padding-left: 0;
+    padding-right: 0.75rem;
+    text-align: right;
+}
+
+[dir="rtl"] blockquote {
+    border-left: none;
+    border-right: 3px solid #38bdf8;
+    padding-left: 0;
+    padding-right: 1.25rem;
+    text-align: right;
+}
+
+/* Quote Wizard RTL */
+[dir="rtl"] .wizard-card,
+[dir="rtl"] .wizard-step {
+    text-align: right;
+}
+
+[dir="rtl"] .wizard-option {
+    text-align: right;
+}
+
+[dir="rtl"] .wizard-option-icon {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+[dir="rtl"] .wizard-prev-btn svg,
+[dir="rtl"] .wizard-next-btn svg {
+    transform: scaleX(-1);
+}
+
+/* Service Detail & Checklist Items */
+[dir="rtl"] .deliverable-item,
+[dir="rtl"] .checklist-item,
+[dir="rtl"] .solution-card {
+    text-align: right;
+}
+
+[dir="rtl"] .deliverable-item svg,
+[dir="rtl"] .check-icon {
+    margin-right: 0;
+    margin-left: 0.75rem;
+}
+
+/* City Service & Local SEO */
+[dir="rtl"] .city-service-hero,
+[dir="rtl"] .city-content,
+[dir="rtl"] .industry-card {
+    text-align: right;
+}

@@ -2,6 +2,9 @@
 {% load static i18n %}
 
 {% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "About Us" %}{% endif %}{% endblock %}
+{% block meta_description %}{% trans "Learn about getNexiro: a premier software engineering studio based in Tangier, Morocco. Combining North African talent with international engineering standards." %}{% endblock %}
+{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "About Us" %}{% endif %} — getNexiro{% endblock %}
+{% block og_description %}{% trans "The story behind getNexiro: boutique digital agency in Tangier, Morocco, building world-class software for visionary enterprises." %}{% endblock %}
 
 {% block content %}
 <section class="page-header">

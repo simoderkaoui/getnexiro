@@ -3,6 +3,8 @@
 
 {% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.h1 }} | {{ config.site_name }}{% endif %}{% endblock %}
 {% block meta_description %}{% if page.seo_description %}{{ page.seo_description }}{% else %}{{ page.intro|truncatewords:25 }}{% endif %}{% endblock %}
+{% block og_title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.h1 }} | {{ config.site_name }}{% endif %}{% endblock %}
+{% block og_description %}{% if page.seo_description %}{{ page.seo_description }}{% else %}{{ page.intro|truncatewords:25 }}{% endif %}{% endblock %}
 
 {% block structured_data %}
 {% include "core/includes/jsonld_breadcrumb.html" %}

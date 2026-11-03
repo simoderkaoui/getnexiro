@@ -16,23 +16,43 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 
 # ── SEO & Meta ──
-
 msgid "Web & App Development Agency in Tangier, Morocco"
 msgstr "وكالة تطوير مواقع وتطبيقات في طنجة، المغرب"
 
-msgid "getNexiro — Professional web development, mobile apps & software engineering agency in Tangier, Morocco. Serving businesses in Tangier, Tetouan, Fes, Meknes, M&rsquo;diq & across Northern Morocco. Contact us for custom web solutions."
-msgstr "getNexiro — وكالة تطوير مواقع احترافية، تطبيقات جوال وهندسة برمجيات في طنجة، المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب. اتصل بنا لحلول ويب مخصصة."
+msgid ""
+"getNexiro — Professional web development, mobile apps & software engineering"
+" agency in Tangier, Morocco. Serving businesses in Tangier, Tetouan, Fes, "
+"Meknes, M&rsquo;diq & across Northern Morocco. Contact us for custom web "
+"solutions."
+msgstr ""
+"getNexiro — وكالة تطوير مواقع احترافية، تطبيقات جوال وهندسة برمجيات في طنجة،"
+" المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب. اتصل "
+"بنا لحلول ويب مخصصة."
 
-msgid "web development Tangier, app development Morocco, software agency Tangier, web developer Tetouan, mobile app Fes, website design Meknes, agence web Tanger, développement web Maroc, création site web Tanger, développeur Tétouan, تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, getNexiro, web development Northern Morocco, M diq web agency"
-msgstr "تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, مطور ويب تطوان, تطبيق جوال فاس, تصميم موقع مكناس, وكالة ويب طنجة, تطوير ويب المغرب, إنشاء موقع طنجة, مطور تطوان, getNexiro, تطوير ويب شمال المغرب, وكالة ويب المضيق"
+msgid ""
+"web development Tangier, app development Morocco, software agency Tangier, "
+"web developer Tetouan, mobile app Fes, website design Meknes, agence web "
+"Tanger, développement web Maroc, création site web Tanger, développeur "
+"Tétouan, تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, "
+"getNexiro, web development Northern Morocco, M diq web agency"
+msgstr ""
+"تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, مطور ويب تطوان, "
+"تطبيق جوال فاس, تصميم موقع مكناس, وكالة ويب طنجة, تطوير ويب المغرب, إنشاء "
+"موقع طنجة, مطور تطوان, getNexiro, تطوير ويب شمال المغرب, وكالة ويب المضيق"
 
 msgid "Web & App Development Agency"
 msgstr "وكالة تطوير مواقع وتطبيقات"
 
-msgid "Professional web development, mobile apps & digital solutions in Tangier, Morocco. Serving Tangier, Tetouan, Fes, Meknes & Northern Morocco."
-msgstr "تطوير ويب احترافي، تطبيقات جوال وحلول رقمية في طنجة، المغرب. نخدم طنجة، تطوان، فاس، مكناس وشمال المغرب."
+msgid ""
+"Professional web development, mobile apps & digital solutions in Tangier, "
+"Morocco. Serving Tangier, Tetouan, Fes, Meknes & Northern Morocco."
+msgstr ""
+"تطوير ويب احترافي، تطبيقات جوال وحلول رقمية في طنجة، المغرب. نخدم طنجة، "
+"تطوان، فاس، مكناس وشمال المغرب."
 
-msgid "Professional web development, mobile apps & digital solutions in Tangier, Morocco."
+msgid ""
+"Professional web development, mobile apps & digital solutions in Tangier, "
+"Morocco."
 msgstr "تطوير ويب احترافي، تطبيقات جوال وحلول رقمية في طنجة، المغرب."
 
 msgid "Web Development Agency Tangier"
@@ -45,7 +65,6 @@ msgid "Northern Morocco"
 msgstr "شمال المغرب"
 
 # ── WhatsApp ──
-
 msgid "Hello getNexiro! I am interested in your services."
 msgstr "مرحباً getNexiro! أنا مهتم بخدماتكم."
 
@@ -59,7 +78,6 @@ msgid "Close"
 msgstr "إغلاق"
 
 # ── Navigation ──
-
 msgid "Home"
 msgstr "الرئيسية"
 
@@ -94,7 +112,6 @@ msgid "Contact"
 msgstr "اتصل بنا"
 
 # ── Home Hero & Console ──
-
 msgid "B2B Software Studio • Tangier, Morocco"
 msgstr "استوديو برمجيات B2B • طنجة، المغرب"
 
@@ -153,15 +170,18 @@ msgid "Zero-Trust Security"
 msgstr "أمان انعدام الثقة"
 
 # ── Bento Grid ──
-
 msgid "Why getNexiro"
 msgstr "لماذا getNexiro"
 
 msgid "Engineering Excellence, Delivered"
 msgstr "التميز الهندسي، بين يديك"
 
-msgid "We combine world-class technical expertise with a deep understanding of business objectives to deliver solutions that drive measurable growth."
-msgstr "نجمع بين الخبرة التقنية العالمية والفهم العميق لأهداف الأعمال لتقديم حلول تدفع النمو القابل للقياس."
+msgid ""
+"We combine world-class technical expertise with a deep understanding of "
+"business objectives to deliver solutions that drive measurable growth."
+msgstr ""
+"نجمع بين الخبرة التقنية العالمية والفهم العميق لأهداف الأعمال لتقديم حلول "
+"تدفع النمو القابل للقياس."
 
 msgid "Strategic Focus"
 msgstr "التركيز الاستراتيجي"
@@ -169,8 +189,11 @@ msgstr "التركيز الاستراتيجي"
 msgid "Strategy First"
 msgstr "الاستراتيجية أولاً"
 
-msgid "Every project begins with understanding your business goals, users, and market — not just your feature list."
-msgstr "كل مشروع يبدأ بفهم أهدافك التجارية ومستخدميك وسوقك — وليس فقط قائمة الميزات."
+msgid ""
+"Every project begins with understanding your business goals, users, and "
+"market — not just your feature list."
+msgstr ""
+"كل مشروع يبدأ بفهم أهدافك التجارية ومستخدميك وسوقك — وليس فقط قائمة الميزات."
 
 msgid "Domain modeling and requirement discovery"
 msgstr "نمذجة المجال واكتشاف المتطلبات"
@@ -187,8 +210,12 @@ msgstr "كود مخصص"
 msgid "Bespoke Solutions"
 msgstr "حلول مصممة خصيصاً"
 
-msgid "No templates, no shortcuts. Custom-crafted architecture tailored to your specific requirements and scale."
-msgstr "لا قوالب جاهزة، لا اختصارات. بنية معمارية مخصصة ومصممة لمتطلباتك وحجم أعمالك."
+msgid ""
+"No templates, no shortcuts. Custom-crafted architecture tailored to your "
+"specific requirements and scale."
+msgstr ""
+"لا قوالب جاهزة، لا اختصارات. بنية معمارية مخصصة ومصممة لمتطلباتك وحجم "
+"أعمالك."
 
 msgid "Ongoing Synergy"
 msgstr "تآزر مستمر"
@@ -196,11 +223,13 @@ msgstr "تآزر مستمر"
 msgid "Long-Term Partnership"
 msgstr "شراكة طويلة الأمد"
 
-msgid "We don't disappear after launch. Ongoing support, iteration, and strategic guidance for continuous improvement."
-msgstr "لا نختفي بعد الإطلاق. دعم مستمر وتطوير دوري وتوجيه استراتيجي للتحسين الدائم."
+msgid ""
+"We don't disappear after launch. Ongoing support, iteration, and strategic "
+"guidance for continuous improvement."
+msgstr ""
+"لا نختفي بعد الإطلاق. دعم مستمر وتطوير دوري وتوجيه استراتيجي للتحسين الدائم."
 
 # ── Home Previews & CTA ──
-
 msgid "What We Do"
 msgstr "ما نقوم به"
 
@@ -237,11 +266,14 @@ msgstr "تواصل معنا"
 msgid "Ready to Elevate Your Digital Presence?"
 msgstr "مستعد لرفع مستوى حضورك الرقمي؟"
 
-msgid "Let's discuss your next project and explore how getNexiro can help you achieve your business goals."
-msgstr "دعنا نناقش مشروعك القادم ونستكشف كيف يمكن لـ getNexiro مساعدتك في تحقيق أهدافك التجارية."
+msgid ""
+"Let's discuss your next project and explore how getNexiro can help you "
+"achieve your business goals."
+msgstr ""
+"دعنا نناقش مشروعك القادم ونستكشف كيف يمكن لـ getNexiro مساعدتك في تحقيق "
+"أهدافك التجارية."
 
 # ── About Page ──
-
 msgid "About Us"
 msgstr "من نحن"
 
@@ -257,8 +289,15 @@ msgstr "قصتنا"
 msgid "Born at the Crossroads of Continents"
 msgstr "وُلدت عند ملتقى القارات"
 
-msgid "Our founders, seasoned engineers with experience at leading tech companies in Europe and North America, returned to Morocco with a vision to build a boutique development agency that rivals the best in the world, while leveraging the unique advantages of our strategic location."
-msgstr "مؤسسونا، مهندسون محنكون لديهم خبرة في كبرى شركات التكنولوجيا في أوروبا وأمريكا الشمالية، عادوا إلى المغرب برؤية تأسيس وكالة برمجيات بوتيكية تضاهي الأفضل عالمياً، مستفيدين من المزايا الاستراتيجية الفريدة لموقعنا."
+msgid ""
+"Our founders, seasoned engineers with experience at leading tech companies "
+"in Europe and North America, returned to Morocco with a vision to build a "
+"boutique development agency that rivals the best in the world, while "
+"leveraging the unique advantages of our strategic location."
+msgstr ""
+"مؤسسونا، مهندسون محنكون لديهم خبرة في كبرى شركات التكنولوجيا في أوروبا "
+"وأمريكا الشمالية، عادوا إلى المغرب برؤية تأسيس وكالة برمجيات بوتيكية تضاهي "
+"الأفضل عالمياً، مستفيدين من المزايا الاستراتيجية الفريدة لموقعنا."
 
 msgid "Founded in Tangier"
 msgstr "تأسست في طنجة"
@@ -287,20 +326,32 @@ msgstr "ميزة استراتيجية فريدة"
 msgid "Gateway Location"
 msgstr "موقع استراتيجي عالمي"
 
-msgid "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs."
-msgstr "على بعد 14 كم فقط من أوروبا، توفر طنجة توافقاً تاماً في التوقيت (GMT+1) مع أوروبا وسهولة التنقل لأهم مراكز الأعمال."
+msgid ""
+"Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with "
+"European clients and easy travel to major business hubs."
+msgstr ""
+"على بعد 14 كم فقط من أوروبا، توفر طنجة توافقاً تاماً في التوقيت (GMT+1) مع "
+"أوروبا وسهولة التنقل لأهم مراكز الأعمال."
 
 msgid "Rich Talent Pool"
 msgstr "مجمع مواهب هندسية ثري"
 
-msgid "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers."
-msgstr "يوفر النظام التقني المتنامي في المغرب وصولاً لنخبة من المهندسين والمصممين متعددي اللغات ذوي الكفاءة العالية."
+msgid ""
+"Morocco's growing tech ecosystem provides access to multilingual, highly "
+"skilled engineers and designers."
+msgstr ""
+"يوفر النظام التقني المتنامي في المغرب وصولاً لنخبة من المهندسين والمصممين "
+"متعددي اللغات ذوي الكفاءة العالية."
 
 msgid "Premium Value"
 msgstr "قيمة استثنائية"
 
-msgid "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship."
-msgstr "جودة عالمية بأسعار تنافسية — عائد استثمار استثنائي دون أي مساومة على جودة وحرفية التنفيذ."
+msgid ""
+"World-class quality at competitive rates — delivering exceptional ROI "
+"without compromising on craftsmanship."
+msgstr ""
+"جودة عالمية بأسعار تنافسية — عائد استثمار استثنائي دون أي مساومة على جودة "
+"وحرفية التنفيذ."
 
 msgid "The Team"
 msgstr "فريق العمل"
@@ -309,15 +360,18 @@ msgid "Meet the Minds Behind getNexiro"
 msgstr "تعرف على العقول المبدعة وراء getNexiro"
 
 # ── Services Page ──
-
 msgid "Our Capabilities"
 msgstr "قدراتنا التقنية"
 
 msgid "Enterprise"
 msgstr "المؤسسية"
 
-msgid "End-to-end engineering services designed for enterprise-grade performance, scalability, and security."
-msgstr "خدمات هندسية متكاملة مصممة للأداء العالي وقابلية التوسع وأعلى درجات الأمان للمؤسسات."
+msgid ""
+"End-to-end engineering services designed for enterprise-grade performance, "
+"scalability, and security."
+msgstr ""
+"خدمات هندسية متكاملة مصممة للأداء العالي وقابلية التوسع وأعلى درجات الأمان "
+"للمؤسسات."
 
 msgid "Discuss this service"
 msgstr "ناقش متطلباتك معنا"
@@ -334,7 +388,9 @@ msgstr "كيف نصنع التميز البرمجي"
 msgid "Discovery"
 msgstr "الاكتشاف والتحليل"
 
-msgid "We deep-dive into your business requirements, user needs, and technical landscape."
+msgid ""
+"We deep-dive into your business requirements, user needs, and technical "
+"landscape."
 msgstr "نتعمق في متطلبات عملك، احتياجات المستخدمين، والمشهد التقني الكامل."
 
 msgid "Requirements"
@@ -346,7 +402,9 @@ msgstr "البحث والتحليل"
 msgid "Architecture"
 msgstr "الهندسة والمعمارية"
 
-msgid "We design scalable system architectures and create detailed technical specifications."
+msgid ""
+"We design scalable system architectures and create detailed technical "
+"specifications."
 msgstr "نصمم بنيات برمجية قابلة للتوسع ونضع مواصفات تقنية تفصيلية ودقيقة."
 
 msgid "Design"
@@ -358,8 +416,11 @@ msgstr "التخطيط"
 msgid "Development"
 msgstr "التطوير البرمجي"
 
-msgid "Agile sprints with continuous integration, automated testing, and frequent deliverables."
-msgstr "سباقات تطوير رشيقة (Agile) مع تكامل مستمر واختبارات آلية وتسليمات متتابعة."
+msgid ""
+"Agile sprints with continuous integration, automated testing, and frequent "
+"deliverables."
+msgstr ""
+"سباقات تطوير رشيقة (Agile) مع تكامل مستمر واختبارات آلية وتسليمات متتابعة."
 
 msgid "Agile"
 msgstr "أجايل"
@@ -367,8 +428,12 @@ msgstr "أجايل"
 msgid "Launch & Support"
 msgstr "الإطلاق والدعم المستمر"
 
-msgid "Production deployment, performance monitoring, and ongoing maintenance partnerships."
-msgstr "النشر في بيئة الإنتاج، مراقبة الأداء على مدار الساعة، وشراكات صيانة وتطوير مستمرة."
+msgid ""
+"Production deployment, performance monitoring, and ongoing maintenance "
+"partnerships."
+msgstr ""
+"النشر في بيئة الإنتاج، مراقبة الأداء على مدار الساعة، وشراكات صيانة وتطوير "
+"مستمرة."
 
 msgid "Deploy"
 msgstr "النشر"
@@ -386,7 +451,6 @@ msgid "Get a Free Consultation"
 msgstr "احصل على استشارة مجانية"
 
 # ── Projects Page ──
-
 msgid "Our Portfolio"
 msgstr "محفظة الأعمال"
 
@@ -396,8 +460,12 @@ msgstr "نماذج من"
 msgid "Case Studies"
 msgstr "دراسات الحالة"
 
-msgid "A curated showcase of high-impact architectures, enterprise web platforms, and bespoke products delivered for global brands."
-msgstr "مجموعة مختارة من البنيات البرمجية عالية التأثير ومنصات الويب المؤسسية والمنتجات الرقمية المخصصة."
+msgid ""
+"A curated showcase of high-impact architectures, enterprise web platforms, "
+"and bespoke products delivered for global brands."
+msgstr ""
+"مجموعة مختارة من البنيات البرمجية عالية التأثير ومنصات الويب المؤسسية "
+"والمنتجات الرقمية المخصصة."
 
 msgid "All"
 msgstr "الكل"
@@ -418,7 +486,6 @@ msgid "Start Your Project"
 msgstr "ابدأ مشروعك الآن"
 
 # ── Store Page ──
-
 msgid "Coming Soon"
 msgstr "قريباً جداً"
 
@@ -428,8 +495,12 @@ msgstr "متجر"
 msgid "We're Building Something Special"
 msgstr "نبني شيئاً مميزاً للمطورين والشركات"
 
-msgid "Our store will feature premium Django templates, React component libraries, design systems, and development toolkits crafted by the getNexiro team."
-msgstr "سيضم متجرنا قوالب Django احترافية، ومكتبات مكونات React، وأنظمة تصميم برمجية مطورة من قبل فريق getNexiro."
+msgid ""
+"Our store will feature premium Django templates, React component libraries, "
+"design systems, and development toolkits crafted by the getNexiro team."
+msgstr ""
+"سيضم متجرنا قوالب Django احترافية، ومكتبات مكونات React، وأنظمة تصميم برمجية"
+" مطورة من قبل فريق getNexiro."
 
 msgid "Design Systems"
 msgstr "أنظمة التصميم UI/UX"
@@ -453,7 +524,6 @@ msgid "Notify Me When It Launches"
 msgstr "أشعرني فور الإطلاق"
 
 # ── Contact Page ──
-
 msgid "Let's Build Something"
 msgstr "لنبني معاً شيئاً"
 
@@ -478,7 +548,6 @@ msgstr "إرسال الرسالة"
 msgid "getNexiro Office Location — Tangier, Morocco"
 msgstr "موقع مقر getNexiro — طنجة، المغرب"
 
-
 msgid "Contact Information"
 msgstr "معلومات التواصل"
 
@@ -498,7 +567,6 @@ msgid "Thank you for your message! We will get back to you shortly."
 msgstr "شكراً لرسالتك! سنقوم بالرد عليك في أقرب وقت ممكن."
 
 # ── Form Fields ──
-
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
@@ -521,9 +589,13 @@ msgid "Tell us about your project..."
 msgstr "أخبرنا عن تفاصيل مشروعك وأهدافك..."
 
 # ── Footer ──
-
-msgid "Professional web development, mobile apps & software engineering agency based in Tangier, Morocco. Serving businesses across Tangier, Tetouan, Fes, Meknes & Northern Morocco."
-msgstr "وكالة احترافية في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات مقرها طنجة، المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب."
+msgid ""
+"Professional web development, mobile apps & software engineering agency "
+"based in Tangier, Morocco. Serving businesses across Tangier, Tetouan, Fes, "
+"Meknes & Northern Morocco."
+msgstr ""
+"وكالة احترافية في تطوير المواقع وتطبيقات الجوال وهندسة البرمجيات مقرها طنجة،"
+" المغرب. نخدم الشركات في طنجة، تطوان، فاس، مكناس، المضيق وشمال المغرب."
 
 msgid "Available for new projects"
 msgstr "متاح لبدء مشاريع جديدة"
@@ -559,7 +631,6 @@ msgid "All rights reserved."
 msgstr "جميع الحقوق محفوظة."
 
 # ── URL Path Segments ──
-
 msgid "about/"
 msgstr "من-نحن/"
 
@@ -576,7 +647,6 @@ msgid "contact/"
 msgstr "تواصل/"
 
 # ── Blog Pages ──
-
 msgid "Blog"
 msgstr "المدونة"
 
@@ -586,11 +656,18 @@ msgstr "رؤى ومقالات"
 msgid "Engineering"
 msgstr "الهندسة"
 
-msgid "Expert insights on web development, mobile apps, UI/UX design, and digital transformation from the getNexiro engineering team in Tangier, Morocco."
-msgstr "رؤى متخصصة في تطوير الويب وتطبيقات الجوال وتصميم UI/UX والتحول الرقمي من فريق الهندسة في getNexiro بطنجة، المغرب."
+msgid ""
+"Expert insights on web development, mobile apps, UI/UX design, and digital "
+"transformation from the getNexiro engineering team in Tangier, Morocco."
+msgstr ""
+"رؤى متخصصة في تطوير الويب وتطبيقات الجوال وتصميم UI/UX والتحول الرقمي من "
+"فريق الهندسة في getNexiro بطنجة، المغرب."
 
-msgid "Expert insights on web development, mobile apps, UI/UX, and digital transformation from our team."
-msgstr "رؤى متخصصة في تطوير الويب وتطبيقات الجوال وUI/UX والتحول الرقمي من فريقنا."
+msgid ""
+"Expert insights on web development, mobile apps, UI/UX, and digital "
+"transformation from our team."
+msgstr ""
+"رؤى متخصصة في تطوير الويب وتطبيقات الجوال وUI/UX والتحول الرقمي من فريقنا."
 
 msgid "All"
 msgstr "الكل"
@@ -629,7 +706,6 @@ msgid "Breadcrumb"
 msgstr "مسار التنقل"
 
 # ── Service Detail Page ──
-
 msgid "Enterprise Service"
 msgstr "خدمة مؤسسية"
 
@@ -660,7 +736,9 @@ msgstr "اكتشف المزيد"
 msgid "Ready to start?"
 msgstr "مستعد للبدء؟"
 
-msgid "Discuss your requirements with our team and let us build the perfect solution for your business."
+msgid ""
+"Discuss your requirements with our team and let us build the perfect "
+"solution for your business."
 msgstr "ناقش متطلباتك مع فريقنا ودعنا نبني الحل المثالي لعملك."
 
 msgid "Let's work together"
@@ -686,3 +764,607 @@ msgstr "دراسة حالة"
 
 msgid "Get a Free Consultation"
 msgstr "احصل على استشارة مجانية"
+
+msgid "30 minutes"
+msgstr "30 دقيقة"
+
+msgid "A focused call to understand your project needs and goals."
+msgstr "مكالمة مركزة لفهم احتياجات مشروعك وأهدافه بدقة."
+
+msgid "Accept"
+msgstr "قبول"
+
+msgid "Add to Google Calendar"
+msgstr "إضافة إلى تقويم Google"
+
+msgid ""
+"All times are shown in GMT+1 (Morocco / Western European Time). We're "
+"available Monday — Friday."
+msgstr ""
+"جميع المواعيد بتوقيت المغرب (GMT+1). نحن متاحون من الإثنين إلى الجمعة."
+
+msgid "Analytics & tracking setup"
+msgstr "إعداد التحليلات والتتبع"
+
+msgid "Architecture & Solution"
+msgstr "المعمارية والحل التقني"
+
+msgid "Architecture Overview"
+msgstr "نظرة عامة على المعمارية البرمجية"
+
+msgid "Areas We Serve"
+msgstr "المناطق التي نخدمها"
+
+msgid "Articles"
+msgstr "المقالات"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "Back to Home"
+msgstr "العودة للرئيسية"
+
+msgid "Book My Call"
+msgstr "حجز المكالمة"
+
+msgid "Book a"
+msgstr "حجز"
+
+msgid "Book a Discovery Call"
+msgstr "حجز مكالمة استكشافية"
+
+msgid "Booking Confirmed"
+msgstr "تم تأكيد الحجز"
+
+msgid "Call Booked!"
+msgstr "تم حجز المكالمة بنجاح!"
+
+msgid "Check Your Email!"
+msgstr "تحقق من بريدك الإلكتروني!"
+
+msgid "Checklist"
+msgstr "قائمة المراجعة"
+
+msgid "Chefchaouen"
+msgstr "شفشاون"
+
+msgid "Choose Your Slot"
+msgstr "اختر الموعد المناسب"
+
+msgid ""
+"Choose the package that fits your needs. All packages are fully "
+"customizable."
+msgstr "اختر الباقة المناسبة لاحتياجاتك. جميع باقاتنا قابلة للتخصيص بالكامل."
+
+msgid "Client"
+msgstr "العميل"
+
+msgid "Confirmed Subscribers"
+msgstr "المشتركون المؤكدون"
+
+msgid "Contact Us to Discuss Your Project"
+msgstr "تواصل معنا لمناقشة مشروعك"
+
+msgid "Content & copywriting review"
+msgstr "مراجعة المحتوى والنصوص"
+
+msgid "Contents"
+msgstr "المحتويات"
+
+msgid "Cookie Consent"
+msgstr "الموافقة على ملفات تعريف الارتباط"
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+msgid "Dashboard Summary"
+msgstr "ملخص لوحة التحكم"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Decline"
+msgstr "رفض"
+
+msgid "Discovery Call"
+msgstr "مكالمة استكشافية"
+
+msgid "Domain / Sector"
+msgstr "المجال / القطاع"
+
+msgid "Download Free Checklist"
+msgstr "تحميل قائمة المراجعة المجانية"
+
+msgid "Download Now"
+msgstr "تحميل الآن"
+
+msgid "Duration"
+msgstr "المدة"
+
+msgid "Enter your email and we'll send it right away."
+msgstr "أدخل بريدك الإلكتروني وسنرسلها لك فوراً."
+
+msgid ""
+"Everything you need to launch your website successfully. Download for free."
+msgstr "كل ما تحتاجه لإطلاق موقعك بنجاح واحترافية. حمّلها مجاناً."
+
+msgid ""
+"Expert contributor at getNexiro, sharing insights on web development and "
+"digital strategy."
+msgstr ""
+"خبير ومستشار تقني في getNexiro، يشارك خبراته في تطوير الويب والاستراتيجيات "
+"الرقمية."
+
+msgid "Explore More Case Studies"
+msgstr "استكشف المزيد من دراسات الحالة"
+
+msgid "FAQ"
+msgstr "الأسئلة الشائعة"
+
+msgid "Features"
+msgstr "المميزات"
+
+msgid "Fes"
+msgstr "فاس"
+
+msgid "Final price depends on exact requirements"
+msgstr "السعر النهائي يعتمد على متطلبات المشروع الدقيقة"
+
+msgid "Free Call"
+msgstr "مكالمة مجانية"
+
+msgid "Free Quote"
+msgstr "عرض سعر مجاني"
+
+msgid "Free Resource"
+msgstr "دليل مجاني"
+
+msgid "Free Website Launch Checklist"
+msgstr "قائمة مراجعة إطلاق المواقع المجانية"
+
+msgid "Free consultation"
+msgstr "استشارة مجانية"
+
+msgid "Frequently Asked"
+msgstr "الأسئلة الشائعة"
+
+msgid "Get Started"
+msgstr "ابدأ الآن"
+
+msgid "Get Started in"
+msgstr "ابدأ في"
+
+msgid "Get Your"
+msgstr "احصل على"
+
+msgid "Get Your Free Copy"
+msgstr "احصل على نسختك المجانية"
+
+msgid "Get a Custom Quote"
+msgstr "احصل على عرض سعر مخصص"
+
+msgid "Get a Quote"
+msgstr "طلب عرض سعر"
+
+msgid "Get the latest articles and resources delivered to your inbox."
+msgstr "احصل على أحدث المقالات والموارد التقنية في بريدك مباشرة."
+
+msgid "Help us understand your expectations."
+msgstr "ساعدنا على فهم تطلعاتك لمشروعك."
+
+msgid "Hi! I just submitted a quote request on getnexiro.com."
+msgstr "مرحباً! لقد قمت للتو بإرسال طلب عرض سعر عبر getnexiro.com."
+
+msgid "Indicative Estimate"
+msgstr "تقدير تقريبي"
+
+msgid "Indicative Price Range"
+msgstr "نطاق السعر التقديري"
+
+msgid "Industries We Serve"
+msgstr "القطاعات التي نخدمها"
+
+msgid "Inspired by this Project?"
+msgstr "أعجبك هذا المشروع؟"
+
+msgid "Kenitra"
+msgstr "القنيطرة"
+
+msgid "Larache"
+msgstr "العرائش"
+
+msgid "Last updated"
+msgstr "آخر تحديث"
+
+msgid "Launch Your Website With Confidence"
+msgstr "أطلق موقعك الإلكتروني بكل ثقة"
+
+msgid "Let's discuss your project requirements."
+msgstr "دعنا نناقش متطلبات مشروعك بالتفصيل."
+
+msgid ""
+"Let's engineer a high-velocity digital platform tailored to your specific "
+"business requirements."
+msgstr "دعنا نبني منصة رقمية فائقة الأداء مصممة خصيصاً لأهداف أعمالك."
+
+msgid "Live Platform"
+msgstr "المنصة مباشرة"
+
+msgid "M'diq"
+msgstr "المضيق"
+
+msgid "Manage"
+msgstr "إدارة"
+
+msgid "Meknes"
+msgstr "مكناس"
+
+msgid "Mobile responsiveness testing"
+msgstr "اختبار التوافق مع الهواتف الذكية"
+
+msgid "Most Popular"
+msgstr "الأكثر طلباً"
+
+msgid "Need something different?"
+msgstr "هل تبحث عن متطلبات خاصة؟"
+
+msgid "New Quote Requests"
+msgstr "طلبات عروض أسعار جديدة"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Next image"
+msgstr "الصورة التالية"
+
+msgid "No obligations. Get expert advice on your project approach."
+msgstr "بدون أي التزام. احصل على استشارة تقنية احترافية لمنهجية مشروعك."
+
+msgid "No spam. Unsubscribe anytime."
+msgstr "نحترم خصوصيتك بدون أي رسائل مزعجة. إلغاء الاشتراك متاح دائماً."
+
+msgid "Our Projects"
+msgstr "مشاريعنا"
+
+msgid ""
+"Our comprehensive checklist covers everything from pre-launch testing to "
+"post-launch SEO, so you don't miss a single step."
+msgstr ""
+"قائمة مراجعة شاملة تغطي كل التفاصيل بدءاً من الاختبارات التقنية وحتى تحسين "
+"محركات البحث SEO لضمان إطلاق متكامل."
+
+msgid "Packages"
+msgstr "الباقات والأسعار"
+
+msgid "Packages coming soon. Contact us for a custom quote."
+msgstr "الباقات ستتاح قريباً. تواصل معنا للحصول على عرض مخصص."
+
+msgid "Page Not Found"
+msgstr "الصفحة غير موجودة"
+
+msgid "Pending Confirmations"
+msgstr "تأكيدات في الانتظار"
+
+msgid "Performance & speed testing"
+msgstr "اختبارات الأداء والسرعة"
+
+msgid "Portfolio"
+msgstr "معرض الأعمال"
+
+msgid "Portfolio case studies will be displayed here."
+msgstr "ستعرض دراسات حالة المشاريع هنا."
+
+msgid "Post-launch monitoring plan"
+msgstr "خطة المراقبة بعد الإطلاق"
+
+msgid "Posts"
+msgstr "المقالات"
+
+msgid "Pre-launch technical checks"
+msgstr "الفحوصات التقنية قبل الإطلاق"
+
+msgid ""
+"Premium digital products, templates, and development tools — launching soon."
+msgstr "منتجات رقمية متميزة وقوالب وأدوات برمجية — قريباً."
+
+msgid "Previous image"
+msgstr "الصورة السابقة"
+
+msgid "Pricing"
+msgstr "الأسعار"
+
+msgid "Privacy Policy"
+msgstr "سياسة الخصوصية"
+
+msgid "Project"
+msgstr "مشروع"
+
+msgid "Project Overview"
+msgstr "نظرة عامة على المشروع"
+
+msgid "Questions"
+msgstr "أسئلة"
+
+msgid "Quote Request Received!"
+msgstr "تم استلام طلب عرض السعر!"
+
+msgid "Quote Submitted"
+msgstr "تم إرسال الطلب"
+
+msgid "Receive a detailed proposal within 48 hours after the call."
+msgstr "استلم مقترحاً تقنياً ومالياً مفصلاً في غضون 48 ساعة من المكالمة."
+
+msgid "Request a Quote"
+msgstr "طلب عرض سعر"
+
+msgid "Results & Business Impact"
+msgstr "النتائج والأثر على الأعمال"
+
+msgid "SEO optimization checklist"
+msgstr "قائمة تحسين محركات البحث SEO"
+
+msgid "Schedule a 30-minute call with our team to discuss your project."
+msgstr "احجز مكالمة مدتها 30 دقيقة مع فريقنا التقني لمناقشة مشروعك."
+
+msgid "Security & SSL verification"
+msgstr "فحص الأمان وتشفير SSL"
+
+msgid "Select a date and time that works for you."
+msgstr "حدد التاريخ والوقت المناسبين لك."
+
+msgid "Select all that apply. This helps us estimate more accurately."
+msgstr "حدد كل ما ينطبق لمساعدتنا في تقديم تقدير أدق."
+
+msgid "Select your project type and give us a brief overview."
+msgstr "اختر نوع المشروع وأعطنا نبذة موجزة عنه."
+
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid "Slide 1"
+msgstr "شريحة 1"
+
+msgid "Something went wrong"
+msgstr "حدث خطأ غير متوقع"
+
+msgid "Start a Similar Project"
+msgstr "ابدأ مشروعاً مشابهاً"
+
+msgid "Stay Updated"
+msgstr "ابقَ على اطلاع"
+
+msgid "Submit Quote Request"
+msgstr "إرسال طلب عرض السعر"
+
+msgid "Subscribe"
+msgstr "اشتراك"
+
+msgid "Table of contents"
+msgstr "جدول المحتويات"
+
+msgid "Tailored proposal"
+msgstr "مقترح مصمم خصيصاً"
+
+msgid "Tangier"
+msgstr "طنجة"
+
+msgid "Technologies & Tools"
+msgstr "التقنيات والأدوات"
+
+msgid "Tell us about your project and get an indicative estimate in minutes."
+msgstr "أخبرنا عن مشروعك واحصل على تقدير أولي في دقائق معدودة."
+
+msgid "Terms of Service"
+msgstr "شروط الخدمة"
+
+msgid "Tetouan"
+msgstr "تطوان"
+
+msgid ""
+"Thank you! We've received your project details and will get back to you "
+"within 24 hours with a detailed proposal."
+msgstr ""
+"شكراً لك! لقد استلمنا تفاصيل مشروعك وسنتواصل معك خلال 24 ساعة بمقترح تفصيلي."
+
+msgid "The Challenge"
+msgstr "التحدي"
+
+msgid "The page you're looking for doesn't exist or has been moved."
+msgstr "الصفحة التي تبحث عنها غير موجودة أو تم نقلها."
+
+msgid "This is an estimate. Final price depends on exact requirements."
+msgstr "هذا تقدير أولي. يعتمد السعر النهائي على المتطلبات الدقيقة للمشروع."
+
+msgid "Time"
+msgstr "الوقت"
+
+msgid "Timeline"
+msgstr "الجدول الزمني"
+
+msgid "Timeline & Budget"
+msgstr "المدة والميزانية"
+
+msgid "Transparent"
+msgstr "شفاف"
+
+msgid "Unread Messages"
+msgstr "رسائل غير مقروءة"
+
+msgid "Unsubscribe"
+msgstr "إلغاء الاشتراك"
+
+msgid "Upcoming Bookings"
+msgstr "الحجوزات القادمة"
+
+msgid "Video or phone"
+msgstr "فيديو أو اتصال هاتفي"
+
+msgid "View All Projects"
+msgstr "عرض جميع المشاريع"
+
+msgid "View all"
+msgstr "عرض الكل"
+
+msgid "Visit Platform"
+msgstr "زيارة المنصة"
+
+msgid "We'll reach you via your preferred channel."
+msgstr "سنتواصل معك عبر وسيلة الاتصال المفضلة لديك."
+
+msgid "We'll send your detailed quote to this email."
+msgstr "سنرسل عرض السعر المفصل إلى هذا البريد الإلكتروني."
+
+msgid ""
+"We're experiencing a temporary issue. Please try again in a few moments."
+msgstr "نواجه مشكلة مؤقتة. يرجى إعادة المحاولة بعد لحظات."
+
+msgid "We're sorry to see you go. Click below to unsubscribe from our emails."
+msgstr "يؤسفنا مغادرتك. انقر أدناه لإلغاء الاشتراك في رسائلنا."
+
+msgid ""
+"We've sent the download link to your email. Also check your spam folder."
+msgstr ""
+"لقد أرسلنا رابط التحميل إلى بريدك الإلكتروني. يرجى التحقق من مجلد الرسائل "
+"غير المرغوب فيها."
+
+msgid "Website Launch"
+msgstr "إطلاق الموقع"
+
+msgid "What do you want to build?"
+msgstr "ماذا تريد أن تبني؟"
+
+msgid "What features do you need?"
+msgstr "ما هي الميزات التي تحتاجها؟"
+
+msgid "What to expect"
+msgstr "ماذا تتوقع"
+
+msgid "WhatsApp"
+msgstr "واتساب"
+
+msgid "Why Choose"
+msgstr "لماذا تختار"
+
+msgid "Year & Duration"
+msgstr "السنة والمدة"
+
+msgid "Your Contact Details"
+msgstr "بيانات الاتصال بك"
+
+msgid ""
+"Your discovery call has been confirmed. We've sent a confirmation email with"
+" all the details."
+msgstr ""
+"تم تأكيد مكالمتك الاستكشافية بنجاح. أرسلنا لك بريداً إلكترونياً بكافة "
+"التفاصيل."
+
+msgid "getNexiro Blog RSS"
+msgstr "خلاصة RSS لمدونة getNexiro"
+
+msgid "in"
+msgstr "في"
+
+msgid "minutes"
+msgstr "دقائق"
+
+msgid "your@email.com"
+msgstr "your@email.com"
+
+msgid ""
+"Explore getNexiro's enterprise engineering capabilities: custom web "
+"applications, native & cross-platform mobile apps, UI/UX design systems, API"
+" microservices, and cloud DevOps solutions in Tangier, Morocco."
+msgstr ""
+"استكشف قدرات getNexiro الهندسية المتطورة: تطبيقات ويب مخصصة، تطبيقات جوال "
+"أصلية وهجينة، أنظمة تصميم UI/UX، خدمات API المصغرة وحلول DevOps السحابية في "
+"طنجة، المغرب."
+
+msgid ""
+"End-to-end software engineering services: web platforms, mobile apps, UI/UX "
+"design, microservices, and cloud architecture in Tangier, Morocco."
+msgstr ""
+"خدمات هندسة برمجيات متكاملة: منصات ويب، تطبيقات جوال، تصميم UI/UX، خدمات "
+"مصغرة ومعمارية سحابية في طنجة، المغرب."
+
+msgid ""
+"Discover selected case studies and engineering projects delivered by "
+"getNexiro: high-impact web architectures, SaaS platforms, and digital "
+"products for businesses in Tangier and beyond."
+msgstr ""
+"اكتشف دراسات حالة ومشاريع برمجية مختارة أنجزتها getNexiro: معماريات ويب "
+"عالية التأثير، منصات SaaS، ومنتجات رقمية للشركات في طنجة والعالم."
+
+msgid ""
+"A curated showcase of high-impact architectures, enterprise web platforms, "
+"and bespoke digital products delivered by getNexiro."
+msgstr ""
+"معرض مختار لأحدث المعماريات التقنية ومنصات الويب المؤسسية والحلول البرمجية "
+"المخصصة التي طورتها getNexiro."
+
+msgid ""
+"Learn about getNexiro: a premier software engineering studio based in "
+"Tangier, Morocco. Combining North African talent with international "
+"engineering standards."
+msgstr ""
+"تعرف على getNexiro: استوديو هندسة برمجيات رائد مقره طنجة، المغرب. نجمع بين "
+"الكفاءات المغربية الشابة وأعلى المعايير الهندسية العالمية."
+
+msgid ""
+"The story behind getNexiro: boutique digital agency in Tangier, Morocco, "
+"building world-class software for visionary enterprises."
+msgstr ""
+"قصة تأسيس getNexiro: وكالة رقمية رائدة بطنجة، المغرب، تبني برمجيات بمستوى "
+"عالمي للمؤسسات الطموحة."
+
+msgid ""
+"Contact getNexiro in Tangier, Morocco. Schedule a free consultation or "
+"discuss your web development, mobile app, or software project with our team."
+msgstr ""
+"تواصل مع getNexiro في طنجة، المغرب. احجز استشارة مجانية أو ناقش مشروعك "
+"لتطوير الويب أو تطبيقات الجوال أو البرمجيات مع فريقنا التقني."
+
+msgid ""
+"Get in touch with getNexiro's engineering team in Tangier, Morocco. Free "
+"technical consultation and project estimates."
+msgstr ""
+"تواصل مع الفريق الهندسي لوكالة getNexiro في طنجة، المغرب. استشارة تقنية "
+"مجانية وتقديرات أولية لمشروعك."
+
+msgid ""
+"Explore getNexiro's transparent pricing packages for web development, MVP "
+"launch, and enterprise solutions. Fully customizable for your business "
+"needs."
+msgstr ""
+"استكشف باقات الأسعار الشفافة من getNexiro لتطوير المواقع وإطلاق النماذج "
+"الأولية وحلول المؤسسات. قابلة للتخصيص الكامل وفق متطلباتك."
+
+msgid ""
+"Transparent pricing packages for web development and software engineering by"
+" getNexiro."
+msgstr "باقات تسعير شفافة لتطوير المواقع وهندسة البرمجيات من getNexiro."
+
+msgid ""
+"Calculate an indicative estimate for your web or mobile app development "
+"project in minutes with getNexiro's interactive quote wizard."
+msgstr ""
+"احسب تكلفة تقديرية أولية لمشروع تطوير الويب أو تطبيق الجوال في دقائق معدودة "
+"عبر معالج الأسعار التفاعلي من getNexiro."
+
+msgid ""
+"Calculate an indicative project estimate in minutes with getNexiro's "
+"interactive quote wizard."
+msgstr ""
+"احسب تكلفة تقديرية لمشروعك في دقائق معدودة عبر معالج الأسعار التفاعلي من "
+"getNexiro."
+
+msgid ""
+"Schedule a free 30-minute discovery call with getNexiro's software "
+"engineering team to discuss your project requirements and goals."
+msgstr ""
+"احجز مكالمة استكشافية مجانية لمدة 30 دقيقة مع الفريق الهندسي لـ getNexiro "
+"لمناقشة أهداف ومتطلبات مشروعك."
+
+msgid ""
+"Schedule a free 30-minute discovery call with our engineering team in "
+"Tangier."
+msgstr "احجز مكالمة استكشافية مجانية لمدة 30 دقيقة مع فريقنا الهندسي في طنجة."
