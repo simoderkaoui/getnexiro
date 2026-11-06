@@ -254,7 +254,7 @@
 
         {# ── Featured Image ── #}
         {% if post.featured_image %}
-        <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-featured-img" itemprop="image">
+        <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-featured-img" itemprop="image" fetchpriority="high" decoding="async">
         {% endif %}
 
         {# ── Content Grid ── #}

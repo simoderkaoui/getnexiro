@@ -1436,3 +1436,21 @@ msgid ""
 msgstr ""
 "Planifiez un appel de découverte gratuit de 30 minutes avec notre équipe "
 "d'ingénierie à Tanger."
+
+msgid "Search articles, topics, technologies..."
+msgstr "Rechercher des articles, sujets, technologies..."
+
+msgid "Search articles"
+msgstr "Rechercher des articles"
+
+msgid "Showing results for"
+msgstr "Résultats pour"
+
+msgid "Clear search"
+msgstr "Effacer la recherche"
+
+msgid "Thumbnail"
+msgstr "Miniature"
+
+msgid "Case Study Showcase"
+msgstr "Présentation de l'étude de cas"

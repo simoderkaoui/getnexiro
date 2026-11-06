@@ -1368,3 +1368,21 @@ msgid ""
 "Schedule a free 30-minute discovery call with our engineering team in "
 "Tangier."
 msgstr "احجز مكالمة استكشافية مجانية لمدة 30 دقيقة مع فريقنا الهندسي في طنجة."
+
+msgid "Search articles, topics, technologies..."
+msgstr "ابحث عن المقالات والمواضيع والتقنيات..."
+
+msgid "Search articles"
+msgstr "البحث في المقالات"
+
+msgid "Showing results for"
+msgstr "نتائج البحث عن"
+
+msgid "Clear search"
+msgstr "إلغاء البحث"
+
+msgid "Thumbnail"
+msgstr "صورة مصغرة"
+
+msgid "Case Study Showcase"
+msgstr "عرض دراسة الحالة"

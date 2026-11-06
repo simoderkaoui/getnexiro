@@ -34,7 +34,7 @@
             <div class="project-card glass-card" data-category="{{ project.category.slug|default:'all' }}">
                 <div class="project-card-img-wrapper">
                     {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" class="project-img">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async" class="project-img">
                     {% else %}
                     <div class="project-fallback-img">
                         <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy" class="project-img-fallback">

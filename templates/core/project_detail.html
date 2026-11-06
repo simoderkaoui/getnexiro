@@ -592,7 +592,7 @@
                     <!-- Slide 1: Primary Cover Architecture -->
                     {% if project.image %}
                     <div class="showcase-slide active" data-index="0">
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }} — {% trans 'Case Study Showcase' %}" fetchpriority="high" decoding="async">
                         <div class="showcase-caption">
                             <span>{% trans "Architecture Overview" %} — {{ project.title }}</span>
                         </div>
@@ -602,7 +602,7 @@
                     <!-- Gallery Slides -->
                     {% for item in gallery_images %}
                     <div class="showcase-slide {% if not project.image and forloop.first %}active{% endif %}" data-index="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}">
-                        <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }}">
+                        <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }}" loading="lazy" decoding="async">
                         {% if item.caption %}
                         <div class="showcase-caption">
                             <span>{{ item.caption }}</span>
@@ -630,12 +630,12 @@
             <div class="showcase-thumbnails" id="showcaseThumbs">
                 {% if project.image %}
                 <button class="showcase-thumb-btn active" data-thumb="0" aria-label="{% trans 'Slide 1' %}">
-                    <img src="{{ project.image.url }}" alt="Thumb 0">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }} — {% trans 'Thumbnail' %} 1" loading="lazy" decoding="async">
                 </button>
                 {% endif %}
                 {% for item in gallery_images %}
                 <button class="showcase-thumb-btn {% if not project.image and forloop.first %}active{% endif %}" data-thumb="{% if project.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %}" aria-label="Slide {{ forloop.counter }}">
-                    <img src="{{ item.image.url }}" alt="Thumb {{ forloop.counter }}">
+                    <img src="{{ item.image.url }}" alt="{{ item.caption|default:project.title }} — {% trans 'Thumbnail' %} {{ forloop.counter|add:1 }}" loading="lazy" decoding="async">
                 </button>
                 {% endfor %}
             </div>

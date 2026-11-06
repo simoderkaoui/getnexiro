@@ -1355,3 +1355,85 @@ class CityServicePageTest(TestCase):
         self.page.save()
         self.assertEqual(len(self.page.industries_list), 3)
 
+
+
+class BlogSearchAndPhase2ImprovementsTest(TestCase):
+    """Tests for Phase 2: Blog search, JSON-LD Sitelinks, and OpenGraph enhancements."""
+
+    def setUp(self):
+        SiteConfig.objects.get_or_create(pk=1)
+        self.cat1 = BlogCategory.objects.create(name_en='Tech', name_fr='Tech FR', name_ar='تقنية', slug='tech')
+        self.cat2 = BlogCategory.objects.create(name_en='Design', name_fr='Design FR', name_ar='تصميم', slug='design')
+        self.post1 = BlogPost.objects.create(
+            title_en='Django Performance Optimization',
+            title_fr='Optimisation Django',
+            title_ar='تحسين أداء دجانغو',
+            slug='django-performance-optimization',
+            excerpt_en='Speed up your app',
+            body_en='<p>Full article on cache, redis and db indexes.</p>',
+            category=self.cat1,
+            status='published',
+            author_name='Schneider',
+        )
+        self.post2 = BlogPost.objects.create(
+            title_en='UI Design Trends in Tangier',
+            title_fr='Tendances Design Tanger',
+            title_ar='اتجاهات التصميم في طنجة',
+            slug='ui-design-trends-tangier',
+            excerpt_en='Modern dark themes',
+            body_en='<p>Glassmorphism and luxury minimalism.</p>',
+            category=self.cat2,
+            status='published',
+            author_name='Schneider',
+        )
+
+    def test_blog_search_matching_query(self):
+        """Test searching blog posts filters results correctly."""
+        activate('en')
+        response = self.client.get(reverse('core:blog') + '?search=Performance')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Django Performance Optimization')
+        self.assertNotContains(response, 'UI Design Trends in Tangier')
+
+    def test_blog_search_body_content(self):
+        """Test searching matches content inside article body."""
+        activate('en')
+        response = self.client.get(reverse('core:blog') + '?search=Glassmorphism')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'UI Design Trends in Tangier')
+        self.assertNotContains(response, 'Django Performance Optimization')
+
+    def test_blog_search_no_results(self):
+        """Test search with no matches displays empty message."""
+        activate('en')
+        response = self.client.get(reverse('core:blog') + '?search=NonexistentSuperTerm123')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['posts']), 0)
+
+    def test_jsonld_sitelinks_and_catalog(self):
+        """Test home page contains WebSite SearchAction and OfferCatalog JSON-LD."""
+        activate('en')
+        response = self.client.get(reverse('core:home'))
+        self.assertEqual(response.status_code, 200)
+        content = response.content.decode('utf-8')
+        self.assertIn('"@type": "SearchAction"', content)
+        self.assertIn('"@type": "AggregateRating"', content)
+        self.assertIn('"ratingValue": "5.0"', content)
+        self.assertIn('"@type": "OfferCatalog"', content)
+
+    def test_opengraph_dimensions_and_locale(self):
+        """Test OpenGraph meta tags include dimensions and formatted locale."""
+        activate('en')
+        response = self.client.get(reverse('core:home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'property="og:image:width" content="1200"')
+        self.assertContains(response, 'property="og:image:height" content="630"')
+        self.assertContains(response, 'property="og:locale" content="en_US"')
+
+        activate('fr')
+        response_fr = self.client.get(reverse('core:home'))
+        self.assertContains(response_fr, 'property="og:locale" content="fr_FR"')
+
+        activate('ar')
+        response_ar = self.client.get(reverse('core:home'))
+        self.assertContains(response_ar, 'property="og:locale" content="ar_MA"')

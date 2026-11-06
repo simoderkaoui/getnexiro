@@ -9,6 +9,7 @@ from decimal import Decimal
 import json
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
 from django.contrib import messages
 from django.http import JsonResponse
@@ -107,8 +108,8 @@ def project_detail(request, slug):
         'gallery_images': gallery_images,
         'related_projects': related_projects,
         'breadcrumbs': [
-            {'name': _('Home'), 'url': '/'},
-            {'name': _('Projects'), 'url': '/' + (get_language() or 'en') + '/projects/'},
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Projects'), 'url': reverse('core:projects')},
             {'name': project.title, 'url': request.path},
         ],
     })
@@ -130,8 +131,8 @@ def service_detail(request, slug):
         'service': service,
         'related_services': related_services,
         'breadcrumbs': [
-            {'name': _('Home'), 'url': '/'},
-            {'name': _('Services'), 'url': '/' + (get_language() or 'en') + '/services/'},
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Services'), 'url': reverse('core:services')},
             {'name': service.title, 'url': request.path},
         ],
     })
@@ -139,18 +140,33 @@ def service_detail(request, slug):
 
 
 def blog(request):
-    """Blog listing page with SEO-optimized structure."""
+    """Blog listing page with SEO-optimized structure and search capability."""
     ctx = _get_common_context()
     category_slug = request.GET.get('category')
+    search_query = (request.GET.get('search') or request.GET.get('q') or '').strip()
     posts = BlogPost.objects.filter(status='published').select_related('category')
 
     if category_slug:
         posts = posts.filter(category__slug=category_slug)
+    if search_query:
+        from django.db.models import Q
+        posts = posts.filter(
+            Q(title_en__icontains=search_query) |
+            Q(title_fr__icontains=search_query) |
+            Q(title_ar__icontains=search_query) |
+            Q(excerpt_en__icontains=search_query) |
+            Q(excerpt_fr__icontains=search_query) |
+            Q(excerpt_ar__icontains=search_query) |
+            Q(body_en__icontains=search_query) |
+            Q(body_fr__icontains=search_query) |
+            Q(body_ar__icontains=search_query)
+        )
 
     ctx.update({
         'posts': posts,
         'categories': BlogCategory.objects.all(),
         'active_category': category_slug,
+        'search_query': search_query,
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'blog_seo_title')
     return render(request, 'core/blog.html', ctx)
@@ -174,8 +190,8 @@ def blog_detail(request, slug):
         'post': post,
         'related_posts': related_posts,
         'breadcrumbs': [
-            {'name': _('Home'), 'url': '/'},
-            {'name': _('Blog'), 'url': '/' + (get_language() or 'en') + '/blog/'},
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Blog'), 'url': reverse('core:blog')},
             {'name': post.title, 'url': request.path},
         ],
     })
@@ -752,9 +768,9 @@ def city_service_page(request, service_slug, city_slug):
         'service': page.service,
         'other_cities': other_cities,
         'breadcrumbs': [
-            {'name': _('Home'), 'url': '/'},
-            {'name': _('Services'), 'url': '/' + (get_language() or 'en') + '/services/'},
-            {'name': page.service.title, 'url': '/' + (get_language() or 'en') + '/services/' + page.service.slug + '/'},
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Services'), 'url': reverse('core:services')},
+            {'name': page.service.title, 'url': reverse('core:service_detail', kwargs={'slug': page.service.slug})},
             {'name': page.h1, 'url': request.path},
         ],
     })

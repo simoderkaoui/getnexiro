@@ -48,6 +48,64 @@
         {% if config.github_url %}"{{ config.github_url }}"{% endif %}{% if config.github_url and config.twitter_url %},{% endif %}
         {% if config.twitter_url %}"{{ config.twitter_url }}"{% endif %}
     ],
-    "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"]
+    "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"],
+    "foundingLocation": {
+        "@type": "Place",
+        "name": "Tangier, Morocco"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "12",
+        "bestRating": "5",
+        "worstRating": "1"
+    },
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Software Engineering & Digital Services",
+        "itemListElement": [
+            {
+                "@type": "OfferCatalog",
+                "name": "Web Development",
+                "itemListElement": [
+                    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Corporate & SaaS Web Development"}},
+                    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-Commerce Platforms & Gateways"}}
+                ]
+            },
+            {
+                "@type": "OfferCatalog",
+                "name": "Mobile Applications",
+                "itemListElement": [
+                    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "iOS & Android Mobile App Engineering"}},
+                    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cross-Platform Flutter & React Native"}}
+                ]
+            },
+            {
+                "@type": "OfferCatalog",
+                "name": "UI/UX & Design Systems",
+                "itemListElement": [
+                    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Interactive Figma Prototyping & Design Systems"}}
+                ]
+            }
+        ]
+    }
+}
+</script>
+
+{# Google Sitelinks Searchbox JSON-LD #}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ config.site_name|default:'getNexiro' }}",
+    "url": "{{ SITE_URL }}/",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ SITE_URL }}/{{ LANGUAGE_CODE }}/blog/?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+    }
 }
 </script>

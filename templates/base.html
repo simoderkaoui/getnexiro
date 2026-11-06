@@ -16,11 +16,17 @@
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{% block og_url %}{{ SITE_URL }}{{ request.path }}{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ SITE_URL }}{% static 'images/logo.png' %}{% endblock %}">
-    <meta property="og:locale" content="{{ LANGUAGE_CODE }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="getNexiro — Web & App Development Studio | Tangier, Morocco">
+    <meta property="og:locale" content="{% if LANGUAGE_CODE == 'fr' %}fr_FR{% elif LANGUAGE_CODE == 'ar' %}ar_MA{% else %}en_US{% endif %}">
     <meta property="og:site_name" content="getNexiro">
 
     {# ── Twitter Card ── #}
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@getNexiro">
+    <meta name="twitter:creator" content="@getNexiro">
     <meta name="twitter:title" content="{% block twitter_title %}getNexiro — {% trans 'Web & App Development Agency' %} | Tangier{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}{% trans 'Professional web development, mobile apps & digital solutions in Tangier, Morocco.' %}{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ SITE_URL }}{% static 'images/logo.png' %}{% endblock %}">
@@ -264,7 +270,7 @@
 
             {# ── SEO-rich service areas section ── #}
             <div class="footer-seo-areas">
-                <p>{% trans "Serving businesses in" %}: <span><a href="{% url 'core:city_service_page' 'web-development' 'web-development-tangier' %}" class="footer-city-link">{% trans "Tangier" %}</a></span> · <span>{% trans "Tetouan" %}</span> · <span>{% trans "Fes" %}</span> · <span>{% trans "Meknes" %}</span> · <span>{% trans "M'diq" %}</span> · <span>{% trans "Chefchaouen" %}</span> · <span>{% trans "Larache" %}</span> · <span>{% trans "Kenitra" %}</span> · <span>{% trans "Northern Morocco" %}</span></p>
+                <p>{% trans "Serving businesses in" %}: <span><a href="{% url 'core:city_service_page' 'web-development' 'web-development-tangier' %}" class="footer-city-link">{% trans "Tangier" %}</a></span> · <span><a href="{% url 'core:city_service_page' 'web-development' 'web-development-tetouan' %}" class="footer-city-link">{% trans "Tetouan" %}</a></span> · <span><a href="{% url 'core:city_service_page' 'web-development' 'web-development-fes' %}" class="footer-city-link">{% trans "Fes" %}</a></span> · <span><a href="{% url 'core:city_service_page' 'web-development' 'web-development-meknes' %}" class="footer-city-link">{% trans "Meknes" %}</a></span> · <span>{% trans "M'diq" %}</span> · <span>{% trans "Chefchaouen" %}</span> · <span>{% trans "Larache" %}</span> · <span>{% trans "Kenitra" %}</span> · <span>{% trans "Northern Morocco" %}</span></p>
             </div>
 
 

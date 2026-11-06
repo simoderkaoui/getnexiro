@@ -1381,6 +1381,10 @@ class Command(BaseCommand):
             BlogPost.objects.create(**post_data)
         self.stdout.write(f'  [OK] Created {len(blog_cats)} blog categories and {len(blog_posts)} SEO-optimized blog posts')
 
+        # ── 12b. 20 High-Impact Viral Blog Posts ──
+        from core.blog_seeds import seed_all_blogs
+        seed_all_blogs(self.stdout)
+
         # ── 12. Legal Pages ──
         LegalPage.objects.all().delete()
         LegalPage.objects.create(
@@ -1709,37 +1713,224 @@ class Command(BaseCommand):
         self.stdout.write('  [OK] Created weekly availability slots (Mon-Fri, 9-17h)')
 
         # ── 17. City Service Pages (Local SEO) ──
-        web_dev_service = Service.objects.filter(slug='web-development').first()
-        if web_dev_service:
-            city_page, created = CityServicePage.objects.get_or_create(
-                service=web_dev_service,
-                city='tangier',
-                defaults={
-                    'slug': 'web-development-tangier',
-                    'is_published': True,
-                    'h1_en': 'Professional Web Development in Tangier, Morocco',
-                    'h1_fr': 'Développement Web Professionnel à Tanger, Maroc',
-                    'h1_ar': 'تطوير مواقع وتطبيقات الويب الاحترافية في طنجة، المغرب',
-                    'intro_en': "getNexiro is Tangier's premier software studio, engineering scalable web platforms, custom SaaS products, and high-performance business applications.",
-                    'intro_fr': "getNexiro est le studio logiciel de référence à Tanger, concevant des plateformes web scalables, des solutions SaaS sur mesure et des applications métier haute performance.",
-                    'intro_ar': "تعتبر getNexiro استوديو البرمجيات الرائد في طنجة، المتخصص في بناء منصات الويب القابلة للتوسع، حلول SaaS السحابية وتطبيقات الأعمال فائقة الأداء.",
-                    'body_en': '<p>Located at the crossroads of Europe and Africa in Tangier, our engineering team delivers world-class web applications for Moroccan enterprises and international corporations. We leverage modern frameworks like Django, React, and cloud native architectures to ensure high reliability, enterprise-grade security, and fast loading speeds.</p>',
-                    'body_fr': '<p>Située au carrefour de l\'Europe et de l\'Afrique à Tanger, notre équipe d\'ingénieurs conçoit des applications web de classe mondiale pour les entreprises marocaines et internationales. Nous utilisons les technologies modernes (Django, React, architectures Cloud) pour garantir fiabilité, sécurité et rapidité d\'exécution.</p>',
-                    'body_ar': '<p>من موقعنا الاستراتيجي في طنجة عند نقطة التقاء إفريقيا بأوروبا، يقدم فريقنا الهندسي حلول ويب بمعايير دولية للشركات المغربية والمؤسسات العالمية، بالاعتماد على أحدث أطر العمل مثل Django و React والتقنيات السحابية المتقدمة لضمان أقصى درجات الأمان والسرعة.</p>',
-                    'why_choose_us_en': 'Strategic GMT+1 location aligned with European and Moroccan business hours\nSenior full-stack engineering expertise in Django, Python, React, and AWS\nMultilingual digital platforms built with native SEO for English, French, and Arabic markets\nTransparent milestones with agile 2-week sprint delivery',
-                    'why_choose_us_fr': 'Emplacement stratégique en fuseau GMT+1 synchronisé avec les horaires européens et marocains\nExpertise senior full-stack en Django, Python, React et Cloud AWS\nPlateformes multilingues avec référencement SEO natif pour les marchés français, arabe et anglophone\nLivraisons transparentes en méthodologie agile par sprints de 2 semaines',
-                    'why_choose_us_ar': 'موقع استراتيجي بتوقيت GMT+1 متوافق مع ساعات العمل في المغرب وأوروبا\nخبرة هندسية رفيعة في Django و Python و React وحوسبة AWS السحابية\nمنصات متعددة اللغات مجهزة بتهيئة محركات البحث SEO للأسواق العربية والفرنسية والإنجليزية\nشفافية تامة في الإنجاز بمنهجية أجايل بدورات تسليم كل أسبوعين',
-                    'industries_served_en': 'Logistics & Maritime (Tanger Med & Port Ecosystem)\nIndustrial Manufacturing & Automotive (TFZ & TAC)\nHospitality, Tourism & Luxury Real Estate\nE-Commerce & Retail\nFinancial Services & Consulting',
-                    'industries_served_fr': 'Logistique & Maritime (Écosystème Tanger Med & Port)\nIndustrie & Automobile (TFZ & TAC)\nHôtellerie, Tourisme & Immobilier de Luxe\nE-Commerce & Distribution\nServices Financiers & Cabinets de Conseil',
-                    'industries_served_ar': 'اللوجستيات والملاحة البحرية (منظومة ميناء طنجة المتوسط)\nالصناعة وقطاع السيارات (المناطق الحرة TFZ و TAC)\nالضيافة والسياحة والعقارات الفاخرة\nالتجارة الإلكترونية والتجزئة\nالخدمات المالية والاستشارات',
-                    'seo_title_en': 'Web Development in Tangier, Morocco | getNexiro',
-                    'seo_title_fr': 'Développement Web à Tanger, Maroc | Agence getNexiro',
-                    'seo_title_ar': 'تطوير مواقع الويب في طنجة، المغرب | getNexiro',
-                    'seo_description_en': 'Premier web development agency in Tangier, Morocco. High-performance custom web apps, e-commerce, and SaaS platforms built for growth.',
-                    'seo_description_fr': 'Agence de développement web à Tanger, Maroc. Applications web sur mesure, e-commerce et plateformes SaaS performantes.',
-                    'seo_description_ar': 'وكالة تطوير مواقع وتطبيقات الويب في طنجة، المغرب. حلول ويب متطورة، متاجر إلكترونية ومنصات SaaS مصممة لتحقيق أعلى عائد.',
-                }
-            )
-            self.stdout.write(f'  [OK] CityServicePage Tangier (created={created})')
+        city_pages_data = [
+            # 1. Web Development in Tangier
+            {
+                'service_slug': 'web-development',
+                'city': 'tangier',
+                'slug': 'web-development-tangier',
+                'is_published': True,
+                'h1_en': 'Professional Web Development in Tangier, Morocco',
+                'h1_fr': 'Développement Web Professionnel à Tanger, Maroc',
+                'h1_ar': 'تطوير مواقع وتطبيقات الويب الاحترافية في طنجة، المغرب',
+                'intro_en': "getNexiro is Tangier's premier software studio, engineering scalable web platforms, custom SaaS products, and high-performance business applications.",
+                'intro_fr': "getNexiro est le studio logiciel de référence à Tanger, concevant des plateformes web scalables, des solutions SaaS sur mesure et des applications métier haute performance.",
+                'intro_ar': "تعتبر getNexiro استوديو البرمجيات الرائد في طنجة، المتخصص في بناء منصات الويب القابلة للتوسع، حلول SaaS السحابية وتطبيقات الأعمال فائقة الأداء.",
+                'body_en': '<p>Located at the crossroads of Europe and Africa in Tangier, our engineering team delivers world-class web applications for Moroccan enterprises and international corporations. We leverage modern frameworks like Django, React, and cloud native architectures to ensure high reliability, enterprise-grade security, and fast loading speeds.</p>',
+                'body_fr': '<p>Située au carrefour de l\'Europe et de l\'Afrique à Tanger, notre équipe d\'ingénieurs conçoit des applications web de classe mondiale pour les entreprises marocaines et internationales. Nous utilisons les technologies modernes (Django, React, architectures Cloud) pour garantir fiabilité, sécurité et rapidité d\'exécution.</p>',
+                'body_ar': '<p>من موقعنا الاستراتيجي في طنجة عند نقطة التقاء إفريقيا بأوروبا، يقدم فريقنا الهندسي حلول ويب بمعايير دولية للشركات المغربية والمؤسسات العالمية، بالاعتماد على أحدث أطر العمل مثل Django و React والتقنيات السحابية المتقدمة لضمان أقصى درجات الأمان والسرعة.</p>',
+                'why_choose_us_en': 'Strategic GMT+1 location aligned with European and Moroccan business hours\nSenior full-stack engineering expertise in Django, Python, React, and AWS\nMultilingual digital platforms built with native SEO for English, French, and Arabic markets\nTransparent milestones with agile 2-week sprint delivery',
+                'why_choose_us_fr': 'Emplacement stratégique en fuseau GMT+1 synchronisé avec les horaires européens et marocains\nExpertise senior full-stack en Django, Python, React et Cloud AWS\nPlateformes multilingues avec référencement SEO natif pour les marchés français, arabe et anglophone\nLivraisons transparentes en méthodologie agile par sprints de 2 semaines',
+                'why_choose_us_ar': 'موقع استراتيجي بتوقيت GMT+1 متوافق مع ساعات العمل في المغرب وأوروبا\nخبرة هندسية رفيعة في Django و Python و React وحوسبة AWS السحابية\nمنصات متعددة اللغات مجهزة بتهيئة محركات البحث SEO للأسواق العربية والفرنسية والإنجليزية\nشفافية تامة في الإنجاز بمنهجية أجايل بدورات تسليم كل أسبوعين',
+                'industries_served_en': 'Logistics & Maritime (Tanger Med & Port Ecosystem)\nIndustrial Manufacturing & Automotive (TFZ & TAC)\nHospitality, Tourism & Luxury Real Estate\nE-Commerce & Retail\nFinancial Services & Consulting',
+                'industries_served_fr': 'Logistique & Maritime (Écosystème Tanger Med & Port)\nIndustrie & Automobile (TFZ & TAC)\nHôtellerie, Tourisme & Immobilier de Luxe\nE-Commerce & Distribution\nServices Financiers & Cabinets de Conseil',
+                'industries_served_ar': 'اللوجستيات والملاحة البحرية (منظومة ميناء طنجة المتوسط)\nالصناعة وقطاع السيارات (المناطق الحرة TFZ و TAC)\nالضيافة والسياحة والعقارات الفاخرة\nالتجارة الإلكترونية والتجزئة\nالخدمات المالية والاستشارات',
+                'seo_title_en': 'Web Development in Tangier, Morocco | getNexiro',
+                'seo_title_fr': 'Développement Web à Tanger, Maroc | Agence getNexiro',
+                'seo_title_ar': 'تطوير مواقع الويب في طنجة، المغرب | getNexiro',
+                'seo_description_en': 'Premier web development agency in Tangier, Morocco. High-performance custom web apps, e-commerce, and SaaS platforms built for growth.',
+                'seo_description_fr': 'Agence de développement web à Tanger, Maroc. Applications web sur mesure, e-commerce et plateformes SaaS performantes.',
+                'seo_description_ar': 'وكالة تطوير مواقع وتطبيقات الويب في طنجة، المغرب. حلول ويب متطورة، متاجر إلكترونية ومنصات SaaS مصممة لتحقيق أعلى عائد.',
+            },
+            # 2. Web Development in Tetouan
+            {
+                'service_slug': 'web-development',
+                'city': 'tetouan',
+                'slug': 'web-development-tetouan',
+                'is_published': True,
+                'h1_en': 'Modern Web Development & Software Engineering in Tetouan, Morocco',
+                'h1_fr': 'Développement Web Moderne & Ingénierie Logicielle à Tétouan, Maroc',
+                'h1_ar': 'تطوير مواقع الويب الحديثة وهندسة البرمجيات في تطوان، المغرب',
+                'intro_en': "getNexiro empowers businesses in Tetouan and the Martil-M'diq coast with high-performance web platforms, custom SaaS applications, and e-commerce solutions tailored for growth.",
+                'intro_fr': "getNexiro accompagne les entreprises de Tétouan et du littoral Martil-M'diq avec des plateformes web haute performance, des applications SaaS sur mesure et des boutiques e-commerce évolutives.",
+                'intro_ar': "تقدم getNexiro حلولاً برمجية متطورة للشركات والمؤسسات في تطوان ومنطقة مرتيل والمضيق، تشمل منصات الويب السحابية والمتاجر الإلكترونية وحلول SaaS المصممة للنمو السريع.",
+                'body_en': '<p>Located just minutes from Tetouan Shore and the Mediterranean economic zone, getNexiro brings enterprise-grade web development to businesses across the Wilaya of Tetouan. From offshore nearshoring teams to local tourism, hospitality, and artisanal enterprises, we architect digital systems that deliver superior speed, robust security, and seamless multilingual user experiences.</p>',
+                'body_fr': '<p>À proximité immédiate de Tétouan Shore et du bassin économique méditerranéen, getNexiro met l\'ingénierie web de pointe au service des entreprises tétouanaises. Qu\'il s\'agisse de nearshoring, d\'artisanat d\'art, de tourisme ou de services, nous concevons des plateformes fiables, sécurisées et parfaitement bilingues/trilingues.</p>',
+                'body_ar': '<p>بالقرب من منطقة تطوان شور والقطب الاقتصادي المتوسطي، توفر getNexiro خدمات تطوير وبرمجة الويب المتطورة للمؤسسات في إقليم تطوان. نساعد الشركات في مجالات السياحة، العقارات، الصناعات التقليدية والتجارة على التميز الرقمي بحلول عالية الموثوقية والأمان والسرعة.</p>',
+                'why_choose_us_en': 'Local Northern Morocco presence with on-site and remote collaboration\nBilingual French/Arabic and English digital marketing & SEO integration\nFast delivery cycles with production-ready Django and React codebases\nComprehensive maintenance, security audits, and cloud hosting support',
+                'why_choose_us_fr': 'Présence dans le Nord marocain avec collaboration hybride flexible\nIntégration SEO native en français, arabe et anglais pour le marché local et international\nCycles de livraison courts avec codebases Django et React éprouvées\nSupport technique, infogérance cloud et maintenance continue',
+                'why_choose_us_ar': 'تواجد قريب في شمال المغرب مع مرونة كاملة في التواصل والتعاون\nتهيئة محركات البحث SEO بثلاث لغات (العربية، الفرنسية والإنجليزية)\nسرعة الإنجاز والاعتماد على أطر العمل العالمية الموثوقة Django و React\nدعم فني وصيانة مستمرة ومراقبة للبنية التحتية السحابية',
+                'industries_served_en': 'Tetouan Shore & Nearshoring IT Companies\nTourism, Resorts & Hospitality (Tamuda Bay & Martil)\nArtisanal Heritage & Luxury Moroccan Crafts\nReal Estate Agencies & Property Development\nHealth & Educational Institutions',
+                'industries_served_fr': 'Entreprises de Tétouan Shore & Nearshoring\nTourisme, Hôtellerie & Resorts (Tamuda Bay & Martil)\nArtisanat d\'Art & Produits du Terroir\nAgences Immobilières & Promotion Immobilière\nSanté & Enseignement Privé',
+                'industries_served_ar': 'شركات ترحيل الخدمات في تطوان شور\nالفنادق والمنتجعات السياحية (خليج تمودا ومرتيل)\nالصناعة التقليدية والمنتجات المجالية المغربية\nالوكالات العقارية والمشاريع الإنشائية\nقطاع التعليم والخدمات الصحية',
+                'seo_title_en': 'Web Development in Tetouan, Morocco | getNexiro',
+                'seo_title_fr': 'Développement Web à Tétouan, Maroc | Agence getNexiro',
+                'seo_title_ar': 'تطوير مواقع الويب في تطوان، المغرب | getNexiro',
+                'seo_description_en': 'Premier web development agency in Tetouan, Morocco. Custom corporate websites, SaaS platforms, and e-commerce solutions engineered for results.',
+                'seo_description_fr': 'Agence de création de sites web et développement à Tétouan, Maroc. Sites vitrines, e-commerce et applications sur mesure performantes.',
+                'seo_description_ar': 'وكالة تطوير وتصميم المواقع الإلكترونية في تطوان، المغرب. حلول ويب متقدمة، متاجر إلكترونية ومنصات رقمية مصممة لتحقيق أعلى النتائج.',
+            },
+            # 3. Web Development in Fes
+            {
+                'service_slug': 'web-development',
+                'city': 'fes',
+                'slug': 'web-development-fes',
+                'is_published': True,
+                'h1_en': 'Enterprise Web Development & Cloud Platforms in Fes, Morocco',
+                'h1_fr': 'Développement Web d\'Entreprise & Plateformes Cloud à Fès, Maroc',
+                'h1_ar': 'تطوير مواقع الويب المؤسسية والمنصات السحابية في فاس، المغرب',
+                'intro_en': "Accelerate your digital transformation in Fes with getNexiro's custom web engineering, enterprise SaaS architectures, and global e-commerce portals.",
+                'intro_fr': "Accélérez votre transformation digitale à Fès grâce à l\'expertise web de getNexiro : architectures SaaS d\'entreprise, portails métier et boutiques e-commerce d\'exportation.",
+                'intro_ar': "انطلق في التحول الرقمي لأعمالك في فاس مع getNexiro: هندسة برمجيات متقدمة، منصات سحابية للمؤسسات وبوابات تجارة إلكترونية عالمية.",
+                'body_en': '<p>As Morocco\'s cultural capital and a rapidly expanding technological center anchored by Fes Shore, Fes requires robust, secure, and modern digital platforms. getNexiro partners with industrial manufacturers, traditional export businesses, academic institutions, and tech startups in the Fes-Meknes region to build scalable, conversion-focused web solutions.</p>',
+                'body_fr': '<p>Capitale spirituelle et pôle technologique en pleine expansion avec Fès Shore, Fès exige des solutions digitales robustes et performantes. getNexiro accompagne les industriels, exportateurs, établissements d\'enseignement et startups de la région Fès-Meknès pour bâtir des plateformes web fiables et créatrices de valeur.</p>',
+                'body_ar': '<p>باعتبارها العاصمة العلمية والروحية ومركزاً تكنولوجياً صاعداً عبر منطقة فاس شور، تتطلب مدينة فاس حلولاً رقمية بمستوى عالمي. تتعاون getNexiro مع الشركات الصناعية، المصدرين، المؤسسات الأكاديمية والشركات الناشئة في جهة فاس-مكناس لبناء منصات ويب آمنة ومصممة للنمو والتوسع الدولي.</p>',
+                'why_choose_us_en': 'Proven full-stack software expertise in Python, Django, React, and PostgreSQL\nNative trilingual SEO architecture maximizing visibility across Google France, Morocco, and Gulf markets\nPCI-compliant Moroccan payment gateway integration (CMI, Stripe, PayPal)\nDedicated project manager with bi-weekly sprint reviews',
+                'why_choose_us_fr': 'Expertise full-stack confirmée en Python, Django, React et PostgreSQL\nArchitecture SEO trilingue optimisée pour Google France, Maroc et pays du Golfe\nIntégration sécurisée des passerelles de paiement (CMI, Stripe, PayPal)\nChef de projet dédié avec revues de sprint bimensuelles',
+                'why_choose_us_ar': 'خبرة برمجية متقدمة في Python و Django و React وقواعد بيانات PostgreSQL\nبنية SEO متعددة اللغات لضمان الصدارة في محركات البحث بالمغرب وفرنسا والخليج العربي\nتكامل سلس مع بوابات الدفع الإلكتروني المعتمدة بالمغرب (CMI و Stripe و PayPal)\nإدارة مشاريع احترافية بمراجعات دورية كل أسبوعين',
+                'industries_served_en': 'Fes Shore BPO & Software Offshore Units\nHandicraft & Leather Export Enterprises\nAgri-food Processing & Chemical Industries\nUniversities & Private Higher Education\nCultural Tourism & Riad Booking Platforms',
+                'industries_served_fr': 'Entreprises de Fès Shore & BPO\nExportateurs d\'Artisanat, Cuir & Céramique\nIndustries Agroalimentaires & Chimie\nUniversités & Écoles Supérieures Privées\nTourisme Culturel, Riads & Hôtellerie',
+                'industries_served_ar': 'شركات فاس شور والخدمات الرقمية عن بعد\nمصانع ومصدرو الجلود والفخار والصناعات التقليدية\nالصناعات الغذائية والتحويلية\nالجامعات ومعاهد التعليم العالي الخاصة\nالرياض ودور الضيافة والسياحة الثقافية',
+                'seo_title_en': 'Web Development in Fes, Morocco | getNexiro',
+                'seo_title_fr': 'Développement Web à Fès, Maroc | Agence getNexiro',
+                'seo_title_ar': 'تطوير مواقع الويب في فاس، المغرب | getNexiro',
+                'seo_description_en': 'High-performance web development agency in Fes, Morocco. Custom web applications, enterprise platforms, and e-commerce solutions by getNexiro.',
+                'seo_description_fr': 'Agence web à Fès, Maroc. Conception de sites internet, applications web métier et e-commerce sur mesure avec getNexiro.',
+                'seo_description_ar': 'وكالة تطوير وبرمجة المواقع الإلكترونية في فاس، المغرب. مواقع شركات، تطبيقات ويب متقدمة ومتاجر إلكترونية احترافية.',
+            },
+            # 4. Web Development in Meknes
+            {
+                'service_slug': 'web-development',
+                'city': 'meknes',
+                'slug': 'web-development-meknes',
+                'is_published': True,
+                'h1_en': 'Professional Web & Digital Solutions in Meknes, Morocco',
+                'h1_fr': 'Développement Web Professionnel & Solutions Digitales à Meknès, Maroc',
+                'h1_ar': 'تطوير المواقع والحلول الرقمية الاحترافية في مكناس، المغرب',
+                'intro_en': "Drive commercial growth in Meknes with custom web platforms, agri-business ERP portals, and modern digital systems crafted by getNexiro.",
+                'intro_fr': "Propulsez la croissance de votre entreprise à Meknès grâce à des plateformes web sur mesure, des portails ERP agro-industriels et des solutions e-commerce créées par getNexiro.",
+                'intro_ar': "ضاعف نمو أعمالك في مكناس مع منصات الويب المخصصة، بوابات إدارة سلاسل التوريد والحلول الرقمية المبتكرة من استوديو getNexiro.",
+                'body_en': '<p>Located at the agricultural and logistics crossroads of Northern Morocco, Meknes is home to vital agro-industrial complexes, manufacturing facilities, and growing commercial sectors. getNexiro delivers enterprise web applications, inventory tracking portals, and brand-forward corporate websites that empower Meknes businesses to operate efficiently and capture new regional and export markets.</p>',
+                'body_fr': '<p>Carrefour agro-industriel et logistique stratégique du Maroc, Meknès abrite des entreprises de premier plan en agroalimentaire, emballage et distribution. getNexiro conçoit des applications web métier, des portails de gestion des stocks et des sites institutionnels percutants pour accompagner les entreprises meknassies dans leur développement commercial.</p>',
+                'body_ar': '<p>بموقعها الاستراتيجي كعاصمة فلاحية ولوجستية لوسط وشمال المغرب، تضم مكناس شركات كبرى في الصناعات الغذائية والتوزيع والتصنيع. تقدم getNexiro تطبيقات ويب مؤسسية، بوابات تتبع المخزون وسلاسل التوريد، ومواقع تعريفية ترتقي بعلامات الشركات في مكناس وتفتح لها آفاق التصدير الإقليمي والدولي.</p>',
+                'why_choose_us_en': 'Custom-built software engineered to your exact operational workflows\nMobile-responsive designs optimized for all screen sizes and slow networks\nCloud deployment on secure AWS / VPS servers with zero downtime\nAffordable, transparent pricing tailored for Moroccan SMBs',
+                'why_choose_us_fr': 'Solutions logicielles développées sur mesure selon vos flux de travail réels\nConception 100% responsive optimisée pour tous les appareils et réseaux mobiles\nDéploiement cloud sur serveurs sécurisés (AWS / VPS) avec haute disponibilité\nTarification claire et adaptée aux PME et entreprises marocaines',
+                'why_choose_us_ar': 'برمجيات مخصصة تبنى بدقة وفق دورة العمل الحقيقية لمؤسستك\nتصميمات متجاوبة بالكامل وسريعة التحميل على مختلف سرعات الإنترنت\nاستضافة ونشر سحابي آمن مع ضمان استمرارية العمل على مدار الساعة\nأسعار شفافة وباقات مرنة تناسب الشركات والمؤسسات المغربية',
+                'industries_served_en': 'Agro-industrial & Food Processing (Agropolis Meknes)\nWine, Olive Oil & Agricultural Export\nPackaging, Plastics & Manufacturing\nWholesale & Retail Distribution Networks\nCommercial Services & Professional Consultancies',
+                'industries_served_fr': 'Agroalimentaire & Transformation (Agropolis Meknès)\nFilières Oléicole, Viticole & Export Agricole\nEmballage, Plasturgie & Industrie Légère\nRéseaux de Distribution & Grossistes\nServices aux Entreprises & Cabinets de Conseil',
+                'industries_served_ar': 'الصناعات الغذائية والتحويلية (أغروبوليس مكناس)\nتصدير زيت الزيتون والمنتجات الفلاحية\nصناعات التعبئة والتغليف والصناعات البلاستيكية\nشبكات التوزيع وتجارة الجملة والتجزئة\nالخدمات التجارية والاستشارات المهنية',
+                'seo_title_en': 'Web Development in Meknes, Morocco | getNexiro',
+                'seo_title_fr': 'Développement Web à Meknès, Maroc | Agence getNexiro',
+                'seo_title_ar': 'تطوير مواقع الويب في مكناس، المغرب | getNexiro',
+                'seo_description_en': 'Top web development agency in Meknes, Morocco. Custom web portals, e-commerce, and business applications engineered by getNexiro.',
+                'seo_description_fr': 'Agence de développement web et création de sites internet à Meknès, Maroc. Solutions digitales sur mesure par getNexiro.',
+                'seo_description_ar': 'وكالة تطوير المواقع والحلول الرقمية في مكناس، المغرب. حلول ويب متقدمة، بوابات مؤسسية ومتاجر إلكترونية احترافية.',
+            },
+            # 5. Mobile Applications in Tangier
+            {
+                'service_slug': 'mobile-applications',
+                'city': 'tangier',
+                'slug': 'mobile-applications-tangier',
+                'is_published': True,
+                'h1_en': 'Custom iOS & Android Mobile App Development in Tangier, Morocco',
+                'h1_fr': 'Développement d\'Applications Mobiles iOS & Android à Tanger, Maroc',
+                'h1_ar': 'تطوير تطبيقات الجوال الاحترافية iOS و Android في طنجة، المغرب',
+                'intro_en': "getNexiro crafts native and cross-platform mobile apps for iOS and Android with Flutter and React Native. Fast, secure, and user-centric.",
+                'intro_fr': "getNexiro conçoit des applications mobiles natives et cross-plateformes (iOS et Android) avec Flutter et React Native, axées sur la fluidité et l\'engagement utilisateur.",
+                'intro_ar': "تصمم وتطور getNexiro تطبيقات الجوال لنظامي iOS و Android باستخدام Flutter و React Native بأعلى معايير السرعة والأمان وتجربة المستخدم المتميزة.",
+                'body_en': '<p>In Tangier\'s fast-moving business climate — spanning maritime shipping at Tanger Med, the automotive industry in TFZ, and bustling real estate and retail sectors — mobile applications are essential for operational agility. getNexiro builds production-ready mobile apps featuring offline capabilities, biometric authentication, real-time push notifications, and seamless ERP/CRM integrations.</p>',
+                'body_fr': '<p>Dans le dynamisme économique de Tanger — de la logistique à Tanger Med à l\'industrie automobile de la TFZ, en passant par l\'immobilier et le commerce — une application mobile est un levier majeur de productivité. getNexiro développe des applications robustes intégrant fonctionnement hors-ligne, notifications push, authentification biométrique et interconnexion API.</p>',
+                'body_ar': '<p>في ظل الحركية الاقتصادية المتسارعة بمدينة طنجة — من الملاحة واللوجستيات بميناء طنجة المتوسط إلى قطاع السيارات بالمناطق الحرة والعقارات والتجارة — تشكل تطبيقات الجوال عنصراً حاسماً في النجاح. تبني getNexiro تطبيقات متكاملة تعمل بدون إنترنت، مع إشعارات فورية ومصادقة بيومترية وربط مع قواعد البيانات السحابية.</p>',
+                'why_choose_us_en': 'Single codebase efficiency with Flutter & React Native reducing costs by 40%\nPixel-perfect UI design aligned with Apple Human Interface and Google Material 3 guidelines\nApp Store and Google Play publication management included\nScalable backend integration with Django REST APIs and Firebase',
+                'why_choose_us_fr': 'Efficacité du code unique avec Flutter & React Native réduisant les coûts de 40%\nDesign UI/UX au pixel près respectant les standards Apple et Google Material 3\nPrise en charge complète de la publication sur App Store et Google Play\nIntégration backend scalable avec APIs Django REST et Firebase',
+                'why_choose_us_ar': 'كفاءة برمجية موحدة عبر Flutter و React Native تخفض تكاليف التطوير بنسبة تصل إلى 40%\nواجهات مستخدم دقيقة متوافقة مع معايير Apple و Google Material Design 3\nنشر التطبيق وإدارته بالكامل على متجري App Store و Google Play\nربط متين وسريع مع واجهات API الخلفية ونظم قواعد البيانات السحابية',
+                'industries_served_en': 'Logistics, Shipping & Fleet Management\nAutomotive Factory Floor Operations\nLuxury Real Estate Virtual Tours & Bookings\nFood Delivery & On-Demand Consumer Services\nFintech & Secure Payment Wallets',
+                'industries_served_fr': 'Logistique, Transport & Gestion de Flotte\nApplications Métier pour Usines Automobiles\nVisites Virtuelles & Réservations Immobilières\nLivraison & Services à la Demande\nFintech & Portefeuilles Mobiles Sécurisés',
+                'industries_served_ar': 'اللوجستيات وتتبع الشحنات وإدارة الأساطيل\nتطبيقات العمليات في مصانع السيارات\nالجولات الافتراضية والحجوزات العقارية\nتطبيقات التوصيل والخدمات عند الطلب\nالتكنولوجيا المالية والمحافظ الرقمية الآمنة',
+                'seo_title_en': 'Mobile App Development in Tangier | iOS & Android | getNexiro',
+                'seo_title_fr': 'Développement Mobile à Tanger | iOS & Android | Agence getNexiro',
+                'seo_title_ar': 'تطوير تطبيقات الجوال في طنجة | iOS و Android | getNexiro',
+                'seo_description_en': 'Premier mobile application agency in Tangier, Morocco. Native iOS & Android apps built with Flutter and React Native by getNexiro.',
+                'seo_description_fr': 'Agence de développement d\'applications mobiles à Tanger, Maroc. Applications iOS et Android performantes avec Flutter et React Native.',
+                'seo_description_ar': 'وكالة تطوير تطبيقات الجوال في طنجة، المغرب. تطبيقات هواتف ذكية iOS و Android بأحدث التقنيات مع getNexiro.',
+            },
+            # 6. Mobile Applications in Tetouan
+            {
+                'service_slug': 'mobile-applications',
+                'city': 'tetouan',
+                'slug': 'mobile-applications-tetouan',
+                'is_published': True,
+                'h1_en': 'Mobile App Development in Tetouan, Morocco | iOS & Android',
+                'h1_fr': 'Création d\'Applications Mobiles à Tétouan, Maroc | iOS & Android',
+                'h1_ar': 'برمجة تطبيقات الجوال في تطوان، المغرب | iOS و Android',
+                'intro_en': "Empower your business in Tetouan with high-speed, engaging mobile applications built for smartphones and tablets.",
+                'intro_fr': "Donnez à votre entreprise à Tétouan un avantage concurrentiel avec des applications mobiles performantes, intuitives et adaptées à tous les smartphones.",
+                'intro_ar': "امنح مشروعك في تطوان ميزة تنافسية كبرى بتطبيقات جوال سريعة وتصميم جذاب وسهل الاستخدام على مختلف الهواتف الذكية.",
+                'body_en': '<p>From hospitality mobile concierge apps for Tamuda Bay to client management tools for service providers in Tetouan, mobile applications are redefining customer engagement. getNexiro engineers reliable iOS and Android apps with beautiful user interfaces, interactive maps, secure authentication, and seamless payment processing.</p>',
+                'body_fr': '<p>Des conciergeries mobiles pour l\'hôtellerie de Tamuda Bay aux applications de gestion client pour les professionnels de Tétouan, le mobile révolutionne la relation client. getNexiro développe des applications iOS et Android fiables, dotées d\'interfaces élégantes, de géolocalisation et de paiements sécurisés.</p>',
+                'body_ar': '<p>من تطبيقات الضيافة الذكية لمنتجعات خليج تمودا إلى أدوات خدمة العملاء للشركات في تطوان، يحدث الهاتف المحمول ثورة في التواصل مع الزبائن. تطور getNexiro تطبيقات ذكية لنظامي iOS و Android تتميز بواجهات ممتعة، خرائط تفاعلية وتكامل آمن مع وسائل الدفع الإلكتروني.</p>',
+                'why_choose_us_en': 'End-to-end mobile product lifecycle from Figma wireframes to store publishing\nNative device features integration (Camera, GPS, Biometrics, Push Notifications)\nOptimized for Moroccan cellular data speeds\nContinuous post-launch updates and performance monitoring',
+                'why_choose_us_fr': 'Accompagnement complet de la maquette Figma jusqu\'à la publication sur les stores\nIntégration poussée des fonctions natives (Caméra, GPS, Biométrie, Push)\nOptimisation pour les réseaux mobiles marocains\nMaintenance évolutive et suivi des performances après lancement',
+                'why_choose_us_ar': 'مرافقة تقنية متكاملة من تصاميم Figma الأولية حتى النشر في المتاجر\nاستفادة كاملة من ميزات الهاتف الأصلية (الكاميرا، GPS، البصمة، الإشعارات)\nتحسين فائق للأداء ليعمل بسلاسة حتى مع سرعات الإنترنت العادية\nصيانة مستمرة وتحديثات دورية بعد إطلاق التطبيق',
+                'industries_served_en': 'Resort & Hotel Mobile Guest Portals\nLocal Delivery & Food Ordering\nMedical Clinics & Patient Appointment Booking\nFitness, Wellness & Beauty Centers\nField Sales & Retail Agents',
+                'industries_served_fr': 'Portails Hôteliers & Résidences de Vacances\nLivraison Locale & Restauration\nCliniques & Prise de Rendez-vous Médicaux\nCentres de Fitness & Bien-être\nForce de Vente Terrain & Distribution',
+                'industries_served_ar': 'بوابات الفنادق والمنتجعات السياحية\nتطبيقات توصيل الطلبات والمطاعم\nالعيادات والمراكز الصحية وحجز المواعيد\nالأندية الرياضية ومراكز اللياقة والتجميل\nمندوبو المبيعات وإدارة التوزيع',
+                'seo_title_en': 'Mobile App Development in Tetouan | getNexiro',
+                'seo_title_fr': 'Applications Mobiles à Tétouan | Agence getNexiro',
+                'seo_title_ar': 'تطوير تطبيقات الجوال في تطوان | getNexiro',
+                'seo_description_en': 'Custom mobile app development agency in Tetouan, Morocco. iOS & Android apps built for maximum engagement by getNexiro.',
+                'seo_description_fr': 'Développement d\'applications mobiles à Tétouan, Maroc. Solutions iOS et Android sur mesure conçues par getNexiro.',
+                'seo_description_ar': 'وكالة تطوير تطبيقات الجوال في تطوان، المغرب. تطبيقات هواتف ذكية متطورة وسريعة لنظامي iOS و Android.',
+            },
+            # 7. UI/UX & Design Systems in Tangier
+            {
+                'service_slug': 'uiux-design-systems',
+                'city': 'tangier',
+                'slug': 'uiux-design-tangier',
+                'is_published': True,
+                'h1_en': 'UI/UX Design & Design Systems Studio in Tangier, Morocco',
+                'h1_fr': 'Studio de Design UI/UX & Systèmes de Design à Tanger, Maroc',
+                'h1_ar': 'استوديو تصميم تجربة وواجهة المستخدم UI/UX في طنجة، المغرب',
+                'intro_en': "Elevate your digital products with human-centered UI/UX design, interactive Figma prototypes, and cohesive design systems engineered for conversion.",
+                'intro_fr': "Sublimez vos produits digitaux avec un design UI/UX centré utilisateur, des prototypes interactifs Figma et des design systems cohérents orientés conversion.",
+                'intro_ar': "ارتقِ بمنتجاتك الرقمية من خلال تصميم واجهات وتجربة مستخدم تركز على راحة العميل، مع نماذج تفاعلية وأنظمة تصميم متكاملة تضاعف معدلات التحويل.",
+                'body_en': '<p>Exceptional software begins with exceptional design. At getNexiro in Tangier, our design team combines behavioral psychology, user research, and world-class aesthetic craft to build intuitive digital experiences. From complex enterprise SaaS dashboards to mobile app onboarding flows, we deliver design systems that scale effortlessly across web and mobile platforms.</p>',
+                'body_fr': '<p>Un logiciel d\'exception repose d\'abord sur un design remarquable. À Tanger, l\'équipe design de getNexiro associe psychologie cognitive, recherche utilisateur et esthétique de premier ordre pour créer des expériences fluides et mémorables. Des tableaux de bord SaaS complexes aux applications mobiles grand public, nous livrons des design systems modulaires et évolutifs.</p>',
+                'body_ar': '<p>البرمجيات الاستثنائية تبدأ دائماً بتصميم استثنائي. في مقر getNexiro بطنجة، يدمج فريق التصميم لدينا أبحاث سلوك المستخدم وأرقى المعايير الجمالية العالمية لبناء تجارب رقمية سلسة وجذابة. من لوحات تحكم SaaS المعقدة إلى تدفقات الاستخدام على الجوال، نصمم أنظمة متناسقة تقود منتجك الرقمي نحو النجاح.</p>',
+                'why_choose_us_en': 'Figma components, tokens, and comprehensive interactive style guides\nUser research and usability testing with real target demographics\nNative support for both LTR and RTL Arabic layouts\nSeamless developer handoff with Storybook and Tailwind CSS specifications',
+                'why_choose_us_fr': 'Composants Figma complets, tokens de design et guides de styles interactifs\nRecherche utilisateur et tests d\'utilisabilité sur panels réels\nPrise en charge native des interfaces bilingues LTR et RTL (arabe)\nHandoff développeurs optimisé avec Storybook et spécifications Tailwind CSS',
+                'why_choose_us_ar': 'مكونات Figma متكاملة ونظم رموز تصميم وأدلة أنماط تفاعلية\nأبحاث تجربة المستخدم واختبارات قابلية الاستخدام على عينات حقيقية\nدعم أصلي ومتناسق للواجهات ثنائية الاتجاه (من اليمين لليسار RTL والعكس)\nتسليم برمجي سلس للمطورين مع توصيفات Tailwind CSS و Storybook',
+                'industries_served_en': 'B2B SaaS Platforms & Analytics Dashboards\nFintech & Digital Banking Interfaces\nE-Commerce Checkout Funnels & Marketplaces\nMobile Applications (iOS & Android)\nCorporate Brand Systems & Identity',
+                'industries_served_fr': 'Plateformes SaaS B2B & Tableaux de Bord\nFintech & Interfaces Bancaires Digitales\nTunnels d\'Achat E-Commerce & Marketplaces\nApplications Mobiles Grand Public\nIdentités Visuelles & Marques d\'Entreprise',
+                'industries_served_ar': 'منصات البرمجيات كخدمة SaaS ولوحات التحكم\nالتكنولوجيا المالية وواجهات المعاملات البنكية\nمتاجر التجارة الإلكترونية ومسارات إتمام الشراء\nتطبيقات الهواتف الذكية الاستهلاكية والمؤسسية\nالهويات البصرية وأنظمة العلامات التجارية للشركات',
+                'seo_title_en': 'UI/UX Design Studio in Tangier, Morocco | getNexiro',
+                'seo_title_fr': 'Design UI/UX à Tanger, Maroc | Studio getNexiro',
+                'seo_title_ar': 'تصميم UI/UX في طنجة، المغرب | getNexiro',
+                'seo_description_en': 'Top UI/UX design studio in Tangier, Morocco. User research, Figma prototypes, and scalable design systems for web and mobile products.',
+                'seo_description_fr': 'Studio de design UI/UX à Tanger, Maroc. Recherche utilisateur, prototypes Figma et design systems sur mesure par getNexiro.',
+                'seo_description_ar': 'استوديو تصميم واجهات وتجربة المستخدم UI/UX في طنجة، المغرب. نماذج تفاعلية وأنظمة تصميم حديثة لمواقع وتطبيقات الجوال.',
+            },
+        ]
+
+        created_count = 0
+        for cp_data in city_pages_data:
+            svc_slug = cp_data.pop('service_slug')
+            target_service = Service.objects.filter(slug=svc_slug).first()
+            if target_service:
+                city = cp_data.pop('city')
+                slug = cp_data.pop('slug')
+                city_page, created = CityServicePage.objects.get_or_create(
+                    service=target_service,
+                    city=city,
+                    defaults={'slug': slug, **cp_data}
+                )
+                if not created:
+                    # Update fields idempotently
+                    for k, v in cp_data.items():
+                        setattr(city_page, k, v)
+                    city_page.save()
+                created_count += 1
+
+        self.stdout.write(f'  [OK] Seeded {created_count} localized CityServicePages (Tangier, Tetouan, Fes, Meknes)')
 
         self.stdout.write(self.style.SUCCESS('\n[SUCCESS] Database seeded with 100% complete multilingual content!'))
