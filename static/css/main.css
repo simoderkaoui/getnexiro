@@ -2124,11 +2124,7 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
-    :root {
-        --section-padding: 4.5rem 0;
-    }
-
+@media (max-width: 992px) {
     .navbar-wrapper {
         top: 0.5rem;
         padding: 0 0.75rem;
@@ -2144,7 +2140,7 @@ ul {
     }
 
     .nav-cta-desktop {
-        display: none;
+        display: none !important;
     }
 
     .navbar-toggle {
@@ -2192,6 +2188,21 @@ ul {
         margin-top: 1rem;
         padding-top: 1rem;
         border-top: 1px solid var(--color-border);
+    }
+
+    .mobile-nav-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 4.5rem 0;
+    }
+
+    .nav-cta-desktop {
+        display: none !important;
     }
 
     .services-preview-grid,
@@ -2665,6 +2676,11 @@ ul {
 /* ══════════════════════════════════════════════════
    ASK FOR QUOTE NAV & BUTTON ANIMATIONS
    ══════════════════════════════════════════════════ */
+.nav-cta-desktop {
+    display: inline-flex;
+    white-space: nowrap !important;
+    flex-shrink: 0;
+}
 .btn-quote-animated {
     position: relative;
     overflow: hidden;
@@ -2675,6 +2691,14 @@ ul {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: nowrap !important;
+    flex-shrink: 0;
+}
+.btn-quote-animated span,
+.btn-quote-animated svg,
+.btn-quote-animated .quote-pulse-dot {
+    white-space: nowrap !important;
+    flex-shrink: 0;
 }
 .btn-quote-animated:hover {
     transform: translateY(-2px);
@@ -3928,10 +3952,20 @@ ul {
     }
     /* Navbar */
     .navbar {
-        padding: 0.35rem 0.75rem;
+        padding: 0.35rem 0.65rem;
     }
     .brand-logo-img {
         height: 32px;
+        max-width: 120px;
+    }
+    .nav-cta-desktop {
+        display: none !important;
+    }
+    .navbar-actions {
+        gap: 0.35rem;
+    }
+    .flag-switcher {
+        gap: 0.25rem;
     }
     .flag-icon {
         width: 18px;
@@ -3940,6 +3974,11 @@ ul {
     .flag-btn {
         width: 28px;
         height: 28px;
+    }
+    .navbar-toggle {
+        width: 36px;
+        height: 36px;
+        padding: 0.45rem;
     }
     /* Glow orbs hidden */
     .glow-orb-1,
