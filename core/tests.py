@@ -34,7 +34,7 @@ class GetNexiroViewsTest(TestCase):
             hero_title_en='We Architect High-Velocity Digital Systems',
             hero_title_fr='Nous Concevons des Systèmes Numériques Haute-Performance',
             hero_title_ar='نصمم أنظمة رقمية عالية السرعة والأداء',
-            email='getnexiro@gmail.com',
+            email='contact@getnexiro.com',
             phone='+212 663 017 817',
         )
         self.service = Service.objects.create(
@@ -161,7 +161,7 @@ class GetNexiroViewsTest(TestCase):
 
         # 1. Admin Notification Email
         admin_email = mail.outbox[0]
-        self.assertIn('getnexiro@gmail.com', admin_email.to)
+        self.assertIn('contact@getnexiro.com', admin_email.to)
         self.assertIn('Enterprise Architecture Inquiry', admin_email.subject)
         self.assertIn('Karim Alami', admin_email.subject)
         self.assertEqual(admin_email.reply_to, ['karim@example.com'])
@@ -174,7 +174,7 @@ class GetNexiroViewsTest(TestCase):
         sender_email = mail.outbox[1]
         self.assertIn('karim@example.com', sender_email.to)
         self.assertIn('We received your message', sender_email.subject)
-        self.assertEqual(sender_email.reply_to, ['getnexiro@gmail.com'])
+        self.assertEqual(sender_email.reply_to, ['contact@getnexiro.com'])
         self.assertIn('Hi Karim Alami', sender_email.body)
         self.assertIn('The getNexiro Team', sender_email.body)
         self.assertIn('Tangier 90000, Morocco', sender_email.body)

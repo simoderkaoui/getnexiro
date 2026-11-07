@@ -129,7 +129,7 @@ def _dispatch_emails_sync(contact_message, admin_recipient, lang, ip_address, ad
     """Synchronous worker that compiles and sends both emails."""
     try:
         config = SiteConfig.load()
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <getnexiro@gmail.com>')
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
 
         # ── Determine Location: GPS sensor (high precision) vs IP gateway (fallback) ──
         ip_geo = geolocate_ip(ip_address)
@@ -242,7 +242,7 @@ def send_contact_emails(contact_message, request=None, async_send=True, client_g
     Defaults to background thread (async_send=True) for zero UI latency.
     """
     config = SiteConfig.load()
-    admin_recipient = config.email or 'getnexiro@gmail.com'
+    admin_recipient = config.email or 'contact@getnexiro.com'
 
     # Determine submission language
     lang = 'en'

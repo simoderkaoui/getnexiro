@@ -135,7 +135,7 @@ class SiteConfig(models.Model):
     )
 
     # Contact & location
-    email = models.EmailField(_('Contact Email'), default='getnexiro@gmail.com')
+    email = models.EmailField(_('Contact Email'), default='contact@getnexiro.com')
     phone = models.CharField(_('Phone Number'), max_length=30, default='+212 787 862 187')
 
     address_en = models.CharField(_('Address (EN)'), max_length=200, default='Tangier 90000, Morocco')

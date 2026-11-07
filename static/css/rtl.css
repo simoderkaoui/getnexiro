@@ -126,10 +126,19 @@
 }
 
 /* ── Floating Action Buttons RTL ── */
-[dir="rtl"] .whatsapp-widget-container {
+[dir="rtl"] .whatsapp-float {
     right: auto;
     left: 28px;
-    flex-direction: row;
+}
+
+[dir="rtl"] .whatsapp-tooltip {
+    right: auto;
+    left: calc(100% + 10px);
+    transform: translateY(-50%) translateX(-4px);
+}
+
+[dir="rtl"] .whatsapp-float:hover .whatsapp-tooltip {
+    transform: translateY(-50%) translateX(8px);
 }
 
 [dir="rtl"] .back-to-top {
@@ -138,20 +147,29 @@
     bottom: 96px;
 }
 
+[dir="rtl"] .navbar-links {
+    text-align: right;
+}
+
+[dir="rtl"] .nav-link {
+    justify-content: flex-start;
+    text-align: right;
+}
+
 @media (max-width: 700px) {
-    [dir="rtl"] .whatsapp-widget-container {
+    [dir="rtl"] .whatsapp-float {
         right: auto;
         left: 18px;
     }
     [dir="rtl"] .back-to-top {
         right: auto;
-        left: 22px;
+        left: 20px;
         bottom: 82px;
     }
 }
 
 @media (max-width: 480px) {
-    [dir="rtl"] .whatsapp-widget-container {
+    [dir="rtl"] .whatsapp-float {
         right: auto;
         left: 1rem;
     }
