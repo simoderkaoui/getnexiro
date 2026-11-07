@@ -1517,3 +1517,1593 @@ msgstr "Bonjour ! J'aimerais obtenir un devis pour mon projet."
 
 msgid "Link copied to clipboard!"
 msgstr "Lien copié dans le presse-papiers !"
+
+msgid "+212 6XX XXX XXX"
+msgstr "+212 6XX XXX XXX"
+
+msgid "1 — 2 months"
+msgstr "1 — 2 mois"
+
+msgid "2 — 4 months"
+msgstr "2 — 4 mois"
+
+msgid "2-3 sentences specific to this city+service"
+msgstr "2-3 phrases spécifiques à cette ville et à ce service"
+
+msgid "4 — 6 months"
+msgstr "4 — 6 mois"
+
+msgid "API / Code"
+msgstr "API / Code"
+
+msgid "ASAP (rush)"
+msgstr "Dès que possible (urgent)"
+
+msgid "About Page Image"
+msgstr "Image de la page À propos"
+
+msgid "About Page SEO Title (AR)"
+msgstr "Titre SEO de la page À propos (AR)"
+
+msgid "About Page SEO Title (EN)"
+msgstr "Titre SEO de la page À propos (EN)"
+
+msgid "About Page SEO Title (FR)"
+msgstr "Titre SEO de la page À propos (FR)"
+
+msgid "About Page Video (MP4/WebM)"
+msgstr "Vidéo de la page À propos (MP4/WebM)"
+
+msgid "About Page Video URL"
+msgstr "URL de la vidéo de la page À propos"
+
+msgid "About Us (AR)"
+msgstr "À propos de nous (AR)"
+
+msgid "About Us (EN)"
+msgstr "À propos de nous (EN)"
+
+msgid "About Us (FR)"
+msgstr "À propos de nous (FR)"
+
+msgid "About Us Picture & Story"
+msgstr "Photo et histoire À propos de nous"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Additional Language"
+msgstr "Langue supplémentaire"
+
+msgid "Address & Location"
+msgstr "Adresse & Localisation"
+
+msgid "Address (AR)"
+msgstr "Adresse (AR)"
+
+msgid "Address (EN)"
+msgstr "Adresse (EN)"
+
+msgid "Address (FR)"
+msgstr "Adresse (FR)"
+
+msgid "Address Detail (AR)"
+msgstr "Détail de l'adresse (AR)"
+
+msgid "Address Detail (EN)"
+msgstr "Détail de l'adresse (EN)"
+
+msgid "Address Detail (FR)"
+msgstr "Détail de l'adresse (FR)"
+
+msgid "Admin Notes"
+msgstr "Notes d'administration"
+
+msgid "Answer (AR)"
+msgstr "Réponse (AR)"
+
+msgid "Answer (EN)"
+msgstr "Réponse (EN)"
+
+msgid "Answer (FR)"
+msgstr "Réponse (FR)"
+
+msgid "Answer (Multilingual)"
+msgstr "Réponse (Multilingue)"
+
+msgid "Appearance"
+msgstr "Apparence"
+
+msgid "Architecture & Solution (AR)"
+msgstr "Architecture & Solution (AR)"
+
+msgid "Architecture & Solution (EN)"
+msgstr "Architecture & Solution (EN)"
+
+msgid "Architecture & Solution (FR)"
+msgstr "Architecture & Solution (FR)"
+
+msgid "Author & Reading"
+msgstr "Auteur & Lecture"
+
+msgid "Author Info"
+msgstr "Informations sur l'auteur"
+
+msgid "Author Name"
+msgstr "Nom de l'auteur"
+
+msgid "Author Role (AR)"
+msgstr "Rôle de l'auteur (AR)"
+
+msgid "Author Role (EN)"
+msgstr "Rôle de l'auteur (EN)"
+
+msgid "Author Role (FR)"
+msgstr "Rôle de l'auteur (FR)"
+
+msgid "Auto-generated from service + city, e.g. web-development-tangier"
+msgstr "Généré automatiquement à partir du service + ville, ex. web-development-tangier"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Badge (AR)"
+msgstr "Badge (AR)"
+
+msgid "Badge (EN)"
+msgstr "Badge (EN)"
+
+msgid "Badge (FR)"
+msgstr "Badge (FR)"
+
+msgid "Badges (Multilingual)"
+msgstr "Badges (Multilingue)"
+
+msgid "Bio (AR)"
+msgstr "Biographie (AR)"
+
+msgid "Bio (EN)"
+msgstr "Biographie (EN)"
+
+msgid "Bio (FR)"
+msgstr "Biographie (FR)"
+
+msgid "Bios (Multilingual)"
+msgstr "Biographies (Multilingue)"
+
+msgid "Blog Categories"
+msgstr "Catégories du blog"
+
+msgid "Blog Category"
+msgstr "Catégorie du blog"
+
+msgid "Blog Page SEO Title (AR)"
+msgstr "Titre SEO de la page Blog (AR)"
+
+msgid "Blog Page SEO Title (EN)"
+msgstr "Titre SEO de la page Blog (EN)"
+
+msgid "Blog Page SEO Title (FR)"
+msgstr "Titre SEO de la page Blog (FR)"
+
+msgid "Blog Page Video (MP4/WebM)"
+msgstr "Vidéo de la page Blog (MP4/WebM)"
+
+msgid "Blog Page Video URL"
+msgstr "URL de la vidéo de la page Blog"
+
+msgid "Blog Post"
+msgstr "Article de blog"
+
+msgid "Blog Posts"
+msgstr "Articles de blog"
+
+msgid "Body (AR)"
+msgstr "Corps de texte (AR)"
+
+msgid "Body (EN)"
+msgstr "Corps de texte (EN)"
+
+msgid "Body (FR)"
+msgstr "Corps de texte (FR)"
+
+msgid "Body (Multilingual)"
+msgstr "Corps de texte (Multilingue)"
+
+msgid "Booking Date"
+msgstr "Date de réservation"
+
+msgid "Booking Details"
+msgstr "Détails de la réservation"
+
+msgid "Brand Identity & Logo"
+msgstr "Identité de marque & Logo"
+
+msgid "Briefly describe what you want to build..."
+msgstr "Décrivez brièvement ce que vous souhaitez concevoir..."
+
+msgid "Budget & Timeline"
+msgstr "Budget & Délais"
+
+msgid "Budget Range"
+msgstr "Fourchette de budget"
+
+msgid "Business Hours (AR)"
+msgstr "Horaires d'ouverture (AR)"
+
+msgid "Business Hours (EN)"
+msgstr "Horaires d'ouverture (EN)"
+
+msgid "Business Hours (FR)"
+msgstr "Horaires d'ouverture (FR)"
+
+msgid "CTA Button (AR)"
+msgstr "Bouton d'action (AR)"
+
+msgid "CTA Button (EN)"
+msgstr "Bouton d'action (EN)"
+
+msgid "CTA Button (FR)"
+msgstr "Bouton d'action (FR)"
+
+msgid "CTA Subtitle (AR)"
+msgstr "Sous-titre CTA (AR)"
+
+msgid "CTA Subtitle (EN)"
+msgstr "Sous-titre CTA (EN)"
+
+msgid "CTA Subtitle (FR)"
+msgstr "Sous-titre CTA (FR)"
+
+msgid "CTA Title (AR)"
+msgstr "Titre CTA (AR)"
+
+msgid "CTA Title (EN)"
+msgstr "Titre CTA (EN)"
+
+msgid "CTA Title (FR)"
+msgstr "Titre CTA (FR)"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "Caption (AR)"
+msgstr "Légende (AR)"
+
+msgid "Caption (EN)"
+msgstr "Légende (EN)"
+
+msgid "Caption (FR)"
+msgstr "Légende (FR)"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Category, Client & Links"
+msgstr "Catégorie, Client & Liens"
+
+msgid "Check your email to confirm and get your download link!"
+msgstr "Vérifiez vos e-mails pour confirmer et recevoir votre lien de téléchargement !"
+
+msgid "Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL)."
+msgstr "Choisissez d'afficher le maillage lumineux animé, une image d'arrière-plan personnalisée ou une vidéo en boucle (fichier MP4 ou URL directe)."
+
+msgid "City"
+msgstr "Ville"
+
+msgid "City Service Page"
+msgstr "Page de service par ville"
+
+msgid "City Service Pages"
+msgstr "Pages de service par ville"
+
+msgid "Client Logo"
+msgstr "Logo du client"
+
+msgid "Client Logos"
+msgstr "Logos des clients"
+
+msgid "Client Name"
+msgstr "Nom du client"
+
+msgid "Client Testimonial & Feedback (Multilingual)"
+msgstr "Témoignage et avis client (Multilingue)"
+
+msgid "Client Testimonial Author"
+msgstr "Auteur du témoignage client"
+
+msgid "Client Testimonial Quote (AR)"
+msgstr "Citation du témoignage client (AR)"
+
+msgid "Client Testimonial Quote (EN)"
+msgstr "Citation du témoignage client (EN)"
+
+msgid "Client Testimonial Quote (FR)"
+msgstr "Citation du témoignage client (FR)"
+
+msgid "Client Testimonial Role"
+msgstr "Rôle du client"
+
+msgid "Cloud / DevOps"
+msgstr "Cloud / DevOps"
+
+msgid "Comma-separated feature keys"
+msgstr "Clés de fonctionnalités séparées par des virgules"
+
+msgid "Comma-separated list of selected feature keys"
+msgstr "Liste des clés de fonctionnalités sélectionnées séparées par des virgules"
+
+msgid "Company"
+msgstr "Entreprise"
+
+msgid "Company Name"
+msgstr "Nom de l'entreprise"
+
+msgid "Company URL"
+msgstr "Site web de l'entreprise"
+
+msgid "Company Value"
+msgstr "Valeur de l'entreprise"
+
+msgid "Company Values"
+msgstr "Valeurs de l'entreprise"
+
+msgid "Completed"
+msgstr "Terminé"
+
+msgid "Configuration"
+msgstr "Configuration"
+
+msgid "Configure site name, header logo, browser favicon, and primary contact info."
+msgstr "Configurez le nom du site, le logo d'en-tête, le favicon du navigateur et les coordonnées principales."
+
+msgid "Confirmation Token"
+msgstr "Jeton de confirmation"
+
+msgid "Confirmed"
+msgstr "Confirmé"
+
+msgid "Consulting / Briefcase"
+msgstr "Conseil / Mallette"
+
+msgid "Contact Email"
+msgstr "E-mail de contact"
+
+msgid "Contact Info"
+msgstr "Coordonnées"
+
+msgid "Contact Message"
+msgstr "Message de contact"
+
+msgid "Contact Messages"
+msgstr "Messages de contact"
+
+msgid "Contact Page SEO Title (AR)"
+msgstr "Titre SEO de la page Contact (AR)"
+
+msgid "Contact Page SEO Title (EN)"
+msgstr "Titre SEO de la page Contact (EN)"
+
+msgid "Contact Page SEO Title (FR)"
+msgstr "Titre SEO de la page Contact (FR)"
+
+msgid "Contact Page Video (MP4/WebM)"
+msgstr "Vidéo de la page Contact (MP4/WebM)"
+
+msgid "Contact Page Video URL"
+msgstr "URL de la vidéo de la page Contact"
+
+msgid "Contacted"
+msgstr "Contacté"
+
+msgid "Content (AR)"
+msgstr "Contenu (AR)"
+
+msgid "Content (EN)"
+msgstr "Contenu (EN)"
+
+msgid "Content (FR)"
+msgstr "Contenu (FR)"
+
+msgid "Content (Multilingual)"
+msgstr "Contenu (Multilingue)"
+
+msgid "Core Deliverables (AR, newline-separated)"
+msgstr "Livrables clés (AR, séparés par un saut de ligne)"
+
+msgid "Core Deliverables (EN, newline-separated)"
+msgstr "Livrables clés (EN, séparés par un saut de ligne)"
+
+msgid "Core Deliverables (FR, newline-separated)"
+msgstr "Livrables clés (FR, séparés par un saut de ligne)"
+
+msgid "Core Deliverables (Multilingual)"
+msgstr "Livrables clés (Multilingue)"
+
+msgid "Corporate Website"
+msgstr "Site Web d'Entreprise"
+
+msgid "Cover Image"
+msgstr "Image de couverture"
+
+msgid "Created At"
+msgstr "Créé le"
+
+msgid "Custom Wallpaper / Image"
+msgstr "Fond d'écran / Image personnalisée"
+
+msgid "Custom video background for About page header"
+msgstr "Arrière-plan vidéo personnalisé pour l'en-tête de la page À propos"
+
+msgid "Custom video background for Blog page header"
+msgstr "Arrière-plan vidéo personnalisé pour l'en-tête de la page Blog"
+
+msgid "Custom video background for Contact page header"
+msgstr "Arrière-plan vidéo personnalisé pour l'en-tête de la page Contact"
+
+msgid "Custom video background for Projects page header"
+msgstr "Arrière-plan vidéo personnalisé pour l'en-tête de la page Projets"
+
+msgid "Custom video background for Services page header"
+msgstr "Arrière-plan vidéo personnalisé pour l'en-tête de la page Services"
+
+msgid "Data / Database"
+msgstr "Données / Base de données"
+
+msgid "Day"
+msgstr "Jour"
+
+msgid "Day of Week"
+msgstr "Jour de la semaine"
+
+msgid "Deep-Dive: Architecture & Solution (Multilingual)"
+msgstr "Détail approfondi : Architecture & Solution (Multilingue)"
+
+msgid "Deep-Dive: Results & Impact (Multilingual)"
+msgstr "Détail approfondi : Résultats & Impact (Multilingue)"
+
+msgid "Deep-Dive: The Challenge (Multilingual)"
+msgstr "Détail approfondi : Le Défi (Multilingue)"
+
+msgid "Default Animated Mesh / Glow"
+msgstr "Maillage animé / Halo par défaut"
+
+msgid "Description (AR)"
+msgstr "Description (AR)"
+
+msgid "Description (EN)"
+msgstr "Description (EN)"
+
+msgid "Description (FR)"
+msgstr "Description (FR)"
+
+msgid "Description (Multilingual)"
+msgstr "Description (Multilingue)"
+
+msgid "Descriptions (Multilingual)"
+msgstr "Descriptions (Multilingue)"
+
+msgid "Design / Pen"
+msgstr "Design / Création"
+
+msgid "Detailed city-specific content. HTML allowed."
+msgstr "Contenu détaillé spécifique à la ville. HTML autorisé."
+
+msgid "Direct MP4/WebM URL for About page header"
+msgstr "URL directe MP4/WebM pour l'en-tête de la page À propos"
+
+msgid "Direct MP4/WebM URL for Blog page header"
+msgstr "URL directe MP4/WebM pour l'en-tête de la page Blog"
+
+msgid "Direct MP4/WebM URL for Contact page header"
+msgstr "URL directe MP4/WebM pour l'en-tête de la page Contact"
+
+msgid "Direct MP4/WebM URL for Projects page header"
+msgstr "URL directe MP4/WebM pour l'en-tête de la page Projets"
+
+msgid "Direct MP4/WebM URL for Services page header"
+msgstr "URL directe MP4/WebM pour l'en-tête de la page Services"
+
+msgid "Discovery Call Booking"
+msgstr "Réservation d'appel de découverte"
+
+msgid "Discovery Call Bookings"
+msgstr "Réservations d'appels de découverte"
+
+msgid "Display Order"
+msgstr "Ordre d'affichage"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "E-Commerce Store"
+msgstr "Boutique E-Commerce"
+
+msgid "Email address not found in our records."
+msgstr "Adresse e-mail introuvable dans nos dossiers."
+
+msgid "Email confirmed! You can now download your checklist."
+msgstr "E-mail confirmé ! Vous pouvez maintenant télécharger votre checklist."
+
+msgid "Emoji / Icon"
+msgstr "Emoji / Icône"
+
+msgid "Emoji Icon"
+msgstr "Icône Emoji"
+
+msgid "Emoji or symbol, e.g. 🌍, 💡, 💎"
+msgstr "Emoji ou symbole, ex. 🌍, 💡, 💎"
+
+msgid "End Time"
+msgstr "Heure de fin"
+
+msgid "Engineering Methodology (AR)"
+msgstr "Méthodologie d'ingénierie (AR)"
+
+msgid "Engineering Methodology (EN)"
+msgstr "Méthodologie d'ingénierie (EN)"
+
+msgid "Engineering Methodology (FR)"
+msgstr "Méthodologie d'ingénierie (FR)"
+
+msgid "Engineering Methodology (Multilingual)"
+msgstr "Méthodologie d'ingénierie (Multilingue)"
+
+msgid "Estimated Max (MAD)"
+msgstr "Estimation max (MAD)"
+
+msgid "Estimated Min (MAD)"
+msgstr "Estimation min (MAD)"
+
+msgid "Excerpt / Summary (AR)"
+msgstr "Extrait / Résumé (AR)"
+
+msgid "Excerpt / Summary (EN)"
+msgstr "Extrait / Résumé (EN)"
+
+msgid "Excerpt / Summary (FR)"
+msgstr "Extrait / Résumé (FR)"
+
+msgid "Excerpt / Summary (Multilingual)"
+msgstr "Extrait / Résumé (Multilingue)"
+
+msgid "Executive Overview (Multilingual)"
+msgstr "Vue d'ensemble exécutive (Multilingue)"
+
+msgid "Expert insights on web development, mobile apps, and digital transformation."
+msgstr "Analyses d'experts sur le développement web, les applications mobiles et la transformation digitale."
+
+msgid "Export selected as CSV"
+msgstr "Exporter la sélection en CSV"
+
+msgid "FAQs"
+msgstr "FAQ"
+
+msgid "Feature (AR)"
+msgstr "Fonctionnalité (AR)"
+
+msgid "Feature (EN)"
+msgstr "Fonctionnalité (EN)"
+
+msgid "Feature (FR)"
+msgstr "Fonctionnalité (FR)"
+
+msgid "Feature Add-on"
+msgstr "Module de fonctionnalité"
+
+msgid "Feature picture for About Us page (Tangier / Studio image)"
+msgstr "Photo vedette pour la page À propos (Tanger / image du studio)"
+
+msgid "Featured"
+msgstr "En vedette"
+
+msgid "Featured / Highlighted"
+msgstr "En vedette / Mis en avant"
+
+msgid "Featured Image"
+msgstr "Image à la une"
+
+msgid "Featured on Home Page"
+msgstr "Affiché sur la page d'accueil"
+
+msgid "Flexible"
+msgstr "Flexible"
+
+msgid "For project_type/feature/pages/language: price in MAD. For timeline: multiplier (e.g. 1.0, 1.3, 0.9)"
+msgstr "Pour type de projet/fonctionnalité/pages/langue : prix en MAD. Pour délai : multiplicateur (ex. 1.0, 1.3, 0.9)"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Gallery"
+msgstr "Galerie"
+
+msgid "Gallery Image"
+msgstr "Image de la galerie"
+
+msgid "General"
+msgstr "Général"
+
+msgid "GitHub / Source URL"
+msgstr "URL GitHub / Source"
+
+msgid "GitHub URL"
+msgstr "URL GitHub"
+
+msgid "Global Call-To-Action Banner (Multilingual)"
+msgstr "Bannière d'appel à l'action globale (Multilingue)"
+
+msgid "Google snippet. Max 160 chars."
+msgstr "Extrait Google. 160 caractères max."
+
+msgid "H1 Title (AR)"
+msgstr "Titre H1 (AR)"
+
+msgid "H1 Title (EN)"
+msgstr "Titre H1 (EN)"
+
+msgid "H1 Title (FR)"
+msgstr "Titre H1 (FR)"
+
+msgid "H1 Title (Multilingual)"
+msgstr "Titre H1 (Multilingue)"
+
+msgid "HTML allowed. Use headings, paragraphs, lists."
+msgstr "HTML autorisé. Utilisez titres, paragraphes, listes."
+
+msgid "HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure."
+msgstr "Le HTML est autorisé. Utilisez les balises <h2>, <h3>, <p>, <ul>, <li> pour la structure."
+
+msgid "Hero Background (Video / Wallpaper)"
+msgstr "Arrière-plan Hero (Vidéo / Fond)"
+
+msgid "Hero Background Type"
+msgstr "Type d'arrière-plan Hero"
+
+msgid "Hero Background Video (MP4/WebM)"
+msgstr "Vidéo d'arrière-plan Hero (MP4/WebM)"
+
+msgid "Hero Background Video URL (Direct MP4 or external)"
+msgstr "URL de la vidéo d'arrière-plan Hero (MP4 direct ou externe)"
+
+msgid "Hero Badge (AR)"
+msgstr "Badge Hero (AR)"
+
+msgid "Hero Badge (EN)"
+msgstr "Badge Hero (EN)"
+
+msgid "Hero Badge (FR)"
+msgstr "Badge Hero (FR)"
+
+msgid "Hero Badge (Multilingual)"
+msgstr "Badge Hero (Multilingue)"
+
+msgid "Hero CTA Buttons (Multilingual)"
+msgstr "Boutons CTA Hero (Multilingue)"
+
+msgid "Hero CTA Primary (AR)"
+msgstr "CTA principal Hero (AR)"
+
+msgid "Hero CTA Primary (EN)"
+msgstr "CTA principal Hero (EN)"
+
+msgid "Hero CTA Primary (FR)"
+msgstr "CTA principal Hero (FR)"
+
+msgid "Hero CTA Secondary (AR)"
+msgstr "CTA secondaire Hero (AR)"
+
+msgid "Hero CTA Secondary (EN)"
+msgstr "CTA secondaire Hero (EN)"
+
+msgid "Hero CTA Secondary (FR)"
+msgstr "CTA secondaire Hero (FR)"
+
+msgid "Hero Headline (Multilingual)"
+msgstr "Titre principal Hero (Multilingue)"
+
+msgid "Hero Subtitle (AR)"
+msgstr "Sous-titre Hero (AR)"
+
+msgid "Hero Subtitle (EN)"
+msgstr "Sous-titre Hero (EN)"
+
+msgid "Hero Subtitle (FR)"
+msgstr "Sous-titre Hero (FR)"
+
+msgid "Hero Subtitle (Multilingual)"
+msgstr "Sous-titre Hero (Multilingue)"
+
+msgid "Hero Title (AR)"
+msgstr "Titre Hero (AR)"
+
+msgid "Hero Title (EN)"
+msgstr "Titre Hero (EN)"
+
+msgid "Hero Title (FR)"
+msgstr "Titre Hero (FR)"
+
+msgid "Hero Wallpaper / Background Image"
+msgstr "Fond d'écran / Image d'arrière-plan Hero"
+
+msgid "Highlight this as the recommended package"
+msgstr "Mettre en avant comme forfait recommandé"
+
+msgid "Home Page SEO Desc (AR)"
+msgstr "Description SEO page d'accueil (AR)"
+
+msgid "Home Page SEO Desc (EN)"
+msgstr "Description SEO page d'accueil (EN)"
+
+msgid "Home Page SEO Desc (FR)"
+msgstr "Description SEO page d'accueil (FR)"
+
+msgid "Home Page SEO Title (AR)"
+msgstr "Titre SEO page d'accueil (AR)"
+
+msgid "Home Page SEO Title (EN)"
+msgstr "Titre SEO page d'accueil (EN)"
+
+msgid "Home Page SEO Title (FR)"
+msgstr "Titre SEO page d'accueil (FR)"
+
+msgid "I agree to receive occasional emails from getNexiro. I can unsubscribe at any time."
+msgstr "J'accepte de recevoir des communications occasionnelles de getNexiro. Je peux me désabonner à tout moment."
+
+msgid "Icon"
+msgstr "Icône"
+
+msgid "Icon / Emoji"
+msgstr "Icône / Emoji"
+
+msgid "If unchecked, shown as crossed out"
+msgstr "Si décoché, apparaît barré"
+
+msgid "Image Alt Text"
+msgstr "Texte alternatif de l'image"
+
+msgid "Included"
+msgstr "Inclus"
+
+msgid "Industries specific to this city, newline-separated"
+msgstr "Secteurs spécifiques à cette ville, séparés par un saut de ligne"
+
+msgid "Instagram URL"
+msgstr "URL Instagram"
+
+msgid "Intro Paragraph (AR)"
+msgstr "Paragraphe d'introduction (AR)"
+
+msgid "Intro Paragraph (EN)"
+msgstr "Paragraphe d'introduction (EN)"
+
+msgid "Intro Paragraph (FR)"
+msgstr "Paragraphe d'introduction (FR)"
+
+msgid "Intro Paragraph (Multilingual)"
+msgstr "Paragraphe d'introduction (Multilingue)"
+
+msgid "Invalid or expired confirmation link. Please try subscribing again."
+msgstr "Lien de confirmation invalide ou expiré. Veuillez vous réinscrire."
+
+msgid "Item Settings"
+msgstr "Paramètres de l'élément"
+
+msgid "Key / Identifier"
+msgstr "Clé / Identifiant"
+
+msgid "Label (AR)"
+msgstr "Libellé (AR)"
+
+msgid "Label (EN)"
+msgstr "Libellé (EN)"
+
+msgid "Label (FR)"
+msgstr "Libellé (FR)"
+
+msgid "Label (Multilingual)"
+msgstr "Libellé (Multilingue)"
+
+msgid "Last Updated"
+msgstr "Dernière mise à jour"
+
+msgid "Lead Magnet"
+msgstr "Aimant à prospects"
+
+msgid "Legal Page"
+msgstr "Page légale"
+
+msgid "Legal Pages"
+msgstr "Pages légales"
+
+msgid "Link to live website or production application"
+msgstr "Lien vers le site web ou l'application en production"
+
+msgid "LinkedIn URL"
+msgstr "URL LinkedIn"
+
+msgid "Live Project URL"
+msgstr "URL du projet en ligne"
+
+msgid "Local Industries (Multilingual)"
+msgstr "Secteurs locaux (Multilingue)"
+
+msgid "Local Industries Served (AR)"
+msgstr "Secteurs locaux desservis (AR)"
+
+msgid "Local Industries Served (EN)"
+msgstr "Secteurs locaux desservis (EN)"
+
+msgid "Local Industries Served (FR)"
+msgstr "Secteurs locaux desservis (FR)"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Logo Image"
+msgstr "Image du logo"
+
+msgid "Lost"
+msgstr "Perdu"
+
+msgid "Main Body (AR)"
+msgstr "Corps principal (AR)"
+
+msgid "Main Body (EN)"
+msgstr "Corps principal (EN)"
+
+msgid "Main Body (FR)"
+msgstr "Corps principal (FR)"
+
+msgid "Main Body (Multilingual)"
+msgstr "Corps principal (Multilingue)"
+
+msgid "Map Embed URL"
+msgstr "URL d'intégration de la carte"
+
+msgid "Marketing Consent"
+msgstr "Consentement marketing"
+
+msgid "Max ~160 chars. Google snippet."
+msgstr "160 car. max. Extrait Google."
+
+msgid "Max ~60 chars. Overrides page title in <title> tag."
+msgstr "60 car. max. Remplace le titre de la page dans la balise <title>."
+
+msgid "Meta Description (AR)"
+msgstr "Meta Description (AR)"
+
+msgid "Meta Description (EN)"
+msgstr "Meta Description (EN)"
+
+msgid "Meta Description (FR)"
+msgstr "Meta Description (FR)"
+
+msgid "Meta Keywords (comma-separated)"
+msgstr "Meta Mots-clés (séparés par des virgules)"
+
+msgid "Mission (AR)"
+msgstr "Mission (AR)"
+
+msgid "Mission (EN)"
+msgstr "Mission (EN)"
+
+msgid "Mission (FR)"
+msgstr "Mission (FR)"
+
+msgid "Mission Statement (Multilingual)"
+msgstr "Déclaration de mission (Multilingue)"
+
+msgid "Mobile / Phone"
+msgstr "Mobile / Téléphone"
+
+msgid "Mobile Application"
+msgstr "Application Mobile"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Name (AR)"
+msgstr "Nom (AR)"
+
+msgid "Name (EN)"
+msgstr "Nom (EN)"
+
+msgid "Name (FR)"
+msgstr "Nom (FR)"
+
+msgid "New"
+msgstr "Nouveau"
+
+msgid "New / Confirmed"
+msgstr "Nouveau / Confirmé"
+
+msgid "No Show"
+msgstr "Absent"
+
+msgid "Not sure yet"
+msgstr "Pas encore sûr"
+
+msgid "Number of Languages"
+msgstr "Nombre de langues"
+
+msgid "Number of Pages/Screens"
+msgstr "Nombre de pages/écrans"
+
+msgid "Number of languages"
+msgstr "Nombre de langues"
+
+msgid "Number of pages or screens"
+msgstr "Nombre de pages ou d'écrans"
+
+msgid "OG Image"
+msgstr "Image Open Graph"
+
+msgid "Only publish pages with genuinely distinct content"
+msgstr "Ne publier que les pages ayant un contenu authentiquement distinct"
+
+msgid "Other / Custom"
+msgstr "Autre / Sur Mesure"
+
+msgid "Overrides title in <title> tag. Max 70 chars."
+msgstr "Remplace le titre dans la balise <title>. Max 70 caractères."
+
+msgid "Overview (AR)"
+msgstr "Aperçu (AR)"
+
+msgid "Overview (EN)"
+msgstr "Aperçu (EN)"
+
+msgid "Overview (FR)"
+msgstr "Aperçu (FR)"
+
+msgid "Overview (Multilingual)"
+msgstr "Aperçu (Multilingue)"
+
+msgid "Package"
+msgstr "Forfait"
+
+msgid "Package Feature"
+msgstr "Fonctionnalité du forfait"
+
+msgid "Package Features"
+msgstr "Fonctionnalités du forfait"
+
+msgid "Package Name (AR)"
+msgstr "Nom du forfait (AR)"
+
+msgid "Package Name (EN)"
+msgstr "Nom du forfait (EN)"
+
+msgid "Package Name (FR)"
+msgstr "Nom du forfait (FR)"
+
+msgid "Package Name (Multilingual)"
+msgstr "Nom du forfait (Multilingue)"
+
+msgid "Packages Page SEO Title (AR)"
+msgstr "Titre SEO de la page Forfaits (AR)"
+
+msgid "Packages Page SEO Title (EN)"
+msgstr "Titre SEO de la page Forfaits (EN)"
+
+msgid "Packages Page SEO Title (FR)"
+msgstr "Titre SEO de la page Forfaits (FR)"
+
+msgid "Page Header Background Videos (Per Page)"
+msgstr "Vidéos d'arrière-plan de l'en-tête (Par page)"
+
+msgid "Page Identifier"
+msgstr "Identifiant de la page"
+
+msgid "Page-Level SEO Titles (Multilingual)"
+msgstr "Titres SEO par page (Multilingue)"
+
+msgid "Pending Confirmation"
+msgstr "En attente de confirmation"
+
+msgid "Personal Info"
+msgstr "Informations personnelles"
+
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+msgid "Photo"
+msgstr "Photo"
+
+msgid "Pre-fill Project Type"
+msgstr "Pré-remplir le type de projet"
+
+msgid "Preferred Date"
+msgstr "Date souhaitée"
+
+msgid "Preferred Time (GMT+1)"
+msgstr "Heure souhaitée (GMT+1)"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "Price Label (AR)"
+msgstr "Libellé du prix (AR)"
+
+msgid "Price Label (EN)"
+msgstr "Libellé du prix (EN)"
+
+msgid "Price Label (FR)"
+msgstr "Libellé du prix (FR)"
+
+msgid "Pricing & Packages"
+msgstr "Tarification & Forfaits"
+
+msgid "Pricing Rule"
+msgstr "Règle tarifaire"
+
+msgid "Pricing Rules"
+msgstr "Règles tarifaires"
+
+msgid "Process & Delivery"
+msgstr "Processus & Livraison"
+
+msgid "Process Step"
+msgstr "Étape du processus"
+
+msgid "Process Steps"
+msgstr "Étapes du processus"
+
+msgid "Project Brief"
+msgstr "Brief du projet"
+
+msgid "Project Categories"
+msgstr "Catégories de projet"
+
+msgid "Project Category"
+msgstr "Catégorie de projet"
+
+msgid "Project Date"
+msgstr "Date du projet"
+
+msgid "Project Description"
+msgstr "Description du projet"
+
+msgid "Project Details"
+msgstr "Détails du projet"
+
+msgid "Project Gallery Image"
+msgstr "Image de la galerie du projet"
+
+msgid "Project Gallery Images"
+msgstr "Images de la galerie du projet"
+
+msgid "Project Type"
+msgstr "Type de projet"
+
+msgid "Project Type Base Price"
+msgstr "Prix de base du type de projet"
+
+msgid "Projects Page SEO Title (AR)"
+msgstr "Titre SEO de la page Projets (AR)"
+
+msgid "Projects Page SEO Title (EN)"
+msgstr "Titre SEO de la page Projets (EN)"
+
+msgid "Projects Page SEO Title (FR)"
+msgstr "Titre SEO de la page Projets (FR)"
+
+msgid "Projects Page Video (MP4/WebM)"
+msgstr "Vidéo de la page Projets (MP4/WebM)"
+
+msgid "Projects Page Video URL"
+msgstr "URL de la vidéo de la page Projets"
+
+msgid "Proposal Sent"
+msgstr "Proposition envoyée"
+
+msgid "Published"
+msgstr "Publié"
+
+msgid "Published At"
+msgstr "Publié le"
+
+msgid "Publishing"
+msgstr "Publication"
+
+msgid "Question (AR)"
+msgstr "Question (AR)"
+
+msgid "Question (EN)"
+msgstr "Question (EN)"
+
+msgid "Question (FR)"
+msgstr "Question (FR)"
+
+msgid "Question (Multilingual)"
+msgstr "Question (Multilingue)"
+
+msgid "Quote (AR)"
+msgstr "Citation (AR)"
+
+msgid "Quote (EN)"
+msgstr "Citation (EN)"
+
+msgid "Quote (FR)"
+msgstr "Citation (FR)"
+
+msgid "Quote Request"
+msgstr "Demande de devis"
+
+msgid "Quote Requests"
+msgstr "Demandes de devis"
+
+msgid "Quotes (Multilingual)"
+msgstr "Citations (Multilingue)"
+
+msgid "Read"
+msgstr "Lu"
+
+msgid "Reading Time (minutes)"
+msgstr "Temps de lecture (minutes)"
+
+msgid "Received At"
+msgstr "Reçu le"
+
+msgid "Results & Impact (AR)"
+msgstr "Résultats & Impact (AR)"
+
+msgid "Results & Impact (EN)"
+msgstr "Résultats & Impact (EN)"
+
+msgid "Results & Impact (FR)"
+msgstr "Résultats & Impact (FR)"
+
+msgid "Role (AR)"
+msgstr "Rôle (AR)"
+
+msgid "Role (EN)"
+msgstr "Rôle (EN)"
+
+msgid "Role (FR)"
+msgstr "Rôle (FR)"
+
+msgid "Roles (Multilingual)"
+msgstr "Rôles (Multilingue)"
+
+msgid "Rule Settings"
+msgstr "Paramètres de la règle"
+
+msgid "SEO Description (AR)"
+msgstr "Description SEO (AR)"
+
+msgid "SEO Description (EN)"
+msgstr "Description SEO (EN)"
+
+msgid "SEO Description (FR)"
+msgstr "Description SEO (FR)"
+
+msgid "SEO Meta (Multilingual)"
+msgstr "Meta SEO (Multilingue)"
+
+msgid "SEO Meta Descriptions"
+msgstr "Meta descriptions SEO"
+
+msgid "SEO Overrides"
+msgstr "Remplacements SEO"
+
+msgid "SEO Title (AR)"
+msgstr "Titre SEO (AR)"
+
+msgid "SEO Title (EN)"
+msgstr "Titre SEO (EN)"
+
+msgid "SEO Title (FR)"
+msgstr "Titre SEO (FR)"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Security / Shield"
+msgstr "Sécurité / Bouclier"
+
+msgid "Selected Features"
+msgstr "Fonctionnalités sélectionnées"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Service & City"
+msgstr "Service & Ville"
+
+msgid "Service Solution"
+msgstr "Solution de service"
+
+msgid "Service Solutions"
+msgstr "Solutions de service"
+
+msgid "Services Page SEO Title (AR)"
+msgstr "Titre SEO de la page Services (AR)"
+
+msgid "Services Page SEO Title (EN)"
+msgstr "Titre SEO de la page Services (EN)"
+
+msgid "Services Page SEO Title (FR)"
+msgstr "Titre SEO de la page Services (FR)"
+
+msgid "Services Page Video (MP4/WebM)"
+msgstr "Vidéo de la page Services (MP4/WebM)"
+
+msgid "Services Page Video URL"
+msgstr "URL de la vidéo de la page Services"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "Show on Home"
+msgstr "Afficher sur l'accueil"
+
+msgid "Site Configuration"
+msgstr "Configuration du site"
+
+msgid "Site Favicon / Icon"
+msgstr "Favicon / Icône du site"
+
+msgid "Site Logo"
+msgstr "Logo du site"
+
+msgid "Site Name"
+msgstr "Nom du site"
+
+msgid "Slug"
+msgstr "Identifiant URL"
+
+msgid "Social Links"
+msgstr "Liens sociaux"
+
+msgid "Social sharing image (1200x630 recommended)"
+msgstr "Image de partage social (1200x630 recommandée)"
+
+msgid "Solution Description (AR)"
+msgstr "Description de la solution (AR)"
+
+msgid "Solution Description (EN)"
+msgstr "Description de la solution (EN)"
+
+msgid "Solution Description (FR)"
+msgstr "Description de la solution (FR)"
+
+msgid "Solution Title (AR)"
+msgstr "Titre de la solution (AR)"
+
+msgid "Solution Title (EN)"
+msgstr "Titre de la solution (EN)"
+
+msgid "Solution Title (FR)"
+msgstr "Titre de la solution (FR)"
+
+msgid "Source Page"
+msgstr "Page source"
+
+msgid "Start Time"
+msgstr "Heure de début"
+
+msgid "Starting From (MAD)"
+msgstr "À partir de (MAD)"
+
+msgid "Starting price in Moroccan Dirhams. Set to 0 for \"Contact Us\" pricing."
+msgstr "Prix de départ en Dirhams Marocains. Mettre à 0 pour \"Contactez-nous\"."
+
+msgid "Statistic"
+msgstr "Statistique"
+
+msgid "Statistics"
+msgstr "Statistiques"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Status & Notes"
+msgstr "Statut & Notes"
+
+msgid "Step Info"
+msgstr "Informations sur l'étape"
+
+msgid "Step Number"
+msgstr "Numéro de l'étape"
+
+msgid "Store Item"
+msgstr "Article de boutique"
+
+msgid "Store Items"
+msgstr "Articles de boutique"
+
+msgid "Subscribed At"
+msgstr "Inscrit le"
+
+msgid "Subscriber"
+msgstr "Abonné"
+
+msgid "Subscribers"
+msgstr "Abonnés"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "Tagline (AR)"
+msgstr "Slogan (AR)"
+
+msgid "Tagline (EN)"
+msgstr "Slogan (EN)"
+
+msgid "Tagline (FR)"
+msgstr "Slogan (FR)"
+
+msgid "Tagline (Multilingual)"
+msgstr "Slogan (Multilingue)"
+
+msgid "Tagline / Subtitle (AR)"
+msgstr "Slogan / Sous-titre (AR)"
+
+msgid "Tagline / Subtitle (EN)"
+msgstr "Slogan / Sous-titre (EN)"
+
+msgid "Tagline / Subtitle (FR)"
+msgstr "Slogan / Sous-titre (FR)"
+
+msgid "Tagline / Subtitle (Multilingual)"
+msgstr "Slogan / Sous-titre (Multilingue)"
+
+msgid "Tags (comma-separated)"
+msgstr "Tags (séparés par des virgules)"
+
+msgid "Taxonomy & Media"
+msgstr "Taxonomie & Médias"
+
+msgid "Team Member"
+msgstr "Membre de l'équipe"
+
+msgid "Team Members"
+msgstr "Membres de l'équipe"
+
+msgid "Technologies & Stacks (comma-separated)"
+msgstr "Technologies & Stacks (séparées par des virgules)"
+
+msgid "Technologies & Timeline"
+msgstr "Technologies & Délais"
+
+msgid "Technologies (comma-separated)"
+msgstr "Technologies (séparées par des virgules)"
+
+msgid "Tell us about your project"
+msgstr "Parlez-nous de votre projet"
+
+msgid "Tell us briefly about your project"
+msgstr "Parlez-nous brièvement de votre projet"
+
+msgid "Testimonial"
+msgstr "Témoignage"
+
+msgid "Testimonials"
+msgstr "Témoignages"
+
+msgid "Thank you! Check your email to confirm."
+msgstr "Merci ! Vérifiez vos e-mails pour confirmer."
+
+msgid "Thank you! Your quote request has been submitted."
+msgstr "Merci ! Votre demande de devis a bien été soumise."
+
+msgid "The Challenge (AR)"
+msgstr "Le Défi (AR)"
+
+msgid "The Challenge (EN)"
+msgstr "Le Défi (EN)"
+
+msgid "The Challenge (FR)"
+msgstr "Le Défi (FR)"
+
+msgid "This confirmation link has expired. Please subscribe again to receive a new link."
+msgstr "Ce lien de confirmation a expiré. Veuillez vous réinscrire pour recevoir un nouveau lien."
+
+msgid "This time slot is already booked. Please choose another."
+msgstr "Ce créneau est déjà réservé. Veuillez en choisir un autre."
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Time Slot"
+msgstr "Créneau horaire"
+
+msgid "Timeline Multiplier"
+msgstr "Multiplicateur de délai"
+
+msgid "Title & Slug"
+msgstr "Titre & Identifiant"
+
+msgid "Title (AR)"
+msgstr "Titre (AR)"
+
+msgid "Title (EN)"
+msgstr "Titre (EN)"
+
+msgid "Title (FR)"
+msgstr "Titre (FR)"
+
+msgid "Title (Multilingual)"
+msgstr "Titre (Multilingue)"
+
+msgid "Titles & Slug (Multilingual)"
+msgstr "Titres & Identifiant (Multilingue)"
+
+msgid "Titles (Multilingual)"
+msgstr "Titres (Multilingue)"
+
+msgid "Token Created At"
+msgstr "Jeton créé le"
+
+msgid "Token sent via email for double opt-in confirmation"
+msgstr "Jeton envoyé par e-mail pour la confirmation double opt-in"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Twitter / X URL"
+msgstr "URL Twitter / X"
+
+msgid "URL Slug"
+msgstr "Identifiant URL"
+
+msgid "Unsubscribed"
+msgstr "Désabonné"
+
+msgid "Updated At"
+msgstr "Mis à jour le"
+
+msgid "Upload an MP4/WebM video file or enter a direct video URL for each page header. If left empty, the site default video will be used."
+msgstr "Téléchargez un fichier vidéo MP4/WebM ou entrez une URL vidéo directe pour chaque en-tête. Si vide, la vidéo par défaut sera utilisée."
+
+msgid "Upload feature picture for About page and edit story in all languages."
+msgstr "Téléchargez l'image vedette pour la page À propos et modifiez l'histoire dans toutes les langues."
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Value (MAD or multiplier)"
+msgstr "Valeur (MAD ou multiplicateur)"
+
+msgid "Value to pre-fill in the quote wizard when CTA is clicked"
+msgstr "Valeur à pré-remplir dans le configurateur de devis lors du clic sur le CTA"
+
+msgid "Video Background"
+msgstr "Arrière-plan vidéo"
+
+msgid "Visitor Timezone"
+msgstr "Fuseau horaire du visiteur"
+
+msgid "We use cookies to analyze site usage and improve your experience. By clicking \"Accept\", you consent to our use of analytics cookies."
+msgstr "Nous utilisons des cookies pour analyser l'utilisation du site et améliorer votre expérience. En cliquant sur \"Accepter\", vous consentez à notre utilisation des cookies analytiques."
+
+msgid "Web / Globe"
+msgstr "Web / Globe"
+
+msgid "Web Application / SaaS"
+msgstr "Application Web / SaaS"
+
+msgid "Website Redesign"
+msgstr "Refonte de Site Web"
+
+msgid "Website header logo (transparent PNG recommended)"
+msgstr "Logo d'en-tête du site (PNG transparent recommandé)"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Weekly Availability"
+msgstr "Disponibilité hebdomadaire"
+
+msgid "Weekly Availability Slot"
+msgstr "Créneau de disponibilité hebdomadaire"
+
+msgid "What is your budget range?"
+msgstr "Quelle est votre fourchette de budget ?"
+
+msgid "What type of project do you need?"
+msgstr "Quel type de projet souhaitez-vous ?"
+
+msgid "What would you like to discuss?"
+msgstr "De quoi aimeriez-vous discuter ?"
+
+msgid "When do you need this delivered?"
+msgstr "Quand souhaitez-vous la livraison ?"
+
+msgid "Which resource they downloaded"
+msgstr "Ressource téléchargée"
+
+msgid "Why Choose Us (Multilingual)"
+msgstr "Pourquoi nous choisir (Multilingue)"
+
+msgid "Why Choose Us in This City (AR)"
+msgstr "Pourquoi nous choisir dans cette ville (AR)"
+
+msgid "Why Choose Us in This City (EN)"
+msgstr "Pourquoi nous choisir dans cette ville (EN)"
+
+msgid "Why Choose Us in This City (FR)"
+msgstr "Pourquoi nous choisir dans cette ville (FR)"
+
+msgid "Won"
+msgstr "Gagné"
+
+msgid "Year"
+msgstr "Année"
+
+msgid "You are already confirmed! Download your checklist below."
+msgstr "Vous êtes déjà confirmé ! Téléchargez votre checklist ci-dessous."
+
+msgid "You have been unsubscribed successfully."
+msgstr "Vous avez été désabonné avec succès."
+
+msgid "Your Name"
+msgstr "Votre nom"
+
+msgid "Your booking has been confirmed!"
+msgstr "Votre réservation a été confirmée !"
+
+msgid "Your company (optional)"
+msgstr "Votre entreprise (facultatif)"
+
+msgid "Your discovery call has been booked! Check your email for confirmation."
+msgstr "Votre appel de découverte est réservé ! Vérifiez vos e-mails pour confirmation."
+
+msgid "Your name (optional)"
+msgstr "Votre nom (facultatif)"
+
+msgid "booking/"
+msgstr "booking/"
+
+msgid "checklist/"
+msgstr "checklist/"
+
+msgid "confirm/"
+msgstr "confirm/"
+
+msgid "e.g. \"website\", \"ecommerce\", \"auth\", \"5-10\""
+msgstr "ex. \"website\", \"ecommerce\", \"auth\", \"5-10\""
+
+msgid "e.g. 01, 02, 03, 04"
+msgstr "ex. 01, 02, 03, 04"
+
+msgid "packages/"
+msgstr "packages/"
+
+msgid "privacy-policy/"
+msgstr "privacy-policy/"
+
+msgid "quote/"
+msgstr "quote/"
+
+msgid "quote/success/"
+msgstr "quote/success/"
+
+msgid "terms-of-service/"
+msgstr "terms-of-service/"
+
+msgid "unsubscribe/"
+msgstr "unsubscribe/"
+
+msgid "— Select budget range —"
+msgstr "— Choisissez une fourchette de budget —"
+
+msgid "— Select project type —"
+msgstr "— Choisissez le type de projet —"
+
+msgid "— Select timeline —"
+msgstr "— Choisissez un délai —"
+
+msgid "— Select —"
+msgstr "— Sélectionner —"

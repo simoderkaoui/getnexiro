@@ -1449,3 +1449,1593 @@ msgstr "مرحباً! أود الحصول على تسعيرة لمشروعي."
 
 msgid "Link copied to clipboard!"
 msgstr "تم نسخ الرابط إلى الحافظة!"
+
+msgid "+212 6XX XXX XXX"
+msgstr "+212 6XX XXX XXX"
+
+msgid "1 — 2 months"
+msgstr "1 — 2 شهر"
+
+msgid "2 — 4 months"
+msgstr "2 — 4 أشهر"
+
+msgid "2-3 sentences specific to this city+service"
+msgstr "جملتان أو ثلاث خاصة بهذه المدينة والخدمة"
+
+msgid "4 — 6 months"
+msgstr "4 — 6 أشهر"
+
+msgid "API / Code"
+msgstr "واجهة برمجة التطبيقات / كود"
+
+msgid "ASAP (rush)"
+msgstr "في أقرب وقت ممكن (عاجل)"
+
+msgid "About Page Image"
+msgstr "صورة صفحة من نحن"
+
+msgid "About Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة من نحن (عربي)"
+
+msgid "About Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة من نحن (إنجليزي)"
+
+msgid "About Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة من نحن (فرنسي)"
+
+msgid "About Page Video (MP4/WebM)"
+msgstr "فيديو صفحة من نحن (MP4/WebM)"
+
+msgid "About Page Video URL"
+msgstr "رابط فيديو صفحة من نحن"
+
+msgid "About Us (AR)"
+msgstr "من نحن (عربي)"
+
+msgid "About Us (EN)"
+msgstr "من نحن (إنجليزي)"
+
+msgid "About Us (FR)"
+msgstr "من نحن (فرنسي)"
+
+msgid "About Us Picture & Story"
+msgstr "صورة وقصة من نحن"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Additional Language"
+msgstr "لغة إضافية"
+
+msgid "Address & Location"
+msgstr "العنوان والموقع"
+
+msgid "Address (AR)"
+msgstr "العنوان (عربي)"
+
+msgid "Address (EN)"
+msgstr "العنوان (إنجليزي)"
+
+msgid "Address (FR)"
+msgstr "العنوان (فرنسي)"
+
+msgid "Address Detail (AR)"
+msgstr "تفاصيل العنوان (عربي)"
+
+msgid "Address Detail (EN)"
+msgstr "تفاصيل العنوان (إنجليزي)"
+
+msgid "Address Detail (FR)"
+msgstr "تفاصيل العنوان (فرنسي)"
+
+msgid "Admin Notes"
+msgstr "ملاحظات الإدارة"
+
+msgid "Answer (AR)"
+msgstr "الإجابة (عربي)"
+
+msgid "Answer (EN)"
+msgstr "الإجابة (إنجليزي)"
+
+msgid "Answer (FR)"
+msgstr "الإجابة (فرنسي)"
+
+msgid "Answer (Multilingual)"
+msgstr "الإجابة (متعدد اللغات)"
+
+msgid "Appearance"
+msgstr "المظهر"
+
+msgid "Architecture & Solution (AR)"
+msgstr "المعمارية والحلول (عربي)"
+
+msgid "Architecture & Solution (EN)"
+msgstr "المعمارية والحلول (إنجليزي)"
+
+msgid "Architecture & Solution (FR)"
+msgstr "المعمارية والحلول (فرنسي)"
+
+msgid "Author & Reading"
+msgstr "الكاتب ووقت القراءة"
+
+msgid "Author Info"
+msgstr "معلومات الكاتب"
+
+msgid "Author Name"
+msgstr "اسم الكاتب"
+
+msgid "Author Role (AR)"
+msgstr "صفة الكاتب (عربي)"
+
+msgid "Author Role (EN)"
+msgstr "صفة الكاتب (إنجليزي)"
+
+msgid "Author Role (FR)"
+msgstr "صفة الكاتب (فرنسي)"
+
+msgid "Auto-generated from service + city, e.g. web-development-tangier"
+msgstr "يتم إنشاؤه تلقائياً من الخدمة + المدينة، مثل web-development-tangier"
+
+msgid "Avatar"
+msgstr "الصورة الشخصية"
+
+msgid "Badge (AR)"
+msgstr "الشارة (عربي)"
+
+msgid "Badge (EN)"
+msgstr "الشارة (إنجليزي)"
+
+msgid "Badge (FR)"
+msgstr "الشارة (فرنسي)"
+
+msgid "Badges (Multilingual)"
+msgstr "الشارات (متعدد اللغات)"
+
+msgid "Bio (AR)"
+msgstr "السيرة الذاتية (عربي)"
+
+msgid "Bio (EN)"
+msgstr "السيرة الذاتية (إنجليزي)"
+
+msgid "Bio (FR)"
+msgstr "السيرة الذاتية (فرنسي)"
+
+msgid "Bios (Multilingual)"
+msgstr "السير الذاتية (متعدد اللغات)"
+
+msgid "Blog Categories"
+msgstr "تصنيفات المدونة"
+
+msgid "Blog Category"
+msgstr "تصنيف المدونة"
+
+msgid "Blog Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة المدونة (عربي)"
+
+msgid "Blog Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة المدونة (إنجليزي)"
+
+msgid "Blog Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة المدونة (فرنسي)"
+
+msgid "Blog Page Video (MP4/WebM)"
+msgstr "فيديو صفحة المدونة (MP4/WebM)"
+
+msgid "Blog Page Video URL"
+msgstr "رابط فيديو صفحة المدونة"
+
+msgid "Blog Post"
+msgstr "مقالة المدونة"
+
+msgid "Blog Posts"
+msgstr "مقالات المدونة"
+
+msgid "Body (AR)"
+msgstr "المحتوى (عربي)"
+
+msgid "Body (EN)"
+msgstr "المحتوى (إنجليزي)"
+
+msgid "Body (FR)"
+msgstr "المحتوى (فرنسي)"
+
+msgid "Body (Multilingual)"
+msgstr "المحتوى (متعدد اللغات)"
+
+msgid "Booking Date"
+msgstr "تاريخ الحجز"
+
+msgid "Booking Details"
+msgstr "تفاصيل الحجز"
+
+msgid "Brand Identity & Logo"
+msgstr "الهوية البصرية والشعار"
+
+msgid "Briefly describe what you want to build..."
+msgstr "صف بإيجاز ما تريد بناءه..."
+
+msgid "Budget & Timeline"
+msgstr "الميزانية والجدول الزمني"
+
+msgid "Budget Range"
+msgstr "نطاق الميزانية"
+
+msgid "Business Hours (AR)"
+msgstr "ساعات العمل (عربي)"
+
+msgid "Business Hours (EN)"
+msgstr "ساعات العمل (إنجليزي)"
+
+msgid "Business Hours (FR)"
+msgstr "ساعات العمل (فرنسي)"
+
+msgid "CTA Button (AR)"
+msgstr "زر الحث على اتخاذ إجراء (عربي)"
+
+msgid "CTA Button (EN)"
+msgstr "زر الحث على اتخاذ إجراء (إنجليزي)"
+
+msgid "CTA Button (FR)"
+msgstr "زر الحث على اتخاذ إجراء (فرنسي)"
+
+msgid "CTA Subtitle (AR)"
+msgstr "العنوان الفرعي للزر (عربي)"
+
+msgid "CTA Subtitle (EN)"
+msgstr "العنوان الفرعي للزر (إنجليزي)"
+
+msgid "CTA Subtitle (FR)"
+msgstr "العنوان الفرعي للزر (فرنسي)"
+
+msgid "CTA Title (AR)"
+msgstr "عنوان الحث على اتخاذ إجراء (عربي)"
+
+msgid "CTA Title (EN)"
+msgstr "عنوان الحث على اتخاذ إجراء (إنجليزي)"
+
+msgid "CTA Title (FR)"
+msgstr "عنوان الحث على اتخاذ إجراء (فرنسي)"
+
+msgid "Cancelled"
+msgstr "ملغى"
+
+msgid "Caption (AR)"
+msgstr "التسمية التوضيحية (عربي)"
+
+msgid "Caption (EN)"
+msgstr "التسمية التوضيحية (إنجليزي)"
+
+msgid "Caption (FR)"
+msgstr "التسمية التوضيحية (فرنسي)"
+
+msgid "Category"
+msgstr "التصنيف"
+
+msgid "Category, Client & Links"
+msgstr "التصنيف والعميل والروابط"
+
+msgid "Check your email to confirm and get your download link!"
+msgstr "تحقق من بريدك الإلكتروني للتأكيد والحصول على رابط التنزيل!"
+
+msgid "Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL)."
+msgstr "اختر ما إذا كنت تريد عرض الشبكة المضيئة المتحركة أو صورة خلفية مخصصة أو فيديو متكرر في الخلفية (ملف MP4 أو رابط مباشر)."
+
+msgid "City"
+msgstr "المدينة"
+
+msgid "City Service Page"
+msgstr "صفحة خدمة المدينة"
+
+msgid "City Service Pages"
+msgstr "صفحات خدمات المدن"
+
+msgid "Client Logo"
+msgstr "شعار العميل"
+
+msgid "Client Logos"
+msgstr "شعارات العملاء"
+
+msgid "Client Name"
+msgstr "اسم العميل"
+
+msgid "Client Testimonial & Feedback (Multilingual)"
+msgstr "شهادة العميل وملاحظاته (متعدد اللغات)"
+
+msgid "Client Testimonial Author"
+msgstr "صاحب شهادة العميل"
+
+msgid "Client Testimonial Quote (AR)"
+msgstr "نص شهادة العميل (عربي)"
+
+msgid "Client Testimonial Quote (EN)"
+msgstr "نص شهادة العميل (إنجليزي)"
+
+msgid "Client Testimonial Quote (FR)"
+msgstr "نص شهادة العميل (فرنسي)"
+
+msgid "Client Testimonial Role"
+msgstr "صفة العميل"
+
+msgid "Cloud / DevOps"
+msgstr "السحابة / ديف أوبس"
+
+msgid "Comma-separated feature keys"
+msgstr "مفاتيح الميزات مفصولة بفواصل"
+
+msgid "Comma-separated list of selected feature keys"
+msgstr "قائمة مفاتيح الميزات المحددة مفصولة بفواصل"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Company Name"
+msgstr "اسم الشركة"
+
+msgid "Company URL"
+msgstr "رابط الشركة"
+
+msgid "Company Value"
+msgstr "قيمة الشركة"
+
+msgid "Company Values"
+msgstr "قيم الشركة"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Configuration"
+msgstr "الإعدادات"
+
+msgid "Configure site name, header logo, browser favicon, and primary contact info."
+msgstr "قم بإعداد اسم الموقع وشعار الترويسة وأيقونة المتصفح ومعلومات الاتصال الأساسية."
+
+msgid "Confirmation Token"
+msgstr "رمز التأكيد"
+
+msgid "Confirmed"
+msgstr "مؤكد"
+
+msgid "Consulting / Briefcase"
+msgstr "استشارات / أعمال"
+
+msgid "Contact Email"
+msgstr "بريد الاتصال الإلكتروني"
+
+msgid "Contact Info"
+msgstr "معلومات الاتصال"
+
+msgid "Contact Message"
+msgstr "رسالة الاتصال"
+
+msgid "Contact Messages"
+msgstr "رسائل الاتصال"
+
+msgid "Contact Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة الاتصال (عربي)"
+
+msgid "Contact Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة الاتصال (إنجليزي)"
+
+msgid "Contact Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة الاتصال (فرنسي)"
+
+msgid "Contact Page Video (MP4/WebM)"
+msgstr "فيديو صفحة الاتصال (MP4/WebM)"
+
+msgid "Contact Page Video URL"
+msgstr "رابط فيديو صفحة الاتصال"
+
+msgid "Contacted"
+msgstr "تم الاتصال به"
+
+msgid "Content (AR)"
+msgstr "المحتوى (عربي)"
+
+msgid "Content (EN)"
+msgstr "المحتوى (إنجليزي)"
+
+msgid "Content (FR)"
+msgstr "المحتوى (فرنسي)"
+
+msgid "Content (Multilingual)"
+msgstr "المحتوى (متعدد اللغات)"
+
+msgid "Core Deliverables (AR, newline-separated)"
+msgstr "المخرجات الأساسية (عربي، مفصولة بسطر جديد)"
+
+msgid "Core Deliverables (EN, newline-separated)"
+msgstr "المخرجات الأساسية (إنجليزي، مفصولة بسطر جديد)"
+
+msgid "Core Deliverables (FR, newline-separated)"
+msgstr "المخرجات الأساسية (فرنسي، مفصولة بسطر جديد)"
+
+msgid "Core Deliverables (Multilingual)"
+msgstr "المخرجات الأساسية (متعدد اللغات)"
+
+msgid "Corporate Website"
+msgstr "موقع إلكتروني للشركات"
+
+msgid "Cover Image"
+msgstr "صورة الغلاف"
+
+msgid "Created At"
+msgstr "تاريخ الإنشاء"
+
+msgid "Custom Wallpaper / Image"
+msgstr "خلفية مخصصة / صورة"
+
+msgid "Custom video background for About page header"
+msgstr "خلفية فيديو مخصصة لترويسة صفحة من نحن"
+
+msgid "Custom video background for Blog page header"
+msgstr "خلفية فيديو مخصصة لترويسة صفحة المدونة"
+
+msgid "Custom video background for Contact page header"
+msgstr "خلفية فيديو مخصصة لترويسة صفحة الاتصال"
+
+msgid "Custom video background for Projects page header"
+msgstr "خلفية فيديو مخصصة لترويسة صفحة المشاريع"
+
+msgid "Custom video background for Services page header"
+msgstr "خلفية فيديو مخصصة لترويسة صفحة الخدمات"
+
+msgid "Data / Database"
+msgstr "بيانات / قواعد بيانات"
+
+msgid "Day"
+msgstr "اليوم"
+
+msgid "Day of Week"
+msgstr "يوم الأسبوع"
+
+msgid "Deep-Dive: Architecture & Solution (Multilingual)"
+msgstr "تحليل متعمق: المعمارية والحل (متعدد اللغات)"
+
+msgid "Deep-Dive: Results & Impact (Multilingual)"
+msgstr "تحليل متعمق: النتائج والأثر (متعدد اللغات)"
+
+msgid "Deep-Dive: The Challenge (Multilingual)"
+msgstr "تحليل متعمق: التحدي (متعدد اللغات)"
+
+msgid "Default Animated Mesh / Glow"
+msgstr "الشبكة المضيئة الافتراضية"
+
+msgid "Description (AR)"
+msgstr "الوصف (عربي)"
+
+msgid "Description (EN)"
+msgstr "الوصف (إنجليزي)"
+
+msgid "Description (FR)"
+msgstr "الوصف (فرنسي)"
+
+msgid "Description (Multilingual)"
+msgstr "الوصف (متعدد اللغات)"
+
+msgid "Descriptions (Multilingual)"
+msgstr "الأوصاف (متعدد اللغات)"
+
+msgid "Design / Pen"
+msgstr "تصميم / فن"
+
+msgid "Detailed city-specific content. HTML allowed."
+msgstr "محتوى مفصل خاص بالمدينة. يُسمح باستخدام HTML."
+
+msgid "Direct MP4/WebM URL for About page header"
+msgstr "رابط MP4/WebM مباشر لترويسة صفحة من نحن"
+
+msgid "Direct MP4/WebM URL for Blog page header"
+msgstr "رابط MP4/WebM مباشر لترويسة صفحة المدونة"
+
+msgid "Direct MP4/WebM URL for Contact page header"
+msgstr "رابط MP4/WebM مباشر لترويسة صفحة الاتصال"
+
+msgid "Direct MP4/WebM URL for Projects page header"
+msgstr "رابط MP4/WebM مباشر لترويسة صفحة المشاريع"
+
+msgid "Direct MP4/WebM URL for Services page header"
+msgstr "رابط MP4/WebM مباشر لترويسة صفحة الخدمات"
+
+msgid "Discovery Call Booking"
+msgstr "حجز مكالمة استكشافية"
+
+msgid "Discovery Call Bookings"
+msgstr "حجوزات المكالمات الاستكشافية"
+
+msgid "Display Order"
+msgstr "ترتيب العرض"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "E-Commerce Store"
+msgstr "متجر تجارة إلكترونية"
+
+msgid "Email address not found in our records."
+msgstr "عنوان البريد الإلكتروني غير موجود في سجلاتنا."
+
+msgid "Email confirmed! You can now download your checklist."
+msgstr "تم تأكيد بريدك الإلكتروني! يمكنك الآن تنزيل قائمة التحقق الخاصة بك."
+
+msgid "Emoji / Icon"
+msgstr "إيموجي / أيقونة"
+
+msgid "Emoji Icon"
+msgstr "أيقونة إيموجي"
+
+msgid "Emoji or symbol, e.g. 🌍, 💡, 💎"
+msgstr "إيموجي أو رمز، مثل 🌍، 💡، 💎"
+
+msgid "End Time"
+msgstr "وقت النهاية"
+
+msgid "Engineering Methodology (AR)"
+msgstr "منهجية الهندسة البرمجية (عربي)"
+
+msgid "Engineering Methodology (EN)"
+msgstr "منهجية الهندسة البرمجية (إنجليزي)"
+
+msgid "Engineering Methodology (FR)"
+msgstr "منهجية الهندسة البرمجية (فرنسي)"
+
+msgid "Engineering Methodology (Multilingual)"
+msgstr "منهجية الهندسة البرمجية (متعدد اللغات)"
+
+msgid "Estimated Max (MAD)"
+msgstr "الحد الأقصى التقديري (درهم)"
+
+msgid "Estimated Min (MAD)"
+msgstr "الحد الأدنى التقديري (درهم)"
+
+msgid "Excerpt / Summary (AR)"
+msgstr "المقتطف / الملخص (عربي)"
+
+msgid "Excerpt / Summary (EN)"
+msgstr "المقتطف / الملخص (إنجليزي)"
+
+msgid "Excerpt / Summary (FR)"
+msgstr "المقتطف / الملخص (فرنسي)"
+
+msgid "Excerpt / Summary (Multilingual)"
+msgstr "المقتطف / الملخص (متعدد اللغات)"
+
+msgid "Executive Overview (Multilingual)"
+msgstr "نظرة عامة تنفيذية (متعدد اللغات)"
+
+msgid "Expert insights on web development, mobile apps, and digital transformation."
+msgstr "رؤى خبراء حول تطوير الويب وتطبيقات الهاتف والتحول الرقمي."
+
+msgid "Export selected as CSV"
+msgstr "تصدير المحدد كـ CSV"
+
+msgid "FAQs"
+msgstr "الأسئلة الشائعة"
+
+msgid "Feature (AR)"
+msgstr "الميزة (عربي)"
+
+msgid "Feature (EN)"
+msgstr "الميزة (إنجليزي)"
+
+msgid "Feature (FR)"
+msgstr "الميزة (فرنسي)"
+
+msgid "Feature Add-on"
+msgstr "إضافة ميزة"
+
+msgid "Feature picture for About Us page (Tangier / Studio image)"
+msgstr "الصورة المميزة لصفحة من نحن (طنجة / صورة الاستوديو)"
+
+msgid "Featured"
+msgstr "مميز"
+
+msgid "Featured / Highlighted"
+msgstr "مميز / مسلط عليه الضوء"
+
+msgid "Featured Image"
+msgstr "الصورة البارزة"
+
+msgid "Featured on Home Page"
+msgstr "معروض في الصفحة الرئيسية"
+
+msgid "Flexible"
+msgstr "مرن"
+
+msgid "For project_type/feature/pages/language: price in MAD. For timeline: multiplier (e.g. 1.0, 1.3, 0.9)"
+msgstr "لنوع المشروع/الميزة/الصفحات/اللغة: السعر بالدرهم. للجدول الزمني: معامل الضرب (مثل 1.0، 1.3، 0.9)"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Gallery"
+msgstr "معرض الصور"
+
+msgid "Gallery Image"
+msgstr "صورة المعرض"
+
+msgid "General"
+msgstr "عام"
+
+msgid "GitHub / Source URL"
+msgstr "رابط GitHub / المصدر"
+
+msgid "GitHub URL"
+msgstr "رابط GitHub"
+
+msgid "Global Call-To-Action Banner (Multilingual)"
+msgstr "شعار الحث على اتخاذ إجراء العام (متعدد اللغات)"
+
+msgid "Google snippet. Max 160 chars."
+msgstr "مقتطف جوجل. بحد أقصى 160 حرفاً."
+
+msgid "H1 Title (AR)"
+msgstr "عنوان H1 (عربي)"
+
+msgid "H1 Title (EN)"
+msgstr "عنوان H1 (إنجليزي)"
+
+msgid "H1 Title (FR)"
+msgstr "عنوان H1 (فرنسي)"
+
+msgid "H1 Title (Multilingual)"
+msgstr "عنوان H1 (متعدد اللغات)"
+
+msgid "HTML allowed. Use headings, paragraphs, lists."
+msgstr "يُسمح بـ HTML. استخدم العناوين والفقرات والقوائم."
+
+msgid "HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure."
+msgstr "يُسمح بـ HTML. استخدم وسوم <h2>، <h3>، <p>، <ul>، <li> للتنسيق."
+
+msgid "Hero Background (Video / Wallpaper)"
+msgstr "خلفية الواجهة (فيديو / صورة)"
+
+msgid "Hero Background Type"
+msgstr "نوع خلفية الواجهة"
+
+msgid "Hero Background Video (MP4/WebM)"
+msgstr "فيديو خلفية الواجهة (MP4/WebM)"
+
+msgid "Hero Background Video URL (Direct MP4 or external)"
+msgstr "رابط فيديو خلفية الواجهة (MP4 مباشر أو خارجي)"
+
+msgid "Hero Badge (AR)"
+msgstr "شارة الواجهة (عربي)"
+
+msgid "Hero Badge (EN)"
+msgstr "شارة الواجهة (إنجليزي)"
+
+msgid "Hero Badge (FR)"
+msgstr "شارة الواجهة (فرنسي)"
+
+msgid "Hero Badge (Multilingual)"
+msgstr "شارة الواجهة (متعدد اللغات)"
+
+msgid "Hero CTA Buttons (Multilingual)"
+msgstr "أزرار الحث على اتخاذ إجراء بالواجهة (متعدد اللغات)"
+
+msgid "Hero CTA Primary (AR)"
+msgstr "الزر الرئيسي بالواجهة (عربي)"
+
+msgid "Hero CTA Primary (EN)"
+msgstr "الزر الرئيسي بالواجهة (إنجليزي)"
+
+msgid "Hero CTA Primary (FR)"
+msgstr "الزر الرئيسي بالواجهة (فرنسي)"
+
+msgid "Hero CTA Secondary (AR)"
+msgstr "الزر الثانوي بالواجهة (عربي)"
+
+msgid "Hero CTA Secondary (EN)"
+msgstr "الزر الثانوي بالواجهة (إنجليزي)"
+
+msgid "Hero CTA Secondary (FR)"
+msgstr "الزر الثانوي بالواجهة (فرنسي)"
+
+msgid "Hero Headline (Multilingual)"
+msgstr "عنوان الواجهة البارز (متعدد اللغات)"
+
+msgid "Hero Subtitle (AR)"
+msgstr "العنوان الفرعي للواجهة (عربي)"
+
+msgid "Hero Subtitle (EN)"
+msgstr "العنوان الفرعي للواجهة (إنجليزي)"
+
+msgid "Hero Subtitle (FR)"
+msgstr "العنوان الفرعي للواجهة (فرنسي)"
+
+msgid "Hero Subtitle (Multilingual)"
+msgstr "العنوان الفرعي للواجهة (متعدد اللغات)"
+
+msgid "Hero Title (AR)"
+msgstr "عنوان الواجهة (عربي)"
+
+msgid "Hero Title (EN)"
+msgstr "عنوان الواجهة (إنجليزي)"
+
+msgid "Hero Title (FR)"
+msgstr "عنوان الواجهة (فرنسي)"
+
+msgid "Hero Wallpaper / Background Image"
+msgstr "صورة خلفية الواجهة"
+
+msgid "Highlight this as the recommended package"
+msgstr "تمييز هذه كباقة موصى بها"
+
+msgid "Home Page SEO Desc (AR)"
+msgstr "وصف سيو للصفحة الرئيسية (عربي)"
+
+msgid "Home Page SEO Desc (EN)"
+msgstr "وصف سيو للصفحة الرئيسية (إنجليزي)"
+
+msgid "Home Page SEO Desc (FR)"
+msgstr "وصف سيو للصفحة الرئيسية (فرنسي)"
+
+msgid "Home Page SEO Title (AR)"
+msgstr "عنوان سيو للصفحة الرئيسية (عربي)"
+
+msgid "Home Page SEO Title (EN)"
+msgstr "عنوان سيو للصفحة الرئيسية (إنجليزي)"
+
+msgid "Home Page SEO Title (FR)"
+msgstr "عنوان سيو للصفحة الرئيسية (فرنسي)"
+
+msgid "I agree to receive occasional emails from getNexiro. I can unsubscribe at any time."
+msgstr "أوافق على تلقي رسائل بريد إلكتروني دورية من getNexiro. يمكنني إلغاء الاشتراك في أي وقت."
+
+msgid "Icon"
+msgstr "أيقونة"
+
+msgid "Icon / Emoji"
+msgstr "أيقونة / إيموجي"
+
+msgid "If unchecked, shown as crossed out"
+msgstr "إذا لم يتم تحديده، يظهر مشطوباً"
+
+msgid "Image Alt Text"
+msgstr "النص البديل للصورة"
+
+msgid "Included"
+msgstr "مشمول"
+
+msgid "Industries specific to this city, newline-separated"
+msgstr "القطاعات الخاصة بهذه المدينة، مفصولة بسطر جديد"
+
+msgid "Instagram URL"
+msgstr "رابط إنستغرام"
+
+msgid "Intro Paragraph (AR)"
+msgstr "فقرة التقديم (عربي)"
+
+msgid "Intro Paragraph (EN)"
+msgstr "فقرة التقديم (إنجليزي)"
+
+msgid "Intro Paragraph (FR)"
+msgstr "فقرة التقديم (فرنسي)"
+
+msgid "Intro Paragraph (Multilingual)"
+msgstr "فقرة التقديم (متعدد اللغات)"
+
+msgid "Invalid or expired confirmation link. Please try subscribing again."
+msgstr "رابط التأكيد غير صالح أو منتهي الصلاحية. يرجى محاولة الاشتراك مرة أخرى."
+
+msgid "Item Settings"
+msgstr "إعدادات العنصر"
+
+msgid "Key / Identifier"
+msgstr "المفتاح / المعرف"
+
+msgid "Label (AR)"
+msgstr "التسمية (عربي)"
+
+msgid "Label (EN)"
+msgstr "التسمية (إنجليزي)"
+
+msgid "Label (FR)"
+msgstr "التسمية (فرنسي)"
+
+msgid "Label (Multilingual)"
+msgstr "التسمية (متعدد اللغات)"
+
+msgid "Last Updated"
+msgstr "آخر تحديث"
+
+msgid "Lead Magnet"
+msgstr "دليل استقطاب العملاء"
+
+msgid "Legal Page"
+msgstr "صفحة قانونية"
+
+msgid "Legal Pages"
+msgstr "صفحات قانونية"
+
+msgid "Link to live website or production application"
+msgstr "رابط الموقع الحي أو التطبيق قيد التشغيل"
+
+msgid "LinkedIn URL"
+msgstr "رابط لينكد إن"
+
+msgid "Live Project URL"
+msgstr "رابط المشروع الحي"
+
+msgid "Local Industries (Multilingual)"
+msgstr "القطاعات المحلية (متعدد اللغات)"
+
+msgid "Local Industries Served (AR)"
+msgstr "القطاعات المحلية المخدومة (عربي)"
+
+msgid "Local Industries Served (EN)"
+msgstr "القطاعات المحلية المخدومة (إنجليزي)"
+
+msgid "Local Industries Served (FR)"
+msgstr "القطاعات المحلية المخدومة (فرنسي)"
+
+msgid "Logo"
+msgstr "الشعار"
+
+msgid "Logo Image"
+msgstr "صورة الشعار"
+
+msgid "Lost"
+msgstr "خسارة"
+
+msgid "Main Body (AR)"
+msgstr "المحتوى الرئيسي (عربي)"
+
+msgid "Main Body (EN)"
+msgstr "المحتوى الرئيسي (إنجليزي)"
+
+msgid "Main Body (FR)"
+msgstr "المحتوى الرئيسي (فرنسي)"
+
+msgid "Main Body (Multilingual)"
+msgstr "المحتوى الرئيسي (متعدد اللغات)"
+
+msgid "Map Embed URL"
+msgstr "رابط تضمين الخريطة"
+
+msgid "Marketing Consent"
+msgstr "الموافقة التسويقية"
+
+msgid "Max ~160 chars. Google snippet."
+msgstr "بحد أقصى ~160 حرفاً. مقتطف جوجل."
+
+msgid "Max ~60 chars. Overrides page title in <title> tag."
+msgstr "بحد أقصى ~60 حرفاً. يحل محل عنوان الصفحة في وسم <title>."
+
+msgid "Meta Description (AR)"
+msgstr "الوصف التعريفي (عربي)"
+
+msgid "Meta Description (EN)"
+msgstr "الوصف التعريفي (إنجليزي)"
+
+msgid "Meta Description (FR)"
+msgstr "الوصف التعريفي (فرنسي)"
+
+msgid "Meta Keywords (comma-separated)"
+msgstr "الكلمات المفتاحية (مفصولة بفواصل)"
+
+msgid "Mission (AR)"
+msgstr "الرسالة (عربي)"
+
+msgid "Mission (EN)"
+msgstr "الرسالة (إنجليزي)"
+
+msgid "Mission (FR)"
+msgstr "الرسالة (فرنسي)"
+
+msgid "Mission Statement (Multilingual)"
+msgstr "بيان الرسالة (متعدد اللغات)"
+
+msgid "Mobile / Phone"
+msgstr "هاتف محمول / جوال"
+
+msgid "Mobile Application"
+msgstr "تطبيق هاتف محمول"
+
+msgid "Monday"
+msgstr "الإثنين"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Name (AR)"
+msgstr "الاسم (عربي)"
+
+msgid "Name (EN)"
+msgstr "الاسم (إنجليزي)"
+
+msgid "Name (FR)"
+msgstr "الاسم (فرنسي)"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "New / Confirmed"
+msgstr "جديد / مؤكد"
+
+msgid "No Show"
+msgstr "لم يحضر"
+
+msgid "Not sure yet"
+msgstr "لست متأكداً بعد"
+
+msgid "Number of Languages"
+msgstr "عدد اللغات"
+
+msgid "Number of Pages/Screens"
+msgstr "عدد الصفحات/الشاشات"
+
+msgid "Number of languages"
+msgstr "عدد اللغات"
+
+msgid "Number of pages or screens"
+msgstr "عدد الصفحات أو الشاشات"
+
+msgid "OG Image"
+msgstr "صورة Open Graph"
+
+msgid "Only publish pages with genuinely distinct content"
+msgstr "انشر فقط الصفحات ذات المحتوى المتميز والمختلف تماماً"
+
+msgid "Other / Custom"
+msgstr "أخرى / مخصص"
+
+msgid "Overrides title in <title> tag. Max 70 chars."
+msgstr "يحل محل العنوان في وسم <title>. بحد أقصى 70 حرفاً."
+
+msgid "Overview (AR)"
+msgstr "نظرة عامة (عربي)"
+
+msgid "Overview (EN)"
+msgstr "نظرة عامة (إنجليزي)"
+
+msgid "Overview (FR)"
+msgstr "نظرة عامة (فرنسي)"
+
+msgid "Overview (Multilingual)"
+msgstr "نظرة عامة (متعدد اللغات)"
+
+msgid "Package"
+msgstr "باقة"
+
+msgid "Package Feature"
+msgstr "ميزة الباقة"
+
+msgid "Package Features"
+msgstr "ميزات الباقة"
+
+msgid "Package Name (AR)"
+msgstr "اسم الباقة (عربي)"
+
+msgid "Package Name (EN)"
+msgstr "اسم الباقة (إنجليزي)"
+
+msgid "Package Name (FR)"
+msgstr "اسم الباقة (فرنسي)"
+
+msgid "Package Name (Multilingual)"
+msgstr "اسم الباقة (متعدد اللغات)"
+
+msgid "Packages Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة الباقات (عربي)"
+
+msgid "Packages Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة الباقات (إنجليزي)"
+
+msgid "Packages Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة الباقات (فرنسي)"
+
+msgid "Page Header Background Videos (Per Page)"
+msgstr "فيديوهات خلفية ترويسة الصفحة (لكل صفحة)"
+
+msgid "Page Identifier"
+msgstr "معرف الصفحة"
+
+msgid "Page-Level SEO Titles (Multilingual)"
+msgstr "عناوين سيو لكل صفحة (متعدد اللغات)"
+
+msgid "Pending Confirmation"
+msgstr "قيد انتظار التأكيد"
+
+msgid "Personal Info"
+msgstr "المعلومات الشخصية"
+
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+msgid "Photo"
+msgstr "صورة"
+
+msgid "Pre-fill Project Type"
+msgstr "تحديد نوع المشروع مسبقاً"
+
+msgid "Preferred Date"
+msgstr "التاريخ المفضل"
+
+msgid "Preferred Time (GMT+1)"
+msgstr "الوقت المفضل (GMT+1)"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Price Label (AR)"
+msgstr "تسمية السعر (عربي)"
+
+msgid "Price Label (EN)"
+msgstr "تسمية السعر (إنجليزي)"
+
+msgid "Price Label (FR)"
+msgstr "تسمية السعر (فرنسي)"
+
+msgid "Pricing & Packages"
+msgstr "الأسعار والباقات"
+
+msgid "Pricing Rule"
+msgstr "قاعدة التسعير"
+
+msgid "Pricing Rules"
+msgstr "قواعد التسعير"
+
+msgid "Process & Delivery"
+msgstr "خطوات العمل والتسليم"
+
+msgid "Process Step"
+msgstr "خطوة في العملية"
+
+msgid "Process Steps"
+msgstr "خطوات العملية"
+
+msgid "Project Brief"
+msgstr "موجز المشروع"
+
+msgid "Project Categories"
+msgstr "تصنيفات المشاريع"
+
+msgid "Project Category"
+msgstr "تصنيف المشروع"
+
+msgid "Project Date"
+msgstr "تاريخ المشروع"
+
+msgid "Project Description"
+msgstr "وصف المشروع"
+
+msgid "Project Details"
+msgstr "تفاصيل المشروع"
+
+msgid "Project Gallery Image"
+msgstr "صورة معرض المشروع"
+
+msgid "Project Gallery Images"
+msgstr "صور معرض المشروع"
+
+msgid "Project Type"
+msgstr "نوع المشروع"
+
+msgid "Project Type Base Price"
+msgstr "السعر الأساسي لنوع المشروع"
+
+msgid "Projects Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة المشاريع (عربي)"
+
+msgid "Projects Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة المشاريع (إنجليزي)"
+
+msgid "Projects Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة المشاريع (فرنسي)"
+
+msgid "Projects Page Video (MP4/WebM)"
+msgstr "فيديو صفحة المشاريع (MP4/WebM)"
+
+msgid "Projects Page Video URL"
+msgstr "رابط فيديو صفحة المشاريع"
+
+msgid "Proposal Sent"
+msgstr "تم إرسال العرض"
+
+msgid "Published"
+msgstr "منشور"
+
+msgid "Published At"
+msgstr "تاريخ النشر"
+
+msgid "Publishing"
+msgstr "النشر"
+
+msgid "Question (AR)"
+msgstr "السؤال (عربي)"
+
+msgid "Question (EN)"
+msgstr "السؤال (إنجليزي)"
+
+msgid "Question (FR)"
+msgstr "السؤال (فرنسي)"
+
+msgid "Question (Multilingual)"
+msgstr "السؤال (متعدد اللغات)"
+
+msgid "Quote (AR)"
+msgstr "الاقتباس (عربي)"
+
+msgid "Quote (EN)"
+msgstr "الاقتباس (إنجليزي)"
+
+msgid "Quote (FR)"
+msgstr "الاقتباس (فرنسي)"
+
+msgid "Quote Request"
+msgstr "طلب عرض سعر"
+
+msgid "Quote Requests"
+msgstr "طلبات عروض الأسعار"
+
+msgid "Quotes (Multilingual)"
+msgstr "الاقتباسات (متعدد اللغات)"
+
+msgid "Read"
+msgstr "مقروء"
+
+msgid "Reading Time (minutes)"
+msgstr "وقت القراءة (بالدقائق)"
+
+msgid "Received At"
+msgstr "تاريخ الاستلام"
+
+msgid "Results & Impact (AR)"
+msgstr "النتائج والأثر (عربي)"
+
+msgid "Results & Impact (EN)"
+msgstr "النتائج والأثر (إنجليزي)"
+
+msgid "Results & Impact (FR)"
+msgstr "النتائج والأثر (فرنسي)"
+
+msgid "Role (AR)"
+msgstr "الصفة / المنصب (عربي)"
+
+msgid "Role (EN)"
+msgstr "الصفة / المنصب (إنجليزي)"
+
+msgid "Role (FR)"
+msgstr "الصفة / المنصب (فرنسي)"
+
+msgid "Roles (Multilingual)"
+msgstr "المناصب (متعدد اللغات)"
+
+msgid "Rule Settings"
+msgstr "إعدادات القاعدة"
+
+msgid "SEO Description (AR)"
+msgstr "وصف سيو (عربي)"
+
+msgid "SEO Description (EN)"
+msgstr "وصف سيو (إنجليزي)"
+
+msgid "SEO Description (FR)"
+msgstr "وصف سيو (فرنسي)"
+
+msgid "SEO Meta (Multilingual)"
+msgstr "بيانات سيو الوصفية (متعدد اللغات)"
+
+msgid "SEO Meta Descriptions"
+msgstr "أوصاف سيو الوصفية"
+
+msgid "SEO Overrides"
+msgstr "تجاوزات السيو"
+
+msgid "SEO Title (AR)"
+msgstr "عنوان سيو (عربي)"
+
+msgid "SEO Title (EN)"
+msgstr "عنوان سيو (إنجليزي)"
+
+msgid "SEO Title (FR)"
+msgstr "عنوان سيو (فرنسي)"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Section"
+msgstr "القسم"
+
+msgid "Security / Shield"
+msgstr "الأمان / الحماية"
+
+msgid "Selected Features"
+msgstr "الميزات المحددة"
+
+msgid "Service"
+msgstr "الخدمة"
+
+msgid "Service & City"
+msgstr "الخدمة والمدينة"
+
+msgid "Service Solution"
+msgstr "حلول الخدمة"
+
+msgid "Service Solutions"
+msgstr "حلول الخدمات"
+
+msgid "Services Page SEO Title (AR)"
+msgstr "عنوان سيو لصفحة الخدمات (عربي)"
+
+msgid "Services Page SEO Title (EN)"
+msgstr "عنوان سيو لصفحة Services (إنجليزي)"
+
+msgid "Services Page SEO Title (FR)"
+msgstr "عنوان سيو لصفحة Services (فرنسي)"
+
+msgid "Services Page Video (MP4/WebM)"
+msgstr "فيديو صفحة الخدمات (MP4/WebM)"
+
+msgid "Services Page Video URL"
+msgstr "رابط فيديو صفحة الخدمات"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgid "Show on Home"
+msgstr "عرض في الرئيسية"
+
+msgid "Site Configuration"
+msgstr "إعدادات الموقع"
+
+msgid "Site Favicon / Icon"
+msgstr "أيقونة الموقع المفضلة"
+
+msgid "Site Logo"
+msgstr "شعار الموقع"
+
+msgid "Site Name"
+msgstr "اسم الموقع"
+
+msgid "Slug"
+msgstr "المعرف اللطيف"
+
+msgid "Social Links"
+msgstr "روابط التواصل الاجتماعي"
+
+msgid "Social sharing image (1200x630 recommended)"
+msgstr "صورة المشاركة على الشبكات الاجتماعية (يُوصى بـ 1200x630)"
+
+msgid "Solution Description (AR)"
+msgstr "وصف الحل (عربي)"
+
+msgid "Solution Description (EN)"
+msgstr "وصف الحل (إنجليزي)"
+
+msgid "Solution Description (FR)"
+msgstr "وصف الحل (فرنسي)"
+
+msgid "Solution Title (AR)"
+msgstr "عنوان الحل (عربي)"
+
+msgid "Solution Title (EN)"
+msgstr "عنوان الحل (إنجليزي)"
+
+msgid "Solution Title (FR)"
+msgstr "عنوان الحل (فرنسي)"
+
+msgid "Source Page"
+msgstr "الصفحة المصدر"
+
+msgid "Start Time"
+msgstr "وقت البدء"
+
+msgid "Starting From (MAD)"
+msgstr "ابتداءً من (درهم)"
+
+msgid "Starting price in Moroccan Dirhams. Set to 0 for \"Contact Us\" pricing."
+msgstr "السعر المبدئي بالدرهم المغربي. ضع 0 لعرض \"اتصل بنا\"."
+
+msgid "Statistic"
+msgstr "إحصائية"
+
+msgid "Statistics"
+msgstr "الإحصائيات"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Status & Notes"
+msgstr "الحالة والملاحظات"
+
+msgid "Step Info"
+msgstr "معلومات الخطوة"
+
+msgid "Step Number"
+msgstr "رقم الخطوة"
+
+msgid "Store Item"
+msgstr "عنصر المتجر"
+
+msgid "Store Items"
+msgstr "عناصر المتجر"
+
+msgid "Subscribed At"
+msgstr "تاريخ الاشتراك"
+
+msgid "Subscriber"
+msgstr "مشترك"
+
+msgid "Subscribers"
+msgstr "المشتركون"
+
+msgid "Sunday"
+msgstr "الأحد"
+
+msgid "Tagline (AR)"
+msgstr "الشعار اللفظي (عربي)"
+
+msgid "Tagline (EN)"
+msgstr "الشعار اللفظي (إنجليزي)"
+
+msgid "Tagline (FR)"
+msgstr "الشعار اللفظي (فرنسي)"
+
+msgid "Tagline (Multilingual)"
+msgstr "الشعار اللفظي (متعدد اللغات)"
+
+msgid "Tagline / Subtitle (AR)"
+msgstr "الشعار اللفظي / العنوان الفرعي (عربي)"
+
+msgid "Tagline / Subtitle (EN)"
+msgstr "الشعار اللفظي / العنوان الفرعي (إنجليزي)"
+
+msgid "Tagline / Subtitle (FR)"
+msgstr "الشعار اللفظي / العنوان الفرعي (فرنسي)"
+
+msgid "Tagline / Subtitle (Multilingual)"
+msgstr "الشعار اللفظي / العنوان الفرعي (متعدد اللغات)"
+
+msgid "Tags (comma-separated)"
+msgstr "الوسوم (مفصولة بفواصل)"
+
+msgid "Taxonomy & Media"
+msgstr "التصنيف والوسائط"
+
+msgid "Team Member"
+msgstr "عضو الفريق"
+
+msgid "Team Members"
+msgstr "أعضاء الفريق"
+
+msgid "Technologies & Stacks (comma-separated)"
+msgstr "التقنيات وحزم البرمجة (مفصولة بفواصل)"
+
+msgid "Technologies & Timeline"
+msgstr "التقنيات والجدول الزمني"
+
+msgid "Technologies (comma-separated)"
+msgstr "التقنيات (مفصولة بفواصل)"
+
+msgid "Tell us about your project"
+msgstr "أخبرنا عن مشروعك"
+
+msgid "Tell us briefly about your project"
+msgstr "أخبرنا باختصار عن مشروعك"
+
+msgid "Testimonial"
+msgstr "شهادة عميل"
+
+msgid "Testimonials"
+msgstr "شهادات العملاء"
+
+msgid "Thank you! Check your email to confirm."
+msgstr "شكراً لك! تفقد بريدك الإلكتروني للتأكيد."
+
+msgid "Thank you! Your quote request has been submitted."
+msgstr "شكراً لك! تم إرسال طلب عرض السعر بنجاح."
+
+msgid "The Challenge (AR)"
+msgstr "التحدي (عربي)"
+
+msgid "The Challenge (EN)"
+msgstr "التحدي (إنجليزي)"
+
+msgid "The Challenge (FR)"
+msgstr "التحدي (فرنسي)"
+
+msgid "This confirmation link has expired. Please subscribe again to receive a new link."
+msgstr "لقد انتهت صلاحية رابط التأكيد هذا. يرجى الاشتراك مرة أخرى لتلقي رابط جديد."
+
+msgid "This time slot is already booked. Please choose another."
+msgstr "هذا الموعد محجوز بالفعل. يرجى اختيار موعد آخر."
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Time Slot"
+msgstr "الموعد الزمني"
+
+msgid "Timeline Multiplier"
+msgstr "معامل الجدول الزمني"
+
+msgid "Title & Slug"
+msgstr "العنوان والمعرف"
+
+msgid "Title (AR)"
+msgstr "العنوان (عربي)"
+
+msgid "Title (EN)"
+msgstr "العنوان (إنجليزي)"
+
+msgid "Title (FR)"
+msgstr "العنوان (فرنسي)"
+
+msgid "Title (Multilingual)"
+msgstr "العنوان (متعدد اللغات)"
+
+msgid "Titles & Slug (Multilingual)"
+msgstr "العناوين والمعرف (متعدد اللغات)"
+
+msgid "Titles (Multilingual)"
+msgstr "العناوين (متعدد اللغات)"
+
+msgid "Token Created At"
+msgstr "تاريخ إنشاء الرمز"
+
+msgid "Token sent via email for double opt-in confirmation"
+msgstr "رمز أُرسل عبر البريد الإلكتروني لتأكيد الاشتراك المزدوج"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Twitter / X URL"
+msgstr "رابط تويتر / إكس"
+
+msgid "URL Slug"
+msgstr "المعرف اللطيف للرابط"
+
+msgid "Unsubscribed"
+msgstr "تم إلغاء الاشتراك"
+
+msgid "Updated At"
+msgstr "تاريخ التحديث"
+
+msgid "Upload an MP4/WebM video file or enter a direct video URL for each page header. If left empty, the site default video will be used."
+msgstr "قم بتحميل ملف فيديو MP4/WebM أو أدخل رابط فيديو مباشر لترويسة كل صفحة. إذا تُرك فارغاً، سيتم استخدام الفيديو الافتراضي للموقع."
+
+msgid "Upload feature picture for About page and edit story in all languages."
+msgstr "قم بتحميل الصورة المميزة لصفحة من نحن وتحرير القصة بجميع اللغات."
+
+msgid "Value"
+msgstr "القيمة"
+
+msgid "Value (MAD or multiplier)"
+msgstr "القيمة (بالدرهم أو معامل الضرب)"
+
+msgid "Value to pre-fill in the quote wizard when CTA is clicked"
+msgstr "القيمة المراد ملؤها مسبقاً في حاسبة الأسعار عند النقر على الزر"
+
+msgid "Video Background"
+msgstr "خلفية فيديو"
+
+msgid "Visitor Timezone"
+msgstr "المنطقة الزمنية للزائر"
+
+msgid "We use cookies to analyze site usage and improve your experience. By clicking \"Accept\", you consent to our use of analytics cookies."
+msgstr "نستخدم ملفات تعريف الارتباط لتحليل استخدام الموقع وتحسين تجربتك. بالنقر على \"قبول\"، فإنك توافق على استخدامنا لملفات تعريف الارتباط التحليلية."
+
+msgid "Web / Globe"
+msgstr "الويب / الكرة الأرضية"
+
+msgid "Web Application / SaaS"
+msgstr "تطبيق ويب / SaaS"
+
+msgid "Website Redesign"
+msgstr "إعادة تصميم موقع إلكتروني"
+
+msgid "Website header logo (transparent PNG recommended)"
+msgstr "شعار ترويسة الموقع (يُوصى بـ PNG شفاف)"
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "Weekly Availability"
+msgstr "التوفر الأسبوعي"
+
+msgid "Weekly Availability Slot"
+msgstr "فترة التوفر الأسبوعي"
+
+msgid "What is your budget range?"
+msgstr "ما هو نطاق ميزانيتك؟"
+
+msgid "What type of project do you need?"
+msgstr "ما هو نوع المشروع الذي تحتاجه؟"
+
+msgid "What would you like to discuss?"
+msgstr "ما الذي ترغب في مناقشته؟"
+
+msgid "When do you need this delivered?"
+msgstr "متى تحتاج لتسليم المشروع؟"
+
+msgid "Which resource they downloaded"
+msgstr "المورد الذي قاموا بتنزيله"
+
+msgid "Why Choose Us (Multilingual)"
+msgstr "لماذا تختارنا (متعدد اللغات)"
+
+msgid "Why Choose Us in This City (AR)"
+msgstr "لماذا تختارنا في هذه المدينة (عربي)"
+
+msgid "Why Choose Us in This City (EN)"
+msgstr "لماذا تختارنا في هذه المدينة (إنجليزي)"
+
+msgid "Why Choose Us in This City (FR)"
+msgstr "لماذا تختارنا في هذه المدينة (فرنسي)"
+
+msgid "Won"
+msgstr "فوز"
+
+msgid "Year"
+msgstr "السنة"
+
+msgid "You are already confirmed! Download your checklist below."
+msgstr "أنت مؤكد بالفعل! قم بتنزيل قائمة التحقق الخاصة بك أدناه."
+
+msgid "You have been unsubscribed successfully."
+msgstr "تم إلغاء اشتراكك بنجاح."
+
+msgid "Your Name"
+msgstr "اسمك"
+
+msgid "Your booking has been confirmed!"
+msgstr "تم تأكيد حجزك بنجاح!"
+
+msgid "Your company (optional)"
+msgstr "شركتك (اختياري)"
+
+msgid "Your discovery call has been booked! Check your email for confirmation."
+msgstr "تم حجز مكالمتك الاستكشافية! تحقق من بريدك الإلكتروني للتأكيد."
+
+msgid "Your name (optional)"
+msgstr "اسمك (اختياري)"
+
+msgid "booking/"
+msgstr "booking/"
+
+msgid "checklist/"
+msgstr "checklist/"
+
+msgid "confirm/"
+msgstr "confirm/"
+
+msgid "e.g. \"website\", \"ecommerce\", \"auth\", \"5-10\""
+msgstr "مثال: \"website\"، \"ecommerce\"، \"auth\"، \"5-10\""
+
+msgid "e.g. 01, 02, 03, 04"
+msgstr "مثال: 01، 02، 03، 04"
+
+msgid "packages/"
+msgstr "packages/"
+
+msgid "privacy-policy/"
+msgstr "privacy-policy/"
+
+msgid "quote/"
+msgstr "quote/"
+
+msgid "quote/success/"
+msgstr "quote/success/"
+
+msgid "terms-of-service/"
+msgstr "terms-of-service/"
+
+msgid "unsubscribe/"
+msgstr "unsubscribe/"
+
+msgid "— Select budget range —"
+msgstr "— اختر نطاق الميزانية —"
+
+msgid "— Select project type —"
+msgstr "— اختر نوع المشروع —"
+
+msgid "— Select timeline —"
+msgstr "— اختر الإطار الزمني —"
+
+msgid "— Select —"
+msgstr "— اختر —"
