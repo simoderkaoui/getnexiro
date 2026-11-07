@@ -1454,3 +1454,66 @@ msgstr "Miniature"
 
 msgid "Case Study Showcase"
 msgstr "Présentation de l'étude de cas"
+
+msgid "Ask for Quote"
+msgstr "Demander un devis"
+
+msgid "Ask for a Free Quote"
+msgstr "Demandez un devis gratuit"
+
+msgid "Get an instant project estimate"
+msgstr "Obtenez une estimation immédiate de votre projet"
+
+msgid "Instant Reply"
+msgstr "Réponse rapide"
+
+msgid "Get a quote on WhatsApp"
+msgstr "Obtenir un devis sur WhatsApp"
+
+msgid "Get a Quote - Instant WhatsApp Reply"
+msgstr "Obtenir un devis - Réponse rapide sur WhatsApp"
+
+msgid "Hello getNexiro! I would like to get a quote for my project."
+msgstr "Bonjour getNexiro ! Je souhaite obtenir un devis pour mon projet."
+
+msgid "Free"
+msgstr "Gratuit"
+
+msgid "Executive Summary & Key Takeaways"
+msgstr "Résumé exécutif & points clés"
+
+msgid "Google AI Overview & Quick Reference"
+msgstr "Aperçu rapide & référence IA"
+
+msgid "Updated"
+msgstr "Mis à jour"
+
+msgid "Planning a Similar Project or Need Expert Engineering?"
+msgstr "Vous prévoyez un projet similaire ou avez besoin d'une ingénierie experte ?"
+
+msgid "Get an accurate, transparent cost estimate in under 2 minutes with our interactive project quote wizard, or chat directly with our lead architects."
+msgstr "Obtenez une estimation précise et transparente en moins de 2 minutes grâce à notre configurateur de devis, ou échangez directement avec nos architectes."
+
+msgid "Need a Project Quote?"
+msgstr "Besoin d'un devis pour votre projet ?"
+
+msgid "Get an itemized estimate in under 2 minutes with our instant quote calculator."
+msgstr "Obtenez une estimation détaillée en moins de 2 minutes avec notre calculateur de devis instantané."
+
+msgid "Free Project Calculator"
+msgstr "Calculateur de projet gratuit"
+
+msgid "Free Estimate"
+msgstr "Estimation gratuite"
+
+msgid "Hello! I just read your article on"
+msgstr "Bonjour ! Je viens de lire votre article sur"
+
+msgid "and would like to ask a question."
+msgstr "et j'aimerais vous poser une question."
+
+msgid "Hello! I would like to get a quote for my project."
+msgstr "Bonjour ! J'aimerais obtenir un devis pour mon projet."
+
+msgid "Link copied to clipboard!"
+msgstr "Lien copié dans le presse-papiers !"

@@ -5,14 +5,24 @@
 {% block meta_description %}{{ post.meta_description }}{% endblock %}
 {% block og_title %}{{ post.meta_title }} | {{ config.site_name }}{% endblock %}
 {% block og_description %}{{ post.meta_description }}{% endblock %}
+{% block og_type %}article{% endblock %}
 {% block og_image %}{% if post.featured_image %}{{ SITE_URL }}{{ post.featured_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 {% block twitter_image %}{% if post.featured_image %}{{ SITE_URL }}{{ post.featured_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 {% block twitter_title %}{{ post.meta_title }} | {{ config.site_name }}{% endblock %}
 {% block twitter_description %}{{ post.meta_description }}{% endblock %}
 
+{% block og_extra %}
+<meta property="article:published_time" content="{{ post.published_at|date:'c' }}">
+<meta property="article:modified_time" content="{{ post.updated_at|date:'c' }}">
+<meta property="article:author" content="{{ post.author_name|default:'getNexiro Team' }}">
+{% if post.category %}<meta property="article:section" content="{{ post.category.name }}">{% endif %}
+{% for tag in post.tags_list %}<meta property="article:tag" content="{{ tag }}">{% endfor %}
+{% endblock %}
+
 {% block structured_data %}{% include "core/includes/jsonld_article.html" %}{% endblock %}
 
 {% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="{% trans 'getNexiro Blog RSS' %}" href="{% url 'core:blog_rss_feed' %}">
 {% if post.meta_keywords %}
 <meta name="keywords" content="{{ post.meta_keywords }}">
 {% endif %}
@@ -39,7 +49,7 @@
 .blog-breadcrumb .sep { color: #475569; }
 .blog-breadcrumb .current { color: #f8fafc; font-weight: 600; }
 
-.blog-article-header { margin-bottom: 2.5rem; max-width: 800px; }
+.blog-article-header { margin-bottom: 2rem; max-width: 840px; }
 .blog-cat-badge {
     display: inline-block; padding: 0.3rem 0.8rem;
     border-radius: 16px; font-size: 0.72rem; font-weight: 700;
@@ -58,7 +68,53 @@
     font-size: 0.85rem; color: #64748b;
 }
 .blog-article-meta .meta-item {
-    display: flex; align-items: center; gap: 0.4rem;
+    display: flex; align-items: center; gap: 0.45rem;
+}
+
+/* Executive Summary & Key Takeaways box */
+.blog-takeaways-box {
+    margin-bottom: 2.2rem;
+    padding: 1.4rem 1.6rem;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.06) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    border-left: 4px solid #38bdf8;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+}
+.takeaways-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+}
+.takeaways-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #38bdf8;
+}
+.takeaways-target {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.takeaways-text {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+    margin: 0;
+    font-weight: 500;
 }
 
 .blog-featured-img {
@@ -113,6 +169,64 @@
     font-style: italic; color: #e2e8f0;
 }
 
+/* In-Article Conversion Quote Card */
+.blog-inarticle-quote-card {
+    position: relative;
+    margin: 3rem 0;
+    padding: 2.2rem;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(8, 11, 16, 0.98));
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(14, 165, 233, 0.12);
+}
+.quote-card-glow {
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.2), transparent 70%);
+    pointer-events: none;
+}
+.quote-card-content {
+    position: relative;
+    z-index: 1;
+}
+.quote-card-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #38bdf8;
+    margin-bottom: 0.9rem;
+}
+.quote-card-title {
+    font-size: 1.35rem;
+    color: #f8fafc;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    line-height: 1.35;
+}
+.quote-card-desc {
+    font-size: 0.92rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 620px;
+}
+.quote-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
 /* Sidebar */
 .blog-sidebar { position: sticky; top: 100px; }
 .blog-sidebar-card {
@@ -144,6 +258,7 @@
     display: flex; align-items: center; justify-content: center;
     color: #94a3b8; text-decoration: none;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 .blog-share-btn:hover {
     background: rgba(56,189,248,0.12);
@@ -154,14 +269,29 @@
 /* CTA box in sidebar */
 .blog-cta-box {
     background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(99,102,241,0.08));
-    border: 1px solid rgba(56,189,248,0.2);
+    border: 1px solid rgba(56,189,248,0.25);
     border-radius: 16px; padding: 1.5rem; text-align: center;
 }
+.cta-mini-pill {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.12);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    padding: 0.2rem 0.55rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.6rem;
+}
 .blog-cta-box h4 {
-    font-size: 1rem; color: #f8fafc; margin-bottom: 0.5rem;
+    font-size: 1.05rem; color: #f8fafc; margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 .blog-cta-box p {
-    font-size: 0.82rem; color: #94a3b8; margin-bottom: 1rem;
+    font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.2rem;
+    line-height: 1.5;
 }
 .blog-cta-box .btn { width: 100%; justify-content: center; }
 
@@ -195,7 +325,6 @@
     font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;
 }
 
-
 .blog-toc a {
     display: block; padding: 0.3rem 0; font-size: 0.82rem;
     color: #94a3b8; text-decoration: none; border-left: 2px solid transparent;
@@ -214,6 +343,7 @@
 @media (max-width: 768px) {
     .blog-article-title { font-size: 1.5rem; }
     .blog-related-grid { grid-template-columns: 1fr; }
+    .blog-inarticle-quote-card { padding: 1.5rem; }
 }
 </style>
 
@@ -245,12 +375,33 @@
                     <time datetime="{{ post.published_at|date:'Y-m-d' }}">{{ post.published_at|date:"M d, Y" }}</time>
                 </span>
                 {% endif %}
+                {% if post.updated_at and post.updated_at|date:'Y-m-d' != post.published_at|date:'Y-m-d' %}
+                <span class="meta-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    <span>{% trans "Updated" %}:</span>
+                    <time itemprop="dateModified" datetime="{{ post.updated_at|date:'c' }}">{{ post.updated_at|date:"M d, Y" }}</time>
+                </span>
+                {% endif %}
                 <span class="meta-item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     {{ post.reading_time_minutes }} {% trans "min read" %}
                 </span>
             </div>
         </header>
+
+        {# ── Executive Summary & Key Takeaways (Google Rich Snippets / AI Overviews) ── #}
+        {% if post.excerpt %}
+        <div class="blog-takeaways-box" role="region" aria-label="{% trans 'Executive Summary & Key Takeaways' %}">
+            <div class="takeaways-header">
+                <span class="takeaways-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    {% trans "Executive Summary & Key Takeaways" %}
+                </span>
+                <span class="takeaways-target">{% trans "Google AI Overview & Quick Reference" %}</span>
+            </div>
+            <p class="takeaways-text">{{ post.excerpt }}</p>
+        </div>
+        {% endif %}
 
         {# ── Featured Image ── #}
         {% if post.featured_image %}
@@ -261,6 +412,27 @@
         <div class="blog-detail-grid">
             <article class="blog-body" itemprop="articleBody">
                 {{ post.body|safe }}
+
+                {# ── In-Article Conversion Quote Card ── #}
+                <div class="blog-inarticle-quote-card">
+                    <div class="quote-card-glow" aria-hidden="true"></div>
+                    <div class="quote-card-content">
+                        <div class="quote-card-badge">{% trans "Free Project Calculator" %}</div>
+                        <h3 class="quote-card-title">{% trans "Planning a Similar Project or Need Expert Engineering?" %}</h3>
+                        <p class="quote-card-desc">{% trans "Get an accurate, transparent cost estimate in under 2 minutes with our interactive project quote wizard, or chat directly with our lead architects." %}</p>
+                        <div class="quote-card-actions">
+                            <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-sm btn-quote-animated">
+                                <span class="quote-pulse-dot" aria-hidden="true"></span>
+                                <span>{% trans "Ask for Quote" %}</span>
+                                <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                            <a href="https://wa.me/212787862187?text={% trans 'Hello! I just read your article on' %}%20{{ post.title|urlencode }}%20{% trans 'and would like to ask a question.' %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                <span>{% trans "Chat on WhatsApp" %}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </article>
 
             <aside class="blog-sidebar">
@@ -268,6 +440,22 @@
                 <div class="blog-sidebar-card" id="blog-toc-container" style="display:none;">
                     <h3 class="blog-sidebar-title">{% trans "Contents" %}</h3>
                     <nav id="blog-toc" class="blog-toc" aria-label="{% trans 'Table of contents' %}"></nav>
+                </div>
+
+                {# Ask for Quote CTA in Sidebar #}
+                <div class="blog-cta-box">
+                    <span class="cta-mini-pill">{% trans "Free Estimate" %}</span>
+                    <h4>{% trans "Need a Project Quote?" %}</h4>
+                    <p>{% trans "Get an itemized estimate in under 2 minutes with our instant quote calculator." %}</p>
+                    <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-sm btn-quote-animated">
+                        <span class="quote-pulse-dot" aria-hidden="true"></span>
+                        <span>{% trans "Ask for Quote" %}</span>
+                        <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="https://wa.me/212787862187?text={% trans 'Hello! I would like to get a quote for my project.' %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="width:100%;margin-top:0.75rem;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span>{% trans "Chat on WhatsApp" %}</span>
+                    </a>
                 </div>
 
                 {# Tags #}
@@ -295,20 +483,10 @@
                         <a href="https://wa.me/?text={{ post.title|urlencode }}%20https://getnexiro.com{{ request.path }}" target="_blank" rel="noopener" class="blog-share-btn" aria-label="WhatsApp">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         </a>
-                        <button onclick="navigator.clipboard.writeText(window.location.href).then(function(){this.textContent='\u2714'}.bind(this))" class="blog-share-btn" aria-label="Copy Link" title="{% trans 'Copy link' %}">
+                        <button onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert('{% trans "Link copied to clipboard!" %}')})" class="blog-share-btn" aria-label="Copy Link" title="{% trans 'Copy link' %}">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                         </button>
                     </div>
-                </div>
-
-                {# CTA #}
-                <div class="blog-cta-box">
-                    <h4>{% trans "Need Expert Help?" %}</h4>
-                    <p>{% trans "Let's discuss how we can build your next project." %}</p>
-                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm">
-                        {% trans "Contact Us" %}
-                        <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
                 </div>
             </aside>
         </div>
@@ -346,7 +524,6 @@
     </div>
 </div>
 {% endblock %}
-
 
 {% block extra_scripts %}
 <script>

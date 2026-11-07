@@ -1386,3 +1386,66 @@ msgstr "صورة مصغرة"
 
 msgid "Case Study Showcase"
 msgstr "عرض دراسة الحالة"
+
+msgid "Ask for Quote"
+msgstr "طلب عرض سعر"
+
+msgid "Ask for a Free Quote"
+msgstr "اطلب عرض سعر مجاني"
+
+msgid "Get an instant project estimate"
+msgstr "احصل على تقدير فوري لمشروعك"
+
+msgid "Instant Reply"
+msgstr "رد فوري"
+
+msgid "Get a quote on WhatsApp"
+msgstr "طلب تسعيرة عبر واتساب"
+
+msgid "Get a Quote - Instant WhatsApp Reply"
+msgstr "طلب عرض سعر - رد فوري على واتساب"
+
+msgid "Hello getNexiro! I would like to get a quote for my project."
+msgstr "مرحباً getNexiro! أود الحصول على عرض سعر لمشروعي."
+
+msgid "Free"
+msgstr "مجاناً"
+
+msgid "Executive Summary & Key Takeaways"
+msgstr "الملخص التنفيذي والنقاط الرئيسية"
+
+msgid "Google AI Overview & Quick Reference"
+msgstr "نظرة عامة ومرجع سريع"
+
+msgid "Updated"
+msgstr "تم التحديث"
+
+msgid "Planning a Similar Project or Need Expert Engineering?"
+msgstr "هل تخطط لمشروع مماثل أو تحتاج إلى هندسة برمجية متخصصة؟"
+
+msgid "Get an accurate, transparent cost estimate in under 2 minutes with our interactive project quote wizard, or chat directly with our lead architects."
+msgstr "احصل على تقدير دقيق وشفاف للتكلفة في أقل من دقيقتين باستخدام حاسبة عروض الأسعار التفاعلية، أو تحدث مباشرة مع كبار مهندسينا."
+
+msgid "Need a Project Quote?"
+msgstr "هل تحتاج إلى عرض سعر لمشروعك؟"
+
+msgid "Get an itemized estimate in under 2 minutes with our instant quote calculator."
+msgstr "احصل على تقدير مفصل في أقل من دقيقتين عبر حاسبة الأسعار الفورية."
+
+msgid "Free Project Calculator"
+msgstr "حاسبة مشاريع مجانية"
+
+msgid "Free Estimate"
+msgstr "تقدير مجاني"
+
+msgid "Hello! I just read your article on"
+msgstr "مرحباً! لقد قرأت للتو مقالتكم حول"
+
+msgid "and would like to ask a question."
+msgstr "وأود طرح سؤال بخصوصها."
+
+msgid "Hello! I would like to get a quote for my project."
+msgstr "مرحباً! أود الحصول على تسعيرة لمشروعي."
+
+msgid "Link copied to clipboard!"
+msgstr "تم نسخ الرابط إلى الحافظة!"
