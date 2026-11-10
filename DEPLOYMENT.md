@@ -7,7 +7,7 @@ This guide provides complete, production-tested instructions to deploy **getNexi
 ## 📋 Architectural Overview
 
 - **Framework:** Django 5.x (Python 3.11, 3.12, 3.14 compatible)
-- **Production Server:** Gunicorn + Nginx (VPS) OR PythonAnywhere WSGI
+- **Production Server:** Gunicorn + Nginx (VPS), PythonAnywhere WSGI, OR Namecheap cPanel Stellar Plus (Phusion Passenger)
 - **Database:** SQLite (default, self-contained, zero-downtime backups) or PostgreSQL
 - **Languages:** English (`/en/`), French (`/fr/`), Arabic (`/ar/` with full native RTL)
 - **Theme:** Exclusively dark luxury (`#080b10`, cyan & electric indigo glow)
@@ -233,6 +233,151 @@ sudo nginx -t
 sudo systemctl restart nginx
 sudo certbot --nginx -d getnexiro.com -d www.getnexiro.com
 ```
+
+---
+
+## 💎 Option 3: Namecheap Stellar Plus (cPanel) Deployment
+
+Namecheap Stellar Plus provides cPanel with CloudLinux **"Setup Python App"** (powered by Phusion Passenger).
+
+### Prerequisites
+- Namecheap Stellar Plus hosting account with cPanel access.
+- Domain name pointed to Namecheap nameservers (or A record pointed to your cPanel shared IP).
+- SSH access enabled (In cPanel > **SSH Access** or use the in-browser **Terminal** under *Advanced*).
+
+---
+
+### Step 1: Create the Python App in cPanel
+1. Log in to **cPanel**.
+2. Under the **Software** section, click **Setup Python App**.
+3. Click **Create Application**.
+4. Configure the settings:
+   - **Python version:** Select **3.11** (or 3.10 / 3.12).
+   - **Application root:** `getnexiro` (this creates a folder at `/home/<cpanel_user>/getnexiro`).
+   - **Application URL:** Select your domain (e.g., `getnexiro.com` or `www.getnexiro.com`).
+   - **Application startup file:** `passenger_wsgi.py`
+   - **Application Entry point:** `application`
+5. Click **CREATE** at the top right.
+6. Once created, notice the command at the top banner:
+   ```bash
+   source /home/<cpanel_user>/nodevenv/getnexiro/3.11/bin/activate && cd /home/<cpanel_user>/getnexiro
+   ```
+   *(Copy this command — you will need it to activate the virtual environment in terminal)*.
+
+---
+
+### Step 2: Deploy Project Code
+
+You can deploy using **Git** (recommended) or **File Manager**:
+
+#### Via cPanel Terminal / SSH (Fastest):
+1. Open **Terminal** in cPanel.
+2. Navigate to your home folder:
+   ```bash
+   cd /home/<cpanel_user>
+   ```
+3. If the folder `getnexiro` already exists with only default passenger files, pull or clone your code:
+   ```bash
+   # Remove default files created by cPanel if empty
+   rm -rf getnexiro
+   git clone https://github.com/athen676/nifty-oppenheimer.git getnexiro
+   cd getnexiro
+   ```
+
+#### Alternatively via cPanel File Manager:
+- Compress your project into a `.zip` file (exclude `venv/` and `__pycache__/`).
+- In cPanel **File Manager**, navigate to `/home/<cpanel_user>/getnexiro/`.
+- Upload and extract the archive.
+
+---
+
+### Step 3: Install Dependencies
+1. Open the cPanel **Terminal**.
+2. Activate your Python environment (use the exact command from Step 1):
+   ```bash
+   source /home/<cpanel_user>/virtualenv/getnexiro/3.11/bin/activate
+   cd /home/<cpanel_user>/getnexiro
+   ```
+3. Upgrade pip and install all project requirements:
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+---
+
+### Step 4: Configure Production Environment (`.env`)
+In `/home/<cpanel_user>/getnexiro/`:
+```bash
+cp .env.example .env
+nano .env
+```
+Set the production variables:
+```ini
+SECRET_KEY=your-secure-random-secret-key-at-least-50-characters
+DEBUG=False
+ALLOWED_HOSTS=getnexiro.com,www.getnexiro.com
+SITE_URL=https://getnexiro.com
+
+# Email configuration
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_USE_SSL=False
+EMAIL_HOST_USER=getnexiro@gmail.com
+EMAIL_HOST_PASSWORD=your-gmail-app-password
+DEFAULT_FROM_EMAIL=getNexiro <getnexiro@gmail.com>
+SERVER_EMAIL=getNexiro <getnexiro@gmail.com>
+```
+
+---
+
+### Step 5: Database & Static Assets Setup
+While still inside the activated environment:
+```bash
+python manage.py migrate
+python manage.py seed_data
+python manage.py collectstatic --noinput
+python manage.py createsuperuser
+```
+
+---
+
+### Step 6: Verify `passenger_wsgi.py`
+Ensure the file `passenger_wsgi.py` exists in `/home/<cpanel_user>/getnexiro/`:
+```python
+import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+```
+*(This is already included in the repository root)*.
+
+---
+
+### Step 7: Static Files Routing (cPanel / Apache)
+Because getNexiro uses **WhiteNoise** (`whitenoise.middleware.WhiteNoiseMiddleware`), static files are served automatically through Django!
+
+*(Optional for maximum performance)*: You can also create a symlink so Apache serves `/static/` directly without hitting Python:
+```bash
+ln -s /home/<cpanel_user>/getnexiro/staticfiles /home/<cpanel_user>/public_html/static
+```
+
+---
+
+### Step 8: Restart the Application
+1. Go back to cPanel > **Setup Python App**.
+2. Find `getnexiro` and click the **Restart** icon 🔄 (or in terminal: `touch /home/<cpanel_user>/getnexiro/tmp/restart.txt`).
+3. Enable SSL via cPanel **SSL/TLS Status** (run AutoSSL for `getnexiro.com` and `www.getnexiro.com`).
+4. Visit `https://getnexiro.com`!
 
 ---
 
