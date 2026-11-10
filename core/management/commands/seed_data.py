@@ -84,7 +84,7 @@ class Command(BaseCommand):
         # ── 1. SiteConfig ──
         config = SiteConfig.load()
         config.site_name = 'getNexiro'
-        config.email = 'getnexiro@gmail.com'
+        config.email = 'contact@getnexiro.com'
         config.phone = '+212 787 862 187'
         config.hero_bg_type = 'video'
 
@@ -1409,7 +1409,7 @@ class Command(BaseCommand):
                 '<p>We do not sell, trade, or rent your personal information.</p>'
                 '<h2>Your Rights</h2>'
                 '<p>You have the right to access, correct, or delete your personal data. '
-                'Contact us at <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+                'Contact us at <a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a>.</p>'
                 '<p><em>Last updated: 2026</em></p>'
             ),
             body_fr=(
@@ -1423,7 +1423,7 @@ class Command(BaseCommand):
                 '<p>Nous n\u2019utilisons des cookies qu\u2019apr\u00e8s avoir obtenu votre consentement.</p>'
                 '<h2>Vos droits</h2>'
                 '<p>Vous avez le droit d\u2019acc\u00e9der, de corriger ou de supprimer vos donn\u00e9es. '
-                'Contactez-nous \u00e0 <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+                'Contactez-nous \u00e0 <a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a>.</p>'
                 '<p><em>Derni\u00e8re mise \u00e0 jour : 2026</em></p>'
             ),
             body_ar=(
@@ -1437,7 +1437,7 @@ class Command(BaseCommand):
                 '\u0625\u0644\u0649 \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0623\u0648 \u062a\u0635\u062d\u064a\u062d\u0647\u0627 '
                 '\u0623\u0648 \u062d\u0630\u0641\u0647\u0627. '
                 '\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627 \u0639\u0644\u0649 '
-                '<a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a>.</p>'
+                '<a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a>.</p>'
             ),
         )
         LegalPage.objects.create(
@@ -1459,7 +1459,7 @@ class Command(BaseCommand):
                 '<p>These terms are governed by the laws of the Kingdom of Morocco. '
                 'Disputes shall be subject to the jurisdiction of the courts of Tangier.</p>'
                 '<h2>Contact</h2>'
-                '<p>Questions? Contact us at <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+                '<p>Questions? Contact us at <a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a></p>'
                 '<p><em>Last updated: 2026</em></p>'
             ),
             body_fr=(
@@ -1471,7 +1471,7 @@ class Command(BaseCommand):
                 '<h2>Loi applicable</h2>'
                 '<p>Ces conditions sont r\u00e9gies par les lois du Royaume du Maroc.</p>'
                 '<h2>Contact</h2>'
-                '<p>Contactez-nous \u00e0 <a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+                '<p>Contactez-nous \u00e0 <a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a></p>'
                 '<p><em>Derni\u00e8re mise \u00e0 jour : 2026</em></p>'
             ),
             body_ar=(
@@ -1483,7 +1483,7 @@ class Command(BaseCommand):
                 '\u0627\u0644\u0648\u064a\u0628 \u0648\u062a\u0637\u0628\u064a\u0642\u0627\u062a \u0627\u0644\u062c\u0648\u0627\u0644 '
                 '\u0648\u062a\u0635\u0645\u064a\u0645 UI/UX.</p>'
                 '<h2>\u0627\u062a\u0635\u0644 \u0628\u0646\u0627</h2>'
-                '<p><a href=\"mailto:getnexiro@gmail.com\">getnexiro@gmail.com</a></p>'
+                '<p><a href=\"mailto:contact@getnexiro.com\">contact@getnexiro.com</a></p>'
             ),
         )
         self.stdout.write('  [OK] Created 2 legal pages (Privacy Policy + Terms)')

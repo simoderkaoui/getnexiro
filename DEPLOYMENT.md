@@ -55,10 +55,10 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_USE_SSL=False
-EMAIL_HOST_USER=getnexiro@gmail.com
+EMAIL_HOST_USER=contact@getnexiro.com
 EMAIL_HOST_PASSWORD=your-16-character-gmail-app-password
-DEFAULT_FROM_EMAIL=getNexiro <getnexiro@gmail.com>
-SERVER_EMAIL=getNexiro <getnexiro@gmail.com>
+DEFAULT_FROM_EMAIL=getNexiro <contact@getnexiro.com>
+SERVER_EMAIL=getNexiro <contact@getnexiro.com>
 ```
 *(To get a Gmail App Password: Go to Google Account > Security > 2-Step Verification > App Passwords > Generate for "getNexiro")*
 
@@ -325,10 +325,10 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_USE_SSL=False
-EMAIL_HOST_USER=getnexiro@gmail.com
+EMAIL_HOST_USER=contact@getnexiro.com
 EMAIL_HOST_PASSWORD=your-gmail-app-password
-DEFAULT_FROM_EMAIL=getNexiro <getnexiro@gmail.com>
-SERVER_EMAIL=getNexiro <getnexiro@gmail.com>
+DEFAULT_FROM_EMAIL=getNexiro <contact@getnexiro.com>
+SERVER_EMAIL=getNexiro <contact@getnexiro.com>
 ```
 
 ---
@@ -399,7 +399,7 @@ Once deployed, verify each of these endpoints:
    - Quote Wizard: `https://getnexiro.com/en/quote/`
    - Discovery Booking: `https://getnexiro.com/en/booking/`
    - Contact Form: `https://getnexiro.com/en/contact/`
-   - Verify confirmation emails arrive in the submitter's inbox and admin notification arrives at `getnexiro@gmail.com`.
+   - Verify confirmation emails arrive in the submitter's inbox and admin notification arrives at `contact@getnexiro.com`.
 6. **Search Engine Discovery:**
    - Robots: `https://getnexiro.com/robots.txt`
    - Multilingual Sitemap: `https://getnexiro.com/sitemap.xml`

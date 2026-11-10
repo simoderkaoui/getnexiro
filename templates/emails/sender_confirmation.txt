@@ -25,7 +25,7 @@ Ingénierie Logicielle & Architectures Numériques
 Tanger, Maroc • Porte d'entrée entre l'Europe et l'Afrique
 
 Site web : https://getnexiro.com
-Email : {{ config.email|default:"getnexiro@gmail.com" }}
+Email : {{ config.email|default:"contact@getnexiro.com" }}
 Téléphone : {{ config.phone|default:"+212 663 017 817" }}
 Adresse : Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine, Tanger 90000, Maroc
 
@@ -58,7 +58,7 @@ Vous recevez cet email automatique car vous avez soumis un formulaire de contact
 طنجة، المغرب • بوابة أوروبا وإفريقيا
 
 الموقع: https://getnexiro.com
-البريد الإلكتروني: {{ config.email|default:"getnexiro@gmail.com" }}
+البريد الإلكتروني: {{ config.email|default:"contact@getnexiro.com" }}
 الهاتف: {{ config.phone|default:"+212 663 017 817" }}
 العنوان: مكاتب ابن بطوطة، شارع يوسف بن تاشفين، طنجة 90000، المغرب
 
@@ -91,7 +91,7 @@ Software Engineering & Digital Architecture
 Tangier, Morocco • Gateway to Europe & Africa
 
 Website: https://getnexiro.com
-Email:   {{ config.email|default:"getnexiro@gmail.com" }}
+Email:   {{ config.email|default:"contact@getnexiro.com" }}
 Phone:   {{ config.phone|default:"+212 663 017 817" }}
 Address: Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine, Tangier 90000, Morocco
 
