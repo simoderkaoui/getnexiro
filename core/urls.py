@@ -28,7 +28,7 @@ urlpatterns = [
         path('feed/', views.blog_rss_feed, name='blog_rss_feed'),
         path('author/<slug:slug>/', views.author_detail, name='author_detail'),
         path('category/<slug:slug>/', views.blog_category_archive, name='blog_category_archive'),
-        path('tag/<str:tag>/', views.blog_tag_archive, name='blog_tag_archive'),
+        path('tag/<path:tag>/', views.blog_tag_archive, name='blog_tag_archive'),
         path('<slug:slug>/', views.blog_detail, name='blog_detail'),
     ])),
     path(_('contact/'), views.contact, name='contact'),

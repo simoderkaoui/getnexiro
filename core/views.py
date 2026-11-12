@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.views.decorators.http import require_POST
 from .forms import (
     ContactForm, QuoteStep1Form, QuoteStep2Form, QuoteStep3Form, QuoteStep4Form,
@@ -22,7 +22,7 @@ from .models import get_localized
 from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
-    CompanyValue, ProcessStep, BlogCategory, BlogPost,
+    CompanyValue, ProcessStep, BlogCategory, BlogPost, Author,
     LegalPage, FAQ,
     Package, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
@@ -818,10 +818,19 @@ def confirm_subscription(request, token):
 def city_service_page(request, service_slug, city_slug):
     """Service x City landing page for local SEO."""
     ctx = _get_common_context()
-    page = get_object_or_404(
-        CityServicePage.objects.select_related('service'),
-        slug=city_slug, service__slug=service_slug, is_published=True
+    page = (
+        CityServicePage.objects.select_related('service').filter(
+            service__slug=service_slug, slug=city_slug, is_published=True
+        ).first() or
+        CityServicePage.objects.select_related('service').filter(
+            service__slug=service_slug, city=city_slug, is_published=True
+        ).first() or
+        CityServicePage.objects.select_related('service').filter(
+            slug=f"{service_slug}-{city_slug}", is_published=True
+        ).first()
     )
+    if not page:
+        raise Http404("City service page not found")
 
     # Get other city pages for this service (for internal linking)
     other_cities = CityServicePage.objects.filter(
