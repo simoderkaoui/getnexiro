@@ -382,6 +382,19 @@ class Service(SEOMixin):
     deliverables_fr = models.TextField(_('Core Deliverables (FR, newline-separated)'), blank=True, default='')
     deliverables_ar = models.TextField(_('Core Deliverables (AR, newline-separated)'), blank=True, default='')
 
+    # Phase 5: Comprehensive Service Expansion Fields
+    target_audience_en = models.TextField(_('Target Audience / Who It Is For (EN)'), blank=True, default='')
+    target_audience_fr = models.TextField(_('Target Audience / Who It Is For (FR)'), blank=True, default='')
+    target_audience_ar = models.TextField(_('Target Audience / Who It Is For (AR)'), blank=True, default='')
+
+    process_steps_en = models.TextField(_('Detailed Process & Durations (EN)'), blank=True, default='')
+    process_steps_fr = models.TextField(_('Detailed Process & Durations (FR)'), blank=True, default='')
+    process_steps_ar = models.TextField(_('Detailed Process & Durations (AR)'), blank=True, default='')
+
+    pricing_guidance_en = models.TextField(_('Pricing Guidance (EN)'), blank=True, default='')
+    pricing_guidance_fr = models.TextField(_('Pricing Guidance (FR)'), blank=True, default='')
+    pricing_guidance_ar = models.TextField(_('Pricing Guidance (AR)'), blank=True, default='')
+
     technologies = models.CharField(_('Technologies & Stacks (comma-separated)'), max_length=300, blank=True)
     timeline = models.CharField(_('Typical Timeline'), max_length=60, blank=True, default='4 — 8 Weeks')
 
@@ -407,6 +420,15 @@ class Service(SEOMixin):
 
     @property
     def deliverables(self): return get_localized(self, 'deliverables')
+
+    @property
+    def target_audience(self): return get_localized(self, 'target_audience')
+
+    @property
+    def process_steps(self): return get_localized(self, 'process_steps')
+
+    @property
+    def pricing_guidance(self): return get_localized(self, 'pricing_guidance')
 
     @property
     def deliverables_list(self):
@@ -1099,6 +1121,10 @@ class FAQ(models.Model):
     answer_fr = models.TextField(_('Answer (FR)'), blank=True, default='')
     answer_ar = models.TextField(_('Answer (AR)'), blank=True, default='')
 
+    service = models.ForeignKey(
+        'Service', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='faqs', verbose_name=_('Related Service')
+    )
     section = models.CharField(_('Section'), max_length=30, choices=SECTION_CHOICES, default='general')
     order = models.PositiveIntegerField(_('Display Order'), default=0)
     is_active = models.BooleanField(_('Active'), default=True)

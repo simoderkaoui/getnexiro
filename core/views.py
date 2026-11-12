@@ -124,22 +124,32 @@ def service_detail(request, slug):
     """Service detail page with solutions grid, methodology, deliverables, tech stack, and CTAs."""
     ctx = _get_common_context()
     service = get_object_or_404(
-        Service.objects.prefetch_related('solutions'),
+        Service.objects.prefetch_related('solutions', 'faqs'),
         slug=slug
     )
 
-    # Related services (same order, exclude current)
+    # Related services, projects, posts & FAQs
     related_services = Service.objects.exclude(pk=service.pk)[:3]
+    related_projects = Project.objects.filter(is_featured=True)[:3]
+    related_posts = BlogPost.objects.filter(status='published')[:3]
+    service_faqs = list(service.faqs.filter(is_active=True))
+    if not service_faqs:
+        service_faqs = list(FAQ.objects.filter(is_active=True, section='services')[:4])
 
     ctx.update({
         'service': service,
         'related_services': related_services,
+        'related_projects': related_projects,
+        'related_posts': related_posts,
+        'service_faqs': service_faqs,
         'breadcrumbs': [
             {'name': _('Home'), 'url': reverse('core:home')},
             {'name': _('Services'), 'url': reverse('core:services')},
             {'name': service.title, 'url': request.path},
         ],
     })
+    ctx['page_seo_title'] = f"{service.title} in Tangier, Morocco | getNexiro"
+    ctx['page_seo_description'] = service.seo_description or (service.description[:150] if service.description else '')
     return render(request, 'core/service_detail.html', ctx)
 
 
