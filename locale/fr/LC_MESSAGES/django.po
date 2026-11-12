@@ -1489,16 +1489,25 @@ msgid "Updated"
 msgstr "Mis à jour"
 
 msgid "Planning a Similar Project or Need Expert Engineering?"
-msgstr "Vous prévoyez un projet similaire ou avez besoin d'une ingénierie experte ?"
+msgstr ""
+"Vous prévoyez un projet similaire ou avez besoin d'une ingénierie experte ?"
 
-msgid "Get an accurate, transparent cost estimate in under 2 minutes with our interactive project quote wizard, or chat directly with our lead architects."
-msgstr "Obtenez une estimation précise et transparente en moins de 2 minutes grâce à notre configurateur de devis, ou échangez directement avec nos architectes."
+msgid ""
+"Get an accurate, transparent cost estimate in under 2 minutes with our "
+"interactive project quote wizard, or chat directly with our lead architects."
+msgstr ""
+"Obtenez une estimation précise et transparente en moins de 2 minutes grâce à"
+" notre configurateur de devis, ou échangez directement avec nos architectes."
 
 msgid "Need a Project Quote?"
 msgstr "Besoin d'un devis pour votre projet ?"
 
-msgid "Get an itemized estimate in under 2 minutes with our instant quote calculator."
-msgstr "Obtenez une estimation détaillée en moins de 2 minutes avec notre calculateur de devis instantané."
+msgid ""
+"Get an itemized estimate in under 2 minutes with our instant quote "
+"calculator."
+msgstr ""
+"Obtenez une estimation détaillée en moins de 2 minutes avec notre "
+"calculateur de devis instantané."
 
 msgid "Free Project Calculator"
 msgstr "Calculateur de projet gratuit"
@@ -1642,7 +1651,9 @@ msgid "Author Role (FR)"
 msgstr "Rôle de l'auteur (FR)"
 
 msgid "Auto-generated from service + city, e.g. web-development-tangier"
-msgstr "Généré automatiquement à partir du service + ville, ex. web-development-tangier"
+msgstr ""
+"Généré automatiquement à partir du service + ville, ex. web-development-"
+"tangier"
 
 msgid "Avatar"
 msgstr "Avatar"
@@ -1783,10 +1794,16 @@ msgid "Category, Client & Links"
 msgstr "Catégorie, Client & Liens"
 
 msgid "Check your email to confirm and get your download link!"
-msgstr "Vérifiez vos e-mails pour confirmer et recevoir votre lien de téléchargement !"
+msgstr ""
+"Vérifiez vos e-mails pour confirmer et recevoir votre lien de téléchargement"
+" !"
 
-msgid "Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL)."
-msgstr "Choisissez d'afficher le maillage lumineux animé, une image d'arrière-plan personnalisée ou une vidéo en boucle (fichier MP4 ou URL directe)."
+msgid ""
+"Choose whether to display the animated glow mesh, a custom wallpaper "
+"picture, or a looping background video (MP4 file or direct URL)."
+msgstr ""
+"Choisissez d'afficher le maillage lumineux animé, une image d'arrière-plan "
+"personnalisée ou une vidéo en boucle (fichier MP4 ou URL directe)."
 
 msgid "City"
 msgstr "Ville"
@@ -1831,7 +1848,8 @@ msgid "Comma-separated feature keys"
 msgstr "Clés de fonctionnalités séparées par des virgules"
 
 msgid "Comma-separated list of selected feature keys"
-msgstr "Liste des clés de fonctionnalités sélectionnées séparées par des virgules"
+msgstr ""
+"Liste des clés de fonctionnalités sélectionnées séparées par des virgules"
 
 msgid "Company"
 msgstr "Entreprise"
@@ -1854,8 +1872,11 @@ msgstr "Terminé"
 msgid "Configuration"
 msgstr "Configuration"
 
-msgid "Configure site name, header logo, browser favicon, and primary contact info."
-msgstr "Configurez le nom du site, le logo d'en-tête, le favicon du navigateur et les coordonnées principales."
+msgid ""
+"Configure site name, header logo, browser favicon, and primary contact info."
+msgstr ""
+"Configurez le nom du site, le logo d'en-tête, le favicon du navigateur et "
+"les coordonnées principales."
 
 msgid "Confirmation Token"
 msgstr "Jeton de confirmation"
@@ -2070,8 +2091,11 @@ msgstr "Extrait / Résumé (Multilingue)"
 msgid "Executive Overview (Multilingual)"
 msgstr "Vue d'ensemble exécutive (Multilingue)"
 
-msgid "Expert insights on web development, mobile apps, and digital transformation."
-msgstr "Analyses d'experts sur le développement web, les applications mobiles et la transformation digitale."
+msgid ""
+"Expert insights on web development, mobile apps, and digital transformation."
+msgstr ""
+"Analyses d'experts sur le développement web, les applications mobiles et la "
+"transformation digitale."
 
 msgid "Export selected as CSV"
 msgstr "Exporter la sélection en CSV"
@@ -2109,8 +2133,12 @@ msgstr "Affiché sur la page d'accueil"
 msgid "Flexible"
 msgstr "Flexible"
 
-msgid "For project_type/feature/pages/language: price in MAD. For timeline: multiplier (e.g. 1.0, 1.3, 0.9)"
-msgstr "Pour type de projet/fonctionnalité/pages/langue : prix en MAD. Pour délai : multiplicateur (ex. 1.0, 1.3, 0.9)"
+msgid ""
+"For project_type/feature/pages/language: price in MAD. For timeline: "
+"multiplier (e.g. 1.0, 1.3, 0.9)"
+msgstr ""
+"Pour type de projet/fonctionnalité/pages/langue : prix en MAD. Pour délai : "
+"multiplicateur (ex. 1.0, 1.3, 0.9)"
 
 msgid "Friday"
 msgstr "Vendredi"
@@ -2152,7 +2180,9 @@ msgid "HTML allowed. Use headings, paragraphs, lists."
 msgstr "HTML autorisé. Utilisez titres, paragraphes, listes."
 
 msgid "HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure."
-msgstr "Le HTML est autorisé. Utilisez les balises <h2>, <h3>, <p>, <ul>, <li> pour la structure."
+msgstr ""
+"Le HTML est autorisé. Utilisez les balises <h2>, <h3>, <p>, <ul>, <li> pour "
+"la structure."
 
 msgid "Hero Background (Video / Wallpaper)"
 msgstr "Arrière-plan Hero (Vidéo / Fond)"
@@ -2247,8 +2277,12 @@ msgstr "Titre SEO page d'accueil (EN)"
 msgid "Home Page SEO Title (FR)"
 msgstr "Titre SEO page d'accueil (FR)"
 
-msgid "I agree to receive occasional emails from getNexiro. I can unsubscribe at any time."
-msgstr "J'accepte de recevoir des communications occasionnelles de getNexiro. Je peux me désabonner à tout moment."
+msgid ""
+"I agree to receive occasional emails from getNexiro. I can unsubscribe at "
+"any time."
+msgstr ""
+"J'accepte de recevoir des communications occasionnelles de getNexiro. Je "
+"peux me désabonner à tout moment."
 
 msgid "Icon"
 msgstr "Icône"
@@ -2907,8 +2941,12 @@ msgstr "Le Défi (EN)"
 msgid "The Challenge (FR)"
 msgstr "Le Défi (FR)"
 
-msgid "This confirmation link has expired. Please subscribe again to receive a new link."
-msgstr "Ce lien de confirmation a expiré. Veuillez vous réinscrire pour recevoir un nouveau lien."
+msgid ""
+"This confirmation link has expired. Please subscribe again to receive a new "
+"link."
+msgstr ""
+"Ce lien de confirmation a expiré. Veuillez vous réinscrire pour recevoir un "
+"nouveau lien."
 
 msgid "This time slot is already booked. Please choose another."
 msgstr "Ce créneau est déjà réservé. Veuillez en choisir un autre."
@@ -2964,11 +3002,17 @@ msgstr "Désabonné"
 msgid "Updated At"
 msgstr "Mis à jour le"
 
-msgid "Upload an MP4/WebM video file or enter a direct video URL for each page header. If left empty, the site default video will be used."
-msgstr "Téléchargez un fichier vidéo MP4/WebM ou entrez une URL vidéo directe pour chaque en-tête. Si vide, la vidéo par défaut sera utilisée."
+msgid ""
+"Upload an MP4/WebM video file or enter a direct video URL for each page "
+"header. If left empty, the site default video will be used."
+msgstr ""
+"Téléchargez un fichier vidéo MP4/WebM ou entrez une URL vidéo directe pour "
+"chaque en-tête. Si vide, la vidéo par défaut sera utilisée."
 
 msgid "Upload feature picture for About page and edit story in all languages."
-msgstr "Téléchargez l'image vedette pour la page À propos et modifiez l'histoire dans toutes les langues."
+msgstr ""
+"Téléchargez l'image vedette pour la page À propos et modifiez l'histoire "
+"dans toutes les langues."
 
 msgid "Value"
 msgstr "Valeur"
@@ -2977,7 +3021,8 @@ msgid "Value (MAD or multiplier)"
 msgstr "Valeur (MAD ou multiplicateur)"
 
 msgid "Value to pre-fill in the quote wizard when CTA is clicked"
-msgstr "Valeur à pré-remplir dans le configurateur de devis lors du clic sur le CTA"
+msgstr ""
+"Valeur à pré-remplir dans le configurateur de devis lors du clic sur le CTA"
 
 msgid "Video Background"
 msgstr "Arrière-plan vidéo"
@@ -2985,8 +3030,13 @@ msgstr "Arrière-plan vidéo"
 msgid "Visitor Timezone"
 msgstr "Fuseau horaire du visiteur"
 
-msgid "We use cookies to analyze site usage and improve your experience. By clicking \"Accept\", you consent to our use of analytics cookies."
-msgstr "Nous utilisons des cookies pour analyser l'utilisation du site et améliorer votre expérience. En cliquant sur \"Accepter\", vous consentez à notre utilisation des cookies analytiques."
+msgid ""
+"We use cookies to analyze site usage and improve your experience. By "
+"clicking \"Accept\", you consent to our use of analytics cookies."
+msgstr ""
+"Nous utilisons des cookies pour analyser l'utilisation du site et améliorer "
+"votre expérience. En cliquant sur \"Accepter\", vous consentez à notre "
+"utilisation des cookies analytiques."
 
 msgid "Web / Globe"
 msgstr "Web / Globe"
@@ -3057,8 +3107,11 @@ msgstr "Votre réservation a été confirmée !"
 msgid "Your company (optional)"
 msgstr "Votre entreprise (facultatif)"
 
-msgid "Your discovery call has been booked! Check your email for confirmation."
-msgstr "Votre appel de découverte est réservé ! Vérifiez vos e-mails pour confirmation."
+msgid ""
+"Your discovery call has been booked! Check your email for confirmation."
+msgstr ""
+"Votre appel de découverte est réservé ! Vérifiez vos e-mails pour "
+"confirmation."
 
 msgid "Your name (optional)"
 msgstr "Votre nom (facultatif)"
@@ -3107,3 +3160,171 @@ msgstr "— Choisissez un délai —"
 
 msgid "— Select —"
 msgstr "— Sélectionner —"
+
+msgid "Studio Facts"
+msgstr "Le Studio en Chiffres"
+
+msgid "Operational Standards & Location"
+msgstr "Standards Opérationnels & Implantation"
+
+msgid ""
+"Transparency, nearshore timezone alignment, and direct technical "
+"collaboration."
+msgstr ""
+"Transparence, alignement sur les fuseaux européens et collaboration "
+"technique directe."
+
+msgid "Location & Hub"
+msgstr "Siège & Hub Technologique"
+
+msgid ""
+"Based in Tangier (Tanger-Tétouan-Al Hoceïma), Northern Morocco. Positioned "
+"14 km from Europe, operating seamlessly in WEST (GMT+1)."
+msgstr ""
+"Basé à Tanger (Tanger-Tétouan-Al Hoceïma), au nord du Maroc. À 14 km de "
+"l'Europe, avec un alignement parfait sur le fuseau GMT+1."
+
+msgid "Working Hours"
+msgstr "Horaires d'Ouverture"
+
+msgid ""
+"Monday to Friday: 09:00 – 18:00 (GMT+1 / WEST). Scheduled consultations and "
+"dedicated engineering sprints available across Western European timezones."
+msgstr ""
+"Du lundi au vendredi : 09h00 – 18h00 (GMT+1 / WEST). Consultations et "
+"sprints d'ingénierie dédiés sur les fuseaux européens."
+
+msgid "Direct Inquiries"
+msgstr "Contact Direct"
+
+msgid "ACTIVE"
+msgstr "ACTIF"
+
+msgid "Engineering Studio"
+msgstr "Studio d'Ingénierie"
+
+msgid "Web & Mobile Frontends"
+msgstr "Frontends Web & Mobiles"
+
+msgid "Backend Engine & APIs"
+msgstr "Moteurs Backend & APIs"
+
+msgid "Cloud & Production Delivery"
+msgstr "Cloud & Déploiement en Production"
+
+msgid "Studio Hub"
+msgstr "Hub du Studio"
+
+msgid "European Timezone"
+msgstr "Fuseau Européen"
+
+msgid "Timezone"
+msgstr "Fuseau Horaire"
+
+msgid "Trilingual"
+msgstr "Trilingue"
+
+msgid "Direct WhatsApp Chat"
+msgstr "Chat WhatsApp Direct"
+
+msgid "Phone & Direct Line"
+msgstr "Téléphone & Ligne Directe"
+
+msgid "Call Directly"
+msgstr "Appeler Directement"
+
+msgid "Initiate Collaboration"
+msgstr "Initier la Collaboration"
+
+msgid ""
+"Discuss your requirements directly with our software engineering studio in "
+"Tangier."
+msgstr ""
+"Discutez directement de vos exigences avec notre studio d'ingénierie "
+"logicielle à Tanger."
+
+msgid "Case Studies & Systems"
+msgstr "Études de Cas & Systèmes"
+
+msgid "Verified Work"
+msgstr "Réalisations Vérifiées"
+
+msgid "Read Case Study"
+msgstr "Lire l'Étude de Cas"
+
+msgid "Related Case Studies"
+msgstr "Études de Cas Similaires"
+
+msgid "Overview & Strategic Value"
+msgstr "Aperçu & Valeur Stratégique"
+
+msgid "Who It Is For"
+msgstr "À Qui S'adresse Cette Solution"
+
+msgid "What We Build & Key Solutions"
+msgstr "Ce Que Nous Développons & Solutions Clés"
+
+msgid "Core Capability"
+msgstr "Compétence Clé"
+
+msgid "Technologies & Stacks"
+msgstr "Technologies & Piles Logicielles"
+
+msgid "Tangible Project Deliverables"
+msgstr "Livrables Concrets du Projet"
+
+msgid "Our Engineering Process & Timelines"
+msgstr "Processus d'Ingénierie & Délais"
+
+msgid "Engineering Standards & Methodology"
+msgstr "Standards d'Ingénierie & Méthodologie"
+
+msgid "Transparent Pricing Guidance"
+msgstr "Guide Tarifaire Transparent"
+
+msgid "Frequently Asked Questions"
+msgstr "Questions Fréquemment Posées"
+
+msgid "Common Questions"
+msgstr "Questions Fréquentes"
+
+msgid "Ready to Build?"
+msgstr "Prêt à Démarrer ?"
+
+msgid "Request a Proposal"
+msgstr "Demander une Proposition"
+
+msgid "High-Performance Software Engineering from Tangier to Morocco & Europe"
+msgstr ""
+"Ingénierie Logicielle Haute Performance depuis Tanger vers le Maroc et "
+"l'Europe"
+
+msgid "Serving businesses across Northern Morocco"
+msgstr "Au service des entreprises du Nord du Maroc"
+
+msgid "Regional Coverage"
+msgstr "Couverture Régionale"
+
+msgid "Areas We Serve in Morocco"
+msgstr "Villes Desservies au Maroc"
+
+msgid "Our Studio Location"
+msgstr "Emplacement de Notre Studio"
+
+msgid "Verified Author & Architect"
+msgstr "Auteur & Architecte Vérifié"
+
+msgid "Articles by"
+msgstr "Articles rédigés par"
+
+msgid "No articles published by this author yet."
+msgstr "Aucun article publié par cet auteur pour le moment."
+
+msgid "Software Agency in Tangier"
+msgstr "Agence Logicielle à Tanger"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Page"
+msgstr "Page"

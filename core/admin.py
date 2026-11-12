@@ -22,6 +22,7 @@ from django.http import HttpResponse
 
 @admin.register(SiteConfig)
 class SiteConfigAdmin(admin.ModelAdmin):
+    save_on_top = True
     fieldsets = (
         (_('Brand Identity & Logo'), {
             'fields': ('site_name', 'site_logo', 'site_favicon', 'email', 'phone'),
@@ -126,6 +127,7 @@ class ServiceSolutionInline(admin.TabularInline):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
+    save_on_top = True
     list_display = ('title_en', 'slug', 'icon', 'is_featured', 'order')
     list_filter = ('is_featured', 'icon')
     list_editable = ('is_featured', 'order')
@@ -187,6 +189,7 @@ class ProjectImageInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
+    save_on_top = True
     list_display = ('title_en', 'category', 'is_featured', 'image_preview', 'gallery_count', 'order')
     list_filter = ('category', 'is_featured')
     list_editable = ('is_featured', 'order')
@@ -407,6 +410,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
+    save_on_top = True
     list_display = ('title_en', 'category', 'author', 'status', 'noindex', 'index_in_sitemap', 'is_featured', 'published_at')
     list_filter = ('status', 'noindex', 'index_in_sitemap', 'is_featured', 'category')
     list_editable = ('status', 'noindex', 'index_in_sitemap', 'is_featured')
@@ -517,6 +521,7 @@ class PackageFeatureInline(admin.TabularInline):
 
 @admin.register(Package)
 class PackageAdmin(admin.ModelAdmin):
+    save_on_top = True
     list_display = ('name_en', 'price_starting_from', 'is_featured', 'is_active', 'order')
     list_filter = ('is_featured', 'is_active')
     list_editable = ('is_featured', 'is_active', 'order')
@@ -657,6 +662,7 @@ class SubscriberAdmin(admin.ModelAdmin):
 
 @admin.register(CityServicePage)
 class CityServicePageAdmin(admin.ModelAdmin):
+    save_on_top = True
     list_display = ('__str__', 'city', 'service', 'is_published', 'updated_at')
     list_filter = ('is_published', 'city', 'service')
     list_editable = ('is_published',)

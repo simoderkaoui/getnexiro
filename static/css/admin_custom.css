@@ -1,0 +1,54 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   getNexiro Dark Luxury Admin Enhancements & Sticky Submit Bar
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Sticky Submit Bar at the bottom of change forms */
+form .submit-row:last-of-type {
+    position: sticky !important;
+    bottom: 0 !important;
+    background: #0f172a !important;
+    padding: 16px 24px !important;
+    border-top: 2px solid #0284c7 !important;
+    z-index: 1000 !important;
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* Save Buttons Styling */
+.submit-row input[type="submit"] {
+    cursor: pointer !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    padding: 11px 24px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
+}
+
+/* Primary Default Save Button */
+.submit-row input.default {
+    background: #0284c7 !important;
+    border: 1px solid #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(2, 132, 199, 0.45) !important;
+}
+
+.submit-row input.default:hover {
+    background: #0369a1 !important;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Top Submit Row (from save_on_top=True) */
+form .submit-row:first-of-type {
+    background: #1e293b !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+    margin-bottom: 24px !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}

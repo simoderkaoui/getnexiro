@@ -1423,13 +1423,19 @@ msgstr "تم التحديث"
 msgid "Planning a Similar Project or Need Expert Engineering?"
 msgstr "هل تخطط لمشروع مماثل أو تحتاج إلى هندسة برمجية متخصصة؟"
 
-msgid "Get an accurate, transparent cost estimate in under 2 minutes with our interactive project quote wizard, or chat directly with our lead architects."
-msgstr "احصل على تقدير دقيق وشفاف للتكلفة في أقل من دقيقتين باستخدام حاسبة عروض الأسعار التفاعلية، أو تحدث مباشرة مع كبار مهندسينا."
+msgid ""
+"Get an accurate, transparent cost estimate in under 2 minutes with our "
+"interactive project quote wizard, or chat directly with our lead architects."
+msgstr ""
+"احصل على تقدير دقيق وشفاف للتكلفة في أقل من دقيقتين باستخدام حاسبة عروض "
+"الأسعار التفاعلية، أو تحدث مباشرة مع كبار مهندسينا."
 
 msgid "Need a Project Quote?"
 msgstr "هل تحتاج إلى عرض سعر لمشروعك؟"
 
-msgid "Get an itemized estimate in under 2 minutes with our instant quote calculator."
+msgid ""
+"Get an itemized estimate in under 2 minutes with our instant quote "
+"calculator."
 msgstr "احصل على تقدير مفصل في أقل من دقيقتين عبر حاسبة الأسعار الفورية."
 
 msgid "Free Project Calculator"
@@ -1717,8 +1723,12 @@ msgstr "التصنيف والعميل والروابط"
 msgid "Check your email to confirm and get your download link!"
 msgstr "تحقق من بريدك الإلكتروني للتأكيد والحصول على رابط التنزيل!"
 
-msgid "Choose whether to display the animated glow mesh, a custom wallpaper picture, or a looping background video (MP4 file or direct URL)."
-msgstr "اختر ما إذا كنت تريد عرض الشبكة المضيئة المتحركة أو صورة خلفية مخصصة أو فيديو متكرر في الخلفية (ملف MP4 أو رابط مباشر)."
+msgid ""
+"Choose whether to display the animated glow mesh, a custom wallpaper "
+"picture, or a looping background video (MP4 file or direct URL)."
+msgstr ""
+"اختر ما إذا كنت تريد عرض الشبكة المضيئة المتحركة أو صورة خلفية مخصصة أو "
+"فيديو متكرر في الخلفية (ملف MP4 أو رابط مباشر)."
 
 msgid "City"
 msgstr "المدينة"
@@ -1786,8 +1796,11 @@ msgstr "مكتمل"
 msgid "Configuration"
 msgstr "الإعدادات"
 
-msgid "Configure site name, header logo, browser favicon, and primary contact info."
-msgstr "قم بإعداد اسم الموقع وشعار الترويسة وأيقونة المتصفح ومعلومات الاتصال الأساسية."
+msgid ""
+"Configure site name, header logo, browser favicon, and primary contact info."
+msgstr ""
+"قم بإعداد اسم الموقع وشعار الترويسة وأيقونة المتصفح ومعلومات الاتصال "
+"الأساسية."
 
 msgid "Confirmation Token"
 msgstr "رمز التأكيد"
@@ -2002,7 +2015,8 @@ msgstr "المقتطف / الملخص (متعدد اللغات)"
 msgid "Executive Overview (Multilingual)"
 msgstr "نظرة عامة تنفيذية (متعدد اللغات)"
 
-msgid "Expert insights on web development, mobile apps, and digital transformation."
+msgid ""
+"Expert insights on web development, mobile apps, and digital transformation."
 msgstr "رؤى خبراء حول تطوير الويب وتطبيقات الهاتف والتحول الرقمي."
 
 msgid "Export selected as CSV"
@@ -2041,8 +2055,12 @@ msgstr "معروض في الصفحة الرئيسية"
 msgid "Flexible"
 msgstr "مرن"
 
-msgid "For project_type/feature/pages/language: price in MAD. For timeline: multiplier (e.g. 1.0, 1.3, 0.9)"
-msgstr "لنوع المشروع/الميزة/الصفحات/اللغة: السعر بالدرهم. للجدول الزمني: معامل الضرب (مثل 1.0، 1.3، 0.9)"
+msgid ""
+"For project_type/feature/pages/language: price in MAD. For timeline: "
+"multiplier (e.g. 1.0, 1.3, 0.9)"
+msgstr ""
+"لنوع المشروع/الميزة/الصفحات/اللغة: السعر بالدرهم. للجدول الزمني: معامل الضرب"
+" (مثل 1.0، 1.3، 0.9)"
 
 msgid "Friday"
 msgstr "الجمعة"
@@ -2179,8 +2197,12 @@ msgstr "عنوان سيو للصفحة الرئيسية (إنجليزي)"
 msgid "Home Page SEO Title (FR)"
 msgstr "عنوان سيو للصفحة الرئيسية (فرنسي)"
 
-msgid "I agree to receive occasional emails from getNexiro. I can unsubscribe at any time."
-msgstr "أوافق على تلقي رسائل بريد إلكتروني دورية من getNexiro. يمكنني إلغاء الاشتراك في أي وقت."
+msgid ""
+"I agree to receive occasional emails from getNexiro. I can unsubscribe at "
+"any time."
+msgstr ""
+"أوافق على تلقي رسائل بريد إلكتروني دورية من getNexiro. يمكنني إلغاء الاشتراك"
+" في أي وقت."
 
 msgid "Icon"
 msgstr "أيقونة"
@@ -2216,7 +2238,8 @@ msgid "Intro Paragraph (Multilingual)"
 msgstr "فقرة التقديم (متعدد اللغات)"
 
 msgid "Invalid or expired confirmation link. Please try subscribing again."
-msgstr "رابط التأكيد غير صالح أو منتهي الصلاحية. يرجى محاولة الاشتراك مرة أخرى."
+msgstr ""
+"رابط التأكيد غير صالح أو منتهي الصلاحية. يرجى محاولة الاشتراك مرة أخرى."
 
 msgid "Item Settings"
 msgstr "إعدادات العنصر"
@@ -2839,8 +2862,11 @@ msgstr "التحدي (إنجليزي)"
 msgid "The Challenge (FR)"
 msgstr "التحدي (فرنسي)"
 
-msgid "This confirmation link has expired. Please subscribe again to receive a new link."
-msgstr "لقد انتهت صلاحية رابط التأكيد هذا. يرجى الاشتراك مرة أخرى لتلقي رابط جديد."
+msgid ""
+"This confirmation link has expired. Please subscribe again to receive a new "
+"link."
+msgstr ""
+"لقد انتهت صلاحية رابط التأكيد هذا. يرجى الاشتراك مرة أخرى لتلقي رابط جديد."
 
 msgid "This time slot is already booked. Please choose another."
 msgstr "هذا الموعد محجوز بالفعل. يرجى اختيار موعد آخر."
@@ -2896,8 +2922,12 @@ msgstr "تم إلغاء الاشتراك"
 msgid "Updated At"
 msgstr "تاريخ التحديث"
 
-msgid "Upload an MP4/WebM video file or enter a direct video URL for each page header. If left empty, the site default video will be used."
-msgstr "قم بتحميل ملف فيديو MP4/WebM أو أدخل رابط فيديو مباشر لترويسة كل صفحة. إذا تُرك فارغاً، سيتم استخدام الفيديو الافتراضي للموقع."
+msgid ""
+"Upload an MP4/WebM video file or enter a direct video URL for each page "
+"header. If left empty, the site default video will be used."
+msgstr ""
+"قم بتحميل ملف فيديو MP4/WebM أو أدخل رابط فيديو مباشر لترويسة كل صفحة. إذا "
+"تُرك فارغاً، سيتم استخدام الفيديو الافتراضي للموقع."
 
 msgid "Upload feature picture for About page and edit story in all languages."
 msgstr "قم بتحميل الصورة المميزة لصفحة من نحن وتحرير القصة بجميع اللغات."
@@ -2917,8 +2947,12 @@ msgstr "خلفية فيديو"
 msgid "Visitor Timezone"
 msgstr "المنطقة الزمنية للزائر"
 
-msgid "We use cookies to analyze site usage and improve your experience. By clicking \"Accept\", you consent to our use of analytics cookies."
-msgstr "نستخدم ملفات تعريف الارتباط لتحليل استخدام الموقع وتحسين تجربتك. بالنقر على \"قبول\"، فإنك توافق على استخدامنا لملفات تعريف الارتباط التحليلية."
+msgid ""
+"We use cookies to analyze site usage and improve your experience. By "
+"clicking \"Accept\", you consent to our use of analytics cookies."
+msgstr ""
+"نستخدم ملفات تعريف الارتباط لتحليل استخدام الموقع وتحسين تجربتك. بالنقر على "
+"\"قبول\"، فإنك توافق على استخدامنا لملفات تعريف الارتباط التحليلية."
 
 msgid "Web / Globe"
 msgstr "الويب / الكرة الأرضية"
@@ -2989,7 +3023,8 @@ msgstr "تم تأكيد حجزك بنجاح!"
 msgid "Your company (optional)"
 msgstr "شركتك (اختياري)"
 
-msgid "Your discovery call has been booked! Check your email for confirmation."
+msgid ""
+"Your discovery call has been booked! Check your email for confirmation."
 msgstr "تم حجز مكالمتك الاستكشافية! تحقق من بريدك الإلكتروني للتأكيد."
 
 msgid "Your name (optional)"
@@ -3039,3 +3074,165 @@ msgstr "— اختر الإطار الزمني —"
 
 msgid "— Select —"
 msgstr "— اختر —"
+
+msgid "Studio Facts"
+msgstr "حقائق عن الاستوديو"
+
+msgid "Operational Standards & Location"
+msgstr "معايير العمل والموقع الجغرافي"
+
+msgid ""
+"Transparency, nearshore timezone alignment, and direct technical "
+"collaboration."
+msgstr "شفافية تامة، توافق زمني مع أوروبا، وتعاون تقني مباشر ومستمر."
+
+msgid "Location & Hub"
+msgstr "المقر والمركز التقني"
+
+msgid ""
+"Based in Tangier (Tanger-Tétouan-Al Hoceïma), Northern Morocco. Positioned "
+"14 km from Europe, operating seamlessly in WEST (GMT+1)."
+msgstr ""
+"يقع مقرنا في طنجة (جهة طنجة تطوان الحسيمة)، شمال المغرب. على بعد 14 كم فقط "
+"من أوروبا، ونعمل بتوافق كامل مع توقيت غرب أوروبا (GMT+1)."
+
+msgid "Working Hours"
+msgstr "ساعات العمل"
+
+msgid ""
+"Monday to Friday: 09:00 – 18:00 (GMT+1 / WEST). Scheduled consultations and "
+"dedicated engineering sprints available across Western European timezones."
+msgstr ""
+"من الإثنين إلى الجمعة: 09:00 - 18:00 (بتوقيت المغرب وأوروبا GMT+1). استشارات"
+" مجدولة وجلسات تطوير برمجية متوافقة مع التوقيت الأوروبي."
+
+msgid "Direct Inquiries"
+msgstr "التواصل المباشر"
+
+msgid "ACTIVE"
+msgstr "نشط"
+
+msgid "Engineering Studio"
+msgstr "استوديو هندسي"
+
+msgid "Web & Mobile Frontends"
+msgstr "واجهات الويب وتطبيقات الهواتف"
+
+msgid "Backend Engine & APIs"
+msgstr "محركات الأنظمة الخلفية وواجهات APIs"
+
+msgid "Cloud & Production Delivery"
+msgstr "السحابة والنشر في بيئة الإنتاج"
+
+msgid "Studio Hub"
+msgstr "مقر الاستوديو"
+
+msgid "European Timezone"
+msgstr "توقيت متوافق مع أوروبا"
+
+msgid "Timezone"
+msgstr "المنطقة الزمنية"
+
+msgid "Trilingual"
+msgstr "ثلاثي اللغات"
+
+msgid "Direct WhatsApp Chat"
+msgstr "محادثة مباشرة عبر واتساب"
+
+msgid "Phone & Direct Line"
+msgstr "الهاتف والخط المباشر"
+
+msgid "Call Directly"
+msgstr "اتصل بنا مباشرة"
+
+msgid "Initiate Collaboration"
+msgstr "ابدأ التعاون التقني"
+
+msgid ""
+"Discuss your requirements directly with our software engineering studio in "
+"Tangier."
+msgstr "ناقش متطلبات مشروعك مباشرة مع استوديو الهندسة البرمجية في طنجة."
+
+msgid "Case Studies & Systems"
+msgstr "دراسات الحالة والأنظمة الحية"
+
+msgid "Verified Work"
+msgstr "مشاريع منجزة ومعتمدة"
+
+msgid "Read Case Study"
+msgstr "قراءة دراسة الحالة"
+
+msgid "Related Case Studies"
+msgstr "دراسات حالة ذات صلة"
+
+msgid "Overview & Strategic Value"
+msgstr "نظرة عامة والقيمة الاستراتيجية"
+
+msgid "Who It Is For"
+msgstr "الفئات والقطاعات المستهدفة"
+
+msgid "What We Build & Key Solutions"
+msgstr "ما نبنيه وأبرز الحلول"
+
+msgid "Core Capability"
+msgstr "القدرة الهندسية الأساسية"
+
+msgid "Technologies & Stacks"
+msgstr "التقنيات والأدوات المستخدمة"
+
+msgid "Tangible Project Deliverables"
+msgstr "المخرجات الفعلية للمشروع"
+
+msgid "Our Engineering Process & Timelines"
+msgstr "مراحل التنفيذ والجدول الزمني"
+
+msgid "Engineering Standards & Methodology"
+msgstr "معايير الهندسة والمنهجية المتبعة"
+
+msgid "Transparent Pricing Guidance"
+msgstr "دليل الأسعار الشفاف"
+
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة الشائعة"
+
+msgid "Common Questions"
+msgstr "أسئلة شائعة"
+
+msgid "Ready to Build?"
+msgstr "جاهز لإطلاق مشروعك؟"
+
+msgid "Request a Proposal"
+msgstr "طلب عرض فني ومالي"
+
+msgid "High-Performance Software Engineering from Tangier to Morocco & Europe"
+msgstr "هندسة برمجيات فائقة الأداء من طنجة إلى كافة أنحاء المغرب وأوروبا"
+
+msgid "Serving businesses across Northern Morocco"
+msgstr "نخدم الشركات الرائدة في طنجة وشمال المغرب"
+
+msgid "Regional Coverage"
+msgstr "التغطية الجغرافية"
+
+msgid "Areas We Serve in Morocco"
+msgstr "المدن والمناطق التي نخدمها في المغرب"
+
+msgid "Our Studio Location"
+msgstr "موقع الاستوديو في طنجة"
+
+msgid "Verified Author & Architect"
+msgstr "كاتب ومهندس معماري معتمد"
+
+msgid "Articles by"
+msgstr "مقالات بقلم"
+
+msgid "No articles published by this author yet."
+msgstr "لم ينشر هذا الكاتب أية مقالات بعد."
+
+msgid "Software Agency in Tangier"
+msgstr "وكالة برمجيات في طنجة"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Page"
+msgstr "صفحة"
