@@ -5,26 +5,63 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "{{ page_seo_title|default:'About Us'|escapejs }}",
-    "url": "{{ SITE_URL }}{{ request.path }}",
-    "description": "{{ page_seo_description|escapejs }}",
-    "mainEntity": {
-        "@type": "Organization",
-        "name": "{{ config.site_name|default:'getNexiro' }}",
-        "url": "{{ SITE_URL }}",
-        "foundingLocation": {
-            "@type": "Place",
-            "name": "Tangier, Morocco"
+    "@graph": [
+        {
+            "@type": "AboutPage",
+            "@id": "{{ SITE_URL }}{{ request.path }}#about",
+            "url": "{{ SITE_URL }}{{ request.path }}",
+            "name": "{{ page_seo_title|default:'About getNexiro'|escapejs }}",
+            "description": "{{ page_seo_description|escapejs }}",
+            "inLanguage": "{{ LANGUAGE_CODE }}",
+            "isPartOf": {
+                "@type": "WebSite",
+                "@id": "{{ SITE_URL }}/#website"
+            },
+            "about": {
+                "@id": "{{ SITE_URL }}/#organization"
+            }
+        },
+        {
+            "@type": "Organization",
+            "@id": "{{ SITE_URL }}/#organization",
+            "name": "{{ config.site_name|default:'getNexiro' }}",
+            "url": "{{ SITE_URL }}/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ SITE_URL }}{% static 'images/logo.png' %}"
+            },
+            "email": "{{ config.email|default:'contact@getnexiro.com' }}",
+            "telephone": "{{ config.phone|default:'+212 787-862187' }}",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Tangier",
+                "addressRegion": "Tanger-Tétouan-Al Hoceïma",
+                "postalCode": "90000",
+                "addressCountry": "MA"
+            },
+            "foundingLocation": {
+                "@type": "Place",
+                "name": "Tangier, Morocco"
+            },
+            "sameAs": [
+                "https://www.linkedin.com/company/getnexiro",
+                "https://twitter.com/getnexiro"
+            ],
+            "knowsAbout": [
+                "Web Development",
+                "Mobile Applications",
+                "UI/UX Design Systems",
+                "Cloud & DevOps Architecture",
+                "Custom API Engineering"
+            ]
         }
-    }
+    ]
 }
 </script>
 {% endblock %}
 
 {% block content %}
 <section class="page-header">
-    {% include "core/includes/page_header_video.html" with page_video=config.about_bg_video page_video_url=config.about_bg_video_url %}
     <div class="container text-center">
         <div class="badge-tag">{% trans "About Us" %}</div>
         <h1 class="page-title">{% trans "The Story Behind" %} <span class="text-gradient">getNexiro</span></h1>
@@ -39,26 +76,75 @@
                 <div class="badge-tag">{% trans "Our Story" %}</div>
                 <h2 class="section-title">{% trans "Born at the Crossroads of Continents" %}</h2>
                 <p>{{ config.about_text }}</p>
-                <p>{% trans "Our founders, seasoned engineers with experience at leading tech companies in Europe and North America, returned to Morocco with a vision to build a boutique development agency that rivals the best in the world, while leveraging the unique advantages of our strategic location." %}</p>
+                <p>{% trans "getNexiro was founded in Tangier by Moroccan technologists committed to engineering modern, high-precision web and mobile applications for local and international businesses. Operating from Northern Morocco's primary industrial and maritime gateway, we combine localized agility with international software development standards." %}</p>
+                <!-- TODO(owner): Update founding story with specific founder bios, education, or prior company affiliations if desired. -->
                 <div class="about-stats-mini">
                     <div class="mini-stat"><span class="mini-stat-num">2024</span><span class="mini-stat-lbl">{% trans "Founded in Tangier" %}</span></div>
-                    <div class="mini-stat"><span class="mini-stat-num">3+</span><span class="mini-stat-lbl">{% trans "Continents Reached" %}</span></div>
+                    <div class="mini-stat"><span class="mini-stat-num">10+</span><span class="mini-stat-lbl">{% trans "Case Studies & Systems" %}</span></div>
+                    <!-- TODO(owner): Confirm verified geographic client distribution if '3+ Continents' can be formally claimed. -->
                     <div class="mini-stat"><span class="mini-stat-num">100%</span><span class="mini-stat-lbl">{% trans "Tailored Codebases" %}</span></div>
                 </div>
             </div>
             <div class="about-image-card glass-card">
                 {% if config.about_image %}
-                <img src="{{ config.about_image.url }}" alt="{{ config.site_name }}" loading="lazy" class="about-img">
+                <img src="{{ config.about_image.url }}" alt="{{ config.site_name }}" loading="lazy" class="about-img" width="600" height="500">
                 {% else %}
-                <img src="https://picsum.photos/seed/tangier2024/600/500" alt="{% trans 'Tangier, Morocco' %}" loading="lazy" class="about-img">
+                <img src="{% static 'images/about-studio.svg' %}" alt="{% trans 'getNexiro Engineering Studio in Tangier, Morocco' %}" loading="lazy" class="about-img" width="600" height="500">
                 {% endif %}
-                <div class="about-image-badge"><span class="pin-icon">📍</span><div><strong>{% trans "Tangier, Morocco" %}</strong><small>{% trans "Gateway to Europe & Africa" %}</small></div></div>
+                <div class="about-image-badge">
+                    <span class="pin-icon" aria-hidden="true" style="display:inline-flex; align-items:center;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </span>
+                    <div>
+                        <strong>{% trans "Tangier, Morocco" %}</strong>
+                        <small>{% trans "Gateway to Europe & Africa" %}</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Company Facts & Studio Information (Trust & Local Signal) -->
 <section class="section section-dark">
+    <div class="container">
+        <div class="section-header text-center">
+            <div class="badge-tag">{% trans "Studio Facts" %}</div>
+            <h2 class="section-title">{% trans "Operational Standards & Location" %}</h2>
+            <p class="section-subtitle">{% trans "Transparency, nearshore timezone alignment, and direct technical collaboration." %}</p>
+        </div>
+        <div class="studio-facts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <div class="fact-card glass-card" style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(15,23,42,0.6);">
+                <div style="color: var(--cyan); margin-bottom: 0.75rem;" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">{% trans "Location & Hub" %}</h3>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.5;">{% trans "Based in Tangier (Tanger-Tétouan-Al Hoceïma), Northern Morocco. Positioned 14 km from Europe, operating seamlessly in WEST (GMT+1)." %}</p>
+                <!-- TODO(owner): Add commercial register number (RC/ICE) and registered legal address once official papers are uploaded. -->
+            </div>
+            <div class="fact-card glass-card" style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(15,23,42,0.6);">
+                <div style="color: var(--cyan); margin-bottom: 0.75rem;" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">{% trans "Working Hours" %}</h3>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.5;">{% trans "Monday to Friday: 09:00 – 18:00 (GMT+1 / WEST). Scheduled consultations and dedicated engineering sprints available across Western European timezones." %}</p>
+                <!-- TODO(owner): Confirm studio business and on-site client consultation hours. -->
+            </div>
+            <div class="fact-card glass-card" style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: rgba(15,23,42,0.6);">
+                <div style="color: var(--cyan); margin-bottom: 0.75rem;" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">{% trans "Direct Inquiries" %}</h3>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.5;">
+                    <a href="mailto:contact@getnexiro.com" style="color: #38bdf8; text-decoration: none;">contact@getnexiro.com</a><br>
+                    <a href="tel:+212787862187" style="color: #94a3b8; text-decoration: none;">+212 787-862187</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
     <div class="container text-center">
         <div class="mission-card glass-card">
             <div class="badge-tag">{% trans "Our Mission" %}</div>
@@ -67,7 +153,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section section-dark">
     <div class="container">
         <div class="section-header">
             <div class="badge-tag">{% trans "Why Tangier" %}</div>
@@ -76,21 +162,47 @@
         <div class="value-grid">
             {% for val in company_values %}
             <div class="value-card glass-card">
-                <div class="value-number-icon">{{ val.icon }}</div>
+                <div class="value-number-icon" aria-hidden="true">
+                    {% if forloop.counter == 1 %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f5a0" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    {% elif forloop.counter == 2 %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00d9f5" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+                    {% else %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f5a0" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+                    {% endif %}
+                </div>
                 <h3 class="value-title">{{ val.title }}</h3>
                 <p class="value-desc">{{ val.description }}</p>
             </div>
             {% empty %}
-            <div class="value-card glass-card"><div class="value-number-icon">🌍</div><h3 class="value-title">{% trans "Gateway Location" %}</h3><p class="value-desc">{% trans "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs." %}</p></div>
-            <div class="value-card glass-card"><div class="value-number-icon">💡</div><h3 class="value-title">{% trans "Rich Talent Pool" %}</h3><p class="value-desc">{% trans "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers." %}</p></div>
-            <div class="value-card glass-card"><div class="value-number-icon">💎</div><h3 class="value-title">{% trans "Premium Value" %}</h3><p class="value-desc">{% trans "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship." %}</p></div>
+            <div class="value-card glass-card">
+                <div class="value-number-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f5a0" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h3 class="value-title">{% trans "Gateway Location" %}</h3>
+                <p class="value-desc">{% trans "Just 14 km from Europe, Tangier offers GMT+1 timezone alignment with European clients and easy travel to major business hubs." %}</p>
+            </div>
+            <div class="value-card glass-card">
+                <div class="value-number-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00d9f5" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+                </div>
+                <h3 class="value-title">{% trans "Rich Talent Pool" %}</h3>
+                <p class="value-desc">{% trans "Morocco's growing tech ecosystem provides access to multilingual, highly skilled engineers and designers." %}</p>
+            </div>
+            <div class="value-card glass-card">
+                <div class="value-number-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f5a0" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+                </div>
+                <h3 class="value-title">{% trans "Premium Value" %}</h3>
+                <p class="value-desc">{% trans "World-class quality at competitive rates — delivering exceptional ROI without compromising on craftsmanship." %}</p>
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
 {% if team_members %}
-<section class="section section-dark">
+<section class="section">
     <div class="container">
         <div class="section-header">
             <div class="badge-tag">{% trans "The Team" %}</div>
@@ -101,9 +213,9 @@
             <div class="team-card glass-card">
                 <div class="team-img-wrapper">
                     {% if member.photo %}
-                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" class="team-avatar">
+                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" class="team-avatar" width="100" height="100">
                     {% else %}
-                    <img src="{% static 'images/logo_icon_transparent.png' %}" alt="{{ member.name }}" loading="lazy" class="team-avatar" style="padding:0.75rem;">
+                    <img src="{% static 'images/logo_icon_transparent.png' %}" alt="{{ member.name }}" loading="lazy" class="team-avatar" width="100" height="100" style="padding:0.75rem;">
                     {% endif %}
                 </div>
                 <h3 class="team-name">{{ member.name }}</h3>
