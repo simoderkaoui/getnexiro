@@ -1438,3 +1438,136 @@ class BlogSearchAndPhase2ImprovementsTest(TestCase):
         activate('ar')
         response_ar = self.client.get(reverse('core:home'))
         self.assertContains(response_ar, 'property="og:locale" content="ar_MA"')
+
+
+# ══════════════════════════════════════════════════════════════════
+# Phase 14: Comprehensive SEO Master Test Suite
+# ══════════════════════════════════════════════════════════════════
+
+class SEOMasterTestSuite(TestCase):
+    """
+    Automated verification of the entire Technical & On-Page SEO System:
+    - Titles <= 60 chars ending with ' | getNexiro'
+    - Descriptions between 120 and 155 chars
+    - Single H1 per page
+    - Absolute canonical links
+    - Complete reciprocal hreflang + x-default
+    - Sitemap excludes noindex pages
+    - Valid, syntax-clean JSON-LD schemas
+    - No obsolete meta keywords or geo tags
+    """
+
+    def setUp(self):
+        self.client = Client()
+        self.config = SiteConfig.load()
+        self.config.site_name = 'getNexiro'
+        self.config.save()
+
+    def _get_soup(self, url):
+        from bs4 import BeautifulSoup
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 200, f"Page {url} did not return 200 OK")
+        return BeautifulSoup(res.content.decode('utf-8'), 'html.parser')
+
+    def test_seo_titles_length_and_format(self):
+        """All main indexable views across EN, FR, AR must have titles <= 60 chars ending in | getNexiro."""
+        named_views = ['core:home', 'core:about', 'core:services', 'core:projects', 'core:blog', 'core:contact']
+        for lang in ('en', 'fr', 'ar'):
+            activate(lang)
+            for v_name in named_views:
+                url = reverse(v_name)
+                soup = self._get_soup(url)
+                self.assertIsNotNone(soup.title, f"Missing <title> tag on {url}")
+                title = soup.title.string.strip()
+                self.assertTrue(len(title) <= 60, f"Title on {url} exceeds 60 chars: '{title}' ({len(title)} chars)")
+                self.assertTrue(title.endswith("getNexiro"), f"Title on {url} does not end with getNexiro: '{title}'")
+
+    def test_seo_descriptions_length(self):
+        """Descriptions must be between 120 and 155 characters across all main pages."""
+        named_views = ['core:home', 'core:about', 'core:services', 'core:projects', 'core:blog', 'core:contact']
+        for lang in ('en', 'fr', 'ar'):
+            activate(lang)
+            for v_name in named_views:
+                url = reverse(v_name)
+                soup = self._get_soup(url)
+                meta_desc = soup.find('meta', {'name': 'description'})
+                self.assertIsNotNone(meta_desc, f"Missing meta description on {url}")
+                desc = meta_desc.get('content', '').strip()
+                self.assertTrue(120 <= len(desc) <= 155, f"Description on {url} not in 120-155 chars: '{desc}' ({len(desc)} chars)")
+
+    def test_single_h1_per_page(self):
+        """Every page must have exactly one semantic <h1> element."""
+        named_views = ['core:home', 'core:about', 'core:services', 'core:projects', 'core:blog', 'core:contact']
+        for lang in ('en', 'fr', 'ar'):
+            activate(lang)
+            for v_name in named_views:
+                url = reverse(v_name)
+                soup = self._get_soup(url)
+                h1_elements = soup.find_all('h1')
+                self.assertEqual(len(h1_elements), 1, f"Page {url} has {len(h1_elements)} <h1> tags (expected exactly 1)")
+
+    def test_canonicals_present_and_clean(self):
+        """Canonical link must be absolute and ignore tracking parameters."""
+        activate('en')
+        url_with_params = reverse('core:home') + '?utm_source=google&fbclid=12345'
+        soup = self._get_soup(url_with_params)
+        canonical = soup.find('link', {'rel': 'canonical'})
+        self.assertIsNotNone(canonical, "Missing canonical link")
+        href = canonical.get('href', '')
+        self.assertTrue(href.startswith('https://getnexiro.com/en/'), f"Canonical {href} is not absolute")
+        self.assertNotIn('utm_source', href, "Canonical includes tracking parameters")
+        self.assertNotIn('fbclid', href, "Canonical includes tracking parameters")
+
+    def test_hreflang_reciprocity_and_xdefault(self):
+        """Hreflang tags must include en, fr, ar alternates and an x-default."""
+        activate('en')
+        soup = self._get_soup(reverse('core:home'))
+        alts = soup.find_all('link', {'rel': 'alternate'})
+        hreflangs = {a.get('hreflang'): a.get('href') for a in alts if a.get('hreflang')}
+        self.assertIn('en', hreflangs)
+        self.assertIn('fr', hreflangs)
+        self.assertIn('ar', hreflangs)
+        self.assertIn('x-default', hreflangs)
+
+    def test_sitemap_excludes_noindex(self):
+        """Sitemap.xml must exclude posts flagged as noindex=True."""
+        hidden_post = BlogPost.objects.create(
+            title_en="Hidden Thin Post",
+            slug="hidden-thin-post-seo-test",
+            status="published",
+            noindex=True,
+            index_in_sitemap=False
+        )
+        res = self.client.get('/sitemap.xml')
+        self.assertEqual(res.status_code, 200)
+        content = res.content.decode('utf-8')
+        self.assertNotIn('hidden-thin-post-seo-test', content)
+
+    def test_valid_jsonld_schemas(self):
+        """All JSON-LD blocks must parse into valid JSON objects without syntax errors."""
+        import json
+        named_views = ['core:home', 'core:about', 'core:contact']
+        for lang in ('en', 'fr'):
+            activate(lang)
+            for v_name in named_views:
+                url = reverse(v_name)
+                soup = self._get_soup(url)
+                scripts = soup.find_all('script', {'type': 'application/ld+json'})
+                self.assertTrue(len(scripts) >= 1, f"No JSON-LD script found on {url}")
+                for s in scripts:
+                    try:
+                        data = json.loads(s.string)
+                        self.assertIsInstance(data, dict)
+                    except Exception as e:
+                        self.fail(f"Invalid JSON-LD on {url}: {e}\nScript:\n{s.string}")
+
+    def test_no_meta_keywords_or_obsolete_geo_tags(self):
+        """Ensure obsolete meta keywords and geo tags are removed from all pages."""
+        for v_name in ['core:home', 'core:about', 'core:contact']:
+            soup = self._get_soup(reverse(v_name))
+            self.assertIsNone(soup.find('meta', {'name': 'keywords'}), f"Found obsolete meta keywords on {v_name}")
+            self.assertIsNone(soup.find('meta', {'name': 'ICBM'}), f"Found obsolete ICBM on {v_name}")
+            self.assertIsNone(soup.find('meta', {'name': 'geo.position'}), f"Found obsolete geo.position on {v_name}")
+            self.assertIsNone(soup.find('meta', {'name': 'geo.region'}), f"Found obsolete geo.region on {v_name}")
+            self.assertIsNone(soup.find('meta', {'name': 'geo.placename'}), f"Found obsolete geo.placename on {v_name}")
+

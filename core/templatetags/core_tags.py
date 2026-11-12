@@ -87,7 +87,7 @@ def _format_seo_description(raw_desc, fallback_text=None, lang='en'):
     if not desc:
         default_descs = {
             'en': 'Premier web and mobile app development agency in Tangier, Morocco. We engineer high-performance platforms for SMBs. Request your free quote today.',
-            'fr': 'Agence de développement web et mobile à Tanger au Maroc. Nous concevons des plateformes performantes pour entreprises. Demandez votre devis gratuit dès aujourd\'hui.',
+            'fr': 'Agence web et mobile à Tanger au Maroc. Nous concevons des applications performantes pour entreprises. Demandez votre devis gratuit dès aujourd\'hui.',
             'ar': 'وكالة رائدة في تطوير مواقع وتطبيقات الجوال بطنجة والمغرب. تصمم منصات رقمية عالية الأداء للشركات. اطلب عرض سعر مجاني لمشروعك الآن.',
         }
         return default_descs.get(lang, default_descs['en'])
