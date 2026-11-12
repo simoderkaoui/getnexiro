@@ -1596,4 +1596,33 @@ class SEOMasterTestSuite(TestCase):
         self.assertEqual(res.status_code, 301)
         self.assertIn('/ar/', res.headers.get('Location'))
 
+        # 5. Trailing and duplicate language tokens (e.g. /ar/من-نحن/ar/ar/) must 301 redirect cleanly
+        res = self.client.get('/ar/من-نحن/ar/ar/')
+        self.assertEqual(res.status_code, 301)
+        follow_res = self.client.get(res.headers.get('Location'), follow=True)
+        self.assertEqual(follow_res.status_code, 200)
+
+        res = self.client.get('/ar/من-نحن/ar/')
+        self.assertEqual(res.status_code, 301)
+
+        res = self.client.get('/ar/ar/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/ar/')
+
+        res = self.client.get('/en/ar/about/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/en/about/')
+
+    def test_direct_flag_switcher_links_in_navbar(self):
+        """Ensure flag switcher in base.html generates direct, crawlable <a> links without forms."""
+        res = self.client.get('/ar/من-نحن/')
+        self.assertEqual(res.status_code, 200)
+        html = res.content.decode('utf-8')
+        # Navbar flag switcher must be anchor tags, not forms
+        self.assertIn('class="flag-btn', html)
+        self.assertNotIn('<form action="/i18n/setlang/"', html)
+        # Alternate languages must link cleanly
+        self.assertIn('/en/about/', html)
+        self.assertIn('/fr/a-propos/', html)
+
 

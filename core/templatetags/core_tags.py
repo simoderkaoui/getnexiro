@@ -1,11 +1,47 @@
 import re
+import urllib.parse
 from django import template
 from django.conf import settings
-from django.utils.translation import get_language
-from django.urls import translate_url as django_translate_url
+from django.utils.translation import get_language, override
+from django.urls import resolve, reverse, Resolver404, NoReverseMatch
 from django.templatetags.static import static
 
 register = template.Library()
+
+PAGE_CANONICAL_KEYS = {
+    'about': 'about', 'a-propos': 'about', 'من-نحن': 'about',
+    'services': 'services', 'خدمات': 'services',
+    'projects': 'projects', 'projets': 'projects', 'مشاريع': 'projects',
+    'blog': 'blog', 'مدونة': 'blog',
+    'contact': 'contact', 'تواصل': 'contact',
+    'privacy-policy': 'privacy-policy',
+    'terms-of-service': 'terms-of-service',
+    'quote': 'quote',
+    'packages': 'packages',
+    'booking': 'booking',
+    'checklist': 'checklist',
+}
+
+CANONICAL_TARGET_SLUGS = {
+    'en': {
+        'about': 'about', 'services': 'services', 'projects': 'projects',
+        'blog': 'blog', 'contact': 'contact', 'privacy-policy': 'privacy-policy',
+        'terms-of-service': 'terms-of-service', 'quote': 'quote',
+        'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
+    },
+    'fr': {
+        'about': 'a-propos', 'services': 'services', 'projects': 'projets',
+        'blog': 'blog', 'contact': 'contact', 'privacy-policy': 'privacy-policy',
+        'terms-of-service': 'terms-of-service', 'quote': 'quote',
+        'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
+    },
+    'ar': {
+        'about': 'من-نحن', 'services': 'خدمات', 'projects': 'مشاريع',
+        'blog': 'مدونة', 'contact': 'تواصل', 'privacy-policy': 'privacy-policy',
+        'terms-of-service': 'terms-of-service', 'quote': 'quote',
+        'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
+    },
+}
 
 
 @register.filter(name='translate_url')
@@ -13,15 +49,65 @@ def translate_url(url, lang_code):
     """
     Given a URL path and a target language code, translate the URL
     to the target language route (e.g. /fr/a-propos/ -> /ar/من-نحن/).
-    Falls back gracefully if URL cannot be reversed.
+    Cleans duplicate/trailing language codes and falls back gracefully.
     """
     if not url:
         return f'/{lang_code}/'
     try:
-        # Strip query parameters before translating to ensure proper reversal
-        base_path = url.split('?')[0]
-        translated = django_translate_url(base_path, lang_code)
-        return translated if translated else f'/{lang_code}/'
+        parsed = urllib.parse.urlsplit(str(url))
+        raw_path = urllib.parse.unquote(parsed.path)
+        collapsed = re.sub(r'/+', '/', raw_path)
+        parts = [p for p in collapsed.strip('/').split('/') if p]
+
+        if not parts:
+            return f'/{lang_code}/'
+
+        known_langs = ('en', 'fr', 'ar')
+        if parts[0] in known_langs:
+            src_lang = parts[0]
+            subparts = parts[1:]
+        else:
+            src_lang = get_language() or 'en'
+            subparts = parts
+
+        # Clean trailing or duplicate language tokens
+        while len(subparts) >= 1 and subparts[-1] in known_langs:
+            subparts.pop()
+        while subparts and subparts[0] in known_langs:
+            subparts.pop(0)
+
+        if not subparts:
+            qs = f"?{parsed.query}" if parsed.query else ""
+            return f"/{lang_code}/{qs}"
+
+        # 1. Try standard Django reverse first with src_lang resolution
+        resolved_path = None
+        try:
+            with override(src_lang):
+                test_path = f"/{src_lang}/" + "/".join(subparts) + ("/" if raw_path.endswith('/') else "")
+                match = resolve(test_path)
+                view_name = f"{match.namespace}:{match.url_name}" if match.namespace else match.url_name
+                with override(lang_code):
+                    resolved_path = reverse(view_name, args=match.args, kwargs=match.kwargs)
+                    resolved_path = urllib.parse.unquote(resolved_path)
+        except (Resolver404, NoReverseMatch, Exception):
+            pass
+
+        if resolved_path:
+            qs = f"?{parsed.query}" if parsed.query else ""
+            return f"{resolved_path}{qs}"
+
+        # 2. Fallback to canonical slug table
+        first_slug = subparts[0]
+        canonical_key = PAGE_CANONICAL_KEYS.get(first_slug)
+        if canonical_key:
+            target_slug = CANONICAL_TARGET_SLUGS.get(lang_code, {}).get(canonical_key, canonical_key)
+            rest = "/" + "/".join(subparts[1:]) if len(subparts) > 1 else ""
+            trailing = "/" if raw_path.endswith('/') or not rest else ""
+            qs = f"?{parsed.query}" if parsed.query else ""
+            return f"/{lang_code}/{target_slug}{rest}{trailing}{qs}"
+
+        return f'/{lang_code}/'
     except Exception:
         return f'/{lang_code}/'
 
@@ -233,12 +319,12 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
     hreflang_alternates = []
     base_request_path = request.path if request else '/'
     for alt_lang in ['en', 'fr', 'ar']:
-        alt_path = django_translate_url(base_request_path, alt_lang) or f"/{alt_lang}/"
+        alt_path = translate_url(base_request_path, alt_lang) or f"/{alt_lang}/"
         hreflang_alternates.append({
             'lang': alt_lang,
             'url': f"{site_url}{alt_path}",
         })
-    en_path = django_translate_url(base_request_path, 'en') or '/en/'
+    en_path = translate_url(base_request_path, 'en') or '/en/'
     x_default_url = f"{site_url}{en_path}"
 
     # 6. Open Graph & Twitter Image

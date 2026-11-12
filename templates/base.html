@@ -76,22 +76,20 @@
 
                 <div class="navbar-actions">
                     {# ── FLAG-BASED LANGUAGE SWITCHER ── #}
-                    <div class="flag-switcher">
+                    <div class="flag-switcher" role="navigation" aria-label="{% trans 'Language Switcher' %}">
                         {% for lang_code, lang_name in ALL_LANGS %}
-                        <form action="{% url 'set_language' %}" method="post" class="flag-form">
-                            {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.get_full_path|translate_url:lang_code }}">
-                            <input type="hidden" name="language" value="{{ lang_code }}">
-                            <button type="submit" class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}" title="{{ lang_name }}" aria-label="{% trans 'Switch to' %} {{ lang_name }}">
-                                {% if lang_code == 'en' %}
-                                <img src="{% static 'images/flags/gb.svg' %}" alt="English" class="flag-icon" width="20" height="15" loading="lazy">
-                                {% elif lang_code == 'fr' %}
-                                <img src="{% static 'images/flags/fr.svg' %}" alt="Français" class="flag-icon" width="20" height="15" loading="lazy">
-                                {% elif lang_code == 'ar' %}
-                                <img src="{% static 'images/flags/ma.svg' %}" alt="العربية" class="flag-icon" width="20" height="15" loading="lazy">
-                                {% endif %}
-                            </button>
-                        </form>
+                        <a href="{{ request.get_full_path|translate_url:lang_code }}"
+                           class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}"
+                           title="{{ lang_name }}"
+                           aria-label="{% trans 'Switch to' %} {{ lang_name }}">
+                            {% if lang_code == 'en' %}
+                            <img src="{% static 'images/flags/gb.svg' %}" alt="English" class="flag-icon" width="20" height="15" loading="lazy">
+                            {% elif lang_code == 'fr' %}
+                            <img src="{% static 'images/flags/fr.svg' %}" alt="Français" class="flag-icon" width="20" height="15" loading="lazy">
+                            {% elif lang_code == 'ar' %}
+                            <img src="{% static 'images/flags/ma.svg' %}" alt="العربية" class="flag-icon" width="20" height="15" loading="lazy">
+                            {% endif %}
+                        </a>
                         {% endfor %}
                     </div>
 
@@ -220,22 +218,20 @@
 
                     {# Footer Flag Switcher #}
                     <div class="footer-lang">
-                        <div class="flag-switcher">
+                        <div class="flag-switcher" role="navigation" aria-label="{% trans 'Language Switcher' %}">
                             {% for lang_code, lang_name in ALL_LANGS %}
-                            <form action="{% url 'set_language' %}" method="post" class="flag-form">
-                                {% csrf_token %}
-                                <input type="hidden" name="next" value="{{ request.get_full_path|translate_url:lang_code }}">
-                                <input type="hidden" name="language" value="{{ lang_code }}">
-                                <button type="submit" class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}" title="{{ lang_name }}">
-                                    {% if lang_code == 'en' %}
-                                    <img src="{% static 'images/flags/gb.svg' %}" alt="EN" class="flag-icon" width="20" height="15" loading="lazy">
-                                    {% elif lang_code == 'fr' %}
-                                    <img src="{% static 'images/flags/fr.svg' %}" alt="FR" class="flag-icon" width="20" height="15" loading="lazy">
-                                    {% elif lang_code == 'ar' %}
-                                    <img src="{% static 'images/flags/ma.svg' %}" alt="AR" class="flag-icon" width="20" height="15" loading="lazy">
-                                    {% endif %}
-                                </button>
-                            </form>
+                            <a href="{{ request.get_full_path|translate_url:lang_code }}"
+                               class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}"
+                               title="{{ lang_name }}"
+                               aria-label="{% trans 'Switch to' %} {{ lang_name }}">
+                                {% if lang_code == 'en' %}
+                                <img src="{% static 'images/flags/gb.svg' %}" alt="EN" class="flag-icon" width="20" height="15" loading="lazy">
+                                {% elif lang_code == 'fr' %}
+                                <img src="{% static 'images/flags/fr.svg' %}" alt="FR" class="flag-icon" width="20" height="15" loading="lazy">
+                                {% elif lang_code == 'ar' %}
+                                <img src="{% static 'images/flags/ma.svg' %}" alt="AR" class="flag-icon" width="20" height="15" loading="lazy">
+                                {% endif %}
+                            </a>
                             {% endfor %}
                         </div>
                     </div>
