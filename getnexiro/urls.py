@@ -18,6 +18,8 @@ from django.views.generic import RedirectView
 # Non-prefixed URLs (language switcher endpoint, SEO, icons)
 from core.seo import robots_txt, sitemap_xml
 urlpatterns = [
+    # Permanent 301 redirect from root to default language (no 302 or Accept-Language sniffing)
+    path('', RedirectView.as_view(url='/en/', permanent=True)),
     # Django's built-in set_language view for the language switcher
     path('i18n/', include('django.conf.urls.i18n')),
     # SEO: sitemap and robots

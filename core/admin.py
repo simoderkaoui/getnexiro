@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, ClientLogo, Stat, ContactMessage,
-    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
+    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost, Author,
     LegalPage, FAQ,
     Package, PackageFeature, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
@@ -91,13 +91,21 @@ class SiteConfigAdmin(admin.ModelAdmin):
         }),
         (_('Page-Level SEO Titles (Multilingual)'), {
             'fields': (
+                'default_og_image',
                 'home_seo_title_en', 'home_seo_title_fr', 'home_seo_title_ar',
+                'home_seo_description_en', 'home_seo_description_fr', 'home_seo_description_ar',
                 'about_seo_title_en', 'about_seo_title_fr', 'about_seo_title_ar',
+                'about_seo_description_en', 'about_seo_description_fr', 'about_seo_description_ar',
                 'services_seo_title_en', 'services_seo_title_fr', 'services_seo_title_ar',
+                'services_seo_description_en', 'services_seo_description_fr', 'services_seo_description_ar',
                 'projects_seo_title_en', 'projects_seo_title_fr', 'projects_seo_title_ar',
+                'projects_seo_description_en', 'projects_seo_description_fr', 'projects_seo_description_ar',
                 'blog_seo_title_en', 'blog_seo_title_fr', 'blog_seo_title_ar',
+                'blog_seo_description_en', 'blog_seo_description_fr', 'blog_seo_description_ar',
                 'contact_seo_title_en', 'contact_seo_title_fr', 'contact_seo_title_ar',
+                'contact_seo_description_en', 'contact_seo_description_fr', 'contact_seo_description_ar',
                 'packages_seo_title_en', 'packages_seo_title_fr', 'packages_seo_title_ar',
+                'packages_seo_description_en', 'packages_seo_description_fr', 'packages_seo_description_ar',
             ),
             'classes': ('collapse',),
         }),
@@ -151,7 +159,7 @@ class ServiceAdmin(admin.ModelAdmin):
             'fields': ('icon', 'is_featured', 'order'),
         }),
         (_('SEO Overrides'), {
-            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+            'fields': ('noindex', 'seo_title_en', 'seo_title_fr', 'seo_title_ar',
                        'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
             'classes': ('collapse',),
         }),
@@ -220,7 +228,7 @@ class ProjectAdmin(admin.ModelAdmin):
             'fields': ('is_featured', 'order'),
         }),
         (_('SEO Overrides'), {
-            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+            'fields': ('noindex', 'seo_title_en', 'seo_title_fr', 'seo_title_ar',
                        'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
             'classes': ('collapse',),
         }),
@@ -267,15 +275,15 @@ class TeamMemberAdmin(admin.ModelAdmin):
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('author_name', 'company', 'author_role_en', 'is_featured', 'order')
-    list_filter = ('is_featured',)
-    list_editable = ('is_featured', 'order')
+    list_display = ('author_name', 'company', 'author_role_en', 'is_verified', 'is_featured', 'order')
+    list_filter = ('is_verified', 'is_featured')
+    list_editable = ('is_verified', 'is_featured', 'order')
     search_fields = ('author_name', 'company', 'quote_en', 'quote_ar')
     ordering = ('order',)
 
     fieldsets = (
         (_('Author Info'), {
-            'fields': ('author_name', 'company', 'avatar', 'is_featured', 'order'),
+            'fields': ('author_name', 'company', 'avatar', 'is_verified', 'is_featured', 'order'),
         }),
         (_('Roles (Multilingual)'), {
             'fields': ('author_role_en', 'author_role_fr', 'author_role_ar'),
@@ -389,11 +397,19 @@ class BlogCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name_en',)}
 
 
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'role_en', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'role_en', 'bio_en')
+    prepopulated_fields = {'slug': ('name',)}
+
+
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'category', 'status', 'is_featured', 'author_name', 'reading_time_minutes', 'published_at')
-    list_filter = ('status', 'is_featured', 'category')
-    list_editable = ('status', 'is_featured')
+    list_display = ('title_en', 'category', 'author', 'status', 'noindex', 'index_in_sitemap', 'is_featured', 'published_at')
+    list_filter = ('status', 'noindex', 'index_in_sitemap', 'is_featured', 'category')
+    list_editable = ('status', 'noindex', 'index_in_sitemap', 'is_featured')
     search_fields = ('title_en', 'title_fr', 'title_ar', 'body_en', 'slug', 'tags')
     prepopulated_fields = {'slug': ('title_en',)}
     date_hierarchy = 'published_at'
@@ -409,17 +425,17 @@ class BlogPostAdmin(admin.ModelAdmin):
         (_('Body (Multilingual)'), {
             'fields': ('body_en', 'body_fr', 'body_ar'),
         }),
-        (_('SEO Meta (Multilingual)'), {
-            'fields': ('meta_title_en', 'meta_title_fr', 'meta_title_ar',
+        (_('SEO Meta & Indexation'), {
+            'fields': ('noindex', 'index_in_sitemap',
+                       'meta_title_en', 'meta_title_fr', 'meta_title_ar',
                        'meta_description_en', 'meta_description_fr', 'meta_description_ar',
                        'meta_keywords'),
-            'classes': ('collapse',),
         }),
         (_('Taxonomy & Media'), {
             'fields': ('category', 'featured_image', 'featured_image_alt', 'tags'),
         }),
         (_('Author & Reading'), {
-            'fields': ('author_name', 'reading_time_minutes'),
+            'fields': ('author', 'author_name', 'reading_time_minutes'),
         }),
         (_('Publishing'), {
             'fields': ('status', 'is_featured', 'published_at'),
@@ -446,7 +462,7 @@ class LegalPageAdmin(admin.ModelAdmin):
             'description': _('HTML is allowed. Use <h2>, <h3>, <p>, <ul>, <li> tags for structure.'),
         }),
         (_('SEO Overrides'), {
-            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+            'fields': ('noindex', 'seo_title_en', 'seo_title_fr', 'seo_title_ar',
                        'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
             'classes': ('collapse',),
         }),
@@ -525,7 +541,7 @@ class PackageAdmin(admin.ModelAdmin):
             'fields': ('icon_emoji', 'is_featured', 'is_active', 'order', 'prefill_project_type'),
         }),
         (_('SEO Overrides'), {
-            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+            'fields': ('noindex', 'seo_title_en', 'seo_title_fr', 'seo_title_ar',
                        'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
             'classes': ('collapse',),
         }),
@@ -670,7 +686,7 @@ class CityServicePageAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
         }),
         (_('SEO Overrides'), {
-            'fields': ('seo_title_en', 'seo_title_fr', 'seo_title_ar',
+            'fields': ('noindex', 'seo_title_en', 'seo_title_fr', 'seo_title_ar',
                        'seo_description_en', 'seo_description_fr', 'seo_description_ar', 'og_image'),
             'classes': ('collapse',),
         }),

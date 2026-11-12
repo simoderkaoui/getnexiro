@@ -59,6 +59,7 @@ class SEOMixin(models.Model):
     seo_description_ar = models.CharField(_('SEO Description (AR)'), max_length=170, blank=True, default='')
 
     og_image = models.ImageField(_('OG Image'), upload_to='seo/', blank=True, null=True, help_text=_('Social sharing image (1200x630 recommended)'))
+    noindex = models.BooleanField(_('No Index (Search Engines)'), default=False, help_text=_('Exclude this page from search engine indexes'))
 
     @property
     def seo_title(self):
@@ -238,26 +239,46 @@ class SiteConfig(models.Model):
     about_seo_title_en = models.CharField(_('About Page SEO Title (EN)'), max_length=70, blank=True, default='About getNexiro — Our Story & Engineering Team')
     about_seo_title_fr = models.CharField(_('About Page SEO Title (FR)'), max_length=70, blank=True, default='À Propos de getNexiro — Notre Histoire & Équipe')
     about_seo_title_ar = models.CharField(_('About Page SEO Title (AR)'), max_length=70, blank=True, default='من نحن — قصة وفريق عمل getNexiro | طنجة')
+    about_seo_description_en = models.CharField(_('About Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    about_seo_description_fr = models.CharField(_('About Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    about_seo_description_ar = models.CharField(_('About Page SEO Desc (AR)'), max_length=170, blank=True, default='')
 
     services_seo_title_en = models.CharField(_('Services Page SEO Title (EN)'), max_length=70, blank=True, default='Our Services — Web, Mobile & Cloud Engineering')
     services_seo_title_fr = models.CharField(_('Services Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Services — Ingénierie Web, Mobile & Cloud')
     services_seo_title_ar = models.CharField(_('Services Page SEO Title (AR)'), max_length=70, blank=True, default='خدماتنا — تطوير الويب، الجوال والسحابة | getNexiro')
+    services_seo_description_en = models.CharField(_('Services Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    services_seo_description_fr = models.CharField(_('Services Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    services_seo_description_ar = models.CharField(_('Services Page SEO Desc (AR)'), max_length=170, blank=True, default='')
 
     projects_seo_title_en = models.CharField(_('Projects Page SEO Title (EN)'), max_length=70, blank=True, default='Our Work — Selected Projects & Case Studies')
     projects_seo_title_fr = models.CharField(_('Projects Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Réalisations — Projets & Études de Cas')
     projects_seo_title_ar = models.CharField(_('Projects Page SEO Title (AR)'), max_length=70, blank=True, default='أعمالنا — مشاريع مميزة ودراسات حالة | getNexiro')
+    projects_seo_description_en = models.CharField(_('Projects Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    projects_seo_description_fr = models.CharField(_('Projects Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    projects_seo_description_ar = models.CharField(_('Projects Page SEO Desc (AR)'), max_length=170, blank=True, default='')
 
     blog_seo_title_en = models.CharField(_('Blog Page SEO Title (EN)'), max_length=70, blank=True, default='Blog — Tech Insights, Architecture & Tutorials')
     blog_seo_title_fr = models.CharField(_('Blog Page SEO Title (FR)'), max_length=70, blank=True, default="Blog — Insights Tech & Tutoriels d'Ingénierie")
     blog_seo_title_ar = models.CharField(_('Blog Page SEO Title (AR)'), max_length=70, blank=True, default='المدونة — مقالات ورؤى تقنية | getNexiro')
+    blog_seo_description_en = models.CharField(_('Blog Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    blog_seo_description_fr = models.CharField(_('Blog Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    blog_seo_description_ar = models.CharField(_('Blog Page SEO Desc (AR)'), max_length=170, blank=True, default='')
 
     contact_seo_title_en = models.CharField(_('Contact Page SEO Title (EN)'), max_length=70, blank=True, default='Contact Us — Get a Free Technical Consultation')
     contact_seo_title_fr = models.CharField(_('Contact Page SEO Title (FR)'), max_length=70, blank=True, default='Contactez-Nous — Consultation Technique Gratuite')
     contact_seo_title_ar = models.CharField(_('Contact Page SEO Title (AR)'), max_length=70, blank=True, default='تواصل معنا — استشارة تقنية مجانية | getNexiro')
+    contact_seo_description_en = models.CharField(_('Contact Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    contact_seo_description_fr = models.CharField(_('Contact Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    contact_seo_description_ar = models.CharField(_('Contact Page SEO Desc (AR)'), max_length=170, blank=True, default='')
 
     packages_seo_title_en = models.CharField(_('Packages Page SEO Title (EN)'), max_length=70, blank=True, default='Pricing Packages — Transparent Software Pricing')
     packages_seo_title_fr = models.CharField(_('Packages Page SEO Title (FR)'), max_length=70, blank=True, default='Nos Forfaits — Tarification Logicielle Transparente')
     packages_seo_title_ar = models.CharField(_('Packages Page SEO Title (AR)'), max_length=70, blank=True, default='باقات الأسعار — تسعير شفاف ومخصص | getNexiro')
+    packages_seo_description_en = models.CharField(_('Packages Page SEO Desc (EN)'), max_length=170, blank=True, default='')
+    packages_seo_description_fr = models.CharField(_('Packages Page SEO Desc (FR)'), max_length=170, blank=True, default='')
+    packages_seo_description_ar = models.CharField(_('Packages Page SEO Desc (AR)'), max_length=170, blank=True, default='')
+
+    default_og_image = models.ImageField(_('Default OG Image (1200x630)'), upload_to='seo/', blank=True, null=True, help_text=_('Fallback social sharing image (1200x630)'))
 
     # Localized Property Getters
     @property
@@ -664,6 +685,7 @@ class Testimonial(models.Model):
     company = models.CharField(_('Company'), max_length=100, blank=True)
     avatar = models.ImageField(_('Avatar'), upload_to='testimonials/', blank=True)
     is_featured = models.BooleanField(_('Show on Home'), default=True)
+    is_verified = models.BooleanField(_('Is Verified'), default=False, help_text=_('Only owner-verified testimonials with confirmed real clients are rendered.'))
     order = models.PositiveIntegerField(_('Display Order'), default=0)
 
     @property
@@ -827,6 +849,37 @@ class BlogCategory(models.Model):
         return self.name_en or self.slug
 
 
+class Author(models.Model):
+    """Real author profile for E-E-A-T and Person schema."""
+    name = models.CharField(_('Name'), max_length=150)
+    slug = models.SlugField(_('URL Slug'), max_length=150, unique=True)
+    role_en = models.CharField(_('Role (EN)'), max_length=150, default='Lead Software Architect')
+    role_fr = models.CharField(_('Role (FR)'), max_length=150, blank=True, default='Architecte Logiciel Principal')
+    role_ar = models.CharField(_('Role (AR)'), max_length=150, blank=True, default='كبير مهندسي البرمجيات')
+    bio_en = models.TextField(_('Bio (EN)'), blank=True, default='')
+    bio_fr = models.TextField(_('Bio (FR)'), blank=True, default='')
+    bio_ar = models.TextField(_('Bio (AR)'), blank=True, default='')
+    photo = models.ImageField(_('Photo'), upload_to='authors/', blank=True, null=True)
+    linkedin_url = models.URLField(_('LinkedIn Profile'), blank=True, default='')
+    github_url = models.URLField(_('GitHub Profile'), blank=True, default='')
+    twitter_url = models.URLField(_('Twitter / X Profile'), blank=True, default='')
+    website_url = models.URLField(_('Personal Website'), blank=True, default='')
+    is_active = models.BooleanField(_('Is Active'), default=True)
+
+    @property
+    def role(self): return get_localized(self, 'role')
+
+    @property
+    def bio(self): return get_localized(self, 'bio')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Author')
+        verbose_name_plural = _('Authors')
+
+
 class BlogPost(models.Model):
     """SEO-optimized blog posts with full multilingual support."""
 
@@ -860,6 +913,8 @@ class BlogPost(models.Model):
     meta_description_ar = models.CharField(_('Meta Description (AR)'), max_length=160, blank=True, default='')
 
     meta_keywords = models.CharField(_('Meta Keywords (comma-separated)'), max_length=300, blank=True, default='')
+    noindex = models.BooleanField(_('No Index (Search Engines)'), default=False, help_text=_('Exclude this post from search engines and index listings.'))
+    index_in_sitemap = models.BooleanField(_('Index in Sitemap'), default=True, help_text=_('Include in sitemap.xml.'))
 
     # Taxonomy & media
     category = models.ForeignKey(
@@ -870,7 +925,11 @@ class BlogPost(models.Model):
     featured_image_alt = models.CharField(_('Image Alt Text'), max_length=200, blank=True, default='')
 
     # Author & metadata
-    author_name = models.CharField(_('Author Name'), max_length=100, default='getNexiro Team')
+    author = models.ForeignKey(
+        Author, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='posts', verbose_name=_('Author Profile'),
+    )
+    author_name = models.CharField(_('Author Name (Legacy)'), max_length=100, default='getNexiro Team')
     reading_time_minutes = models.PositiveIntegerField(_('Reading Time (minutes)'), default=5)
     tags = models.CharField(_('Tags (comma-separated)'), max_length=300, blank=True, default='')
 
@@ -899,6 +958,18 @@ class BlogPost(models.Model):
     def meta_description(self):
         val = get_localized(self, 'meta_description')
         return val if val else self.excerpt[:160]
+
+    @property
+    def seo_title(self):
+        return self.meta_title
+
+    @property
+    def seo_description(self):
+        return self.meta_description
+
+    @property
+    def og_image(self):
+        return self.featured_image
 
     @property
     def tags_list(self):

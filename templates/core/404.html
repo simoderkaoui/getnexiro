@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Page Not Found" %} — getNexiro{% endblock %}
+{% block seo %}
+{% render_seo title="Page Not Found" description="The requested page could not be found. Explore our services or contact getNexiro in Tangier, Morocco." noindex=True %}
+{% endblock %}
 
 {% block content %}
 <section class="section" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">

@@ -6,47 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}getNexiro{% endblock %} — {% trans "Web & App Development Agency in Tangier, Morocco" %}</title>
-    <meta name="description" content="{% block meta_description %}{% trans 'getNexiro — Professional web development, mobile apps & software engineering agency in Tangier, Morocco. Serving businesses in Tangier, Tetouan, Fes, Meknes, M&rsquo;diq & across Northern Morocco. Contact us for custom web solutions.' %}{% endblock %}">
-    <meta name="keywords" content="{% trans 'web development Tangier, app development Morocco, software agency Tangier, web developer Tetouan, mobile app Fes, website design Meknes, agence web Tanger, développement web Maroc, création site web Tanger, développeur Tétouan, تطوير مواقع طنجة, تصميم تطبيقات المغرب, وكالة برمجة طنجة, getNexiro, web development Northern Morocco, M diq web agency' %}">
-
-    {# ── SEO & Open Graph ── #}
-    <meta property="og:title" content="{% block og_title %}getNexiro — {% trans 'Web & App Development Agency' %} | Tangier{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{% trans 'Professional web development, mobile apps & digital solutions in Tangier, Morocco. Serving Tangier, Tetouan, Fes, Meknes & Northern Morocco.' %}{% endblock %}">
-    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{% block og_url %}{{ SITE_URL }}{{ request.path }}{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{ SITE_URL }}{% static 'images/logo.png' %}{% endblock %}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="getNexiro — Web & App Development Studio | Tangier, Morocco">
-    <meta property="og:locale" content="{% if LANGUAGE_CODE == 'fr' %}fr_FR{% elif LANGUAGE_CODE == 'ar' %}ar_MA{% else %}en_US{% endif %}">
-    <meta property="og:site_name" content="getNexiro">
-    {% block og_extra %}{% endblock %}
-
-    {# ── Twitter Card ── #}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@getNexiro">
-    <meta name="twitter:creator" content="@getNexiro">
-    <meta name="twitter:title" content="{% block twitter_title %}getNexiro — {% trans 'Web & App Development Agency' %} | Tangier{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{% trans 'Professional web development, mobile apps & digital solutions in Tangier, Morocco.' %}{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{{ SITE_URL }}{% static 'images/logo.png' %}{% endblock %}">
-
-    {# ── Canonical & Hreflang ── #}
-    <link rel="canonical" href="{% block canonical_url %}{{ SITE_URL }}{{ request.path }}{% endblock %}">
-    {% get_available_languages as ALL_LANGS %}
-    {% for lc, ln in ALL_LANGS %}
-    <link rel="alternate" hreflang="{{ lc }}" href="{{ SITE_URL }}{{ request.get_full_path|translate_url:lc }}">
-    {% endfor %}
-    <link rel="alternate" hreflang="x-default" href="{{ SITE_URL }}{{ request.get_full_path|translate_url:'en' }}">
-
-    {# ── Geo & Local SEO Meta ── #}
-    <meta name="geo.region" content="MA-TNG">
-    <meta name="geo.placename" content="Tangier, Morocco">
-    <meta name="geo.position" content="35.7796;-5.8030">
-    <meta name="ICBM" content="35.7796, -5.8030">
-    <meta name="author" content="getNexiro">
-    <meta name="robots" content="index, follow">
+    {# ── Unified Reusable SEO Mechanism ── #}
+    {% block seo %}
+    {% render_seo %}
+    {% endblock %}
 
     {# ── Favicons, Apple Touch Icon & PWA Manifest ── #}
     {% if config.site_favicon %}
