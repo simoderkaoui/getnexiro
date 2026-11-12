@@ -37,26 +37,8 @@ else:
 
 # Wrap WSGI loading to capture startup errors cleanly
 try:
-    import urllib.parse
     from django.core.wsgi import get_wsgi_application
-    _django_app = get_wsgi_application()
-
-    def application(environ, start_response):
-        # Decode percent-encoded or latin-1 mojibake PATH_INFO from Apache mod_passenger
-        # so non-ASCII / Arabic URLs (e.g. /ar/من-نحن/) resolve cleanly in Django.
-        path_info = environ.get('PATH_INFO', '')
-        if path_info:
-            if '%' in path_info:
-                try:
-                    path_info = urllib.parse.unquote(path_info, encoding='utf-8')
-                except Exception:
-                    pass
-            try:
-                path_info = path_info.encode('iso-8859-1').decode('utf-8')
-            except Exception:
-                pass
-            environ['PATH_INFO'] = path_info
-        return _django_app(environ, start_response)
+    application = get_wsgi_application()
 except Exception:
     import traceback
     error_trace = traceback.format_exc()
