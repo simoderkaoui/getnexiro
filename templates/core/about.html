@@ -62,6 +62,9 @@
 
 {% block content %}
 <section class="page-header">
+    {% if config.about_bg_video or config.about_bg_video_url %}
+    {% include "core/includes/page_header_video.html" with page_video=config.about_bg_video page_video_url=config.about_bg_video_url %}
+    {% endif %}
     <div class="container text-center">
         <div class="badge-tag">{% trans "About Us" %}</div>
         <h1 class="page-title">{% trans "The Story Behind" %} <span class="text-gradient">getNexiro</span></h1>

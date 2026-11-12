@@ -117,6 +117,12 @@ def project_detail(request, slug):
             {'name': project.title, 'url': request.path},
         ],
     })
+    category_name = project.category.name if project.category else _('Software')
+    ctx['page_seo_title'] = project.seo_title or f"{project.title} — {category_name} Case Study | getNexiro"
+    ctx['page_seo_description'] = project.seo_description or (project.description[:150] if project.description else '')
+    if project.image:
+        ctx['page_seo_image'] = project.image.url
+
     return render(request, 'core/project_detail.html', ctx)
 
 
