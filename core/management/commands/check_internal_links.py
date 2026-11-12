@@ -1,10 +1,31 @@
 import re
 from urllib.parse import urlparse, urljoin
-from bs4 import BeautifulSoup
+from html.parser import HTMLParser
 from django.core.management.base import BaseCommand
 from django.test import Client
 from django.urls import reverse
 from core.models import Service, CityServicePage, Project, BlogPost
+
+
+class _AnchorExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.hrefs = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() == 'a':
+            for attr, val in attrs:
+                if attr.lower() == 'href' and val:
+                    self.hrefs.append(val)
+
+
+def _extract_hrefs(html_content):
+    parser = _AnchorExtractor()
+    try:
+        parser.feed(html_content)
+        return parser.hrefs
+    except Exception:
+        return re.findall(r'<a\s+(?:[^>]*?\s+)?href=["\']([^"\']*)["\']', html_content, re.IGNORECASE)
 
 
 class Command(BaseCommand):
@@ -61,11 +82,10 @@ class Command(BaseCommand):
                 if 'text/html' not in content_type:
                     continue
 
-                soup = BeautifulSoup(res.content.decode('utf-8', errors='ignore'), 'html.parser')
-                anchors = soup.find_all('a', href=True)
+                raw_hrefs = _extract_hrefs(res.content.decode('utf-8', errors='ignore'))
 
-                for a in anchors:
-                    raw_href = a['href'].strip()
+                for raw_href in raw_hrefs:
+                    raw_href = raw_href.strip()
                     if not raw_href or raw_href.startswith(('#', 'mailto:', 'tel:', 'javascript:', 'whatsapp:')):
                         continue
                     if 'wa.me' in raw_href or 'twitter.com' in raw_href or 'linkedin.com' in raw_href:
