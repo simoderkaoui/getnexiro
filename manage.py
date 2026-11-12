@@ -6,7 +6,10 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
+    if os.environ.get('DJANGO_SETTINGS_MODULE') in (None, '', 'config', 'config.settings'):
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'getnexiro.settings'
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

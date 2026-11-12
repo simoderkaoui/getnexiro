@@ -29,8 +29,11 @@ for pattern in venv_patterns:
         if sp not in sys.path:
             sys.path.insert(0, sp)
 
-# Set Django settings module
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
+# Set Django settings module (guard against stale cPanel 'config' environment variable)
+if os.environ.get('DJANGO_SETTINGS_MODULE') in (None, '', 'config', 'config.settings'):
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'getnexiro.settings'
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
 
 # Wrap WSGI loading to capture startup errors cleanly
 try:
