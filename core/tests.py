@@ -1571,3 +1571,29 @@ class SEOMasterTestSuite(TestCase):
             self.assertIsNone(soup.find('meta', {'name': 'geo.region'}), f"Found obsolete geo.region on {v_name}")
             self.assertIsNone(soup.find('meta', {'name': 'geo.placename'}), f"Found obsolete geo.placename on {v_name}")
 
+    def test_arabic_and_multilingual_url_normalization(self):
+        """Ensure percent-encoded Arabic URLs and slug aliases resolve cleanly without 404."""
+        # 1. Percent-encoded Arabic URLs must return 200
+        res = self.client.get('/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86/')
+        self.assertEqual(res.status_code, 200)
+
+        # 2. English aliases under /ar/ must 301 redirect to Arabic canonicals
+        res = self.client.get('/ar/about/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D9%85%D9%86-%D9%86%D8%AD%D9%86', res.headers.get('Location'))
+
+        res = self.client.get('/ar/services/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+
+        # 3. English aliases under /fr/ must 301 redirect to French canonicals
+        res = self.client.get('/fr/about/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/fr/a-propos/')
+
+        # 4. Unprefixed localized slugs must 301 redirect to language prefix
+        res = self.client.get('/من-نحن/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('/ar/', res.headers.get('Location'))
+
+

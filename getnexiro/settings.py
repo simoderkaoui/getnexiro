@@ -68,6 +68,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'core.middleware.CanonicalHostMiddleware',
+    'core.middleware.UrlNormalizationMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # i18n: LocaleMiddleware must come after SessionMiddleware and before CommonMiddleware
