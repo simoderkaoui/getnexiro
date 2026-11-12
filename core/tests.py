@@ -31,9 +31,9 @@ class GetNexiroViewsTest(TestCase):
         self.client = Client()
         self.config = SiteConfig.objects.create(
             site_name='getNexiro',
-            hero_title_en='We Architect High-Velocity Digital Systems',
-            hero_title_fr='Nous Concevons des Systèmes Numériques Haute-Performance',
-            hero_title_ar='نصمم أنظمة رقمية عالية السرعة والأداء',
+            hero_title_en='Web & App <span class="text-gradient">Development Agency</span><br>in Tangier, Morocco',
+            hero_title_fr='Agence de <span class="text-gradient">Développement Web & Mobile</span><br>à Tanger, Maroc',
+            hero_title_ar='وكالة <span class="text-gradient">تطوير مواقع وتطبيقات</span><br>في طنجة والمغرب',
             email='contact@getnexiro.com',
             phone='+212 663 017 817',
         )
@@ -67,19 +67,19 @@ class GetNexiroViewsTest(TestCase):
         response = self.client.get(reverse('core:home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'getNexiro')
-        self.assertContains(response, 'We Architect')
+        self.assertContains(response, 'Development Agency')
 
     def test_home_page_fr(self):
         activate('fr')
         response = self.client.get('/fr/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Nous Concevons')
+        self.assertContains(response, 'Développement Web & Mobile')
 
     def test_home_page_ar(self):
         activate('ar')
         response = self.client.get('/ar/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'نصمم')
+        self.assertContains(response, 'تطوير مواقع وتطبيقات')
         self.assertContains(response, 'dir="rtl"')
 
     def test_about_page(self):

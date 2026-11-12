@@ -92,9 +92,9 @@ class Command(BaseCommand):
         config.tagline_fr = 'Services Tech & Dev'
         config.tagline_ar = 'خدمات التكنولوجيا والتطوير'
 
-        config.hero_title_en = 'We Architect High-Velocity Digital Systems'
-        config.hero_title_fr = 'Nous Concevons des Systèmes Numériques Haute-Performance'
-        config.hero_title_ar = 'نصمم أنظمة رقمية عالية السرعة والأداء'
+        config.hero_title_en = 'Web & App <span class="text-gradient">Development Agency</span><br>in Tangier, Morocco'
+        config.hero_title_fr = 'Agence de <span class="text-gradient">Développement Web & Mobile</span><br>à Tanger, Maroc'
+        config.hero_title_ar = 'وكالة <span class="text-gradient">تطوير مواقع وتطبيقات</span><br>في طنجة والمغرب'
 
         config.hero_badge_en = 'B2B Software Studio • Tangier, Morocco'
         config.hero_badge_fr = 'Studio Logiciel B2B • Tanger, Maroc'

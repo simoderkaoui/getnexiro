@@ -12,4 +12,9 @@ def site_settings(request):
         'SITE_URL': getattr(settings, 'SITE_URL', 'https://getnexiro.com'),
         'ANALYTICS_PROVIDER': getattr(settings, 'ANALYTICS_PROVIDER', ''),
         'ANALYTICS_ID': getattr(settings, 'ANALYTICS_ID', ''),
+        'ALL_LANGS': getattr(settings, 'LANGUAGES', [
+            ('en', 'English'),
+            ('fr', 'Français'),
+            ('ar', 'العربية'),
+        ]),
     }

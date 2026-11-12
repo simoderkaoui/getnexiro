@@ -89,9 +89,9 @@ class SiteConfig(models.Model):
     tagline_ar = models.CharField(_('Tagline (AR)'), max_length=200, blank=True, default='خدمات التكنولوجيا والتطوير')
 
     # Hero Title
-    hero_title_en = models.CharField(_('Hero Title (EN)'), max_length=300, default='We Architect High-Velocity Digital Systems')
-    hero_title_fr = models.CharField(_('Hero Title (FR)'), max_length=300, blank=True, default='Nous Concevons des Systèmes Numériques Haute-Performance')
-    hero_title_ar = models.CharField(_('Hero Title (AR)'), max_length=300, blank=True, default='نصمم أنظمة رقمية عالية السرعة والأداء')
+    hero_title_en = models.CharField(_('Hero Title (EN)'), max_length=300, default='Web & App <span class="text-gradient">Development Agency</span><br>in Tangier, Morocco')
+    hero_title_fr = models.CharField(_('Hero Title (FR)'), max_length=300, blank=True, default='Agence de <span class="text-gradient">Développement Web & Mobile</span><br>à Tanger, Maroc')
+    hero_title_ar = models.CharField(_('Hero Title (AR)'), max_length=300, blank=True, default='وكالة <span class="text-gradient">تطوير مواقع وتطبيقات</span><br>في طنجة والمغرب')
 
     # Hero Subtitle
     hero_subtitle_en = models.TextField(

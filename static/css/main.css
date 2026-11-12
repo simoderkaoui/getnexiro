@@ -474,12 +474,19 @@ ul {
 /* ── 7. Hero Section ── */
 .hero-section {
     position: relative;
-    padding-top: 9.5rem;
+    padding-top: clamp(8.5rem, 15vh, 11.5rem);
     padding-bottom: 5.5rem;
-    min-height: 92vh;
+    min-height: 90vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
     overflow: hidden;
+}
+
+.hero-container {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .hero-bg-wallpaper {
@@ -581,10 +588,10 @@ ul {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(2.35rem, 4.4vw, 3.85rem);
     font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.035em;
+    line-height: 1.14;
+    letter-spacing: -0.03em;
     margin-bottom: 1.75rem;
 }
 
