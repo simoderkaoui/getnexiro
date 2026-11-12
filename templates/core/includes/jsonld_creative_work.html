@@ -1,0 +1,27 @@
+{% load static %}
+{# CreativeWork JSON-LD for Project Case Studies #}
+{% if project %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "{{ project.title|escapejs }}",
+    "headline": "{{ project.seo_title|default:project.title|escapejs }}",
+    "description": "{{ project.seo_description|default:project.description|truncatewords:30|escapejs }}",
+    "url": "{{ SITE_URL }}{{ request.path }}",
+    {% if project.image %}
+    "image": "{{ SITE_URL }}{{ project.image.url }}",
+    {% endif %}
+    "creator": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "url": "{{ SITE_URL }}"
+    },
+    "provider": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}"
+    },
+    "inLanguage": "{{ LANGUAGE_CODE }}"
+}
+</script>
+{% endif %}

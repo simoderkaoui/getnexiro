@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Contact Us" %}{% endif %}{% endblock %}
-{% block meta_description %}{% trans "Contact getNexiro in Tangier, Morocco. Schedule a free consultation or discuss your web development, mobile app, or software project with our team." %}{% endblock %}
-{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Contact Us" %}{% endif %} — getNexiro{% endblock %}
-{% block og_description %}{% trans "Get in touch with getNexiro's engineering team in Tangier, Morocco. Free technical consultation and project estimates." %}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
 
 {% block content %}
 {# ═══════════════════════════════════════════ #}

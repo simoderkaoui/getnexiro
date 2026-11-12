@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Free Website Launch Checklist" %}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
 
 {% block content %}
 <style>

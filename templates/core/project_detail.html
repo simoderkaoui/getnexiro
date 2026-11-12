@@ -1,14 +1,10 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% if project.seo_title %}{{ project.seo_title }}{% else %}{{ project.title }}{% endif %}{% endblock %}
-{% block meta_description %}{% if project.seo_description %}{{ project.seo_description }}{% else %}{{ project.short_description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
-{% block og_title %}{% if project.seo_title %}{{ project.seo_title }}{% else %}{{ project.title }}{% endif %} — getNexiro{% endblock %}
-{% block og_description %}{% if project.seo_description %}{{ project.seo_description }}{% else %}{{ project.short_description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
-{% block og_image %}{% if project.featured_image %}{{ SITE_URL }}{{ project.featured_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
-{% block twitter_image %}{% if project.featured_image %}{{ SITE_URL }}{{ project.featured_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
-{% block twitter_title %}{% if project.seo_title %}{{ project.seo_title }}{% else %}{{ project.title }}{% endif %} — getNexiro{% endblock %}
-{% block twitter_description %}{% if project.seo_description %}{{ project.seo_description }}{% else %}{{ project.short_description|striptags|truncatewords:25 }}{% endif %}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% include "core/includes/jsonld_creative_work.html" %}
+{% endblock %}
 
 {% block content %}
 <style>

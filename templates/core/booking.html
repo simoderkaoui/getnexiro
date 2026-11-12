@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Book a Discovery Call" %}{% endblock %}
-{% block meta_description %}{% trans "Schedule a free 30-minute discovery call with getNexiro's software engineering team to discuss your project requirements and goals." %}{% endblock %}
-{% block og_title %}{% trans "Book a Discovery Call" %} — getNexiro{% endblock %}
-{% block og_description %}{% trans "Schedule a free 30-minute discovery call with our engineering team in Tangier." %}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
 
 {% block content %}
 <style>

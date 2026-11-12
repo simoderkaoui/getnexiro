@@ -1,10 +1,26 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "About Us" %}{% endif %}{% endblock %}
-{% block meta_description %}{% trans "Learn about getNexiro: a premier software engineering studio based in Tangier, Morocco. Combining North African talent with international engineering standards." %}{% endblock %}
-{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "About Us" %}{% endif %} — getNexiro{% endblock %}
-{% block og_description %}{% trans "The story behind getNexiro: boutique digital agency in Tangier, Morocco, building world-class software for visionary enterprises." %}{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "{{ page_seo_title|default:'About Us'|escapejs }}",
+    "url": "{{ SITE_URL }}{{ request.path }}",
+    "description": "{{ page_seo_description|escapejs }}",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "url": "{{ SITE_URL }}",
+        "foundingLocation": {
+            "@type": "Place",
+            "name": "Tangier, Morocco"
+        }
+    }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">

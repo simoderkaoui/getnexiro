@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Quote Submitted" %}{% endblock %}
+{% block seo %}
+{% render_seo title="Quote Submitted" description="Your quote request has been submitted to getNexiro engineering team in Tangier, Morocco." noindex=True %}
+{% endblock %}
 
 {% block content %}
 <style>

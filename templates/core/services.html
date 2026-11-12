@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Services" %}{% endif %}{% endblock %}
-{% block meta_description %}{% trans "Explore getNexiro's enterprise engineering capabilities: custom web applications, native & cross-platform mobile apps, UI/UX design systems, API microservices, and cloud DevOps solutions in Tangier, Morocco." %}{% endblock %}
-{% block og_title %}{% if page_seo_title %}{{ page_seo_title }}{% else %}{% trans "Services" %}{% endif %} — getNexiro{% endblock %}
-{% block og_description %}{% trans "End-to-end software engineering services: web platforms, mobile apps, UI/UX design, microservices, and cloud architecture in Tangier, Morocco." %}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
 
 {% block content %}
 <section class="page-header">

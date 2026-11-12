@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Booking Confirmed" %}{% endblock %}
+{% block seo %}
+{% render_seo title="Booking Confirmed" description="Your discovery call has been successfully booked with getNexiro engineering team." noindex=True %}
+{% endblock %}
 
 {% block content %}
 <style>

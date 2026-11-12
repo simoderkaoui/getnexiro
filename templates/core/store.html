@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Store" %}{% endblock %}
+{% block seo %}
+{% render_seo title="Store — Coming Soon" description="The getNexiro Store is coming soon with premium developer templates and tools." noindex=True %}
+{% endblock %}
 
 {% block content %}
 <section class="page-header">

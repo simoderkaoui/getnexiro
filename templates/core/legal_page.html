@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{{ page.title }} — getNexiro{% endblock %}
-{% block meta_description %}{{ page.title }}{% endblock %}
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
 
 {% block content %}
 <section class="page-header">

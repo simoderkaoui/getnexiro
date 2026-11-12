@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Unsubscribe" %}{% endblock %}
+{% block seo %}
+{% render_seo title="Unsubscribe" description="Unsubscribe from getNexiro communications and newsletter updates." noindex=True %}
+{% endblock %}
 
 {% block content %}
 <style>

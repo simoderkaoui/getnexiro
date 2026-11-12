@@ -1,36 +1,25 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.h1 }} | {{ config.site_name }}{% endif %}{% endblock %}
-{% block meta_description %}{% if page.seo_description %}{{ page.seo_description }}{% else %}{{ page.intro|truncatewords:25 }}{% endif %}{% endblock %}
-{% block og_title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.h1 }} | {{ config.site_name }}{% endif %}{% endblock %}
-{% block og_description %}{% if page.seo_description %}{{ page.seo_description }}{% else %}{{ page.intro|truncatewords:25 }}{% endif %}{% endblock %}
-
 {% block structured_data %}
 {% include "core/includes/jsonld_breadcrumb.html" %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "{{ config.site_name }} - {{ page.h1|escapejs }}",
-    "description": "{{ page.intro|escapejs|truncatewords:30 }}",
+    "@type": "Service",
+    "name": "{{ page.h1|escapejs }}",
+    "description": "{{ page.seo_description|default:page.intro|truncatewords:30|escapejs }}",
     "url": "{{ SITE_URL }}{{ request.path }}",
-    "telephone": "{{ config.phone }}",
-    "email": "{{ config.email }}",
-    "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "{{ page.city_name }}",
-        "addressRegion": "Tanger-Tetouan-Al Hoceima",
-        "addressCountry": "MA"
+    "provider": {
+        "@type": "Organization",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "url": "{{ SITE_URL }}"
     },
     "areaServed": {
         "@type": "City",
-        "name": "{{ page.city_name }}"
+        "name": "{{ page.get_city_display }}"
     },
-    "parentOrganization": {
-        "@type": "Organization",
-        "name": "{{ config.site_name|default:'getNexiro' }}"
-    }
+    "serviceType": "{{ page.service.title|escapejs }}"
 }
 </script>
 {% endblock %}
