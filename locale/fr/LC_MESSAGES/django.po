@@ -3328,3 +3328,263 @@ msgstr "Précédent"
 
 msgid "Page"
 msgstr "Page"
+
+msgid ""
+"getNexiro was founded in Tangier by Moroccan technologists committed to "
+"engineering modern, high-precision web and mobile applications for local and"
+" international businesses. Operating from Northern Morocco's primary "
+"industrial and maritime gateway, we combine localized agility with "
+"international software development standards."
+msgstr ""
+"getNexiro a été fondée à Tanger par des ingénieurs marocains passionnés, "
+"dédiés au développement d'applications web et mobiles modernes et de haute "
+"précision pour entreprises locales et internationales. Depuis le pôle "
+"industriel et maritime du nord du Maroc, nous allions agilité de proximité "
+"et standards logiciels internationaux."
+
+msgid "getNexiro Engineering Studio in Tangier, Morocco"
+msgstr "Studio d'ingénierie logicielle getNexiro à Tanger, Maroc"
+
+msgid "Language Switcher"
+msgstr "Sélecteur de langue"
+
+msgid "Blog pages"
+msgstr "Pages du blog"
+
+msgid "Regional Engineering Delivery from Tangier to"
+msgstr "Ingénierie logicielle régionale depuis Tanger vers"
+
+msgid ""
+"Headquartered in the Mediterranean hub of Tangier, getNexiro combines "
+"regional software engineering horsepower with deep local market "
+"understanding. We collaborate seamlessly with enterprises in {{ city }} "
+"through a disciplined delivery model combining daily asynchronous updates, "
+"scheduled video reviews, and in-person architecture workshops. Whether you "
+"require on-site deployment in {{ city }} or dedicated nearshore cloud "
+"development, our team ensures continuous uptime, CNDP regulatory compliance,"
+" and rapid response times across Northern Morocco."
+msgstr ""
+"Basée dans le hub méditerranéen de Tanger, getNexiro allie expertise "
+"technique de pointe et parfaite compréhension du marché local. Nous "
+"collaborons étroitement avec les entreprises de {{ city }} grâce à une "
+"méthodologie de livraison rigoureuse associant points d'avancement continus,"
+" revues vidéo régulières et ateliers d'architecture logicielle. Que vous "
+"ayez besoin d'un déploiement sur site à {{ city }} ou d'un développement "
+"cloud sur mesure, notre équipe garantit haute disponibilité, conformité CNDP"
+" et réactivité dans tout le nord du Maroc."
+
+msgid ""
+"Every project delivered for {{ city }} enterprises includes complete source "
+"code ownership, comprehensive trilingual localization (Arabic, French, and "
+"English), enterprise-grade database backups, and direct access to senior "
+"software architects via phone, email, and WhatsApp."
+msgstr ""
+"Chaque projet réalisé pour les entreprises de {{ city }} inclut la propriété"
+" intégrale du code source, une localisation trilingue complète (arabe, "
+"français, anglais), des sauvegardes de données de niveau entreprise et un "
+"accès direct aux architectes logiciels seniors par téléphone, email et "
+"WhatsApp."
+
+msgid ""
+"Based in the Mediterranean business hub of Tangier, getNexiro is a dedicated"
+" software development studio building scalable digital systems for modern "
+"enterprises. We engineer custom <a href=\"/en/services/web-development/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: 500;\">Web "
+"Development</a> platforms, responsive <a href=\"/en/services/mobile-"
+"applications/\" style=\"color: #38bdf8; text-decoration: underline; font-"
+"weight: 500;\">Mobile Applications</a>, accessible <a "
+"href=\"/en/services/uiux-design-systems/\" style=\"color: #38bdf8; text-"
+"decoration: underline; font-weight: 500;\">UI/UX Design Systems</a>, "
+"resilient <a href=\"/en/services/api-microservices/\" style=\"color: "
+"#38bdf8; text-decoration: underline; font-weight: 500;\">APIs & "
+"Microservices</a>, and automated <a href=\"/en/services/cloud-devops/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: "
+"500;\">Cloud & DevOps</a> environments."
+msgstr ""
+"Basé dans le carrefour économique méditerranéen de Tanger, getNexiro est un "
+"studio d'ingénierie logicielle dédié à la création de systèmes numériques "
+"évolutifs pour entreprises modernes. Nous concevons des plateformes de <a "
+"href=\"/fr/services/web-development/\" style=\"color: #38bdf8; text-"
+"decoration: underline; font-weight: 500;\">Développement Web</a> sur mesure,"
+" des <a href=\"/fr/services/mobile-applications/\" style=\"color: #38bdf8; "
+"text-decoration: underline; font-weight: 500;\">Applications Mobiles</a> "
+"réactives, des <a href=\"/fr/services/uiux-design-systems/\" style=\"color: "
+"#38bdf8; text-decoration: underline; font-weight: 500;\">Systèmes de Design "
+"UI/UX</a> intuitifs, des <a href=\"/fr/services/api-microservices/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: 500;\">APIs"
+" & Microservices</a> résilients, et des environnements <a "
+"href=\"/fr/services/cloud-devops/\" style=\"color: #38bdf8; text-decoration:"
+" underline; font-weight: 500;\">Cloud & DevOps</a> automatisés."
+
+msgid ""
+"Strategically positioned in Northern Morocco near Tanger Med Port and the "
+"Tangier Free Zone, our team collaborates closely with ambitious businesses "
+"across <a href=\"/en/services/web-development/tangier/\" style=\"color: "
+"#cbd5e1; text-decoration: underline;\">Tangier</a>, <a "
+"href=\"/en/services/web-development/tetouan/\" style=\"color: #cbd5e1; text-"
+"decoration: underline;\">Tétouan</a>, <a href=\"/en/services/web-"
+"development/fes/\" style=\"color: #cbd5e1; text-decoration: "
+"underline;\">Fès</a>, and <a href=\"/en/services/web-development/meknes/\" "
+"style=\"color: #cbd5e1; text-decoration: underline;\">Meknès</a>, while "
+"providing European organizations with premier nearshore development talent "
+"in GMT+1 with trilingual fluency in English, French, and Arabic."
+msgstr ""
+"Stratégiquement implantée dans le nord du Maroc, à proximité du port Tanger "
+"Med et de la zone franche, notre équipe collabore étroitement avec des "
+"entreprises ambitieuses à <a href=\"/fr/services/web-development/tangier/\" "
+"style=\"color: #cbd5e1; text-decoration: underline;\">Tanger</a>, <a "
+"href=\"/fr/services/web-development/tetouan/\" style=\"color: #cbd5e1; text-"
+"decoration: underline;\">Tétouan</a>, <a href=\"/fr/services/web-"
+"development/fes/\" style=\"color: #cbd5e1; text-decoration: "
+"underline;\">Fès</a> et <a href=\"/fr/services/web-development/meknes/\" "
+"style=\"color: #cbd5e1; text-decoration: underline;\">Meknès</a>, tout en "
+"offrant aux organisations européennes des talents de développement nearshore"
+" de premier ordre sur le fuseau GMT+1 avec maîtrise trilingue français, "
+"anglais et arabe."
+
+msgid "SEO Meta & Indexation"
+msgstr "Méta SEO & Indexation"
+
+msgid "About Page SEO Desc (AR)"
+msgstr "Description SEO Page À Propos (AR)"
+
+msgid "About Page SEO Desc (EN)"
+msgstr "Description SEO Page À Propos (EN)"
+
+msgid "About Page SEO Desc (FR)"
+msgstr "Description SEO Page À Propos (FR)"
+
+msgid "Blog Page SEO Desc (AR)"
+msgstr "Description SEO Page Blog (AR)"
+
+msgid "Blog Page SEO Desc (EN)"
+msgstr "Description SEO Page Blog (EN)"
+
+msgid "Blog Page SEO Desc (FR)"
+msgstr "Description SEO Page Blog (FR)"
+
+msgid "Contact Page SEO Desc (AR)"
+msgstr "Description SEO Page Contact (AR)"
+
+msgid "Contact Page SEO Desc (EN)"
+msgstr "Description SEO Page Contact (EN)"
+
+msgid "Contact Page SEO Desc (FR)"
+msgstr "Description SEO Page Contact (FR)"
+
+msgid "Services Page SEO Desc (AR)"
+msgstr "Description SEO Page Services (AR)"
+
+msgid "Services Page SEO Desc (EN)"
+msgstr "Description SEO Page Services (EN)"
+
+msgid "Services Page SEO Desc (FR)"
+msgstr "Description SEO Page Services (FR)"
+
+msgid "Projects Page SEO Desc (AR)"
+msgstr "Description SEO Page Projets (AR)"
+
+msgid "Projects Page SEO Desc (EN)"
+msgstr "Description SEO Page Projets (EN)"
+
+msgid "Projects Page SEO Desc (FR)"
+msgstr "Description SEO Page Projets (FR)"
+
+msgid "Packages Page SEO Desc (AR)"
+msgstr "Description SEO Page Packs (AR)"
+
+msgid "Packages Page SEO Desc (EN)"
+msgstr "Description SEO Page Packs (EN)"
+
+msgid "Packages Page SEO Desc (FR)"
+msgstr "Description SEO Page Packs (FR)"
+
+msgid "Author Profile"
+msgstr "Profil de l'auteur"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Authors"
+msgstr "Auteurs"
+
+msgid "Author Name (Legacy)"
+msgstr "Nom de l'auteur (ancien)"
+
+msgid "Personal Website"
+msgstr "Site web personnel"
+
+msgid "LinkedIn Profile"
+msgstr "Profil LinkedIn"
+
+msgid "GitHub Profile"
+msgstr "Profil GitHub"
+
+msgid "Twitter / X Profile"
+msgstr "Profil Twitter / X"
+
+msgid "Is Verified"
+msgstr "Vérifié"
+
+msgid "Is Active"
+msgstr "Actif"
+
+msgid "Index in Sitemap"
+msgstr "Inclure dans le sitemap"
+
+msgid "Include in sitemap.xml."
+msgstr "Inclure dans sitemap.xml."
+
+msgid "No Index (Search Engines)"
+msgstr "Ne pas indexer (moteurs de recherche)"
+
+msgid "Exclude this post from search engines and index listings."
+msgstr "Exclure cet article des moteurs de recherche et des listings d'index."
+
+msgid "Exclude this page from search engine indexes"
+msgstr "Exclure cette page des index des moteurs de recherche"
+
+msgid ""
+"Only owner-verified testimonials with confirmed real clients are rendered."
+msgstr ""
+"Seuls les témoignages vérifiés par le propriétaire avec de vrais clients "
+"confirmés sont affichés."
+
+msgid "Detailed Process & Durations (AR)"
+msgstr "Processus détaillé & Durées (AR)"
+
+msgid "Detailed Process & Durations (EN)"
+msgstr "Processus détaillé & Durées (EN)"
+
+msgid "Detailed Process & Durations (FR)"
+msgstr "Processus détaillé & Durées (FR)"
+
+msgid "Pricing Guidance (AR)"
+msgstr "Tarification indicative (AR)"
+
+msgid "Pricing Guidance (EN)"
+msgstr "Tarification indicative (EN)"
+
+msgid "Pricing Guidance (FR)"
+msgstr "Tarification indicative (FR)"
+
+msgid "Target Audience / Who It Is For (AR)"
+msgstr "Public cible / À qui s'adresse ce service (AR)"
+
+msgid "Target Audience / Who It Is For (EN)"
+msgstr "Public cible / À qui s'adresse ce service (EN)"
+
+msgid "Target Audience / Who It Is For (FR)"
+msgstr "Public cible / À qui s'adresse ce service (FR)"
+
+msgid "Default OG Image (1200x630)"
+msgstr "Image OG par défaut (1200x630)"
+
+msgid "Fallback social sharing image (1200x630)"
+msgstr "Image de secours pour partage social (1200x630)"
+
+msgid "Related Service"
+msgstr "Service associé"
+
+msgid "Software"
+msgstr "Logiciel"

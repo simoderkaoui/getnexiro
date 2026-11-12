@@ -91,6 +91,10 @@
             <div class="about-image-card glass-card">
                 {% if config.about_image %}
                 <img src="{{ config.about_image.url }}" alt="{{ config.site_name }}" loading="lazy" class="about-img" width="600" height="500">
+                {% elif LANGUAGE_CODE == 'ar' %}
+                <img src="{% static 'images/about-studio-ar.svg' %}" alt="{% trans 'getNexiro Engineering Studio in Tangier, Morocco' %}" loading="lazy" class="about-img" width="600" height="500">
+                {% elif LANGUAGE_CODE == 'fr' %}
+                <img src="{% static 'images/about-studio-fr.svg' %}" alt="{% trans 'getNexiro Engineering Studio in Tangier, Morocco' %}" loading="lazy" class="about-img" width="600" height="500">
                 {% else %}
                 <img src="{% static 'images/about-studio.svg' %}" alt="{% trans 'getNexiro Engineering Studio in Tangier, Morocco' %}" loading="lazy" class="about-img" width="600" height="500">
                 {% endif %}

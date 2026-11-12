@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" direction="rtl">
+  <defs>
+    <radialGradient id="bgGlowAr" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#00f5a0" stop-opacity="0.15"/>
+      <stop offset="60%" stop-color="#00d9f5" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#080b10" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141c2b" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0b1019" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="cyanLineAr" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#00f5a0"/>
+      <stop offset="100%" stop-color="#00d9f5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#080b10"/>
+  <rect width="800" height="600" fill="url(#bgGlowAr)"/>
+
+  <!-- Architecture Grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="80" y1="0" x2="80" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="320" y1="0" x2="320" y2="600"/>
+    <line x1="440" y1="0" x2="440" y2="600"/>
+    <line x1="560" y1="0" x2="560" y2="600"/>
+    <line x1="680" y1="0" x2="680" y2="600"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="500" x2="800" y2="500"/>
+  </g>
+
+  <!-- Central Studio Card Structure -->
+  <rect x="90" y="70" width="620" height="460" rx="20" fill="url(#cardGradAr)" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="90" y="70" width="620" height="50" rx="20" fill="#0f172a" fill-opacity="0.8"/>
+  <circle cx="125" cy="95" r="5" fill="#ef4444" opacity="0.7"/>
+  <circle cx="145" cy="95" r="5" fill="#f59e0b" opacity="0.7"/>
+  <circle cx="165" cy="95" r="5" fill="#10b981" opacity="0.7"/>
+  <text x="670" y="100" text-anchor="end" fill="#64748b" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12" font-weight="700" letter-spacing="1">getNexiro // استوديو طنجة للهندسة البرمجية</text>
+
+  <!-- Studio Coordinate Header -->
+  <text x="670" y="165" text-anchor="end" fill="#00f5a0" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="11" font-weight="700" letter-spacing="1">الموقع // 35.7595° شمالاً، 5.8340° غرباً</text>
+  <text x="670" y="202" text-anchor="end" fill="#f8fafc" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="22" font-weight="800">مركز هندسة البرمجيات والمعمارية السحابية</text>
+  <text x="670" y="230" text-anchor="end" fill="#94a3b8" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="13">طنجة، المغرب — توافق مباشر مع التوقيت الأوروبي (GMT+1 / WEST)</text>
+
+  <!-- Visual Feature Blocks -->
+  <!-- Block 1: Architecture -->
+  <rect x="420" y="260" width="250" height="110" rx="12" fill="#0b1120" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="642" cy="288" r="14" fill="#00f5a0" fill-opacity="0.1"/>
+  <path d="M636 288L640 292L648 284" stroke="#00f5a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="618" y="293" text-anchor="end" fill="#f1f5f9" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="14" font-weight="700">تطوير النظم المتكاملة</text>
+  <text x="650" y="325" text-anchor="end" fill="#64748b" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12">Django · PostgreSQL · Vue/React</text>
+  <text x="650" y="348" text-anchor="end" fill="#64748b" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12">واجهات برمجية عالية الأداء والسرعة</text>
+
+  <!-- Block 2: Cloud / DevOps -->
+  <rect x="130" y="260" width="250" height="110" rx="12" fill="#0b1120" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="352" cy="288" r="14" fill="#00d9f5" fill-opacity="0.1"/>
+  <path d="M346 288L350 292L358 284" stroke="#00d9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="328" y="293" text-anchor="end" fill="#f1f5f9" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="14" font-weight="700">البنية التحتية السحابية</text>
+  <text x="360" y="325" text-anchor="end" fill="#64748b" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12">Docker · Linux · مسارات CI/CD</text>
+  <text x="360" y="348" text-anchor="end" fill="#64748b" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12">نشر آلي للأنظمة بدون انقطاع الخدمة</text>
+
+  <!-- Block 3: Strategic Reach -->
+  <rect x="130" y="390" width="540" height="90" rx="12" fill="#0b1120" stroke="#1e293b" stroke-width="1"/>
+  <text x="650" y="425" text-anchor="end" fill="#f1f5f9" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="13" font-weight="700">بوابة التطوير Nearshore نحو أوروبا والشرق الأوسط</text>
+  <text x="650" y="452" text-anchor="end" fill="#94a3b8" font-family="'Cairo', 'Segoe UI', Tahoma, sans-serif" font-size="12">خدمة الشركات في طنجة المتوسط، الدار البيضاء، الرباط، باريس، لندن، ومدريد.</text>
+
+  <!-- Bottom Accent Line -->
+  <rect x="90" y="528" width="620" height="2" fill="url(#cyanLineAr)"/>
+</svg>

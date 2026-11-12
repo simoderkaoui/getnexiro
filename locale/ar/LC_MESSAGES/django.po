@@ -3236,3 +3236,256 @@ msgstr "السابق"
 
 msgid "Page"
 msgstr "صفحة"
+
+msgid ""
+"getNexiro was founded in Tangier by Moroccan technologists committed to "
+"engineering modern, high-precision web and mobile applications for local and"
+" international businesses. Operating from Northern Morocco's primary "
+"industrial and maritime gateway, we combine localized agility with "
+"international software development standards."
+msgstr ""
+"تأسست getNexiro في طنجة على أيدي كفاءات ومهندسين مغاربة ملتزمين بتطوير "
+"تطبيقات ويب وجوال عصرية وفائقة الدقة للشركات المحلية والدولية. انطلاقاً من "
+"البوابة الصناعية والبحرية لشمال المغرب، نجمع بين المرونة المحلية وأعلى "
+"معايير هندسة البرمجيات العالمية."
+
+msgid "getNexiro Engineering Studio in Tangier, Morocco"
+msgstr "استوديو هندسة البرمجيات getNexiro في طنجة، المغرب"
+
+msgid "Language Switcher"
+msgstr "مبدل اللغة"
+
+msgid "Blog pages"
+msgstr "صفحات المدونة"
+
+msgid "Regional Engineering Delivery from Tangier to"
+msgstr "تطوير وتسليم هندسي إقليمي من طنجة إلى"
+
+msgid ""
+"Headquartered in the Mediterranean hub of Tangier, getNexiro combines "
+"regional software engineering horsepower with deep local market "
+"understanding. We collaborate seamlessly with enterprises in {{ city }} "
+"through a disciplined delivery model combining daily asynchronous updates, "
+"scheduled video reviews, and in-person architecture workshops. Whether you "
+"require on-site deployment in {{ city }} or dedicated nearshore cloud "
+"development, our team ensures continuous uptime, CNDP regulatory compliance,"
+" and rapid response times across Northern Morocco."
+msgstr ""
+"انطلاقاً من مقرنا في طنجة عاصمة الأعمال المتوسطية، تجمع getNexiro بين قوة "
+"هندسة البرمجيات والفهم العميق لمتطلبات السوق. نتعاون بسلاسة مع المؤسسات "
+"والشركات في {{ city }} من خلال نموذج تسليم منضبط يجمع بين التحديثات اليومية "
+"والمراجعات الدورية وورش العمل المعمارية. وسواء كنتم بحاجة إلى نشر محلي في {{"
+" city }} أو تطوير سحابي مرن، يضمن فريقنا الجاهزية العالية والامتثال لمعايير "
+"CNDP وسرعة الاستجابة في شمال المغرب."
+
+msgid ""
+"Every project delivered for {{ city }} enterprises includes complete source "
+"code ownership, comprehensive trilingual localization (Arabic, French, and "
+"English), enterprise-grade database backups, and direct access to senior "
+"software architects via phone, email, and WhatsApp."
+msgstr ""
+"يشمل كل مشروع ننجزه لشركات {{ city }} الملكية الكاملة للشفرة المصدرية، "
+"والتعريب والترجمة ثلاثية اللغات (العربية والفرنسية والإنجليزية)، والنسخ "
+"الاحتياطي الاحترافي للبيانات، والتواصل المباشر مع كبار مهندسي البرمجيات عبر "
+"الهاتف والبريد الإلكتروني وواتساب."
+
+msgid ""
+"Based in the Mediterranean business hub of Tangier, getNexiro is a dedicated"
+" software development studio building scalable digital systems for modern "
+"enterprises. We engineer custom <a href=\"/en/services/web-development/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: 500;\">Web "
+"Development</a> platforms, responsive <a href=\"/en/services/mobile-"
+"applications/\" style=\"color: #38bdf8; text-decoration: underline; font-"
+"weight: 500;\">Mobile Applications</a>, accessible <a "
+"href=\"/en/services/uiux-design-systems/\" style=\"color: #38bdf8; text-"
+"decoration: underline; font-weight: 500;\">UI/UX Design Systems</a>, "
+"resilient <a href=\"/en/services/api-microservices/\" style=\"color: "
+"#38bdf8; text-decoration: underline; font-weight: 500;\">APIs & "
+"Microservices</a>, and automated <a href=\"/en/services/cloud-devops/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: "
+"500;\">Cloud & DevOps</a> environments."
+msgstr ""
+"انطلاقاً من المركز الاقتصادي المتوسطي بطنجة، يُعد استوديو getNexiro وجهتكم "
+"المتخصصة في هندسة البرمجيات وبناء المنظومات الرقمية القابلة للتوسع للشركات "
+"الحديثة. نقوم بتطوير منصات <a href=\"/ar/خدمات/web-development/\" "
+"style=\"color: #38bdf8; text-decoration: underline; font-weight: "
+"500;\">تطوير مواقع الويب</a> المخصصة، و<a href=\"/ar/خدمات/mobile-"
+"applications/\" style=\"color: #38bdf8; text-decoration: underline; font-"
+"weight: 500;\">تطبيقات الجوال</a> سريعة الاستجابة، و<a "
+"href=\"/ar/خدمات/uiux-design-systems/\" style=\"color: #38bdf8; text-"
+"decoration: underline; font-weight: 500;\">أنظمة تصميم وتجربة المستخدم "
+"UI/UX</a>، و<a href=\"/ar/خدمات/api-microservices/\" style=\"color: #38bdf8;"
+" text-decoration: underline; font-weight: 500;\">واجهات البرمجة والأنظمة "
+"الدقيقة APIs</a>، وبيئات <a href=\"/ar/خدمات/cloud-devops/\" style=\"color: "
+"#38bdf8; text-decoration: underline; font-weight: 500;\">الحوسبة السحابية "
+"وعمليات ديف أوبس</a> الآلية."
+
+msgid ""
+"Strategically positioned in Northern Morocco near Tanger Med Port and the "
+"Tangier Free Zone, our team collaborates closely with ambitious businesses "
+"across <a href=\"/en/services/web-development/tangier/\" style=\"color: "
+"#cbd5e1; text-decoration: underline;\">Tangier</a>, <a "
+"href=\"/en/services/web-development/tetouan/\" style=\"color: #cbd5e1; text-"
+"decoration: underline;\">Tétouan</a>, <a href=\"/en/services/web-"
+"development/fes/\" style=\"color: #cbd5e1; text-decoration: "
+"underline;\">Fès</a>, and <a href=\"/en/services/web-development/meknes/\" "
+"style=\"color: #cbd5e1; text-decoration: underline;\">Meknès</a>, while "
+"providing European organizations with premier nearshore development talent "
+"in GMT+1 with trilingual fluency in English, French, and Arabic."
+msgstr ""
+"بفضل موقعنا الاستراتيجي في شمال المغرب بالقرب من ميناء طنجة المتوسط والمنطقة"
+" الحرة، يتعاون فريقنا عن كثب مع الشركات الطموحة في كل من <a "
+"href=\"/ar/خدمات/web-development/tangier/\" style=\"color: #cbd5e1; text-"
+"decoration: underline;\">طنجة</a> و<a href=\"/ar/خدمات/web-"
+"development/tetouan/\" style=\"color: #cbd5e1; text-decoration: "
+"underline;\">تطوان</a> و<a href=\"/ar/خدمات/web-development/fes/\" "
+"style=\"color: #cbd5e1; text-decoration: underline;\">فاس</a> و<a "
+"href=\"/ar/خدمات/web-development/meknes/\" style=\"color: #cbd5e1; text-"
+"decoration: underline;\">مكناس</a>، مع توفير أفضل الكفاءات الهندسية "
+"Nearshore للشركات الأوروبية في توقيت GMT+1 وبطلاقة تامة في ثلاث لغات: "
+"العربية، والفرنسية، والإنجليزية."
+
+msgid "SEO Meta & Indexation"
+msgstr "بيانات سيو والفهرسة"
+
+msgid "About Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة من نحن (عربي)"
+
+msgid "About Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة من نحن (إنجليزي)"
+
+msgid "About Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة من نحن (فرنسي)"
+
+msgid "Blog Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة المدونة (عربي)"
+
+msgid "Blog Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة المدونة (إنجليزي)"
+
+msgid "Blog Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة المدونة (فرنسي)"
+
+msgid "Contact Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة اتصل بنا (عربي)"
+
+msgid "Contact Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة اتصل بنا (إنجليزي)"
+
+msgid "Contact Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة اتصل بنا (فرنسي)"
+
+msgid "Services Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة الخدمات (عربي)"
+
+msgid "Services Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة الخدمات (إنجليزي)"
+
+msgid "Services Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة الخدمات (فرنسي)"
+
+msgid "Projects Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة المشاريع (عربي)"
+
+msgid "Projects Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة المشاريع (إنجليزي)"
+
+msgid "Projects Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة المشاريع (فرنسي)"
+
+msgid "Packages Page SEO Desc (AR)"
+msgstr "وصف سيو لصفحة الباقات (عربي)"
+
+msgid "Packages Page SEO Desc (EN)"
+msgstr "وصف سيو لصفحة الباقات (إنجليزي)"
+
+msgid "Packages Page SEO Desc (FR)"
+msgstr "وصف سيو لصفحة الباقات (فرنسي)"
+
+msgid "Author Profile"
+msgstr "الملف الشخصي للمؤلف"
+
+msgid "Author"
+msgstr "المؤلف"
+
+msgid "Authors"
+msgstr "المؤلفون"
+
+msgid "Author Name (Legacy)"
+msgstr "اسم المؤلف (سابق)"
+
+msgid "Personal Website"
+msgstr "الموقع الشخصي"
+
+msgid "LinkedIn Profile"
+msgstr "ملف لينكد إن"
+
+msgid "GitHub Profile"
+msgstr "ملف جيت هاب"
+
+msgid "Twitter / X Profile"
+msgstr "ملف تويتر / إكس"
+
+msgid "Is Verified"
+msgstr "تم التحقق منه"
+
+msgid "Is Active"
+msgstr "نشط"
+
+msgid "Index in Sitemap"
+msgstr "إدراج في خريطة الموقع"
+
+msgid "Include in sitemap.xml."
+msgstr "إدراج هذا الرابط في ملف sitemap.xml."
+
+msgid "No Index (Search Engines)"
+msgstr "عدم الفهرسة (محركات البحث)"
+
+msgid "Exclude this post from search engines and index listings."
+msgstr "استبعاد هذا المقال من محركات البحث وفهارس الصفحات."
+
+msgid "Exclude this page from search engine indexes"
+msgstr "استبعاد هذه الصفحة من فهارس محركات البحث"
+
+msgid ""
+"Only owner-verified testimonials with confirmed real clients are rendered."
+msgstr "يتم عرض الشهادات المؤكدة والمحققة فقط من عملاء حقيقيين."
+
+msgid "Detailed Process & Durations (AR)"
+msgstr "تفاصيل مراحل العمل والمدد (عربي)"
+
+msgid "Detailed Process & Durations (EN)"
+msgstr "تفاصيل مراحل العمل والمدد (إنجليزي)"
+
+msgid "Detailed Process & Durations (FR)"
+msgstr "تفاصيل مراحل العمل والمدد (فرنسي)"
+
+msgid "Pricing Guidance (AR)"
+msgstr "إرشادات الأسعار (عربي)"
+
+msgid "Pricing Guidance (EN)"
+msgstr "إرشادات الأسعار (إنجليزي)"
+
+msgid "Pricing Guidance (FR)"
+msgstr "إرشادات الأسعار (فرنسي)"
+
+msgid "Target Audience / Who It Is For (AR)"
+msgstr "الجمهور المستهدف / لمن هذه الخدمة (عربي)"
+
+msgid "Target Audience / Who It Is For (EN)"
+msgstr "الجمهور المستهدف / لمن هذه الخدمة (إنجليزي)"
+
+msgid "Target Audience / Who It Is For (FR)"
+msgstr "الجمهور المستهدف / لمن هذه الخدمة (فرنسي)"
+
+msgid "Default OG Image (1200x630)"
+msgstr "صورة المشاركة الافتراضية (1200x630)"
+
+msgid "Fallback social sharing image (1200x630)"
+msgstr "صورة المشاركة الاحتياطية لمواقع التواصل (1200x630)"
+
+msgid "Related Service"
+msgstr "الخدمة المرتبطة"
+
+msgid "Software"
+msgstr "برمجيات"
