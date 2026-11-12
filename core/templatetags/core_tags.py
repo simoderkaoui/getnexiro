@@ -54,8 +54,10 @@ def translate_url(url, lang_code):
     if not url:
         return f'/{lang_code}/'
     try:
+        from core.middleware import clean_language_path
         parsed = urllib.parse.urlsplit(str(url))
-        raw_path = urllib.parse.unquote(parsed.path)
+        cleaned_path = clean_language_path(parsed.path)
+        raw_path = urllib.parse.unquote(cleaned_path)
         collapsed = re.sub(r'/+', '/', raw_path)
         parts = [p for p in collapsed.strip('/').split('/') if p]
 
@@ -306,8 +308,9 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
 
     final_description = _format_seo_description(raw_desc, fallback_text=fallback_text, lang=lang)
 
-    # 4. Canonical URL (Strip tracking & non-canonical parameters)
-    clean_path = request.path if request else f"/{lang}/"
+    # 4. Canonical URL (Strip tracking & non-canonical parameters, auto-clean chained paths)
+    from core.middleware import clean_language_path
+    clean_path = clean_language_path(request.path) if request else f"/{lang}/"
     if request and 'page' in request.GET:
         page_val = request.GET.get('page')
         if page_val and page_val.isdigit() and int(page_val) > 1:
@@ -317,7 +320,7 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
 
     # 5. Hreflang Reciprocal Links
     hreflang_alternates = []
-    base_request_path = request.path if request else '/'
+    base_request_path = clean_language_path(request.path) if request else '/'
     for alt_lang in ['en', 'fr', 'ar']:
         alt_path = translate_url(base_request_path, alt_lang) or f"/{alt_lang}/"
         hreflang_alternates.append({

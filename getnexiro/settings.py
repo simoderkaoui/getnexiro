@@ -44,6 +44,10 @@ CSRF_TRUSTED_ORIGINS = [
 # Canonical site URL (no trailing slash) -- used for hreflang, og:url, sitemap
 SITE_URL = os.environ.get('SITE_URL', 'https://getnexiro.com')
 
+# Enforce root script prefix for domain-root deployment (prevents Passenger/Apache WSGI
+# on cPanel from mangling non-ASCII / Arabic URLs into SCRIPT_NAME and breaking reverse())
+FORCE_SCRIPT_NAME = ''
+
 # Analytics (loaded only after cookie consent)
 ANALYTICS_PROVIDER = os.environ.get('ANALYTICS_PROVIDER', '')  # 'ga4' or 'plausible'
 ANALYTICS_ID = os.environ.get('ANALYTICS_ID', '')  # e.g. 'G-XXXXXXXXXX'

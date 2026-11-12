@@ -75,6 +75,9 @@ def clean_language_path(path):
     if not path or path == '/':
         return path
 
+    # First normalize encoding & repair any latin-1 mojibake
+    path = normalize_uri(path)
+
     # Collapse consecutive slashes
     collapsed = re.sub(r'/+', '/', path)
     parts = [p for p in collapsed.strip('/').split('/') if p]
@@ -171,6 +174,13 @@ class UrlNormalizationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        # 0. Enforce empty SCRIPT_NAME and root prefix for domain-root deployment.
+        # This prevents Apache mod_passenger on cPanel from corrupting reverse()
+        # and template link generation when serving non-ASCII / Arabic routes.
+        request.META['SCRIPT_NAME'] = ''
+        from django.urls import set_script_prefix
+        set_script_prefix('/')
+
         # 1. Normalize path_info and path
         request.path_info = normalize_uri(request.path_info)
         request.path = normalize_uri(request.path)

@@ -35,10 +35,26 @@ if os.environ.get('DJANGO_SETTINGS_MODULE') in (None, '', 'config', 'config.sett
 else:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getnexiro.settings')
 
-# Wrap WSGI loading to capture startup errors cleanly
+# Wrap WSGI loading to capture startup errors cleanly and repair cPanel Apache WSGI environ
 try:
     from django.core.wsgi import get_wsgi_application
-    application = get_wsgi_application()
+    _django_app = get_wsgi_application()
+
+    def application(environ, start_response):
+        # Fix for Apache mod_passenger on cPanel:
+        # When request URI has Arabic / non-ASCII characters, Apache incorrectly
+        # populates SCRIPT_NAME with the matched path, breaking Django's reverse()
+        # and url resolver. Reset SCRIPT_NAME to '' and extract full path from REQUEST_URI.
+        request_uri = environ.get('REQUEST_URI', '')
+        if request_uri:
+            full_path = request_uri.split('?')[0]
+        else:
+            full_path = environ.get('SCRIPT_NAME', '') + environ.get('PATH_INFO', '')
+
+        environ['SCRIPT_NAME'] = ''
+        environ['PATH_INFO'] = full_path
+
+        return _django_app(environ, start_response)
 except Exception:
     import traceback
     error_trace = traceback.format_exc()

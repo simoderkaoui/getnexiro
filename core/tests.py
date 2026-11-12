@@ -1632,6 +1632,32 @@ class SEOMasterTestSuite(TestCase):
         self.assertEqual(res.status_code, 301)
         self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
 
+        # Services -> Projects chained
+        res = self.client.get('/ar/خدمات/ar/مشاريع/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+
+        # Percent-encoded Services -> Projects chained
+        res = self.client.get('/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA/ar/%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+
+    def test_force_script_name_prevents_wsgi_script_name_pollution(self):
+        """
+        Verify that even if Apache mod_passenger passes SCRIPT_NAME populated with
+        the Arabic route segment, FORCE_SCRIPT_NAME='' and UrlNormalizationMiddleware
+        prevent link concatenation like /ar/خدمات/ar/مشاريع/.
+        """
+        res = self.client.get('/ar/خدمات/', SCRIPT_NAME='/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA')
+        self.assertEqual(res.status_code, 200)
+        html = res.content.decode('utf-8')
+        # Navbar links must NOT have /ar/خدمات/ar/
+        self.assertNotIn('/ar/خدمات/ar/', html)
+        self.assertNotIn('/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA/ar/', html)
+        # Canonical URL must be clean
+        self.assertIn('https://getnexiro.com/ar/خدمات/', html)
+        self.assertNotIn('https://getnexiro.com/ar/خدمات/ar/خدمات/', html)
+
     def test_direct_flag_switcher_links_in_navbar(self):
         """Ensure flag switcher in base.html generates direct, crawlable <a> links without forms."""
         res = self.client.get('/ar/من-نحن/')
