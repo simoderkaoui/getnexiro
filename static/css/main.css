@@ -824,6 +824,63 @@ ul {
     color: var(--color-text-muted);
 }
 
+/* Factual Architecture Stack Card */
+.architecture-stack-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    background: linear-gradient(180deg, rgba(10, 15, 25, 0.95) 0%, rgba(8, 12, 20, 0.98) 100%);
+}
+
+.arch-layer {
+    padding: 0.75rem 0.95rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    border-radius: var(--radius-md);
+    transition: all 0.25s ease;
+}
+
+.arch-layer:hover {
+    border-color: rgba(56, 189, 248, 0.3);
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.arch-layer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.45rem;
+}
+
+.arch-layer-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--color-glow);
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    padding: 0.12rem 0.4rem;
+    border-radius: 4px;
+}
+
+.arch-layer-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.arch-layer-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.arch-layer-chips .tech-pill {
+    font-size: 0.7rem;
+    padding: 0.18rem 0.5rem;
+}
+
 
 /* ── 9. Stats / Metrics Strip ── */
 .stats-strip {

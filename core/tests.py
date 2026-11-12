@@ -1417,9 +1417,10 @@ class BlogSearchAndPhase2ImprovementsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
         self.assertIn('"@type": "SearchAction"', content)
-        self.assertIn('"@type": "AggregateRating"', content)
-        self.assertIn('"ratingValue": "5.0"', content)
+        self.assertIn('"@type": "WebSite"', content)
         self.assertIn('"@type": "OfferCatalog"', content)
+        self.assertIn('"ProfessionalService"', content)
+        self.assertIn('"Organization"', content)
 
     def test_opengraph_dimensions_and_locale(self):
         """Test OpenGraph meta tags include dimensions and formatted locale."""

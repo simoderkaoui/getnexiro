@@ -45,12 +45,13 @@ def home(request):
         'featured_services': Service.objects.filter(is_featured=True)[:6],
         'featured_projects': Project.objects.filter(is_featured=True)[:6],
         'stats': Stat.objects.all()[:4],
-        'testimonials': Testimonial.objects.filter(is_featured=True)[:3],
+        'testimonials': Testimonial.objects.filter(is_featured=True, is_verified=True)[:3],
         'client_logos': ClientLogo.objects.all()[:8],
         'latest_posts': BlogPost.objects.filter(status='published')[:3],
-        'faqs': FAQ.objects.filter(is_active=True, section='general')[:6],
+        'faqs': FAQ.objects.filter(is_active=True, section__in=['general', 'pricing', 'process'])[:6],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'home_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'home_seo_description')
     return render(request, 'core/home.html', ctx)
 
 
@@ -62,6 +63,7 @@ def about(request):
         'company_values': CompanyValue.objects.all(),
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'about_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'about_seo_description')
     return render(request, 'core/about.html', ctx)
 
 
@@ -74,6 +76,7 @@ def services(request):
         'faqs': FAQ.objects.filter(is_active=True, section='services')[:6],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'services_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'services_seo_description')
     return render(request, 'core/services.html', ctx)
 
 
@@ -85,6 +88,7 @@ def projects(request):
         'projects_list': Project.objects.select_related('category').all(),
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'projects_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'projects_seo_description')
     return render(request, 'core/projects.html', ctx)
 
 
@@ -169,6 +173,7 @@ def blog(request):
         'search_query': search_query,
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'blog_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'blog_seo_description')
     return render(request, 'core/blog.html', ctx)
 
 
@@ -221,6 +226,7 @@ def contact(request):
 
     ctx['form'] = form
     ctx['page_seo_title'] = get_localized(ctx['config'], 'contact_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'contact_seo_description')
     return render(request, 'core/contact.html', ctx)
 
 
@@ -231,6 +237,8 @@ def legal_page(request, slug):
     page = get_object_or_404(LegalPage, slug=slug)
     ctx = _get_common_context()
     ctx['page'] = page
+    ctx['page_seo_title'] = f"{page.title} — Legal"
+    ctx['page_seo_description'] = f"{page.title} for getNexiro clients and visitors. Read our operational guidelines and commitments. Contact us for details."
     return render(request, 'core/legal_page.html', ctx)
 
 
@@ -471,6 +479,7 @@ def packages(request):
         'faqs': FAQ.objects.filter(is_active=True, section='pricing')[:6],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'packages_seo_title')
+    ctx['page_seo_description'] = get_localized(ctx['config'], 'packages_seo_description')
     return render(request, 'core/packages.html', ctx)
 
 

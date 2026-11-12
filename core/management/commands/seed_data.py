@@ -214,13 +214,12 @@ class Command(BaseCommand):
         self.stdout.write('  [OK] SiteConfig updated with EN / FR / AR')
 
         # ── 2. Statistics ──
-        # TODO_REAL_DATA: All stats below should be verified with real data.
-        # '50+' is overstated (actual ~11 projects), '99.98%' and '<80ms' are unverified.
+        # Truthful, verified statistics based on codebase and actual agency delivery
         Stat.objects.all().delete()
         stats_data = [
-            ('99.98%', 'System Reliability SLA', 'SLA de Fiabilité Système', 'اتفاقية مستوى موثوقية 99.98%', 1),
-            ('50+', 'Enterprise Platforms Shipped', 'Plateformes d\'Entreprise Livrées', 'أكثر من 50 منصة مؤسسية مكتملة', 2),
-            ('<80ms', 'Average API Response Latency', 'Temps de Réponse API Moyen', 'متوسط زمن استجابة واجهة API أقل من 80ms', 3),
+            ('10+', 'Production Case Studies', 'Études de Cas en Production', 'أكثر من 10 دراسات حالة وأنظمة حية', 1),
+            ('5', 'Core Engineering Disciplines', 'Disciplines d\'Ingénierie Clés', '5 تخصصات هندسية رئيسية', 2),
+            ('3', 'Supported Languages (EN/FR/AR)', 'Langues Prises en Charge (EN/FR/AR)', '3 لغات معتمدة (العربية/الفرنسية/الإنجليزية)', 3),
             ('GMT+1', 'Tangier Hub / European Timezone', 'Hub de Tanger / Fuseau Européen', 'مركز طنجة / توقيت متزامن مع أوروبا', 4),
         ]
         for val, en, fr, ar, order in stats_data:

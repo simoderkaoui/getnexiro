@@ -66,54 +66,68 @@
                                 <span class="console-dot dot-green"></span>
                             </div>
                             <div class="console-tab">
-                                <span>⚡</span> getnexiro_core.py
+                                <span>⚡</span> {% trans "Engineering Studio" %} • Tangier Hub
                             </div>
                             <div class="console-live-pill">
                                 <span class="status-live-dot"></span>
-                                <span>{% trans "LIVE" %}</span>
+                                <span>{% trans "ACTIVE" %}</span>
                             </div>
                         </div>
-                        <div class="console-body">
-                            <div class="console-lines-gutter" aria-hidden="true">
-                                01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10
+                        <div class="architecture-stack-body">
+                            <div class="arch-layer">
+                                <div class="arch-layer-header">
+                                    <span class="arch-layer-badge">01</span>
+                                    <span class="arch-layer-title">{% trans "Web & Mobile Frontends" %}</span>
+                                </div>
+                                <div class="arch-layer-chips">
+                                    <span class="tech-pill">Next.js / React</span>
+                                    <span class="tech-pill">Flutter Mobile</span>
+                                    <span class="tech-pill">TypeScript</span>
+                                </div>
                             </div>
-                            <div class="console-code">
-                                <div class="code-line"><span class="code-comment">{% trans "# getNexiro Production Architecture" %}</span></div>
-                                <div class="code-line"><span class="code-keyword">from</span> <span class="code-val">getnexiro</span> <span class="code-keyword">import</span> CloudCluster, Security</div>
-                                <div class="code-line">&nbsp;</div>
-                                <div class="code-line"><span class="code-var">agency</span> = CloudCluster(</div>
-                                <div class="code-line code-indent"><span class="code-prop">hub</span>=<span class="code-str">"Tangier, Morocco"</span>,</div>
-                                <div class="code-line code-indent"><span class="code-prop">timezone</span>=<span class="code-str">"GMT+1 (EU Aligned)"</span>,</div>
-                                <div class="code-line code-indent"><span class="code-prop">security</span>=Security.<span class="code-val">ZERO_TRUST</span>,</div>
-                                <div class="code-line code-indent"><span class="code-prop">uptime_sla</span>=<span class="code-num">0.9998</span></div>
-                                <div class="code-line">)</div>
-                                <div class="code-line"><span class="code-var">pipeline</span> = agency.deploy(scale=<span class="code-str">"Global"</span>)</div>
-                                <div class="console-outputs">
-                                    <div class="console-output-success">✓ {% trans "Architecture verified: 0 vulnerabilities found" %}</div>
-                                    <div class="console-output-cyan">⚡ {% trans "Edge latency: 24ms [Tangier PoP Online]" %}</div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-header">
+                                    <span class="arch-layer-badge">02</span>
+                                    <span class="arch-layer-title">{% trans "Backend Engine & APIs" %}</span>
+                                </div>
+                                <div class="arch-layer-chips">
+                                    <span class="tech-pill">Django / Python</span>
+                                    <span class="tech-pill">PostgreSQL</span>
+                                    <span class="tech-pill">REST & GraphQL</span>
+                                </div>
+                            </div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-header">
+                                    <span class="arch-layer-badge">03</span>
+                                    <span class="arch-layer-title">{% trans "Cloud & Production Delivery" %}</span>
+                                </div>
+                                <div class="arch-layer-chips">
+                                    <span class="tech-pill">Docker & CI/CD</span>
+                                    <span class="tech-pill">AWS / Nginx</span>
+                                    <span class="tech-pill">Nearshore GMT+1</span>
                                 </div>
                             </div>
                         </div>
                         <div class="console-metrics-shelf">
                             <div class="shelf-metric">
-                                <span class="shelf-icon">⚡</span>
+                                <span class="shelf-icon">📍</span>
                                 <div class="shelf-info">
-                                    <span class="shelf-val">24ms</span>
-                                    <span class="shelf-lbl">{% trans "Global Latency" %}</span>
+                                    <span class="shelf-val">Tangier</span>
+                                    <span class="shelf-lbl">{% trans "Studio Hub" %}</span>
                                 </div>
                             </div>
                             <div class="shelf-metric">
-                                <span class="shelf-icon">🛡️</span>
+                                <span class="shelf-icon">⏱️</span>
                                 <div class="shelf-info">
-                                    <span class="shelf-val">{% trans "Zero-Trust" %}</span>
-                                    <span class="shelf-lbl">{% trans "Security Tier" %}</span>
+                                    <span class="shelf-val">GMT+1</span>
+                                    <span class="shelf-lbl">{% trans "Timezone" %}</span>
                                 </div>
                             </div>
                             <div class="shelf-metric">
-                                <span class="shelf-icon">🚀</span>
+                                <span class="shelf-icon">🌍</span>
                                 <div class="shelf-info">
-                                    <span class="shelf-val">99.98%</span>
-                                    <span class="shelf-lbl">{% trans "Uptime SLA" %}</span>
+                                    <span class="shelf-val">EN/FR/AR</span>
+                                    <span class="shelf-lbl">{% trans "Trilingual" %}</span>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +153,28 @@
     </div>
 </section>
 {% endif %}
+
+{# ══════ FACTUAL AGENCY INTRO & INTERNAL LINKING ══════ #}
+<section class="section section-agency-intro" style="padding: 3.5rem 0; border-top: 1px solid rgba(56, 189, 248, 0.1); border-bottom: 1px solid rgba(56, 189, 248, 0.1); background: rgba(10, 15, 26, 0.5);">
+    <div class="container">
+        <div class="agency-intro-grid" style="max-width: 960px; margin: 0 auto; text-align: center;">
+            <div class="badge-tag" style="margin-bottom: 1.25rem;">{% trans "Software Agency in Tangier" %}</div>
+            <h2 style="font-size: 2rem; font-weight: 700; color: #f8fafc; margin-bottom: 1.25rem; letter-spacing: -0.02em;">
+                {% trans "High-Performance Software Engineering from Tangier to Morocco & Europe" %}
+            </h2>
+            <p style="font-size: 1.08rem; line-height: 1.85; color: #94a3b8; margin-bottom: 1.25rem;">
+                {% blocktrans trimmed %}
+                Based in the Mediterranean business hub of Tangier, getNexiro is a dedicated software development studio building scalable digital systems for modern enterprises. We engineer custom <a href="/en/services/web-development/" style="color: #38bdf8; text-decoration: underline; font-weight: 500;">Web Development</a> platforms, responsive <a href="/en/services/mobile-applications/" style="color: #38bdf8; text-decoration: underline; font-weight: 500;">Mobile Applications</a>, accessible <a href="/en/services/uiux-design-systems/" style="color: #38bdf8; text-decoration: underline; font-weight: 500;">UI/UX Design Systems</a>, resilient <a href="/en/services/api-microservices/" style="color: #38bdf8; text-decoration: underline; font-weight: 500;">APIs & Microservices</a>, and automated <a href="/en/services/cloud-devops/" style="color: #38bdf8; text-decoration: underline; font-weight: 500;">Cloud & DevOps</a> environments.
+                {% endblocktrans %}
+            </p>
+            <p style="font-size: 1rem; line-height: 1.8; color: #64748b; margin-bottom: 0;">
+                {% blocktrans trimmed %}
+                Strategically positioned in Northern Morocco near Tanger Med Port and the Tangier Free Zone, our team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </div>
+</section>
 
 {# ══════ WHY GETNEXIRO ══════ #}
 <section class="section section-bento">
@@ -309,49 +345,19 @@
                 {% for client in client_logos %}
                 {% if client.url %}
                 <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}">
-                    <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="160" height="48" loading="lazy">
                 </a>
                 {% else %}
                 <div class="client-logo-item" title="{{ client.name }}">
-                    <img src="{{ client.logo.url }}" alt="{{ client.name }}" loading="lazy">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="160" height="48" loading="lazy">
                 </div>
                 {% endif %}
                 {% endfor %}
-                {# Duplicate set 2 #}
+                {# Decorative marquee clone track (single instance, aria-hidden, no duplicate link targets) #}
                 {% for client in client_logos %}
-                {% if client.url %}
-                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
-                </a>
-                {% else %}
-                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
+                <div class="client-logo-item" aria-hidden="true">
+                    <img src="{{ client.logo.url }}" alt="" width="160" height="48" loading="lazy">
                 </div>
-                {% endif %}
-                {% endfor %}
-                {# Duplicate set 3 #}
-                {% for client in client_logos %}
-                {% if client.url %}
-                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
-                </a>
-                {% else %}
-                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
-                </div>
-                {% endif %}
-                {% endfor %}
-                {# Duplicate set 4 #}
-                {% for client in client_logos %}
-                {% if client.url %}
-                <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}" aria-hidden="true" tabindex="-1">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
-                </a>
-                {% else %}
-                <div class="client-logo-item" title="{{ client.name }}" aria-hidden="true">
-                    <img src="{{ client.logo.url }}" alt="" loading="lazy">
-                </div>
-                {% endif %}
                 {% endfor %}
             </div>
         </div>
