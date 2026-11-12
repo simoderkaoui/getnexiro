@@ -113,7 +113,10 @@
 
         {# Hero #}
         <div class="city-hero">
-            <span class="city-badge">&#x1F4CD; {{ page.city_name }}</span>
+            <span class="city-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>{{ page.city_name }}</span>
+            </span>
             <h1 class="city-h1">{{ page.h1 }}</h1>
             <p class="city-intro">{{ page.intro }}</p>
         </div>
@@ -133,6 +136,21 @@
                     {{ page.why_choose_us|safe }}
                 </div>
                 {% endif %}
+
+                {# Regional Engineering & Delivery Model #}
+                <div class="city-content-card">
+                    <h2>{% trans "Regional Engineering Delivery from Tangier to" %} {{ page.city_name }}</h2>
+                    <p>
+                        {% blocktrans trimmed with city=page.city_name %}
+                        Headquartered in the Mediterranean hub of Tangier, getNexiro combines regional software engineering horsepower with deep local market understanding. We collaborate seamlessly with enterprises in {{ city }} through a disciplined delivery model combining daily asynchronous updates, scheduled video reviews, and in-person architecture workshops. Whether you require on-site deployment in {{ city }} or dedicated nearshore cloud development, our team ensures continuous uptime, CNDP regulatory compliance, and rapid response times across Northern Morocco.
+                        {% endblocktrans %}
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        {% blocktrans trimmed with city=page.city_name %}
+                        Every project delivered for {{ city }} enterprises includes complete source code ownership, comprehensive trilingual localization (Arabic, French, and English), enterprise-grade database backups, and direct access to senior software architects via phone, email, and WhatsApp.
+                        {% endblocktrans %}
+                    </p>
+                </div>
             </div>
 
             <aside class="city-sidebar">
@@ -142,7 +160,8 @@
                     <p style="font-size:0.85rem; color:#94a3b8; line-height:1.6; margin-bottom:1rem;">{{ service.subtitle }}</p>
                     {% if service.timeline %}
                     <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.82rem; color:#64748b;">
-                        &#x23F1; {{ service.timeline }}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>{{ service.timeline }}</span>
                     </div>
                     {% endif %}
                 </div>
@@ -165,7 +184,8 @@
                     <h3 class="city-sidebar-title">{% trans "Areas We Serve" %}</h3>
                     {% for cp in other_cities %}
                     <a href="{% url 'core:city_service_page' service.slug cp.slug %}" class="city-link-card">
-                        &#x1F4CD; {{ cp.city_name }}
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" aria-hidden="true" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span>{{ cp.city_name }}</span>
                     </a>
                     {% endfor %}
                 </div>
