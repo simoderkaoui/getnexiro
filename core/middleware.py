@@ -29,61 +29,6 @@ def normalize_uri(path):
 
 KNOWN_LANGS = {'en', 'fr', 'ar'}
 
-
-def clean_language_path(path):
-    """
-    Detects and strips duplicate, nested, or trailing language tokens from URL paths.
-    Examples:
-      /ar/من-نحن/ar/ar/ -> /ar/من-نحن/
-      /ar/من-نحن/ar/ -> /ar/من-نحن/
-      /ar/ar/ -> /ar/
-      /en/ar/about/ -> /en/about/
-      /ar/about/ar/ -> /ar/about/
-    """
-    if not path or path == '/':
-        return path
-
-    # Collapse consecutive slashes
-    collapsed = re.sub(r'/+', '/', path)
-    parts = [p for p in collapsed.strip('/').split('/') if p]
-    if not parts:
-        return '/'
-
-    # Determine primary language
-    if parts[0] in KNOWN_LANGS:
-        lang = parts[0]
-        subparts = parts[1:]
-    else:
-        lang = None
-        subparts = parts
-
-    changed = False
-
-    # Remove any trailing language codes in subparts (e.g. ['من-نحن', 'ar', 'ar'] -> ['من-نحن'])
-    while len(subparts) >= 1 and subparts[-1] in KNOWN_LANGS:
-        subparts.pop()
-        changed = True
-
-    # Remove any redundant leading language codes (e.g. ['ar', 'من-نحن'] after lang='en')
-    while subparts and subparts[0] in KNOWN_LANGS:
-        subparts.pop(0)
-        changed = True
-
-    if not changed and collapsed == path:
-        return path
-
-    if lang:
-        if subparts:
-            return f"/{lang}/" + "/".join(subparts) + "/"
-        else:
-            return f"/{lang}/"
-    else:
-        if subparts:
-            return "/" + "/".join(subparts) + "/"
-        else:
-            return "/"
-
-
 CANONICAL_SLUGS = {
     'en': {
         'about': 'about', 'a-propos': 'about', 'من-نحن': 'about',
@@ -107,6 +52,82 @@ CANONICAL_SLUGS = {
         'contact': 'تواصل', 'تواصل': 'تواصل',
     },
 }
+
+ALL_KNOWN_SECTIONS = set()
+for _lang_map in CANONICAL_SLUGS.values():
+    ALL_KNOWN_SECTIONS.update(_lang_map.keys())
+
+
+def clean_language_path(path):
+    """
+    Detects and cleans duplicate, nested, or chained language prefixes and sections.
+    Examples:
+      /ar/من-نحن/ar/خدمات/ -> /ar/خدمات/
+      /ar/من-نحن/ar/services/ -> /ar/خدمات/
+      /ar/من-نحن/خدمات/ -> /ar/خدمات/
+      /ar/من-نحن/services/ -> /ar/خدمات/
+      /ar/من-نحن/ar/ar/ -> /ar/من-نحن/
+      /ar/من-نحن/ar/ -> /ar/من-نحن/
+      /ar/ar/ -> /ar/
+      /en/about/en/services/ -> /en/services/
+      /fr/a-propos/fr/services/ -> /fr/services/
+    """
+    if not path or path == '/':
+        return path
+
+    # Collapse consecutive slashes
+    collapsed = re.sub(r'/+', '/', path)
+    parts = [p for p in collapsed.strip('/').split('/') if p]
+    if not parts:
+        return '/'
+
+    # 1. Deduplicate adjacent language codes at start (e.g. ['en', 'ar', 'about'] -> ['en', 'about'])
+    while len(parts) > 1 and parts[0] in KNOWN_LANGS and parts[1] in KNOWN_LANGS:
+        parts.pop(1)
+
+    # 2. Check if multiple language codes exist anywhere in parts
+    lang_indices = [i for i, p in enumerate(parts) if p in KNOWN_LANGS]
+
+    if len(lang_indices) > 1:
+        last_idx = lang_indices[-1]
+        if last_idx == len(parts) - 1:
+            # Trailing language code (e.g. ['ar', 'من-نحن', 'ar']) -> strip trailing
+            parts = parts[:last_idx]
+            return clean_language_path('/' + '/'.join(parts) + '/')
+        else:
+            # Chained navigation (e.g. ['ar', 'من-نحن', 'ar', 'خدمات']) -> use last segment
+            parts = parts[last_idx:]
+            return clean_language_path('/' + '/'.join(parts) + '/')
+
+    # 3. Extract single language code
+    if parts[0] in KNOWN_LANGS:
+        lang = parts[0]
+        subparts = parts[1:]
+    else:
+        lang = None
+        subparts = parts
+
+    # Remove any trailing language codes in subparts
+    while len(subparts) >= 1 and subparts[-1] in KNOWN_LANGS:
+        subparts.pop()
+
+    # 4. Check if multiple top-level sections are chained in subparts
+    # e.g. /ar/من-نحن/خدمات/ or /ar/من-نحن/services/
+    section_indices = [i for i, p in enumerate(subparts) if p in ALL_KNOWN_SECTIONS]
+    if len(section_indices) > 1:
+        last_sec_idx = section_indices[-1]
+        subparts = subparts[last_sec_idx:]
+
+    target_lang = lang or 'ar'
+    if subparts:
+        # Canonicalize first section slug
+        first_sec = subparts[0]
+        if target_lang in CANONICAL_SLUGS and first_sec in CANONICAL_SLUGS[target_lang]:
+            first_sec = CANONICAL_SLUGS[target_lang][first_sec]
+            subparts[0] = first_sec
+        return f"/{target_lang}/" + "/".join(subparts) + "/"
+    else:
+        return f"/{target_lang}/"
 
 NON_PREFIX_MAP = {
     'من-نحن': '/ar/من-نحن/',
@@ -174,6 +195,7 @@ class UrlNormalizationMiddleware:
                 cleaned = f"/{lang}/{canonical}{rest}/"
 
         if cleaned != path:
+            cleaned = re.sub(r'/+', '/', cleaned)
             qs = request.META.get('QUERY_STRING')
             target = f"{cleaned}?{qs}" if qs else cleaned
             return HttpResponsePermanentRedirect(target)

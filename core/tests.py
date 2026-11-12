@@ -1613,6 +1613,25 @@ class SEOMasterTestSuite(TestCase):
         self.assertEqual(res.status_code, 301)
         self.assertEqual(res.headers.get('Location'), '/en/about/')
 
+        # 6. Chained page navigation (e.g. /ar/من-نحن/ar/خدمات/) must 301 redirect to target section
+        res = self.client.get('/ar/من-نحن/ar/خدمات/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+        follow_res = self.client.get(res.headers.get('Location'), follow=True)
+        self.assertEqual(follow_res.status_code, 200)
+
+        res = self.client.get('/ar/من-نحن/ar/services/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+
+        res = self.client.get('/ar/من-نحن/services/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+
+        res = self.client.get('/ar/من-نحن/ar/مشاريع/')
+        self.assertEqual(res.status_code, 301)
+        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+
     def test_direct_flag_switcher_links_in_navbar(self):
         """Ensure flag switcher in base.html generates direct, crawlable <a> links without forms."""
         res = self.client.get('/ar/من-نحن/')
