@@ -30,8 +30,11 @@
             "dateModified": "{{ post.updated_at|date:'c' }}",
             "author": {
                 "@type": "Person",
-                "name": "{{ post.author_name|default:'getNexiro Engineering Team'|escapejs }}",
-                "jobTitle": "Software Architect",
+                "name": "{{ post.author.name|default:post.author_name|default:'getNexiro Engineering Team'|escapejs }}",
+                "jobTitle": "{{ post.author.role|default:'Software Architect'|escapejs }}",
+                {% if post.author.slug %}
+                "url": "{{ SITE_URL }}{% url 'core:author_detail' post.author.slug %}",
+                {% endif %}
                 "worksFor": {
                     "@type": "Organization",
                     "name": "{{ config.site_name|default:'getNexiro' }}"

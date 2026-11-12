@@ -232,7 +232,9 @@
                     <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-card-image" itemprop="image" loading="lazy" decoding="async">
                 </a>
                 {% else %}
-                <div class="blog-card-image-placeholder">📝</div>
+                <div class="blog-card-image-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
                 {% endif %}
                 <div class="blog-card-body">
                     <div class="blog-card-meta">
@@ -249,7 +251,11 @@
                     </h2>
                     <p class="blog-card-excerpt" itemprop="description">{{ post.excerpt }}</p>
                     <div class="blog-card-footer">
+                        {% if post.author %}
+                        <a href="{% url 'core:author_detail' post.author.slug %}" class="blog-card-author" itemprop="author" style="color:inherit; text-decoration:none;">{{ post.author.name }}</a>
+                        {% else %}
                         <span class="blog-card-author" itemprop="author">{{ post.author_name }}</span>
+                        {% endif %}
                         <a href="{% url 'core:blog_detail' post.slug %}" class="blog-card-read-link">
                             {% trans "Read article" %}
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -259,6 +265,33 @@
             </article>
             {% endfor %}
         </div>
+
+        {# ── Pagination ── #}
+        {% if is_paginated and page_obj.has_other_pages %}
+        <nav class="pagination-nav" aria-label="{% trans 'Blog pages' %}" style="margin-top: 3.5rem; display: flex; justify-content: center; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" class="btn btn-outline btn-sm">
+                ← {% trans "Previous" %}
+            </a>
+            {% endif %}
+            
+            {% for num in paginator.page_range %}
+            {% if page_obj.number == num %}
+            <span class="btn btn-primary btn-sm active" style="min-width: 38px;">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}{% if active_category %}&category={{ active_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" class="btn btn-outline btn-sm" style="min-width: 38px;">
+                {{ num }}
+            </a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" class="btn btn-outline btn-sm">
+                {% trans "Next" %} →
+            </a>
+            {% endif %}
+        </nav>
+        {% endif %}
         {% else %}
         <div class="text-center" style="padding: 4rem 0;">
             <p class="text-dim">{% trans "No articles published yet. Check back soon!" %}</p>

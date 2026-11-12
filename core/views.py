@@ -154,11 +154,11 @@ def service_detail(request, slug):
 
 
 def blog(request):
-    """Blog listing page with SEO-optimized structure and search capability."""
+    """Blog listing page with SEO-optimized structure, search capability, and pagination."""
     ctx = _get_common_context()
     category_slug = request.GET.get('category')
     search_query = (request.GET.get('search') or request.GET.get('q') or '').strip()
-    posts = BlogPost.objects.filter(status='published').select_related('category')
+    posts = BlogPost.objects.filter(status='published').select_related('category', 'author')
 
     if category_slug:
         posts = posts.filter(category__slug=category_slug)
@@ -176,15 +176,55 @@ def blog(request):
             Q(body_ar__icontains=search_query)
         )
 
+    # Categories with published posts count (hide empty categories)
+    from django.db.models import Count, Q
+    categories = BlogCategory.objects.annotate(
+        num_posts=Count('posts', filter=Q(posts__status='published'))
+    ).filter(num_posts__gt=0)
+
+    # Pagination: 6 posts per page with self-referencing canonicals
+    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts_page = paginator.page(1)
+    except EmptyPage:
+        posts_page = paginator.page(paginator.num_pages)
+
     ctx.update({
-        'posts': posts,
-        'categories': BlogCategory.objects.all(),
+        'posts': posts_page,
+        'page_obj': posts_page,
+        'paginator': paginator,
+        'is_paginated': posts_page.has_other_pages(),
+        'categories': categories,
         'active_category': category_slug,
         'search_query': search_query,
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'blog_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'blog_seo_description')
     return render(request, 'core/blog.html', ctx)
+
+
+def author_detail(request, slug):
+    """Author profile page for E-E-A-T trust signals and Person schema."""
+    ctx = _get_common_context()
+    author = get_object_or_404(Author, slug=slug, is_active=True)
+    posts = BlogPost.objects.filter(author=author, status='published').select_related('category', 'author')
+
+    ctx.update({
+        'author': author,
+        'posts': posts,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Blog'), 'url': reverse('core:blog')},
+            {'name': author.name, 'url': request.path},
+        ],
+    })
+    ctx['page_seo_title'] = f"{author.name} — {author.role} | getNexiro"
+    ctx['page_seo_description'] = author.bio[:150] if author.bio else f"Articles, engineering guides, and software architecture insights by {author.name} at getNexiro."
+    return render(request, 'core/author_detail.html', ctx)
 
 
 def blog_detail(request, slug):

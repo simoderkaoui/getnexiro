@@ -7,9 +7,6 @@
 
 {% block extra_head %}
 <link rel="alternate" type="application/rss+xml" title="{% trans 'getNexiro Blog RSS' %}" href="{% url 'core:blog_rss_feed' %}">
-{% if post.meta_keywords %}
-<meta name="keywords" content="{{ post.meta_keywords }}">
-{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -351,7 +348,11 @@
             <div class="blog-article-meta">
                 <span class="meta-item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    {% if post.author %}
+                    <a href="{% url 'core:author_detail' post.author.slug %}" style="color:inherit; text-decoration:underline;">{{ post.author.name }}</a>
+                    {% else %}
                     {{ post.author_name }}
+                    {% endif %}
                 </span>
                 {% if post.published_at %}
                 <span class="meta-item">
