@@ -276,9 +276,9 @@
             <div class="project-preview-card glass-card">
                 <div class="project-preview-img-wrapper">
                     {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" width="600" height="400" decoding="async">
                     {% else %}
-                    <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy">
+                    <img src="{% static 'images/logo.png' %}" alt="{{ project.title }}" loading="lazy" width="600" height="400" decoding="async">
                     {% endif %}
                     <div class="project-preview-overlay">
                         {% if project.category %}<span class="project-category-badge">{{ project.category.name }}</span>{% endif %}

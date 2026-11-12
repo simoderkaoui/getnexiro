@@ -53,9 +53,9 @@
             <div class="navbar-inner">
                 <a href="{% url 'core:home' %}" class="navbar-logo" title="{{ config.site_name }}">
                     {% if config.site_logo %}
-                    <img src="{{ config.site_logo.url }}" alt="{{ config.site_name }}" class="brand-logo-img">
+                    <img src="{{ config.site_logo.url }}" alt="{{ config.site_name }}" class="brand-logo-img" width="160" height="42" fetchpriority="high">
                     {% else %}
-                    <img src="{% static 'images/logo.png' %}" alt="{{ config.site_name }} — {% trans 'Web Development Agency Tangier' %}" class="brand-logo-img">
+                    <img src="{% static 'images/logo.png' %}" alt="{{ config.site_name }} — {% trans 'Web Development Agency Tangier' %}" class="brand-logo-img" width="160" height="42" fetchpriority="high">
                     {% endif %}
                 </a>
 
@@ -84,11 +84,11 @@
                             <input type="hidden" name="language" value="{{ lang_code }}">
                             <button type="submit" class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}" title="{{ lang_name }}" aria-label="{% trans 'Switch to' %} {{ lang_name }}">
                                 {% if lang_code == 'en' %}
-                                <img src="https://flagcdn.com/w40/gb.png" alt="English" class="flag-icon">
+                                <img src="{% static 'images/flags/gb.svg' %}" alt="English" class="flag-icon" width="20" height="15" loading="lazy">
                                 {% elif lang_code == 'fr' %}
-                                <img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-icon">
+                                <img src="{% static 'images/flags/fr.svg' %}" alt="Français" class="flag-icon" width="20" height="15" loading="lazy">
                                 {% elif lang_code == 'ar' %}
-                                <img src="https://flagcdn.com/w40/ma.png" alt="العربية" class="flag-icon">
+                                <img src="{% static 'images/flags/ma.svg' %}" alt="العربية" class="flag-icon" width="20" height="15" loading="lazy">
                                 {% endif %}
                             </button>
                         </form>
@@ -137,9 +137,9 @@
                 <div class="footer-col footer-brand">
                     <a href="{% url 'core:home' %}" class="footer-logo-link">
                         {% if config.site_logo %}
-                        <img src="{{ config.site_logo.url }}" alt="{{ config.site_name }}" class="footer-logo-img">
+                        <img src="{{ config.site_logo.url }}" alt="{{ config.site_name }}" class="footer-logo-img" width="160" height="42" loading="lazy" decoding="async">
                         {% else %}
-                        <img src="{% static 'images/logo.png' %}" alt="{{ config.site_name }}" class="footer-logo-img">
+                        <img src="{% static 'images/logo.png' %}" alt="{{ config.site_name }}" class="footer-logo-img" width="160" height="42" loading="lazy" decoding="async">
                         {% endif %}
                     </a>
                     <p class="footer-tagline">
@@ -223,11 +223,11 @@
                                 <input type="hidden" name="language" value="{{ lang_code }}">
                                 <button type="submit" class="flag-btn {% if lang_code == LANGUAGE_CODE %}flag-active{% endif %}" title="{{ lang_name }}">
                                     {% if lang_code == 'en' %}
-                                    <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="flag-icon">
+                                    <img src="{% static 'images/flags/gb.svg' %}" alt="EN" class="flag-icon" width="20" height="15" loading="lazy">
                                     {% elif lang_code == 'fr' %}
-                                    <img src="https://flagcdn.com/w40/fr.png" alt="FR" class="flag-icon">
+                                    <img src="{% static 'images/flags/fr.svg' %}" alt="FR" class="flag-icon" width="20" height="15" loading="lazy">
                                     {% elif lang_code == 'ar' %}
-                                    <img src="https://flagcdn.com/w40/ma.png" alt="AR" class="flag-icon">
+                                    <img src="{% static 'images/flags/ma.svg' %}" alt="AR" class="flag-icon" width="20" height="15" loading="lazy">
                                     {% endif %}
                                 </button>
                             </form>
