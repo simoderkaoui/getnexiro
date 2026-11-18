@@ -340,24 +340,36 @@
 <section class="section section-clients">
     <div class="container text-center">
         <p class="clients-label">{% trans "Trusted by innovative companies" %}</p>
-        <div class="clients-marquee">
+        <div class="clients-marquee" dir="ltr">
             <div class="clients-marquee-track">
+                {# First half of track #}
+                {% for i in "12" %}
                 {% for client in client_logos %}
+                {% if forloop.parentloop.first %}
                 {% if client.url %}
                 <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="client-logo-item" title="{{ client.name }}">
-                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="160" height="48" loading="lazy">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="180" height="52" loading="lazy">
                 </a>
                 {% else %}
                 <div class="client-logo-item" title="{{ client.name }}">
-                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="160" height="48" loading="lazy">
+                    <img src="{{ client.logo.url }}" alt="{{ client.name }} logo" width="180" height="52" loading="lazy">
+                </div>
+                {% endif %}
+                {% else %}
+                <div class="client-logo-item" aria-hidden="true" title="{{ client.name }}">
+                    <img src="{{ client.logo.url }}" alt="" width="180" height="52" loading="lazy">
                 </div>
                 {% endif %}
                 {% endfor %}
-                {# Decorative marquee clone track (single instance, aria-hidden, no duplicate link targets) #}
+                {% endfor %}
+
+                {# Second half (clones for seamless -50% infinite translation) #}
+                {% for i in "12" %}
                 {% for client in client_logos %}
                 <div class="client-logo-item" aria-hidden="true">
-                    <img src="{{ client.logo.url }}" alt="" width="160" height="48" loading="lazy">
+                    <img src="{{ client.logo.url }}" alt="" width="180" height="52" loading="lazy">
                 </div>
+                {% endfor %}
                 {% endfor %}
             </div>
         </div>
