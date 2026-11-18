@@ -1,0 +1,61 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block form_top %}
+  {{ block.super }}
+  {% if errors %}
+    <div class="error-diagnostic-summary" style="background: #450a0a !important; border: 2px solid #ef4444 !important; border-radius: 10px !important; padding: 18px 24px !important; margin: 16px 0 24px 0 !important; color: #fecaca !important; box-shadow: 0 0 30px rgba(239, 68, 68, 0.4) !important;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <span style="font-size: 1.5rem; line-height: 1;">⚠️</span>
+        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #ffffff;">
+          {% trans "Field Errors Preventing Save:" %}
+        </h3>
+      </div>
+      <ul style="margin: 0; padding-left: 24px; font-size: 1rem; line-height: 1.8; color: #fca5a5;">
+        {# Main Form Field Errors #}
+        {% for field in adminform.form %}
+          {% if field.errors %}
+            <li>
+              <strong style="color: #ffffff; text-decoration: underline;">{{ field.label }}:</strong>
+              <span style="color: #fca5a5; font-weight: 600;">{{ field.errors|striptags }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        {# Main Form Non-Field Errors #}
+        {% if adminform.form.non_field_errors %}
+          <li>
+            <strong style="color: #ffffff;">{% trans "Form Error" %}:</strong>
+            <span style="color: #fca5a5; font-weight: 600;">{{ adminform.form.non_field_errors|striptags }}</span>
+          </li>
+        {% endif %}
+
+        {# Inline Formset Errors (e.g. Gallery Images) #}
+        {% for inline in inline_admin_formsets %}
+          {% for iform in inline.formset.forms %}
+            {% for ifield in iform %}
+              {% if ifield.errors %}
+                <li>
+                  <strong style="color: #ffffff; text-decoration: underline;">{{ inline.opts.verbose_name }} (Row {{ forloop.parentloop.counter }} — {{ ifield.label }}):</strong>
+                  <span style="color: #fca5a5; font-weight: 600;">{{ ifield.errors|striptags }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% if iform.non_field_errors %}
+              <li>
+                <strong style="color: #ffffff;">{{ inline.opts.verbose_name }} (Row {{ forloop.counter }}):</strong>
+                <span style="color: #fca5a5; font-weight: 600;">{{ iform.non_field_errors|striptags }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if inline.formset.non_form_errors %}
+            <li>
+              <strong style="color: #ffffff;">{{ inline.opts.verbose_name }}:</strong>
+              <span style="color: #fca5a5; font-weight: 600;">{{ inline.formset.non_form_errors|striptags }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}
