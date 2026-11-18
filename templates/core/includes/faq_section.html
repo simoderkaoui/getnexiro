@@ -1,29 +1,21 @@
 {% load i18n %}
-{# ═══ FAQ Section with FAQPage Structured Data ═══ #}
+{# ═══ FAQ Section ═══ #}
 {% if faqs %}
 <section class="section faq-section-component">
     <div class="container">
         <div class="text-center" style="margin-bottom:2.5rem;">
             <div class="badge-tag">{% trans "FAQ" %}</div>
-            <h2 class="section-title">{% trans "Frequently Asked" %} <span class="text-gradient">{% trans "Questions" %}</span></h2>
+            <h2 class="section-title">{% trans "Frequently Asked Questions" %}</h2>
         </div>
-        <div style="max-width:800px; margin:0 auto;">
+        <div class="faq-accordion-container" style="max-width:820px; margin:0 auto;">
             {% for faq in faqs %}
-            <div class="faq-accordion-item" style="border-bottom:1px solid rgba(255,255,255,0.06); padding:1.2rem 0;">
-                <button class="faq-accordion-btn" onclick="this.parentElement.classList.toggle('open')" style="
-                    width:100%; background:none; border:none; cursor:pointer;
-                    display:flex; justify-content:space-between; align-items:center;
-                    font-size:1rem; font-weight:600; color:#f1f5f9; text-align:left; padding:0;
-                    font-family:inherit;
-                ">
-                    <span>{{ faq.question }}</span>
-                    <span class="faq-toggle-icon" style="color:rgba(255,255,255,0.3); transition:transform 0.3s; font-size:1.2rem;">+</span>
+            <div class="faq-accordion-item">
+                <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="this.closest('.faq-accordion-item').classList.toggle('open'); this.setAttribute('aria-expanded', this.closest('.faq-accordion-item').classList.contains('open'));">
+                    <span class="faq-question-text">{{ faq.question }}</span>
+                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
                 </button>
-                <div class="faq-accordion-body" style="
-                    max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s;
-                    font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.7;
-                ">
-                    <div style="padding-top:0.8rem;">{{ faq.answer }}</div>
+                <div class="faq-accordion-body">
+                    <div class="faq-accordion-content">{{ faq.answer|linebreaksbr }}</div>
                 </div>
             </div>
             {% endfor %}
@@ -32,7 +24,96 @@
 </section>
 
 <style>
-.faq-accordion-item.open .faq-accordion-body { max-height: 300px; }
-.faq-accordion-item.open .faq-toggle-icon { transform: rotate(45deg); }
+.faq-section-component {
+    padding: 4rem 0;
+}
+.faq-accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.faq-accordion-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.35rem 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    text-align: left;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+[dir="rtl"] .faq-accordion-btn {
+    text-align: right;
+}
+.faq-accordion-btn:hover {
+    color: var(--color-primary, #38bdf8);
+}
+.faq-accordion-btn:focus-visible {
+    outline: 2px solid var(--color-primary, #38bdf8);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+.faq-question-text {
+    flex: 1;
+}
+.faq-toggle-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, color 0.2s;
+}
+.faq-accordion-item.open .faq-toggle-icon {
+    transform: rotate(45deg);
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.3);
+    color: #38bdf8;
+}
+.faq-accordion-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.75;
+    padding: 0 0.5rem;
+}
+.faq-accordion-item.open .faq-accordion-body {
+    max-height: 800px !important;
+    opacity: 1 !important;
+    padding-bottom: 1.35rem;
+}
+.faq-accordion-content {
+    padding-top: 0.25rem;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.faq-accordion-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const item = this.closest('.faq-accordion-item');
+            if (!item) return;
+            const isOpen = item.classList.contains('open');
+            item.classList.toggle('open');
+            this.setAttribute('aria-expanded', !isOpen);
+        });
+    });
+});
+</script>
 {% endif %}

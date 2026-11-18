@@ -3283,7 +3283,7 @@ msgid "Transparent Pricing Guidance"
 msgstr "Guide Tarifaire Transparent"
 
 msgid "Frequently Asked Questions"
-msgstr "Questions Fréquemment Posées"
+msgstr "Questions Fréquentes"
 
 msgid "Common Questions"
 msgstr "Questions Fréquentes"
