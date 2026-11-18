@@ -9,7 +9,7 @@ from django.utils import timezone
 from core.models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, Stat, ContactMessage,
-    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost,
+    CompanyValue, ProcessStep, StoreItem, BlogCategory, BlogPost, Author,
     LegalPage, FAQ,
     Package, PackageFeature, PricingRule, QuoteRequest,
     WeeklyAvailability, Booking, Subscriber,
@@ -1297,6 +1297,43 @@ class BlogUpgradesTest(TestCase):
         activate('en')
         response = self.client.get(reverse('core:blog_tag_archive', args=['nonexistent-tag']))
         self.assertEqual(response.status_code, 200)
+
+    def test_blog_index_excludes_noindex_posts(self):
+        """Verify noindex off-topic posts are excluded from /blog/ listing."""
+        off_cat = BlogCategory.objects.create(name_en='Money & Income', slug='money-income')
+        off_post = BlogPost.objects.create(
+            title_en='Off-topic Income Report', slug='off-topic-income-report',
+            body_en='Earned $10,000', excerpt_en='Summary', category=off_cat,
+            status='published', noindex=True, index_in_sitemap=False,
+            published_at=timezone.now(),
+        )
+        activate('en')
+        res = self.client.get(reverse('core:blog'))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'Test Post')
+        self.assertNotContains(res, 'Off-topic Income Report')
+        # Category nav must hide 'Money & Income' because it has no indexable posts
+        self.assertNotContains(res, 'Money & Income')
+
+    def test_blog_detail_author_box_and_fallback_image(self):
+        """Verify on-topic blog detail renders visible author box with bio/role, updated date, and og-image fallback."""
+        author = Author.objects.create(
+            name='Youssef Benali', slug='youssef-benali',
+            role_en='Principal Cloud Architect', bio_en='Expert in Django and AWS',
+        )
+        self.post.author = author
+        self.post.save()
+
+        activate('en')
+        res = self.client.get(reverse('core:blog_detail', args=['test-post']))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'Youssef Benali')
+        self.assertContains(res, 'Principal Cloud Architect')
+        self.assertContains(res, 'Expert in Django and AWS')
+        self.assertContains(res, 'Last updated')
+        self.assertNotContains(res, '✍️')
+        # Image fallback
+        self.assertContains(res, 'images/og-image.png')
 
 
 

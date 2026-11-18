@@ -164,7 +164,9 @@ def blog(request):
     ctx = _get_common_context()
     category_slug = request.GET.get('category')
     search_query = (request.GET.get('search') or request.GET.get('q') or '').strip()
-    posts = BlogPost.objects.filter(status='published').select_related('category', 'author')
+
+    # Exclude noindex / off-topic posts from the public index
+    posts = BlogPost.objects.filter(status='published', noindex=False).select_related('category', 'author')
 
     if category_slug:
         posts = posts.filter(category__slug=category_slug)
@@ -182,10 +184,10 @@ def blog(request):
             Q(body_ar__icontains=search_query)
         )
 
-    # Categories with published posts count (hide empty categories)
+    # Categories with published indexable posts count (hide categories without on-topic posts)
     from django.db.models import Count, Q
     categories = BlogCategory.objects.annotate(
-        num_posts=Count('posts', filter=Q(posts__status='published'))
+        num_posts=Count('posts', filter=Q(posts__status='published', posts__noindex=False))
     ).filter(num_posts__gt=0)
 
     # Pagination: 6 posts per page with self-referencing canonicals
@@ -237,15 +239,15 @@ def blog_detail(request, slug):
     """Individual blog post with full SEO meta, structured data, and related posts."""
     ctx = _get_common_context()
     post = get_object_or_404(
-        BlogPost.objects.select_related('category'),
+        BlogPost.objects.select_related('category', 'author'),
         slug=slug, status='published'
     )
 
     related_posts = BlogPost.objects.filter(
-        status='published', category=post.category
+        status='published', noindex=False, category=post.category
     ).exclude(pk=post.pk)[:3]
     if not related_posts.exists():
-        related_posts = BlogPost.objects.filter(status='published').exclude(pk=post.pk)[:3]
+        related_posts = BlogPost.objects.filter(status='published', noindex=False).exclude(pk=post.pk)[:3]
 
     ctx.update({
         'post': post,
@@ -920,14 +922,21 @@ def blog_rss_feed(request):
 
 
 def blog_category_archive(request, slug):
-    """Blog posts filtered by category."""
+    """Blog posts filtered by category (only indexable on-topic posts)."""
     ctx = _get_common_context()
     category = get_object_or_404(BlogCategory, slug=slug)
-    posts = BlogPost.objects.filter(status='published', category=category).select_related('category')
+    from django.db.models import Count, Q
+    categories = BlogCategory.objects.annotate(
+        num_posts=Count('posts', filter=Q(posts__status='published', posts__noindex=False))
+    ).filter(num_posts__gt=0)
+
+    posts = BlogPost.objects.filter(status='published', noindex=False, category=category).select_related('category', 'author')
+    if not posts.exists():
+        ctx['noindex'] = True
 
     ctx.update({
         'posts': posts,
-        'categories': BlogCategory.objects.all(),
+        'categories': categories,
         'active_category': slug,
         'archive_title': category.name,
         'archive_type': 'category',

@@ -391,6 +391,8 @@
         {# ── Featured Image ── #}
         {% if post.featured_image %}
         <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-featured-img" itemprop="image" fetchpriority="high" decoding="async">
+        {% else %}
+        <img src="{% static 'images/og-image.png' %}" alt="{{ post.title }} — getNexiro" class="blog-featured-img" itemprop="image" fetchpriority="high" decoding="async">
         {% endif %}
 
         {# ── Content Grid ── #}
@@ -476,12 +478,41 @@
             </aside>
         </div>
 
-        {# ── Author Box ── #}
-        <div class="glass-card" style="padding:1.5rem; border-radius:16px; margin-top:2rem; display:flex; align-items:center; gap:1.2rem;">
-            <div style="width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,rgba(56,189,248,0.2),rgba(99,102,241,0.2)); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">✍️</div>
-            <div>
-                <div style="font-weight:700; color:#f8fafc; font-size:0.95rem;">{{ post.author_name }}</div>
-                <p style="font-size:0.82rem; color:#94a3b8; line-height:1.5; margin:0.3rem 0 0;">{% trans "Expert contributor at getNexiro, sharing insights on web development and digital strategy." %}</p>
+        {# ── Author Box (E-E-A-T) ── #}
+        <div class="glass-card author-box" style="padding:1.75rem; border-radius:16px; margin-top:2.5rem; display:flex; align-items:flex-start; gap:1.5rem; border:1px solid rgba(255,255,255,0.08); background:rgba(15,23,42,0.6);">
+            <div style="width:64px; height:64px; border-radius:50%; overflow:hidden; flex-shrink:0; background:linear-gradient(135deg,#38bdf8,#6366f1); display:flex; align-items:center; justify-content:center;">
+                {% if post.author and post.author.photo %}
+                <img src="{{ post.author.photo.url }}" alt="{{ post.author.name }}" width="64" height="64" style="width:100%; height:100%; object-fit:cover;">
+                {% else %}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                {% endif %}
+            </div>
+            <div style="flex:1;">
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.25rem;">
+                    <div style="font-weight:700; color:#f8fafc; font-size:1.05rem;">
+                        {% if post.author %}{{ post.author.name }}{% else %}{{ post.author_name }}{% endif %}
+                    </div>
+                    {% if post.author and post.author.role %}
+                    <span style="font-size:0.75rem; color:#38bdf8; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.2); border-radius:20px; padding:0.2rem 0.6rem; font-weight:600;">
+                        {{ post.author.role }}
+                    </span>
+                    {% endif %}
+                </div>
+                <p style="font-size:0.88rem; color:#94a3b8; line-height:1.6; margin:0.4rem 0 0.8rem;">
+                    {% if post.author and post.author.bio %}
+                    {{ post.author.bio }}
+                    {% else %}
+                    {% trans "Lead engineering contributor at getNexiro, specializing in high-performance web applications, architecture, and cloud infrastructure." %}
+                    {% endif %}
+                </p>
+                <div style="display:flex; align-items:center; gap:1.2rem; font-size:0.82rem; color:#64748b; flex-wrap:wrap;">
+                    {% if post.author and post.author.linkedin_url %}
+                    <a href="{{ post.author.linkedin_url }}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none;">LinkedIn &rarr;</a>
+                    {% endif %}
+                    {% if post.updated_at %}
+                    <span>{% trans "Last updated" %}: <time datetime="{{ post.updated_at|date:'c' }}" itemprop="dateModified">{{ post.updated_at|date:"M d, Y" }}</time></span>
+                    {% endif %}
+                </div>
             </div>
         </div>
 
