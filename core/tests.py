@@ -2009,5 +2009,49 @@ class SEOPhase3Phase4AuditTest(TestCase):
         for s in soup.find_all('script', {'type': 'application/ld+json'}):
             self.assertNotEqual(json.loads(s.string).get('@type'), 'FAQPage', "FAQPage schema should be skipped")
 
+    def test_phase6_sitemap_and_robots(self):
+        """
+        Phase 6:
+        - Sitemap includes only 200, indexable, canonical URLs with accurate lastmod
+        - robots.txt allows all, disallows admin & search/filter params, references sitemap
+        - Root / 301 redirects to /en/
+        - Canonical non-www host redirect works in a single hop
+        """
+        # 1. robots.txt
+        res_robots = self.client.get('/robots.txt')
+        self.assertEqual(res_robots.status_code, 200)
+        content_robots = res_robots.content.decode('utf-8')
+        self.assertIn('Allow: /', content_robots)
+        self.assertIn('Disallow: /admin/', content_robots)
+        self.assertIn('Disallow: /*?search=*', content_robots)
+        self.assertIn('Disallow: /*?category=*', content_robots)
+        self.assertIn('Sitemap: https://getnexiro.com/sitemap.xml', content_robots)
+
+        # 2. Root / 301 redirects to /en/
+        res_root = self.client.get('/')
+        self.assertEqual(res_root.status_code, 301)
+        self.assertEqual(res_root.headers.get('Location'), '/en/')
+
+        # 3. Canonical www -> non-www single hop
+        res_www = self.client.get('/en/', HTTP_HOST='www.getnexiro.com')
+        self.assertEqual(res_www.status_code, 301)
+        self.assertEqual(res_www.headers.get('Location'), 'https://getnexiro.com/en/')
+
+        # 4. Sitemap.xml content audit
+        res_sitemap = self.client.get('/sitemap.xml')
+        self.assertEqual(res_sitemap.status_code, 200)
+        content_sitemap = res_sitemap.content.decode('utf-8')
+        self.assertIn('<urlset', content_sitemap)
+        self.assertIn('https://getnexiro.com/en/', content_sitemap)
+        self.assertIn('https://getnexiro.com/fr/', content_sitemap)
+        self.assertIn('https://getnexiro.com/ar/', content_sitemap)
+        # Excludes noindex city pages (tetouan, fes, meknes)
+        self.assertNotIn('/tetouan/', content_sitemap)
+        self.assertNotIn('/fes/', content_sitemap)
+        self.assertNotIn('/meknes/', content_sitemap)
+        # Includes indexable city page (tangier)
+        self.assertIn('https://getnexiro.com/en/services/web-development/tangier/', content_sitemap)
+        self.assertIn('https://getnexiro.com/ar/services/web-development/tangier/', content_sitemap)
+
 
 

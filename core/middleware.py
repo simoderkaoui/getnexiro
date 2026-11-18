@@ -152,17 +152,22 @@ NON_PREFIX_MAP = {
 
 class CanonicalHostMiddleware:
     """
-    Enforces canonical non-www host redirect (e.g. www.getnexiro.com -> getnexiro.com).
-    Ensures a single 301 hop without duplicate redirects.
+    Enforces canonical non-www and HTTPS host redirect (e.g. www.getnexiro.com -> getnexiro.com).
+    Ensures a single 301 hop without duplicate redirects or redirect chains.
     """
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
         host = request.get_host().split(':')[0].lower()
-        if host == 'www.getnexiro.com':
+        is_www = host.startswith('www.')
+        proto = request.META.get('HTTP_X_FORWARDED_PROTO', '')
+        is_insecure = (not request.is_secure() and proto == 'http')
+
+        if is_www or (is_insecure and 'getnexiro.com' in host and not settings.DEBUG):
+            canonical_host = re.sub(r'^www\.', '', host)
             path = request.get_full_path()
-            target = f"https://getnexiro.com{path}"
+            target = f"https://{canonical_host}{path}"
             return HttpResponsePermanentRedirect(target)
         return self.get_response(request)
 

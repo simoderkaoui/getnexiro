@@ -19,12 +19,13 @@ Allow: /
 Allow: /static/
 Allow: /media/
 
-# Disallow private, search, administrative and utility paths
+# Disallow private, search, administrative and internal filter params
 Disallow: /admin/
 Disallow: /i18n/
 Disallow: /*?search=*
 Disallow: /*?q=*
 Disallow: /*?subject=*
+Disallow: /*?category=*
 Disallow: */confirm/
 Disallow: */unsubscribe/
 Disallow: */quote/success/
