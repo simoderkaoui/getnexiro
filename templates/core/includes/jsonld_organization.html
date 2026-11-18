@@ -1,5 +1,5 @@
 {% load static %}
-{# Organization + ProfessionalService JSON-LD — values from SiteConfig model #}
+{# Organization + ProfessionalService JSON-LD — Tangier HQ NAP and Organization details #}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -9,11 +9,11 @@
     "url": "{{ SITE_URL }}",
     "logo": "{{ SITE_URL }}{% static 'images/logo.png' %}",
     "image": "{{ SITE_URL }}{% static 'images/og-image.png' %}",
-    "telephone": "{{ config.phone|default:'+212787862187' }}",
+    "telephone": "{{ config.phone|default:'+212 787 862 187' }}",
     "email": "{{ config.email|default:'contact@getnexiro.com' }}",
     "address": {
         "@type": "PostalAddress",
-        "streetAddress": "{{ config.address_detail_en|escapejs }}",
+        "streetAddress": "Ibn Batouta Bureaux, Av. Youssef Ibn Tachfine",
         "addressLocality": "Tangier",
         "postalCode": "90000",
         "addressRegion": "Tanger-Tetouan-Al Hoceima",
@@ -24,6 +24,16 @@
         "latitude": "35.7796",
         "longitude": "-5.8030"
     },
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "telephone": "{{ config.phone|default:'+212 787 862 187' }}",
+            "contactType": "customer service",
+            "email": "{{ config.email|default:'contact@getnexiro.com' }}",
+            "availableLanguage": ["English", "French", "Arabic"]
+        }
+    ],
+    "knowsLanguage": ["en", "fr", "ar"],
     "areaServed": [
         {"@type": "City", "name": "Tangier"},
         {"@type": "City", "name": "Tetouan"},
@@ -32,11 +42,8 @@
         {"@type": "AdministrativeArea", "name": "Northern Morocco"}
     ],
     "priceRange": "$$",
-    {# TODO(owner): Confirm physical studio opening hours before re-enabling openingHoursSpecification in schema #}
     "sameAs": [
-        {% if config.instagram_url %}"{{ config.instagram_url }}"{% endif %}{% if config.instagram_url and config.linkedin_url %},{% endif %}
-        {% if config.linkedin_url %}"{{ config.linkedin_url }}"{% endif %}{% if config.linkedin_url and config.twitter_url %},{% endif %}
-        {% if config.twitter_url %}"{{ config.twitter_url }}"{% endif %}
+        {% if config.instagram_url %}"{{ config.instagram_url }}"{% endif %}
     ],
     "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"],
     "foundingLocation": {

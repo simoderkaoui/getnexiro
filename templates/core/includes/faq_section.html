@@ -35,24 +35,4 @@
 .faq-accordion-item.open .faq-accordion-body { max-height: 300px; }
 .faq-accordion-item.open .faq-toggle-icon { transform: rotate(45deg); }
 </style>
-
-{# FAQPage JSON-LD Structured Data #}
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {% for faq in faqs %}
-        {
-            "@type": "Question",
-            "name": "{{ faq.question|escapejs }}",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "{{ faq.answer|escapejs }}"
-            }
-        }{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ]
-}
-</script>
 {% endif %}

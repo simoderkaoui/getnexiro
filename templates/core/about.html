@@ -2,60 +2,21 @@
 {% load static i18n %}
 
 {% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@graph": [
-        {
-            "@type": "AboutPage",
-            "@id": "{{ SITE_URL }}{{ request.path }}#about",
-            "url": "{{ SITE_URL }}{{ request.path }}",
-            "name": "{{ page_seo_title|default:'About getNexiro'|escapejs }}",
-            "description": "{{ page_seo_description|escapejs }}",
-            "inLanguage": "{{ LANGUAGE_CODE }}",
-            "isPartOf": {
-                "@type": "WebSite",
-                "@id": "{{ SITE_URL }}/#website"
-            },
-            "about": {
-                "@id": "{{ SITE_URL }}/#organization"
-            }
-        },
-        {
-            "@type": "Organization",
-            "@id": "{{ SITE_URL }}/#organization",
-            "name": "{{ config.site_name|default:'getNexiro' }}",
-            "url": "{{ SITE_URL }}/",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ SITE_URL }}{% static 'images/logo.png' %}"
-            },
-            "email": "{{ config.email|default:'contact@getnexiro.com' }}",
-            "telephone": "{{ config.phone|default:'+212 787-862187' }}",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Tangier",
-                "addressRegion": "Tanger-Tétouan-Al Hoceïma",
-                "postalCode": "90000",
-                "addressCountry": "MA"
-            },
-            "foundingLocation": {
-                "@type": "Place",
-                "name": "Tangier, Morocco"
-            },
-            "sameAs": [
-                "https://www.linkedin.com/company/getnexiro",
-                "https://twitter.com/getnexiro"
-            ],
-            "knowsAbout": [
-                "Web Development",
-                "Mobile Applications",
-                "UI/UX Design Systems",
-                "Cloud & DevOps Architecture",
-                "Custom API Engineering"
-            ]
-        }
-    ]
+    "@type": "AboutPage",
+    "@id": "{{ SITE_URL }}{{ request.path }}#about",
+    "url": "{{ SITE_URL }}{{ request.path }}",
+    "name": "{{ page_seo_title|default:'About getNexiro'|escapejs }}",
+    "description": "{{ page_seo_description|escapejs }}",
+    "inLanguage": "{{ LANGUAGE_CODE }}",
+    "mainEntity": {
+        "@type": "ProfessionalService",
+        "name": "{{ config.site_name|default:'getNexiro' }}",
+        "url": "{{ SITE_URL }}"
+    }
 }
 </script>
 {% endblock %}

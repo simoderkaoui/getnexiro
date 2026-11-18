@@ -62,6 +62,10 @@ def about(request):
     ctx.update({
         'team_members': TeamMember.objects.all(),
         'company_values': CompanyValue.objects.all(),
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('About Us'), 'url': request.path},
+        ],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'about_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'about_seo_description')
@@ -75,6 +79,10 @@ def services(request):
         'services_list': Service.objects.all(),
         'process_steps': ProcessStep.objects.all(),
         'faqs': FAQ.objects.filter(is_active=True, section='services')[:6],
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Services'), 'url': request.path},
+        ],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'services_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'services_seo_description')
@@ -87,6 +95,10 @@ def projects(request):
     ctx.update({
         'categories': ProjectCategory.objects.all(),
         'projects_list': Project.objects.select_related('category').all(),
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Selected Works'), 'url': request.path},
+        ],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'projects_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'projects_seo_description')
@@ -211,6 +223,10 @@ def blog(request):
         'categories': categories,
         'active_category': category_slug,
         'search_query': search_query,
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Blog'), 'url': request.path},
+        ],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'blog_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'blog_seo_description')
@@ -285,6 +301,10 @@ def contact(request):
         form = ContactForm()
 
     ctx['form'] = form
+    ctx['breadcrumbs'] = [
+        {'name': _('Home'), 'url': reverse('core:home')},
+        {'name': _('Contact Us'), 'url': request.path},
+    ]
     ctx['page_seo_title'] = get_localized(ctx['config'], 'contact_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'contact_seo_description')
     return render(request, 'core/contact.html', ctx)
@@ -297,6 +317,10 @@ def legal_page(request, slug):
     page = get_object_or_404(LegalPage, slug=slug)
     ctx = _get_common_context()
     ctx['page'] = page
+    ctx['breadcrumbs'] = [
+        {'name': _('Home'), 'url': reverse('core:home')},
+        {'name': page.title, 'url': request.path},
+    ]
     ctx['page_seo_title'] = f"{page.title} — Legal"
     ctx['page_seo_description'] = f"{page.title} for getNexiro clients and visitors. Read our operational guidelines and commitments. Contact us for details."
     return render(request, 'core/legal_page.html', ctx)
@@ -537,6 +561,10 @@ def packages(request):
     ctx.update({
         'packages': Package.objects.filter(is_active=True).prefetch_related('features'),
         'faqs': FAQ.objects.filter(is_active=True, section='pricing')[:6],
+        'breadcrumbs': [
+            {'name': _('Home'), 'url': reverse('core:home')},
+            {'name': _('Packages'), 'url': request.path},
+        ],
     })
     ctx['page_seo_title'] = get_localized(ctx['config'], 'packages_seo_title')
     ctx['page_seo_description'] = get_localized(ctx['config'], 'packages_seo_description')

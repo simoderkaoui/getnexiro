@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 import datetime
 from datetime import timedelta
@@ -1772,6 +1773,7 @@ class SEOPhase3Phase4AuditTest(TestCase):
     Comprehensive tests for SEO Phase 3 (Meta Tags & Social) and Phase 4 (International SEO).
     """
     def setUp(self):
+        import json
         from bs4 import BeautifulSoup
         self.soup_cls = BeautifulSoup
         self.service = Service.objects.create(
@@ -1901,6 +1903,111 @@ class SEOPhase3Phase4AuditTest(TestCase):
             res = self.client.get(src)
             self.assertEqual(res.status_code, 301, f"{src} did not return 301")
             self.assertEqual(res.headers.get('Location'), dest, f"{src} redirected to {res.headers.get('Location')} instead of {dest}")
+
+    def test_organization_and_localbusiness_structured_data(self):
+        """
+        Phase 5:
+        - Organization & ProfessionalService schema with exact Tangier HQ address and geo
+        - contactPoint with phone and email
+        - areaServed and languages
+        - No aggregateRating or reviews
+        """
+        res = self.client.get('/en/')
+        soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+        scripts = soup.find_all('script', {'type': 'application/ld+json'})
+        org_schema = None
+        for s in scripts:
+            data = json.loads(s.string)
+            types = data.get('@type')
+            if types and ('ProfessionalService' in types or 'Organization' in types):
+                org_schema = data
+                break
+
+        self.assertIsNotNone(org_schema, "Organization/ProfessionalService schema not found on homepage")
+        self.assertEqual(org_schema.get('email'), 'contact@getnexiro.com')
+        self.assertIn('+212', org_schema.get('telephone'))
+        self.assertEqual(org_schema.get('geo', {}).get('latitude'), '35.7796')
+        self.assertEqual(org_schema.get('geo', {}).get('longitude'), '-5.8030')
+        self.assertIn('Ibn Batouta Bureaux', org_schema.get('address', {}).get('streetAddress'))
+        self.assertEqual(org_schema.get('address', {}).get('postalCode'), '90000')
+        self.assertEqual(org_schema.get('address', {}).get('addressCountry'), 'MA')
+
+        # ContactPoint
+        cp = org_schema.get('contactPoint')
+        self.assertTrue(cp, "Missing contactPoint in Organization schema")
+
+        # No fake reviews or aggregateRating
+        self.assertNotIn('aggregateRating', org_schema)
+        self.assertNotIn('review', org_schema)
+
+    def test_breadcrumblist_on_inner_pages(self):
+        """
+        Phase 5:
+        - BreadcrumbList present on all inner pages
+        - Matching breadcrumb hierarchy with valid position and URLs
+        """
+        inner_urls = [
+            '/en/about/',
+            '/en/services/',
+            '/en/services/web-development/',
+            '/en/services/web-development/tangier/',
+            '/en/projects/',
+            '/en/blog/',
+            '/en/contact/',
+            '/en/packages/',
+        ]
+        for url in inner_urls:
+            res = self.client.get(url)
+            soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+            bc_found = False
+            for s in soup.find_all('script', {'type': 'application/ld+json'}):
+                data = json.loads(s.string)
+                if data.get('@type') == 'BreadcrumbList':
+                    bc_found = True
+                    items = data.get('itemListElement', [])
+                    self.assertTrue(len(items) >= 2, f"Breadcrumb on {url} has fewer than 2 items")
+                    for pos, item in enumerate(items, 1):
+                        self.assertEqual(item.get('position'), pos)
+                        self.assertTrue(item.get('name'))
+                        self.assertTrue(item.get('item').startswith('https://getnexiro.com/'))
+                    break
+            self.assertTrue(bc_found, f"BreadcrumbList schema missing on {url}")
+
+    def test_article_blogposting_and_service_schema(self):
+        """
+        Phase 5:
+        - Article/BlogPosting on blog detail page with fallback image and required properties
+        - Service schema on service detail and city service page
+        - No FAQPage schema
+        """
+        # Blog detail BlogPosting
+        res = self.client.get(f'/en/blog/{self.post.slug}/')
+        soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+        article_found = False
+        for s in soup.find_all('script', {'type': 'application/ld+json'}):
+            data = json.loads(s.string)
+            if '@graph' in data:
+                for item in data['@graph']:
+                    if item.get('@type') == 'BlogPosting':
+                        article_found = True
+                        self.assertEqual(item.get('headline'), self.post.title)
+                        self.assertTrue(item.get('image', {}).get('url'))
+                        self.assertEqual(item.get('author', {}).get('@type'), 'Person')
+                        self.assertEqual(item.get('publisher', {}).get('@type'), 'Organization')
+        self.assertTrue(article_found, "BlogPosting schema not found on blog detail")
+
+        # Service schema
+        for s_url in ['/en/services/web-development/', '/en/services/web-development/tangier/']:
+            res = self.client.get(s_url)
+            soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+            svc_found = any(json.loads(s.string).get('@type') == 'Service' for s in soup.find_all('script', {'type': 'application/ld+json'}))
+            self.assertTrue(svc_found, f"Service schema not found on {s_url}")
+
+        # No FAQPage schema anywhere
+        res = self.client.get('/en/services/')
+        soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+        for s in soup.find_all('script', {'type': 'application/ld+json'}):
+            self.assertNotEqual(json.loads(s.string).get('@type'), 'FAQPage', "FAQPage schema should be skipped")
 
 
 

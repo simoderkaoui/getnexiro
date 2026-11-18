@@ -17,15 +17,16 @@
             "description": "{{ post.meta_description|default:post.excerpt|escapejs }}",
             "inLanguage": "{{ LANGUAGE_CODE }}",
             "mainEntityOfPage": "{{ SITE_URL }}{{ request.path }}",
-            {% if post.featured_image %}
             "image": {
                 "@type": "ImageObject",
+                {% if post.featured_image %}
                 "url": "{{ SITE_URL }}{{ post.featured_image.url }}",
-                "width": 1200,
-                "height": 630,
                 "caption": "{{ post.featured_image_alt|default:post.title|escapejs }}"
+                {% else %}
+                "url": "{{ SITE_URL }}{% static 'images/og-image.png' %}",
+                "caption": "{{ post.title|escapejs }}"
+                {% endif %}
             },
-            {% endif %}
             "datePublished": "{{ post.published_at|date:'c' }}",
             "dateModified": "{{ post.updated_at|date:'c' }}",
             "author": {
@@ -53,9 +54,6 @@
             {% if post.category %}
             "articleSection": "{{ post.category.name|escapejs }}",
             {% endif %}
-            {% if post.meta_keywords %}
-            "keywords": "{{ post.meta_keywords|escapejs }}",
-            {% endif %}
             "timeRequired": "PT{{ post.reading_time_minutes|default:6 }}M",
             "wordCount": "{{ post.body|striptags|wordcount }}"
         },
@@ -67,7 +65,7 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "{% trans 'Home' %}",
-                    "item": "{{ SITE_URL }}/"
+                    "item": "{{ SITE_URL }}{% url 'core:home' %}"
                 },
                 {
                     "@type": "ListItem",
