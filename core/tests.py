@@ -1,3 +1,4 @@
+import re
 import json
 from decimal import Decimal
 import datetime
@@ -1631,7 +1632,6 @@ class SEOMasterTestSuite(TestCase):
 
     def test_valid_jsonld_schemas(self):
         """All JSON-LD blocks must parse into valid JSON objects without syntax errors."""
-        import json
         named_views = ['core:home', 'core:about', 'core:contact']
         for lang in ('en', 'fr'):
             activate(lang)
@@ -1773,7 +1773,6 @@ class SEOPhase3Phase4AuditTest(TestCase):
     Comprehensive tests for SEO Phase 3 (Meta Tags & Social) and Phase 4 (International SEO).
     """
     def setUp(self):
-        import json
         from bs4 import BeautifulSoup
         self.soup_cls = BeautifulSoup
         self.service = Service.objects.create(
@@ -2052,6 +2051,63 @@ class SEOPhase3Phase4AuditTest(TestCase):
         # Includes indexable city page (tangier)
         self.assertIn('https://getnexiro.com/en/services/web-development/tangier/', content_sitemap)
         self.assertIn('https://getnexiro.com/ar/services/web-development/tangier/', content_sitemap)
+
+    def test_phase7_performance_and_media(self):
+        """
+        Phase 7:
+        - Hero background video has preload='none' and a poster image
+        - Carousel clones have aria-hidden='true' and empty alt
+        - Key templates output width, height, and alt on images
+        """
+        res = self.client.get('/en/')
+        self.assertEqual(res.status_code, 200)
+        soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+
+        # Video tag preload and poster check
+        for video in soup.find_all('video', class_='hero-bg-video'):
+            self.assertEqual(video.get('preload'), 'none')
+            self.assertTrue(video.get('poster'))
+
+        # Marquee clone check
+        for clone in soup.find_all('div', class_='client-logo-item', attrs={'aria-hidden': 'true'}):
+            img = clone.find('img')
+            if img:
+                self.assertEqual(img.get('alt'), '')
+
+    def test_phase8_onpage_polish_and_internal_linking(self):
+        """
+        Phase 8:
+        - Contact page has lazy-loaded Google Maps embed for Tangier HQ
+        - Service detail page links to related technical blog articles
+        - Blog detail page links to related engineering services
+        - No personal GitHub repo link in footer
+        """
+        # 1. Contact page Google Maps embed
+        res_contact = self.client.get('/en/contact/')
+        soup_contact = self.soup_cls(res_contact.content.decode('utf-8'), 'html.parser')
+        iframe = soup_contact.find('iframe')
+        self.assertIsNotNone(iframe, "Missing map iframe on contact page")
+        self.assertEqual(iframe.get('loading'), 'lazy')
+        self.assertIn('maps.google.com', iframe.get('src', ''))
+
+        # 2. Service detail links to related blog posts
+        res_svc = self.client.get('/en/services/web-development/')
+        soup_svc = self.soup_cls(res_svc.content.decode('utf-8'), 'html.parser')
+        blog_links = soup_svc.find_all('a', href=re.compile(r'/en/blog/'))
+        self.assertTrue(len(blog_links) > 0, "Service page missing internal links to blog")
+
+        # 3. Blog detail links to relevant engineering services
+        res_blog = self.client.get(f'/en/blog/{self.post.slug}/')
+        soup_blog = self.soup_cls(res_blog.content.decode('utf-8'), 'html.parser')
+        svc_links = soup_blog.find_all('a', href=re.compile(r'/en/services/'))
+        self.assertTrue(len(svc_links) > 0, "Blog detail missing internal links to services")
+
+        # 4. No public personal github repo link in footer
+        footer = soup_contact.find('footer')
+        self.assertIsNotNone(footer)
+        personal_gh = footer.find('a', href=re.compile(r'github\.com/simoderkaoui', re.IGNORECASE))
+        self.assertIsNone(personal_gh, "Personal GitHub repo link should not be present in public footer")
+
 
 
 

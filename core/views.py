@@ -150,7 +150,7 @@ def service_detail(request, slug):
     # Related services, projects, posts & FAQs
     related_services = Service.objects.exclude(pk=service.pk)[:3]
     related_projects = Project.objects.filter(is_featured=True)[:3]
-    related_posts = BlogPost.objects.filter(status='published')[:3]
+    related_posts = BlogPost.objects.filter(status='published', noindex=False)[:3]
     service_faqs = list(service.faqs.filter(is_active=True))
     if not service_faqs:
         service_faqs = list(FAQ.objects.filter(is_active=True, section='services')[:4])
@@ -267,9 +267,12 @@ def blog_detail(request, slug):
     if not related_posts.exists():
         related_posts = BlogPost.objects.filter(status='published', noindex=False).exclude(pk=post.pk)[:3]
 
+    relevant_services = Service.objects.all()[:4]
+
     ctx.update({
         'post': post,
         'related_posts': related_posts,
+        'relevant_services': relevant_services,
         'breadcrumbs': [
             {'name': _('Home'), 'url': reverse('core:home')},
             {'name': _('Blog'), 'url': reverse('core:blog')},

@@ -513,6 +513,13 @@ ul {
     filter: brightness(0.75) contrast(1.15);
 }
 
+@media (max-width: 768px), (prefers-reduced-motion: reduce), (prefers-reduced-data: reduce) {
+    .hero-bg-video,
+    .page-header-video {
+        display: none !important;
+    }
+}
+
 .hero-video-overlay {
     position: absolute;
     inset: 0;

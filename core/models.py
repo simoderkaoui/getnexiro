@@ -153,13 +153,13 @@ class SiteConfig(models.Model):
 
     map_embed_url = models.URLField(
         _('Map Embed URL'), blank=True,
-        default='https://www.openstreetmap.org/export/embed.html?bbox=-5.83%2C35.76%2C-5.79%2C35.79&layer=mapnik&marker=35.7796%2C-5.8030',
+        default='https://maps.google.com/maps?q=35.7796,-5.8030+(getNexiro%20Software%20Studio%20Tangier)&t=&z=15&ie=UTF8&iwloc=&output=embed',
     )
 
     # Social links
     instagram_url = models.URLField(_('Instagram URL'), blank=True, default='https://www.instagram.com/getnexiro')
     linkedin_url = models.URLField(_('LinkedIn URL'), blank=True, default='')
-    github_url = models.URLField(_('GitHub URL'), blank=True, default='https://github.com/simoderkaoui/getnexiro')
+    github_url = models.URLField(_('GitHub URL'), blank=True, default='')
     twitter_url = models.URLField(_('Twitter / X URL'), blank=True, default='')
 
     # SEO Meta Descriptions

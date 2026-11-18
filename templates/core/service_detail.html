@@ -740,6 +740,37 @@
             </div>
         </section>
         {% endif %}
+
+        {# ── 6. RELATED TECHNICAL ARTICLES (POSTS) ── #}
+        {% if related_posts %}
+        <section class="section" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <div class="service-badge" style="margin-bottom: 0.5rem;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <span>{% trans "Technical Insights" %}</span>
+                    </div>
+                    <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff;">{% trans "Related Engineering Articles" %}</h2>
+                </div>
+                <a href="{% url 'core:blog' %}" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; text-decoration: none; color: #f8fafc;">
+                    <span>{% trans "View Engineering Blog" %}</span>
+                    <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                {% for rpost in related_posts %}
+                <a href="{% url 'core:blog_detail' rpost.slug %}" class="glass-card" style="padding: 1.5rem; text-decoration: none; color: inherit; border-radius: 14px; transition: transform 0.2s ease, border-color 0.2s ease;">
+                    {% if rpost.category %}<span style="font-size: 0.75rem; color: #38bdf8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">{{ rpost.category.name }}</span>{% endif %}
+                    <h3 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0.5rem 0; line-height: 1.4;">{{ rpost.title }}</h3>
+                    <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1rem;">{{ rpost.excerpt|truncatewords:16 }}</p>
+                    <span style="font-size: 0.85rem; color: #38bdf8; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600;">
+                        {% trans "Read Article" %} →
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

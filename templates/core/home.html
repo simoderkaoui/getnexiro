@@ -5,17 +5,17 @@
 {# ══════ HERO ══════ #}
 <section class="hero-section">
     {% if config.hero_bg_type == 'video' and config.hero_bg_video %}
-    <video autoplay muted loop playsinline class="hero-bg-video">
+    <video autoplay muted loop playsinline preload="none" poster="{% static 'images/og-image.png' %}" class="hero-bg-video">
         <source src="{{ config.hero_bg_video.url }}" type="video/mp4">
     </video>
     <div class="hero-video-overlay" aria-hidden="true"></div>
     {% elif config.hero_bg_type == 'video' and config.hero_bg_video_url %}
-    <video autoplay muted loop playsinline class="hero-bg-video">
+    <video autoplay muted loop playsinline preload="none" poster="{% static 'images/og-image.png' %}" class="hero-bg-video">
         <source src="{{ config.hero_bg_video_url }}" type="video/mp4">
     </video>
     <div class="hero-video-overlay" aria-hidden="true"></div>
     {% elif config.hero_bg_type == 'video' %}
-    <video autoplay muted loop playsinline class="hero-bg-video">
+    <video autoplay muted loop playsinline preload="none" poster="{% static 'images/og-image.png' %}" class="hero-bg-video">
         <source src="{% static 'videos/header-bg.mp4' %}" type="video/mp4">
     </video>
     <div class="hero-video-overlay" aria-hidden="true"></div>
@@ -158,7 +158,7 @@
 <section class="section section-agency-intro" style="padding: 3.5rem 0; border-top: 1px solid rgba(56, 189, 248, 0.1); border-bottom: 1px solid rgba(56, 189, 248, 0.1); background: rgba(10, 15, 26, 0.5);">
     <div class="container">
         <div class="agency-intro-grid" style="max-width: 960px; margin: 0 auto; text-align: center;">
-            <div class="badge-tag" style="margin-bottom: 1.25rem;">{% trans "Software Agency in Tangier" %}</div>
+            <div class="badge-tag" style="margin-bottom: 1.25rem;">{% trans "Engineering Studio" %}</div>
             <h2 style="font-size: 2rem; font-weight: 700; color: #f8fafc; margin-bottom: 1.25rem; letter-spacing: -0.02em;">
                 {% trans "High-Performance Software Engineering from Tangier to Morocco & Europe" %}
             </h2>
@@ -169,7 +169,7 @@
             </p>
             <p style="font-size: 1rem; line-height: 1.8; color: #64748b; margin-bottom: 0;">
                 {% blocktrans trimmed %}
-                Strategically positioned in Northern Morocco near Tanger Med Port and the Tangier Free Zone, our team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
+                Strategically positioned in Northern Morocco near the Tanger Med logistics hub and regional commercial zones, our engineering team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
                 {% endblocktrans %}
             </p>
         </div>
@@ -246,8 +246,8 @@
                 </div>
                 <h3 class="service-preview-title">{{ service.title }}</h3>
                 <p class="service-preview-desc">{{ service.description }}</p>
-                <a href="{% url 'core:service_detail' service.slug %}" class="service-card-link">
-                    <span>{% trans "Explore capability" %}</span>
+                <a href="{% url 'core:service_detail' service.slug %}" class="service-card-link" aria-label="{% blocktrans with title=service.title %}Explore {{ title }} capability{% endblocktrans %}">
+                    <span>{% blocktrans with title=service.title %}Explore {{ title }}{% endblocktrans %}</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
             </div>
@@ -321,7 +321,7 @@
                 <p class="testimonial-text">{{ testimonial.quote }}</p>
                 <div class="testimonial-author">
                     {% if testimonial.avatar %}
-                    <img src="{{ testimonial.avatar.url }}" alt="{{ testimonial.author_name }}" class="testimonial-avatar">
+                    <img src="{{ testimonial.avatar.url }}" alt="{{ testimonial.author_name }}" width="50" height="50" loading="lazy" decoding="async" class="testimonial-avatar">
                     {% endif %}
                     <div>
                         <strong class="testimonial-name">{{ testimonial.author_name }}</strong>

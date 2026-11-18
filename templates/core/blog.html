@@ -231,11 +231,11 @@
             <article class="blog-card glass-card" itemscope itemtype="https://schema.org/BlogPosting">
                 {% if post.featured_image %}
                 <a href="{% url 'core:blog_detail' post.slug %}">
-                    <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-card-image" itemprop="image" loading="lazy" decoding="async">
+                    <img src="{{ post.featured_image.url }}" alt="{{ post.featured_image_alt|default:post.title }}" class="blog-card-image" itemprop="image" width="600" height="340" loading="lazy" decoding="async">
                 </a>
                 {% else %}
                 <a href="{% url 'core:blog_detail' post.slug %}">
-                    <img src="{% static 'images/og-image.png' %}" alt="{{ post.title }} — getNexiro" class="blog-card-image" itemprop="image" loading="lazy" decoding="async">
+                    <img src="{% static 'images/og-image.png' %}" alt="{{ post.title }} — getNexiro" class="blog-card-image" itemprop="image" width="600" height="340" loading="lazy" decoding="async">
                 </a>
                 {% endif %}
                 <div class="blog-card-body">
@@ -258,7 +258,7 @@
                         {% else %}
                         <span class="blog-card-author" itemprop="author">{{ post.author_name }}</span>
                         {% endif %}
-                        <a href="{% url 'core:blog_detail' post.slug %}" class="blog-card-read-link">
+                        <a href="{% url 'core:blog_detail' post.slug %}" class="blog-card-read-link" aria-label="{% blocktrans with title=post.title %}Read article: {{ title }}{% endblocktrans %}">
                             {% trans "Read article" %}
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
