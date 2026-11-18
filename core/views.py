@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
 from django.contrib import messages
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponsePermanentRedirect
 from django.views.decorators.http import require_POST
 from .forms import (
     ContactForm, QuoteStep1Form, QuoteStep2Form, QuoteStep3Form, QuoteStep4Form,
@@ -816,23 +816,57 @@ def confirm_subscription(request, token):
 
 
 def city_service_page(request, service_slug, city_slug):
-    """Service x City landing page for local SEO."""
-    ctx = _get_common_context()
+    """Service x City landing page for local SEO with canonical short slugs & 301 legacy redirects."""
+    # 1. 301 Permanent Redirect for any legacy long slug (e.g. web-development-tangier or <service>-<city>)
+    known_cities = [c[0] for c in CityServicePage.CITY_CHOICES]
+    if city_slug.startswith(f"{service_slug}-"):
+        short_city = city_slug[len(service_slug) + 1:]
+        if short_city in known_cities:
+            target_url = reverse('core:city_service_page', kwargs={
+                'service_slug': service_slug,
+                'city_slug': short_city,
+            })
+            qs = request.META.get('QUERY_STRING')
+            if qs:
+                target_url += f"?{qs}"
+            return HttpResponsePermanentRedirect(target_url)
+
+    for c_choice in known_cities:
+        if city_slug.endswith(f"-{c_choice}") and city_slug != c_choice:
+            target_url = reverse('core:city_service_page', kwargs={
+                'service_slug': service_slug,
+                'city_slug': c_choice,
+            })
+            qs = request.META.get('QUERY_STRING')
+            if qs:
+                target_url += f"?{qs}"
+            return HttpResponsePermanentRedirect(target_url)
+
     page = (
         CityServicePage.objects.select_related('service').filter(
             service__slug=service_slug, slug=city_slug, is_published=True
         ).first() or
         CityServicePage.objects.select_related('service').filter(
             service__slug=service_slug, city=city_slug, is_published=True
-        ).first() or
-        CityServicePage.objects.select_related('service').filter(
-            slug=f"{service_slug}-{city_slug}", is_published=True
         ).first()
     )
     if not page:
         raise Http404("City service page not found")
 
-    # Get other city pages for this service (for internal linking)
+    # If accessed via non-canonical slug, 301 redirect to canonical short slug
+    if city_slug != page.slug:
+        target_url = reverse('core:city_service_page', kwargs={
+            'service_slug': page.service.slug,
+            'city_slug': page.slug,
+        })
+        qs = request.META.get('QUERY_STRING')
+        if qs:
+            target_url += f"?{qs}"
+        return HttpResponsePermanentRedirect(target_url)
+
+    ctx = _get_common_context()
+
+    # Get other published city pages for this service (for internal linking)
     other_cities = CityServicePage.objects.filter(
         service=page.service, is_published=True
     ).exclude(pk=page.pk)

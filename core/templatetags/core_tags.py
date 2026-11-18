@@ -225,10 +225,10 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
     # 1. Resolve Object
     if obj is None:
         obj = (
+            context.get('page') or
             context.get('post') or
-            context.get('service') or
             context.get('project') or
-            context.get('page')
+            context.get('service')
         )
 
     # 2. Determine Title

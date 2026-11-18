@@ -1301,7 +1301,7 @@ class BlogUpgradesTest(TestCase):
 
 
 class CityServicePageTest(TestCase):
-    """Tests for Task 4: City x Service landing pages."""
+    """Tests for City x Service landing pages, canonical short slugs, and 301 redirects."""
 
     def setUp(self):
         SiteConfig.objects.get_or_create(pk=1)
@@ -1311,21 +1311,69 @@ class CityServicePageTest(TestCase):
             icon='icon-web', is_featured=True, order=1,
         )
         self.page = CityServicePage.objects.create(
-            service=self.service, city='tangier', slug='web-development-tangier',
+            service=self.service, city='tangier', slug='tangier',
             h1_en='Web Development in Tangier', h1_fr='Dev Web Tanger', h1_ar='تطوير ويب طنجة',
             intro_en='Intro text', intro_fr='Texte intro', intro_ar='نص تمهيدي',
             body_en='<p>Body content</p>', body_fr='<p>Contenu</p>', body_ar='<p>محتوى</p>',
-            is_published=True,
+            is_published=True, noindex=False,
+        )
+        self.remote_page = CityServicePage.objects.create(
+            service=self.service, city='tetouan', slug='tetouan',
+            h1_en='Web Development in Tetouan', h1_fr='Dev Web Tétouan', h1_ar='تطوير ويب تطوان',
+            intro_en='Remote intro text', intro_fr='Texte remote', intro_ar='نص عن بعد',
+            body_en='<p>Remote body</p>', body_fr='<p>Contenu distant</p>', body_ar='<p>محتوى عن بعد</p>',
+            is_published=True, noindex=True, is_remote_service=True,
         )
 
     def test_city_page_published(self):
-        """Test published city page renders."""
+        """Test published city page renders with canonical short slug."""
         activate('en')
         response = self.client.get(
-            reverse('core:city_service_page', args=['web-development', 'web-development-tangier'])
+            reverse('core:city_service_page', args=['web-development', 'tangier'])
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Web Development in Tangier')
+
+    def test_city_page_legacy_long_slug_301_redirect(self):
+        """Test legacy long slug /web-development-tangier/ 301 redirects to /tangier/ across languages."""
+        # English
+        res = self.client.get('/en/services/web-development/web-development-tangier/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/en/services/web-development/tangier/')
+
+        # French
+        res_fr = self.client.get('/fr/services/web-development/web-development-tangier/')
+        self.assertEqual(res_fr.status_code, 301)
+        self.assertEqual(res_fr.headers.get('Location'), '/fr/services/web-development/tangier/')
+
+        # Remote city redirect
+        res_tet = self.client.get('/en/services/web-development/web-development-tetouan/')
+        self.assertEqual(res_tet.status_code, 301)
+        self.assertEqual(res_tet.headers.get('Location'), '/en/services/web-development/tetouan/')
+
+    def test_city_page_heading_no_tangier_to_tangier(self):
+        """Verify the template bug 'from Tangier to Tangier' is fixed and neutral/accurate."""
+        activate('en')
+        response = self.client.get('/en/services/web-development/tangier/')
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode('utf-8')
+        self.assertNotIn('from Tangier to Tangier', html)
+        self.assertIn('Software Engineering & Architecture Hub in Tangier', html)
+
+        # Remote page heading
+        response_tet = self.client.get('/en/services/web-development/tetouan/')
+        self.assertEqual(response_tet.status_code, 200)
+        html_tet = response_tet.content.decode('utf-8')
+        self.assertIn('Remote from Tangier HQ', html_tet)
+
+    def test_city_page_noindex_for_remote_cities(self):
+        """Verify remote/unverified city pages render noindex and are omitted from sitemap."""
+        activate('en')
+        res_tet = self.client.get('/en/services/web-development/tetouan/')
+        self.assertContains(res_tet, '<meta name="robots" content="noindex, follow">')
+
+        res_tangier = self.client.get('/en/services/web-development/tangier/')
+        self.assertContains(res_tangier, '<meta name="robots" content="index, follow">')
 
     def test_city_page_unpublished_404(self):
         """Test unpublished city page returns 404."""
@@ -1333,7 +1381,7 @@ class CityServicePageTest(TestCase):
         self.page.is_published = False
         self.page.save()
         response = self.client.get(
-            reverse('core:city_service_page', args=['web-development', 'web-development-tangier'])
+            reverse('core:city_service_page', args=['web-development', 'tangier'])
         )
         self.assertEqual(response.status_code, 404)
 
@@ -1341,7 +1389,7 @@ class CityServicePageTest(TestCase):
         """Test city page with wrong service slug returns 404."""
         activate('en')
         response = self.client.get(
-            reverse('core:city_service_page', args=['nonexistent-service', 'web-development-tangier'])
+            reverse('core:city_service_page', args=['nonexistent-service', 'tangier'])
         )
         self.assertEqual(response.status_code, 404)
 

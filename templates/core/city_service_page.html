@@ -139,12 +139,21 @@
 
                 {# Regional Engineering & Delivery Model #}
                 <div class="city-content-card">
-                    <h2>{% trans "Regional Engineering Delivery from Tangier to" %} {{ page.city_name }}</h2>
+                    {% if page.city == 'tangier' %}
+                    <h2>{% trans "Software Engineering & Architecture Hub in Tangier" %}</h2>
                     <p>
-                        {% blocktrans trimmed with city=page.city_name %}
-                        Headquartered in the Mediterranean hub of Tangier, getNexiro combines regional software engineering horsepower with deep local market understanding. We collaborate seamlessly with enterprises in {{ city }} through a disciplined delivery model combining daily asynchronous updates, scheduled video reviews, and in-person architecture workshops. Whether you require on-site deployment in {{ city }} or dedicated nearshore cloud development, our team ensures continuous uptime, CNDP regulatory compliance, and rapid response times across Northern Morocco.
+                        {% blocktrans trimmed %}
+                        Headquartered directly in the vibrant Mediterranean hub of Tangier, getNexiro combines high-velocity software engineering with deep local and international market understanding. We collaborate directly with enterprises across Tangier, Tanger Med, and Northern Morocco through face-to-face architecture workshops, disciplined agile sprints, and dedicated nearshore cloud engineering. Our team delivers enterprise-grade web applications, CNDP regulatory compliance, robust database design, and rapid on-site or remote support.
                         {% endblocktrans %}
                     </p>
+                    {% else %}
+                    <h2>{% trans "Regional Engineering Delivery to" %} {{ page.city_name }} ({% trans "Remote from Tangier HQ" %})</h2>
+                    <p>
+                        {% blocktrans trimmed with city=page.city_name %}
+                        Headquartered in the Mediterranean hub of Tangier, getNexiro delivers remote software engineering horsepower to ambitious enterprises in {{ city }}. We collaborate seamlessly through daily asynchronous updates, scheduled video reviews, and strategic architecture sessions. While we do not operate a physical branch in {{ city }}, our dedicated engineering sprints ensure rapid response times, complete source code ownership, and full CNDP regulatory compliance across Morocco.
+                        {% endblocktrans %}
+                    </p>
+                    {% endif %}
                     <p style="margin-bottom: 0;">
                         {% blocktrans trimmed with city=page.city_name %}
                         Every project delivered for {{ city }} enterprises includes complete source code ownership, comprehensive trilingual localization (Arabic, French, and English), enterprise-grade database backups, and direct access to senior software architects via phone, email, and WhatsApp.
@@ -173,6 +182,21 @@
                     <div>
                         {% for ind in page.industries_list %}
                         <span class="city-industry-tag">{{ ind }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Local commercial & economic hubs #}
+                {% if page.local_landmarks_list %}
+                <div class="city-sidebar-card">
+                    <h3 class="city-sidebar-title">{% trans "Commercial & Tech Hubs" %}</h3>
+                    <div>
+                        {% for lm in page.local_landmarks_list %}
+                        <div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.4rem;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>{{ lm }}</span>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>

@@ -1490,8 +1490,8 @@ class CityServicePage(SEOMixin):
         verbose_name=_('Service'),
     )
     city = models.CharField(_('City'), max_length=30, choices=CITY_CHOICES)
-    slug = models.SlugField(_('URL Slug'), max_length=200, unique=True,
-        help_text=_('Auto-generated from service + city, e.g. web-development-tangier'))
+    slug = models.SlugField(_('URL Slug'), max_length=100,
+        help_text=_('Canonical short city slug, e.g. tangier, tetouan, fes, meknes'))
 
     # Trilingual content
     h1_en = models.CharField(_('H1 Title (EN)'), max_length=200)
@@ -1514,6 +1514,20 @@ class CityServicePage(SEOMixin):
         help_text=_('Industries specific to this city, newline-separated'))
     industries_served_fr = models.TextField(_('Local Industries Served (FR)'), blank=True, default='')
     industries_served_ar = models.TextField(_('Local Industries Served (AR)'), blank=True, default='')
+
+    # Real city differentiation & remote transparency
+    local_projects_en = models.TextField(_('Local Projects (EN)'), blank=True, default='',
+        help_text=_('Verified projects completed for clients in this city, newline-separated.'))
+    local_projects_fr = models.TextField(_('Local Projects (FR)'), blank=True, default='')
+    local_projects_ar = models.TextField(_('Local Projects (AR)'), blank=True, default='')
+
+    local_landmarks_en = models.TextField(_('Local Commercial Landmarks / Tech Parks (EN)'), blank=True, default='',
+        help_text=_('Economic zones, industrial hubs or technology parks in this city, newline-separated.'))
+    local_landmarks_fr = models.TextField(_('Local Commercial Landmarks / Tech Parks (FR)'), blank=True, default='')
+    local_landmarks_ar = models.TextField(_('Local Commercial Landmarks / Tech Parks (AR)'), blank=True, default='')
+
+    is_remote_service = models.BooleanField(_('Remote Service Delivery'), default=False,
+        help_text=_('True if getNexiro serves this city remotely from Tangier HQ without a physical local studio.'))
 
     is_published = models.BooleanField(_('Published'), default=False,
         help_text=_('Only publish pages with genuinely distinct content'))
@@ -1543,6 +1557,26 @@ class CityServicePage(SEOMixin):
         return [line.strip() for line in text.splitlines() if line.strip()]
 
     @property
+    def local_projects(self): return get_localized(self, 'local_projects')
+
+    @property
+    def local_projects_list(self):
+        text = self.local_projects
+        if not text:
+            return []
+        return [line.strip() for line in text.splitlines() if line.strip()]
+
+    @property
+    def local_landmarks(self): return get_localized(self, 'local_landmarks')
+
+    @property
+    def local_landmarks_list(self):
+        text = self.local_landmarks
+        if not text:
+            return []
+        return [line.strip() for line in text.splitlines() if line.strip()]
+
+    @property
     def city_name(self):
         return dict(self.CITY_CHOICES).get(self.city, self.city)
 
@@ -1554,20 +1588,13 @@ class CityServicePage(SEOMixin):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            from django.utils.text import slugify
-            base_slug = slugify(f'{self.service.title_en}-{self.get_city_display()}')
-            if not base_slug:
-                base_slug = f'service-{self.city}'
-            slug = base_slug
-            counter = 1
-            while CityServicePage.objects.filter(slug=slug).exclude(pk=self.pk).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
+            self.slug = self.city
         super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('City Service Page')
+        verbose_name_plural = _('City Service Pages')
+        unique_together = [('service', 'slug')]
         verbose_name_plural = _('City Service Pages')
         ordering = ['service', 'city']
         unique_together = [['service', 'city']]
