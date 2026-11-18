@@ -5,6 +5,7 @@ Clean, organized admin dashboard for managing EN / FR / AR content.
 """
 
 from django.contrib import admin
+from django.forms.models import BaseInlineFormSet
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from .models import (
@@ -174,11 +175,60 @@ class ProjectCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name_en',)}
 
 
+class SafeProjectImageFormSet(BaseInlineFormSet):
+    """
+    Guarantees formset integrity. If the browser or proxy drops
+    the inline management form fields during upload, safely treats
+    the formset as untouched to prevent the form from crashing.
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.is_bound and (not self.data or f'{self.prefix}-TOTAL_FORMS' not in self.data):
+            self.data = self.data.copy() if self.data is not None else {}
+            self.data[f'{self.prefix}-TOTAL_FORMS'] = '0'
+            self.data[f'{self.prefix}-INITIAL_FORMS'] = '0'
+            self.data[f'{self.prefix}-MIN_NUM_FORMS'] = '0'
+            self.data[f'{self.prefix}-MAX_NUM_FORMS'] = '1000'
+            self._has_synthesized_management = True
+        else:
+            self._has_synthesized_management = False
+
+    def full_clean(self):
+        if self.is_bound and (not self.data or f'{self.prefix}-TOTAL_FORMS' not in self.data):
+            self.data = self.data.copy() if self.data is not None else {}
+            self.data[f'{self.prefix}-TOTAL_FORMS'] = '0'
+            self.data[f'{self.prefix}-INITIAL_FORMS'] = '0'
+            self.data[f'{self.prefix}-MIN_NUM_FORMS'] = '0'
+            self.data[f'{self.prefix}-MAX_NUM_FORMS'] = '1000'
+            self._has_synthesized_management = True
+        return super().full_clean()
+
+    def save(self, commit=True):
+        if getattr(self, '_has_synthesized_management', False):
+            return []
+        return super().save(commit=commit)
+
+
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
+    formset = SafeProjectImageFormSet
     extra = 0
     fields = ('image', 'caption_en', 'caption_fr', 'caption_ar', 'order', 'image_preview')
     readonly_fields = ('image_preview',)
+
+    @admin.display(description=_('Preview'))
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="height:45px; border-radius:6px; object-fit:cover;" />', obj.image.url)
+        return '—'
+
+
+@admin.register(ProjectImage)
+class ProjectImageAdmin(admin.ModelAdmin):
+    list_display = ('project', 'image_preview', 'caption_en', 'caption_fr', 'caption_ar', 'order')
+    list_filter = ('project',)
+    search_fields = ('project__title_en', 'caption_en', 'caption_fr', 'caption_ar')
+    ordering = ('project', 'order')
 
     @admin.display(description=_('Preview'))
     def image_preview(self, obj):
