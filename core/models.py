@@ -541,7 +541,7 @@ class Project(SEOMixin):
     )
 
     # Executive Summary / Overview
-    description_en = models.TextField(_('Overview (EN)'))
+    description_en = models.TextField(_('Overview (EN)'), blank=True, default='')
     description_fr = models.TextField(_('Overview (FR)'), blank=True, default='')
     description_ar = models.TextField(_('Overview (AR)'), blank=True, default='')
 
@@ -606,6 +606,13 @@ class Project(SEOMixin):
 
     def get_absolute_url(self):
         return reverse('core:project_detail', kwargs={'slug': self.slug})
+
+    def clean(self):
+        super().clean()
+        if self.live_url and not self.live_url.startswith(('http://', 'https://')):
+            self.live_url = f'https://{self.live_url.strip()}'
+        if self.github_url and not self.github_url.startswith(('http://', 'https://')):
+            self.github_url = f'https://{self.github_url.strip()}'
 
     def save(self, *args, **kwargs):
         if not self.slug:

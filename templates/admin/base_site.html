@@ -5,7 +5,47 @@
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static 'css/admin_custom.css' %}?v=1.1">
+<link rel="stylesheet" href="{% static 'css/admin_custom.css' %}?v=1.2">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // If admin form has errors
+    const errorNote = document.querySelector('.errornote');
+    if (errorNote) {
+        // Localize errornote if in Arabic/RTL
+        if (document.documentElement.getAttribute('dir') === 'rtl' || window.location.pathname.startsWith('/ar/')) {
+            if (errorNote.textContent.includes('Please correct the error')) {
+                errorNote.textContent = 'يرجى تصحيح الخطأ أدناه.';
+            } else if (errorNote.textContent.includes('Please correct the errors')) {
+                errorNote.textContent = 'يرجى تصحيح الأخطاء أدناه.';
+            }
+        }
+
+        // Auto-expand any collapsed fieldset containing errors
+        document.querySelectorAll('fieldset.collapse').forEach(function(fs) {
+            if (fs.querySelector('.errors, .errorlist')) {
+                fs.classList.remove('collapsed');
+                fs.classList.add('has-errors');
+                fs.style.display = 'block';
+                const toggle = fs.querySelector('.collapse-toggle');
+                if (toggle) {
+                    toggle.textContent = (document.documentElement.getAttribute('dir') === 'rtl') ? 'إخفاء' : 'Hide';
+                }
+            }
+        });
+
+        // Scroll to the first field or inline error smoothly
+        const firstError = document.querySelector('.form-row.errors, tr.has-error, .errorlist:not(.nonfield)');
+        if (firstError) {
+            setTimeout(function() {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstError.style.outline = '2px solid #ef4444';
+                firstError.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.4)';
+                firstError.style.borderRadius = '8px';
+            }, 250);
+        }
+    }
+});
+</script>
 {% endblock %}
 
 {% block branding %}

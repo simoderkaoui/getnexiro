@@ -52,3 +52,42 @@ form .submit-row:first-of-type {
     padding: 12px 20px !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Form Validation & Error Prominence
+   ════════════════════════════════════════════════════════════════════════════ */
+.errornote {
+    background: #450a0a !important;
+    border: 2px solid #ef4444 !important;
+    color: #fecaca !important;
+    border-radius: 10px !important;
+    padding: 14px 20px !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3) !important;
+}
+
+.errorlist {
+    background: rgba(69, 10, 10, 0.8) !important;
+    border: 1px solid #ef4444 !important;
+    color: #fca5a5 !important;
+    border-radius: 6px !important;
+    padding: 8px 14px !important;
+    font-weight: 600 !important;
+    margin: 8px 0 !important;
+    list-style: none !important;
+}
+
+fieldset.has-errors {
+    border: 2px solid #ef4444 !important;
+    background: rgba(239, 68, 68, 0.05) !important;
+    border-radius: 10px !important;
+    padding: 18px !important;
+    margin-bottom: 20px !important;
+}
+
+fieldset.has-errors h2 {
+    color: #f87171 !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+}

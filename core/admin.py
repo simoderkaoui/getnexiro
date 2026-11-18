@@ -176,7 +176,7 @@ class ProjectCategoryAdmin(admin.ModelAdmin):
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
-    extra = 2
+    extra = 0
     fields = ('image', 'caption_en', 'caption_fr', 'caption_ar', 'order', 'image_preview')
     readonly_fields = ('image_preview',)
 
