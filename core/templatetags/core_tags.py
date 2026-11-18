@@ -30,14 +30,14 @@ CANONICAL_TARGET_SLUGS = {
         'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
     },
     'fr': {
-        'about': 'a-propos', 'services': 'services', 'projects': 'projets',
+        'about': 'about', 'services': 'services', 'projects': 'projects',
         'blog': 'blog', 'contact': 'contact', 'privacy-policy': 'privacy-policy',
         'terms-of-service': 'terms-of-service', 'quote': 'quote',
         'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
     },
     'ar': {
-        'about': 'من-نحن', 'services': 'خدمات', 'projects': 'مشاريع',
-        'blog': 'مدونة', 'contact': 'تواصل', 'privacy-policy': 'privacy-policy',
+        'about': 'about', 'services': 'services', 'projects': 'projects',
+        'blog': 'blog', 'contact': 'contact', 'privacy-policy': 'privacy-policy',
         'terms-of-service': 'terms-of-service', 'quote': 'quote',
         'packages': 'packages', 'booking': 'booking', 'checklist': 'checklist',
     },
@@ -120,6 +120,7 @@ def _format_seo_title(raw_title, default_brand=" | getNexiro"):
     - Primary keyword first
     - Brand suffix last as ' | getNexiro'
     - Total length <= 60 characters
+    - Clean word boundary truncation (never cuts words in half)
     """
     if not raw_title:
         return f"Web & App Development in Tangier{default_brand}"
@@ -131,6 +132,8 @@ def _format_seo_title(raw_title, default_brand=" | getNexiro"):
         "— Web & App Development Agency in Tangier, Morocco",
         "- Web & App Development Agency in Tangier, Morocco",
         " — Web & App Development Agency",
+        " | Tangier, Morocco",
+        "— Tangier, Morocco",
         " | Tangier",
         "— Tangier",
         " | getNexiro",
@@ -141,11 +144,19 @@ def _format_seo_title(raw_title, default_brand=" | getNexiro"):
         if title.endswith(suf):
             title = title[:-len(suf)].strip()
 
+    # Deduplicate repeated city names e.g. "Web Development in Tangier, Morocco in Tangier"
+    title = re.sub(r'(\bin Tangier\b.*?)\bin Tangier\b', r'\1', title, flags=re.IGNORECASE).strip()
+    title = re.sub(r'\s+', ' ', title).strip()
+
     max_len = 60
     brand_len = len(default_brand)
     avail_len = max_len - brand_len
     if len(title) > avail_len:
-        title = title[:avail_len].rstrip(' —-|,')
+        trimmed = title[:avail_len].rsplit(' ', 1)[0].rstrip(' —-|,')
+        if len(trimmed) >= 15:
+            title = trimmed
+        else:
+            title = title[:avail_len].rstrip(' —-|,')
     return f"{title}{default_brand}"
 
 
@@ -267,9 +278,9 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
                 'ar': 'معرض مشاريعنا وتطبيقاتنا',
             },
             'blog': {
-                'en': 'Tech & Software Engineering Insights',
-                'fr': 'Blog & Actualités Tech et Ingénierie',
-                'ar': 'مدونة التكنولوجيا وهندسة البرمجيات',
+                'en': 'Tech & Engineering Blog',
+                'fr': 'Blog Tech & Ingénierie',
+                'ar': 'مدونة التكنولوجيا والهندسة',
             },
             'contact': {
                 'en': 'Contact Our Studio in Tangier, Morocco',
@@ -330,21 +341,46 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
     en_path = translate_url(base_request_path, 'en') or '/en/'
     x_default_url = f"{site_url}{en_path}"
 
-    # 6. Open Graph & Twitter Image
+    # 6. Open Graph & Twitter Image (Accurate dimensions: 1200x630 for default OG, real dimensions or omitted for uploads)
     og_image_url = None
+    og_image_width = None
+    og_image_height = None
+
     if image:
         og_image_url = request.build_absolute_uri(image) if request else image
     elif obj:
         img_field = getattr(obj, 'og_image', None) or getattr(obj, 'image', None) or getattr(obj, 'featured_image', None)
         if img_field and hasattr(img_field, 'url'):
             og_image_url = request.build_absolute_uri(img_field.url) if request else img_field.url
+            if hasattr(img_field, 'width') and hasattr(img_field, 'height'):
+                try:
+                    og_image_width = img_field.width
+                    og_image_height = img_field.height
+                except Exception:
+                    pass
 
     config = context.get('config')
     if not og_image_url and config and getattr(config, 'default_og_image', None):
         og_image_url = request.build_absolute_uri(config.default_og_image.url) if request else config.default_og_image.url
+        if hasattr(config.default_og_image, 'width') and hasattr(config.default_og_image, 'height'):
+            try:
+                og_image_width = config.default_og_image.width
+                og_image_height = config.default_og_image.height
+            except Exception:
+                pass
 
     if not og_image_url:
         og_image_url = f"{site_url}{static('images/og-image.png')}"
+        og_image_width = 1200
+        og_image_height = 630
+    elif 'og-image.png' in str(og_image_url):
+        og_image_width = 1200
+        og_image_height = 630
+
+    # Ensure logo.png is never declared with 1200x630 dimensions
+    if 'logo.png' in str(og_image_url):
+        og_image_width = None
+        og_image_height = None
 
     # 7. Locales
     locale_map = {
@@ -398,8 +434,8 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
         'og_locale': og_locale,
         'og_alternate_locales': og_alternate_locales,
         'og_image_url': og_image_url,
-        'og_image_width': 1200,
-        'og_image_height': 630,
+        'og_image_width': og_image_width,
+        'og_image_height': og_image_height,
         'noindex': is_noindex,
         'article_published_time': article_published_time,
         'article_modified_time': article_modified_time,

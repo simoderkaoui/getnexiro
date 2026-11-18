@@ -8,6 +8,7 @@ Falls back to empty lists gracefully if no data exists yet.
 from decimal import Decimal
 import json
 import datetime
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
@@ -154,7 +155,8 @@ def service_detail(request, slug):
             {'name': service.title, 'url': request.path},
         ],
     })
-    ctx['page_seo_title'] = f"{service.title} in Tangier, Morocco | getNexiro"
+    clean_service_title = re.sub(r'\s+in\s+Tangier.*$', '', service.title, flags=re.IGNORECASE).strip()
+    ctx['page_seo_title'] = service.seo_title or f"{clean_service_title} in Tangier | getNexiro"
     ctx['page_seo_description'] = service.seo_description or (service.description[:150] if service.description else '')
     return render(request, 'core/service_detail.html', ctx)
 

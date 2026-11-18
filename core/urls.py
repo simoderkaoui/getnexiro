@@ -6,24 +6,27 @@ URL path segments are translated for SEO (e.g. /fr/services/ vs /ar/خدمات/)
 """
 
 from django.urls import path, include
-from django.utils.translation import gettext_lazy as _
 from . import views
 
 app_name = 'core'
 
+# Canonical ASCII URL patterns across all languages (en, fr, ar)
+# Prevents Apache / Passenger WSGI non-ASCII path mangling
+# All legacy localized aliases (e.g. /ar/من-نحن/, /ar/خدمات/, /fr/a-propos/)
+# 301 permanently redirect to these canonical routes via UrlNormalizationMiddleware.
 urlpatterns = [
     path('', views.home, name='home'),
-    path(_('about/'), views.about, name='about'),
-    path(_('services/'), include([
+    path('about/', views.about, name='about'),
+    path('services/', include([
         path('', views.services, name='services'),
         path('<slug:slug>/', views.service_detail, name='service_detail'),
         path('<slug:service_slug>/<slug:city_slug>/', views.city_service_page, name='city_service_page'),
     ])),
-    path(_('projects/'), include([
+    path('projects/', include([
         path('', views.projects, name='projects'),
         path('<slug:slug>/', views.project_detail, name='project_detail'),
     ])),
-    path(_('blog/'), include([
+    path('blog/', include([
         path('', views.blog, name='blog'),
         path('feed/', views.blog_rss_feed, name='blog_rss_feed'),
         path('author/<slug:slug>/', views.author_detail, name='author_detail'),
@@ -31,18 +34,18 @@ urlpatterns = [
         path('tag/<path:tag>/', views.blog_tag_archive, name='blog_tag_archive'),
         path('<slug:slug>/', views.blog_detail, name='blog_detail'),
     ])),
-    path(_('contact/'), views.contact, name='contact'),
+    path('contact/', views.contact, name='contact'),
 
     # Legal pages
-    path(_('privacy-policy/'), views.legal_page, {'slug': 'privacy-policy'}, name='privacy_policy'),
-    path(_('terms-of-service/'), views.legal_page, {'slug': 'terms-of-service'}, name='terms_of_service'),
+    path('privacy-policy/', views.legal_page, {'slug': 'privacy-policy'}, name='privacy_policy'),
+    path('terms-of-service/', views.legal_page, {'slug': 'terms-of-service'}, name='terms_of_service'),
 
-    # Phase 2: Lead Generation
-    path(_('quote/'), views.quote_wizard, name='quote_wizard'),
-    path(_('quote/success/'), views.quote_success, name='quote_success'),
-    path(_('packages/'), views.packages, name='packages'),
-    path(_('booking/'), views.booking, name='booking'),
-    path(_('checklist/'), views.lead_magnet, name='lead_magnet'),
-    path(_('unsubscribe/'), views.unsubscribe, name='unsubscribe'),
-    path(_('confirm/') + '<str:token>/', views.confirm_subscription, name='confirm_subscription'),
+    # Lead Generation & Booking
+    path('quote/', views.quote_wizard, name='quote_wizard'),
+    path('quote/success/', views.quote_success, name='quote_success'),
+    path('packages/', views.packages, name='packages'),
+    path('booking/', views.booking, name='booking'),
+    path('checklist/', views.lead_magnet, name='lead_magnet'),
+    path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
+    path('confirm/<str:token>/', views.confirm_subscription, name='confirm_subscription'),
 ]

@@ -1410,7 +1410,7 @@ class CityServicePageTest(TestCase):
         self.assertContains(res_tet, '<meta name="robots" content="noindex, follow">')
 
         res_tangier = self.client.get('/en/services/web-development/tangier/')
-        self.assertContains(res_tangier, '<meta name="robots" content="index, follow">')
+        self.assertContains(res_tangier, '<meta name="robots" content="index, follow, max-image-preview:large">')
 
     def test_city_page_unpublished_404(self):
         """Test unpublished city page returns 404."""
@@ -1657,38 +1657,50 @@ class SEOMasterTestSuite(TestCase):
             self.assertIsNone(soup.find('meta', {'name': 'geo.placename'}), f"Found obsolete geo.placename on {v_name}")
 
     def test_arabic_and_multilingual_url_normalization(self):
-        """Ensure percent-encoded Arabic URLs and slug aliases resolve cleanly without 404."""
-        # 1. Percent-encoded Arabic URLs must return 200
-        res = self.client.get('/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86/')
+        """Ensure normalized ASCII Arabic URLs return 200 and legacy Arabic URLs 301 redirect cleanly."""
+        # 1. Canonical ASCII Arabic URLs must return 200
+        res = self.client.get('/ar/about/')
         self.assertEqual(res.status_code, 200)
 
-        # 2. English aliases under /ar/ must 301 redirect to Arabic canonicals
-        res = self.client.get('/ar/about/')
-        self.assertEqual(res.status_code, 301)
-        self.assertIn('%D9%85%D9%86-%D9%86%D8%AD%D9%86', res.headers.get('Location'))
-
         res = self.client.get('/ar/services/')
-        self.assertEqual(res.status_code, 301)
-        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+        self.assertEqual(res.status_code, 200)
 
-        # 3. English aliases under /fr/ must 301 redirect to French canonicals
-        res = self.client.get('/fr/about/')
+        # 2. Legacy percent-encoded and Arabic slug aliases must 301 redirect to canonical ASCII URLs
+        res = self.client.get('/ar/%D9%85%D9%86-%D9%86%D8%AD%D9%86/')
         self.assertEqual(res.status_code, 301)
-        self.assertEqual(res.headers.get('Location'), '/fr/a-propos/')
+        self.assertEqual(res.headers.get('Location'), '/ar/about/')
+
+        res = self.client.get('/ar/من-نحن/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/ar/about/')
+
+        res = self.client.get('/ar/خدمات/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/ar/services/')
+
+        # 3. French aliases (/fr/a-propos/) must 301 redirect to French canonicals (/fr/about/)
+        res = self.client.get('/fr/a-propos/')
+        self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/fr/about/')
+
+        res = self.client.get('/fr/about/')
+        self.assertEqual(res.status_code, 200)
 
         # 4. Unprefixed localized slugs must 301 redirect to language prefix
         res = self.client.get('/من-نحن/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('/ar/', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/about/')
 
         # 5. Trailing and duplicate language tokens (e.g. /ar/من-نحن/ar/ar/) must 301 redirect cleanly
         res = self.client.get('/ar/من-نحن/ar/ar/')
         self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/ar/about/')
         follow_res = self.client.get(res.headers.get('Location'), follow=True)
         self.assertEqual(follow_res.status_code, 200)
 
         res = self.client.get('/ar/من-نحن/ar/')
         self.assertEqual(res.status_code, 301)
+        self.assertEqual(res.headers.get('Location'), '/ar/about/')
 
         res = self.client.get('/ar/ar/')
         self.assertEqual(res.status_code, 301)
@@ -1701,51 +1713,50 @@ class SEOMasterTestSuite(TestCase):
         # 6. Chained page navigation (e.g. /ar/من-نحن/ar/خدمات/) must 301 redirect to target section
         res = self.client.get('/ar/من-نحن/ar/خدمات/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/services/')
         follow_res = self.client.get(res.headers.get('Location'), follow=True)
         self.assertEqual(follow_res.status_code, 200)
 
         res = self.client.get('/ar/من-نحن/ar/services/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/services/')
 
         res = self.client.get('/ar/من-نحن/services/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D8%AE%D8%AF%D9%85%D8%A7%D8%AA', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/services/')
 
         res = self.client.get('/ar/من-نحن/ar/مشاريع/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/projects/')
 
         # Services -> Projects chained
         res = self.client.get('/ar/خدمات/ar/مشاريع/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/projects/')
 
         # Percent-encoded Services -> Projects chained
         res = self.client.get('/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA/ar/%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9/')
         self.assertEqual(res.status_code, 301)
-        self.assertIn('%D9%85%D8%B4%D8%A7%D8%B1%D9%8A%D8%B9', res.headers.get('Location'))
+        self.assertEqual(res.headers.get('Location'), '/ar/projects/')
 
     def test_force_script_name_prevents_wsgi_script_name_pollution(self):
         """
         Verify that even if Apache mod_passenger passes SCRIPT_NAME populated with
         the Arabic route segment, FORCE_SCRIPT_NAME='' and UrlNormalizationMiddleware
-        prevent link concatenation like /ar/خدمات/ar/مشاريع/.
+        prevent link concatenation.
         """
-        res = self.client.get('/ar/خدمات/', SCRIPT_NAME='/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA')
+        res = self.client.get('/ar/services/', SCRIPT_NAME='/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA')
         self.assertEqual(res.status_code, 200)
         html = res.content.decode('utf-8')
-        # Navbar links must NOT have /ar/خدمات/ar/
+        # Navbar links must NOT have /ar/خدمات/ar/ or duplicate paths
         self.assertNotIn('/ar/خدمات/ar/', html)
         self.assertNotIn('/ar/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA/ar/', html)
         # Canonical URL must be clean
-        self.assertIn('https://getnexiro.com/ar/خدمات/', html)
-        self.assertNotIn('https://getnexiro.com/ar/خدمات/ar/خدمات/', html)
+        self.assertIn('https://getnexiro.com/ar/services/', html)
 
     def test_direct_flag_switcher_links_in_navbar(self):
         """Ensure flag switcher in base.html generates direct, crawlable <a> links without forms."""
-        res = self.client.get('/ar/من-نحن/')
+        res = self.client.get('/ar/about/')
         self.assertEqual(res.status_code, 200)
         html = res.content.decode('utf-8')
         # Navbar flag switcher must be anchor tags, not forms
@@ -1753,6 +1764,143 @@ class SEOMasterTestSuite(TestCase):
         self.assertNotIn('<form action="/i18n/setlang/"', html)
         # Alternate languages must link cleanly
         self.assertIn('/en/about/', html)
-        self.assertIn('/fr/a-propos/', html)
+        self.assertIn('/fr/about/', html)
+
+
+class SEOPhase3Phase4AuditTest(TestCase):
+    """
+    Comprehensive tests for SEO Phase 3 (Meta Tags & Social) and Phase 4 (International SEO).
+    """
+    def setUp(self):
+        from bs4 import BeautifulSoup
+        self.soup_cls = BeautifulSoup
+        self.service = Service.objects.create(
+            title_en="Web Development in Tangier, Morocco",
+            slug="web-development",
+            seo_description_en="High-performance custom web development in Tangier, Morocco. Django and React engineering.",
+            noindex=False,
+        )
+        self.city_page = CityServicePage.objects.create(
+            service=self.service,
+            city='tangier',
+            slug='tangier',
+            h1_en="Web Development Agency in Tangier, Morocco",
+            seo_title_en="Web Development in Tangier | getNexiro",
+            seo_description_en="Professional web development services for companies in Tangier, delivered by getNexiro studio.",
+            is_published=True,
+            noindex=False,
+        )
+        self.post = BlogPost.objects.create(
+            title_en="Enterprise Web Engineering Guide",
+            slug="enterprise-web-engineering-guide",
+            body_en="<p>Detailed guide on enterprise engineering.</p>",
+            status='published',
+            noindex=False,
+            index_in_sitemap=True,
+        )
+
+    def test_meta_title_and_description_constraints(self):
+        """
+        Phase 3:
+        - Title <= 60 characters
+        - Pattern: '<Topic> | getNexiro'
+        - Description between 120 and 160 characters
+        - No meta keywords tag
+        """
+        urls = [
+            '/en/', '/fr/', '/ar/',
+            '/en/about/', '/fr/about/', '/ar/about/',
+            '/en/services/', '/fr/services/', '/ar/services/',
+            '/en/services/web-development/',
+            '/en/services/web-development/tangier/',
+            '/en/blog/', '/fr/blog/', '/ar/blog/',
+            '/en/contact/', '/fr/contact/', '/ar/contact/',
+            '/en/blog/enterprise-web-engineering-guide/',
+        ]
+        for url in urls:
+            res = self.client.get(url)
+            self.assertEqual(res.status_code, 200, f"Page {url} did not return 200")
+            html = res.content.decode('utf-8')
+            soup = self.soup_cls(html, 'html.parser')
+
+            # 1. No meta keywords
+            self.assertIsNone(soup.find('meta', {'name': 'keywords'}), f"Found keywords meta on {url}")
+
+            # 2. Title length <= 60
+            title_tag = soup.find('title')
+            self.assertIsNotNone(title_tag, f"Missing title tag on {url}")
+            title_text = title_tag.text.strip()
+            self.assertTrue(len(title_text) <= 60, f"Title on {url} exceeds 60 chars ({len(title_text)}): '{title_text}'")
+            self.assertTrue(title_text.endswith('| getNexiro'), f"Title on {url} does not end with '| getNexiro': '{title_text}'")
+
+            # 3. Description length 120 <= len <= 160
+            desc_tag = soup.find('meta', {'name': 'description'})
+            self.assertIsNotNone(desc_tag, f"Missing description on {url}")
+            desc_text = desc_tag.get('content', '').strip()
+            self.assertTrue(120 <= len(desc_text) <= 160, f"Description on {url} out of bounds ({len(desc_text)} chars): '{desc_text}'")
+
+    def test_open_graph_and_twitter_sync(self):
+        """
+        Phase 3:
+        - Twitter tags match Open Graph tags
+        - og:locale matches language with alternates
+        - og:image has 1200x630 or omitted dimensions (never logo.png declared as 1200x630)
+        """
+        for url in ['/en/about/', '/fr/about/', '/ar/about/']:
+            res = self.client.get(url)
+            soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+
+            og_title = soup.find('meta', {'property': 'og:title'})['content']
+            tw_title = soup.find('meta', {'name': 'twitter:title'})['content']
+            self.assertEqual(og_title, tw_title)
+
+            og_desc = soup.find('meta', {'property': 'og:description'})['content']
+            tw_desc = soup.find('meta', {'name': 'twitter:description'})['content']
+            self.assertEqual(og_desc, tw_desc)
+
+            og_img = soup.find('meta', {'property': 'og:image'})['content']
+            tw_img = soup.find('meta', {'name': 'twitter:image'})['content']
+            self.assertEqual(og_img, tw_img)
+
+            # Robots tag includes max-image-preview:large
+            robots = soup.find('meta', {'name': 'robots'})['content']
+            self.assertIn('max-image-preview:large', robots)
+
+    def test_reciprocal_hreflang_and_x_default(self):
+        """
+        Phase 4:
+        - Every page outputs reciprocal hreflang links for en, fr, ar, and x-default
+        - All URLs are absolute
+        """
+        for url in ['/en/about/', '/fr/about/', '/ar/about/', '/en/services/web-development/tangier/']:
+            res = self.client.get(url)
+            soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+
+            hreflangs = {link.get('hreflang'): link.get('href') for link in soup.find_all('link', {'rel': 'alternate'}) if link.get('hreflang')}
+            for req_lang in ['en', 'fr', 'ar', 'x-default']:
+                self.assertIn(req_lang, hreflangs, f"Missing hreflang '{req_lang}' on {url}")
+                self.assertTrue(hreflangs[req_lang].startswith('https://getnexiro.com/'), f"Non-absolute hreflang on {url}: {hreflangs[req_lang]}")
+
+    def test_arabic_slug_normalization_and_redirects(self):
+        """
+        Phase 4:
+        - Arabic canonical URLs are clean ASCII (/ar/about/, /ar/services/web-development/tangier/)
+        - Legacy Arabic-character URLs 301 redirect cleanly
+        """
+        redirects = [
+            ('/ar/من-نحن/', '/ar/about/'),
+            ('/ar/خدمات/', '/ar/services/'),
+            ('/ar/خدمات/web-development/tangier/', '/ar/services/web-development/tangier/'),
+            ('/ar/مشاريع/', '/ar/projects/'),
+            ('/ar/مدونة/', '/ar/blog/'),
+            ('/ar/تواصل/', '/ar/contact/'),
+            ('/ar/من-نحن/ar/خدمات/', '/ar/services/'),
+            ('/ar/خدمات/ar/مشاريع/', '/ar/projects/'),
+        ]
+        for src, dest in redirects:
+            res = self.client.get(src)
+            self.assertEqual(res.status_code, 301, f"{src} did not return 301")
+            self.assertEqual(res.headers.get('Location'), dest, f"{src} redirected to {res.headers.get('Location')} instead of {dest}")
+
 
 

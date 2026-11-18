@@ -29,6 +29,8 @@ def normalize_uri(path):
 
 KNOWN_LANGS = {'en', 'fr', 'ar'}
 
+# Canonical ASCII URL Slugs across all languages (EN, FR, AR)
+# All legacy localized aliases (French / Arabic) permanently 301 redirect to these
 CANONICAL_SLUGS = {
     'en': {
         'about': 'about', 'a-propos': 'about', 'من-نحن': 'about',
@@ -38,18 +40,18 @@ CANONICAL_SLUGS = {
         'contact': 'contact', 'تواصل': 'contact',
     },
     'fr': {
-        'about': 'a-propos', 'a-propos': 'a-propos', 'من-نحن': 'a-propos',
+        'about': 'about', 'a-propos': 'about', 'من-نحن': 'about',
         'services': 'services', 'خدمات': 'services',
-        'projects': 'projets', 'projets': 'projets', 'مشاريع': 'projets',
+        'projects': 'projects', 'projets': 'projects', 'مشاريع': 'projects',
         'blog': 'blog', 'مدونة': 'blog',
         'contact': 'contact', 'تواصل': 'contact',
     },
     'ar': {
-        'about': 'من-نحن', 'a-propos': 'من-نحن', 'من-نحن': 'من-نحن',
-        'services': 'خدمات', 'خدمات': 'خدمات',
-        'projects': 'مشاريع', 'projets': 'مشاريع', 'مشاريع': 'مشاريع',
-        'blog': 'مدونة', 'مدونة': 'مدونة',
-        'contact': 'تواصل', 'تواصل': 'تواصل',
+        'about': 'about', 'a-propos': 'about', 'من-نحن': 'about',
+        'services': 'services', 'خدمات': 'services',
+        'projects': 'projects', 'projets': 'projects', 'مشاريع': 'projects',
+        'blog': 'blog', 'مدونة': 'blog',
+        'contact': 'contact', 'تواصل': 'contact',
     },
 }
 
@@ -133,13 +135,18 @@ def clean_language_path(path):
         return f"/{target_lang}/"
 
 NON_PREFIX_MAP = {
-    'من-نحن': '/ar/من-نحن/',
-    'خدمات': '/ar/خدمات/',
-    'مشاريع': '/ar/مشاريع/',
-    'مدونة': '/ar/مدونة/',
-    'تواصل': '/ar/تواصل/',
-    'a-propos': '/fr/a-propos/',
-    'projets': '/fr/projets/',
+    'من-نحن': '/ar/about/',
+    'خدمات': '/ar/services/',
+    'مشاريع': '/ar/projects/',
+    'مدونة': '/ar/blog/',
+    'تواصل': '/ar/contact/',
+    'a-propos': '/fr/about/',
+    'projets': '/fr/projects/',
+    'about': '/en/about/',
+    'services': '/en/services/',
+    'projects': '/en/projects/',
+    'blog': '/en/blog/',
+    'contact': '/en/contact/',
 }
 
 
