@@ -2277,16 +2277,35 @@ ul {
     }
 
     .mobile-nav-actions {
-        display: block;
-        margin-top: 1rem;
-        padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        margin-top: 1.25rem;
+        padding-top: 1.25rem;
         border-top: 1px solid var(--color-border);
     }
 
     .mobile-nav-actions .btn {
         width: 100%;
         justify-content: center;
+        margin: 0;
     }
+}
+
+/* Hide floating action buttons (WhatsApp + Back-to-Top) when mobile nav drawer is open */
+body.menu-open .whatsapp-float,
+body.menu-open #whatsappFloat,
+body.menu-open .back-to-top,
+body.menu-open #backToTop,
+body:has(#navLinks.active) .whatsapp-float,
+body:has(#navLinks.active) #whatsappFloat,
+body:has(#navLinks.active) .back-to-top,
+body:has(#navLinks.active) #backToTop {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: scale(0.7) translateY(12px) !important;
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease !important;
 }
 
 @media (max-width: 768px) {
