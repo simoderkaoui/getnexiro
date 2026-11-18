@@ -183,6 +183,9 @@ class SafeProjectImageFormSet(BaseInlineFormSet):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.new_objects = []
+        self.changed_objects = []
+        self.deleted_objects = []
         if self.is_bound and (not self.data or f'{self.prefix}-TOTAL_FORMS' not in self.data):
             self.data = self.data.copy() if self.data is not None else {}
             self.data[f'{self.prefix}-TOTAL_FORMS'] = '0'
@@ -204,6 +207,9 @@ class SafeProjectImageFormSet(BaseInlineFormSet):
         return super().full_clean()
 
     def save(self, commit=True):
+        self.new_objects = getattr(self, 'new_objects', [])
+        self.changed_objects = getattr(self, 'changed_objects', [])
+        self.deleted_objects = getattr(self, 'deleted_objects', [])
         if getattr(self, '_has_synthesized_management', False):
             return []
         return super().save(commit=commit)

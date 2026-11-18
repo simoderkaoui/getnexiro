@@ -4,10 +4,13 @@ from decimal import Decimal
 import datetime
 from datetime import timedelta
 from django.core import mail
+from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from django.utils.translation import activate
 from django.utils import timezone
+
+User = get_user_model()
 from core.models import (
     SiteConfig, Service, ServiceSolution, ProjectCategory, Project, ProjectImage,
     TeamMember, Testimonial, Stat, ContactMessage,
@@ -2107,6 +2110,94 @@ class SEOPhase3Phase4AuditTest(TestCase):
         self.assertIsNotNone(footer)
         personal_gh = footer.find('a', href=re.compile(r'github\.com/simoderkaoui', re.IGNORECASE))
         self.assertIsNone(personal_gh, "Personal GitHub repo link should not be present in public footer")
+
+
+class AdminProjectSaveTest(TestCase):
+    """Ensure saving a project in the Django admin never crashes with 500."""
+
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username='adminuser',
+            email='adminuser@example.com',
+            password='testpassword123'
+        )
+        self.client.login(username='adminuser', password='testpassword123')
+        self.category = ProjectCategory.objects.create(
+            name_en='SaaS',
+            slug='saas'
+        )
+        self.project = Project.objects.create(
+            title_en='Test Project',
+            title_fr='Projet Test',
+            title_ar='مشروع تجريبي',
+            slug='test-project',
+            category=self.category,
+            order=1
+        )
+
+    def test_save_project_without_inline_management_form_fields(self):
+        """Omitting gallery_images management form fields must NOT cause 500."""
+        post_data = {
+            'title_en': 'Updated Test Project',
+            'title_fr': 'Projet Test MAJ',
+            'title_ar': 'مشروع تجريبي محدث',
+            'slug': 'updated-test-project',
+            'category': self.category.pk,
+            'description_en': 'Clean description',
+            'description_fr': 'Description propre',
+            'description_ar': 'وصف نظيف',
+            'order': 1,
+            '_save': 'Save',
+        }
+        response = self.client.post(
+            f'/en/admin/core/project/{self.project.pk}/change/',
+            post_data,
+            follow=False
+        )
+        # Must redirect on success, never return 500
+        self.assertEqual(response.status_code, 302)
+        self.project.refresh_from_db()
+        self.assertEqual(self.project.title_en, 'Updated Test Project')
+
+    def test_save_project_preserves_existing_gallery_images(self):
+        """Saving project when inline management form is omitted must preserve existing gallery images."""
+        img1 = ProjectImage.objects.create(
+            project=self.project,
+            image='projects/gallery/test1.jpg',
+            caption_en='Screen 1',
+            order=1
+        )
+        img2 = ProjectImage.objects.create(
+            project=self.project,
+            image='projects/gallery/test2.jpg',
+            caption_en='Screen 2',
+            order=2
+        )
+        self.assertEqual(self.project.gallery_images.count(), 2)
+
+        post_data = {
+            'title_en': 'Updated Title',
+            'title_fr': 'Titre MAJ',
+            'title_ar': 'عنوان محدث',
+            'slug': 'updated-title',
+            'category': self.category.pk,
+            'description_en': 'Desc',
+            'description_fr': 'Desc',
+            'description_ar': 'Desc',
+            'order': 1,
+            '_continue': 'Save and continue editing',
+        }
+        response = self.client.post(
+            f'/en/admin/core/project/{self.project.pk}/change/',
+            post_data,
+            follow=False
+        )
+        self.assertEqual(response.status_code, 302)
+        # Both images must still exist untouched
+        self.assertEqual(self.project.gallery_images.count(), 2)
+        self.assertTrue(ProjectImage.objects.filter(pk=img1.pk).exists())
+        self.assertTrue(ProjectImage.objects.filter(pk=img2.pk).exists())
+
 
 
 
