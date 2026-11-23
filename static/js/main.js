@@ -328,10 +328,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeAbortController) activeAbortController.abort();
                 activeAbortController = new AbortController();
 
+                const currentLang = document.documentElement.lang || 'en';
+                const i18n = {
+                    loading: currentLang === 'ar' ? 'جاري البحث في الخدمات، المشاريع، المدونة والمراكز...' :
+                             (currentLang === 'fr' ? 'Recherche dans les services, projets, blog et hubs...' :
+                             'Searching across services, projects, blog & hubs...'),
+                    noMatch: currentLang === 'ar' ? `لا توجد نتائج مطابقة لـ "${escapeHtml(query)}"` :
+                             (currentLang === 'fr' ? `Aucun résultat direct pour « ${escapeHtml(query)} »` :
+                             `No direct matches for "${escapeHtml(query)}"`),
+                    noMatchSub: currentLang === 'ar' ? 'تبحث عن هندسة نظام مخصص لمشروعك؟ مهندسو جيت نكسيرو بطنجة في خدمتك.' :
+                                (currentLang === 'fr' ? 'Vous souhaitez développer un système sur mesure ? Nos architectes logiciels à Tanger sont à votre écoute.' :
+                                'Looking to engineer a custom system? Our Tangier software architects can help.'),
+                    ctaText: currentLang === 'ar' ? 'احسب تكلفة مشروعك فوراً ←' :
+                             (currentLang === 'fr' ? 'Calculer un devis instantané →' :
+                             'Calculate Instant Project Quote →'),
+                    searchError: currentLang === 'ar' ? 'خدمة البحث غير متاحة مؤقتاً.' :
+                                 (currentLang === 'fr' ? 'La recherche est temporairement indisponible.' :
+                                 'Search is temporarily unavailable.')
+                };
+
                 if (spotlightDefaultResults) spotlightDefaultResults.style.display = 'none';
                 if (spotlightDynamicResults) {
                     spotlightDynamicResults.style.display = 'block';
-                    spotlightDynamicResults.innerHTML = '<div class="spotlight-loading-spinner"><span>⚡</span> <span>Searching across services, projects, blog & hubs...</span></div>';
+                    spotlightDynamicResults.innerHTML = `<div class="spotlight-loading-spinner"><span>⚡</span> <span>${i18n.loading}</span></div>`;
                 }
 
                 fetch(`${searchApiUrl}?q=${encodeURIComponent(query)}`, {
@@ -343,15 +362,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!spotlightDynamicResults) return;
 
                     if (!data.groups || data.groups.length === 0 || data.total === 0) {
-                        const currentLang = document.documentElement.lang || 'en';
                         const quoteUrl = `/${currentLang}/quote/`;
                         spotlightDynamicResults.innerHTML = `
                             <div class="spotlight-empty-state">
                                 <span class="spotlight-empty-icon">🔍</span>
-                                <p class="spotlight-empty-title">No direct matches for "${escapeHtml(query)}"</p>
-                                <p class="spotlight-empty-sub">Looking to engineer a custom system? Our Tangier software architects can help.</p>
+                                <p class="spotlight-empty-title">${i18n.noMatch}</p>
+                                <p class="spotlight-empty-sub">${i18n.noMatchSub}</p>
                                 <a href="${quoteUrl}" class="btn btn-primary btn-sm spotlight-empty-cta spotlight-item">
-                                    <span>Calculate Instant Project Quote →</span>
+                                    <span>${i18n.ctaText}</span>
                                 </a>
                             </div>
                         `;
@@ -392,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (spotlightDynamicResults) {
                         spotlightDynamicResults.innerHTML = `
                             <div class="spotlight-empty-state">
-                                <p class="spotlight-empty-title">Search is temporarily unavailable.</p>
+                                <p class="spotlight-empty-title">${i18n.searchError}</p>
                             </div>
                         `;
                     }
