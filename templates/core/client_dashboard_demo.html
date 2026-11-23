@@ -309,7 +309,7 @@
                 <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-glow btn-lg">
                     <span>{% trans "Start Your Project (60s Quote)" %} →</span>
                 </a>
-                <a href="https://wa.me/212787862187?text={% trans 'Hello getNexiro! I explored your client dashboard demo and would like to discuss my project.'|urlencode %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+                <a href="https://wa.me/212787862187?text={% filter urlencode %}{% trans "Hello getNexiro! I explored your client dashboard demo and would like to discuss my project." %}{% endfilter %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
                     <span>{% trans "Chat on WhatsApp" %}</span>
                 </a>
             </div>

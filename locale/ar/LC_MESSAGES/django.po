@@ -4036,3 +4036,509 @@ msgstr "جاهزية الخادم"
 
 msgid "Active Sprint"
 msgstr "الدورة التطويرية النشطة"
+
+msgid "Explore"
+msgstr "استكشف"
+
+msgid "Quick Search & Navigation (Ctrl+K)"
+msgstr "بحث وتنقل سريع (Ctrl+K)"
+
+msgid "Quick Navigation (Ctrl+K)"
+msgstr "تنقل سريع (Ctrl+K)"
+
+msgid "Search & Quick Jump (⌘K)"
+msgstr "بحث وانتقال سريع (⌘K)"
+
+msgid "Quick Navigator"
+msgstr "المتنقل السريع"
+
+msgid "Get a quote"
+msgstr "اطلب عرض سعر"
+
+msgid "⚡ Actions & Interactive Tools"
+msgstr "⚡ إجراءات وأدوات تفاعلية"
+
+msgid "Calculate Instant Project Quote"
+msgstr "حساب عرض سعر فوري للمشروع"
+
+msgid "Calculate Instant Quote"
+msgstr "حساب تقدير فوري"
+
+msgid "Interactive 60s estimate for web, mobile & cloud systems"
+msgstr "تقدير تفاعلي في 60 ثانية للأنظمة السحابية والويب والجوال"
+
+msgid ""
+"Interactive simulation of live telemetry, support tickets, and sprint "
+"progress"
+msgstr "محاكاة تفاعلية للقياس المباشر، وتذاكر الدعم، وتقدم دورات التسليم"
+
+msgid ""
+"Interactive simulation of live telemetry, support tickets, and sprint "
+"progress."
+msgstr "محاكاة تفاعلية للقياس المباشر، وتذاكر الدعم، وتقدم دورات التسليم."
+
+msgid "Direct WhatsApp with Senior Architects"
+msgstr "محادثة واتساب مباشرة مع كبار مهندسينا"
+
+msgid "Instant consultation with Tangier engineering studio"
+msgstr "استشارة فورية مع استوديو الهندسة البرمجية في طنجة"
+
+msgid "Contact & Project Inquiry"
+msgstr "التواصل واستفسارات المشاريع"
+
+msgid "Contact & Inquiry"
+msgstr "التواصل والاستفسار"
+
+msgid "Submit RFP or schedule a discovery sprint"
+msgstr "أرسل متطلبات مشروعك أو حدد موعداً لجلسة استكشافية"
+
+msgid "Wizard"
+msgstr "المساعد الذكي"
+
+msgid "🛠️ Core Engineering Services"
+msgstr "🛠️ خدمات الهندسة البرمجية الأساسية"
+
+msgid "Core Engineering Services"
+msgstr "خدمات الهندسة البرمجية الأساسية"
+
+msgid "Web Development & Custom Platforms"
+msgstr "تطوير الويب والمنصات المخصصة"
+
+msgid "Django 5.1, Next.js, PostgreSQL, Cloud Deployments"
+msgstr "جانغو 5.1، نكست جي إس، بوستجرس، ونشر سحابي"
+
+msgid "Mobile Applications (iOS & Android)"
+msgstr "تطبيقات الجوال (iOS وأندرويد)"
+
+msgid "Mobile App (iOS/Android)"
+msgstr "تطبيق الجوال (iOS/أندرويد)"
+
+msgid "Flutter, offline-first sync, push notifications, stores"
+msgstr "فلاتر، مزامنة بدون اتصال، إشعارات فورية، ومتاجر التطبيقات"
+
+msgid "UI/UX Design Systems & Interfaces"
+msgstr "نظم تصميم واجهات وتجربة المستخدم"
+
+msgid "UI/UX & Design System"
+msgstr "واجهات المستخدم ونظم التصميم"
+
+msgid "Design tokens, interactive prototypes, B2B ergonomics"
+msgstr "عناصر التصميم، نماذج أولية تفاعلية، وتجربة استخدام للمؤسسات"
+
+msgid "API Architecture & Microservices"
+msgstr "هندسة واجهات البرمجة والخدمات المصغرة"
+
+msgid "High-throughput REST/GraphQL APIs with secure auth"
+msgstr "واجهات REST/GraphQL عالية الأداء مع مصادقة آمنة"
+
+msgid "Cloud Infrastructure & DevOps CI/CD"
+msgstr "البنية التحتية السحابية والعمليات التكاملية CI/CD"
+
+msgid "Docker orchestration, AWS, automated blue/green pipelines"
+msgstr "حاويات دوكر، خوادم AWS، ونشر آلي متوازي بدون انقطاع"
+
+msgid "🇲🇦 Morocco Regional Innovation Hubs"
+msgstr "🇲🇦 مراكز الابتكار الإقليمية في المغرب"
+
+msgid "Tangier (Headquarters Hub)"
+msgstr "طنجة (المقر الرئيسي)"
+
+msgid "Mediterranean nearshore gateway to Europe (GMT+1)"
+msgstr "البوابة المتوسطية للخدمات البرمجية نحو أوروبا (GMT+1)"
+
+msgid "Tétouan"
+msgstr "تطوان"
+
+msgid "Design systems & cross-border commercial tech"
+msgstr "نظم التصميم والتكنولوجيا التجارية العابرة للحدود"
+
+msgid "Fès"
+msgstr "فاس"
+
+msgid "Academic talent & deep enterprise backend systems"
+msgstr "كفاءات أكاديمية وأنظمة خلفية متقدمة للمؤسسات"
+
+msgid "Meknès"
+msgstr "مكناس"
+
+msgid "Agro-industrial platforms & supply chain software"
+msgstr "منصات الصناعات الغذائية وبرمجيات سلاسل الإمداد"
+
+msgid "HQ"
+msgstr "المقر"
+
+msgid "Hub"
+msgstr "مركز"
+
+msgid "🏛️ Agency & Work"
+msgstr "🏛️ الاستوديو وأعمالنا"
+
+msgid "Selected Work & Case Studies"
+msgstr "أعمال مختارة ودراسات حالة"
+
+msgid "Selected Work & Projects"
+msgstr "أعمال ومشاريع مختارة"
+
+msgid "Explore enterprise projects delivered across Morocco & Europe"
+msgstr "استكشف المشاريع البرمجية المنجزة عبر المغرب وأوروبا"
+
+msgid ""
+"Explore enterprise software case studies delivered across Morocco and "
+"Europe."
+msgstr "استكشف دراسات حالة للبرمجيات المؤسسية المنفذة عبر المغرب وأوروبا."
+
+msgid "About getNexiro"
+msgstr "عن getNexiro"
+
+msgid "Our engineering culture, Tangier studio, and client philosophy"
+msgstr "ثقافتنا الهندسية، استوديو طنجة، وفلسفتنا في خدمة الشركاء"
+
+msgid ""
+"Our engineering culture, Tangier headquarters, and technical leadership."
+msgstr "ثقافتنا الهندسية، مقرنا الرئيسي في طنجة، وريادتنا التقنية."
+
+msgid "Premier web & mobile app development agency in Tangier, Morocco."
+msgstr "وكالة رائدة في تطوير تطبيقات الويب والجوال في طنجة، المغرب."
+
+msgid "Custom Web Platforms, Mobile Apps, UI/UX, APIs, and Cloud DevOps."
+msgstr ""
+"منصات ويب مخصصة، تطبيقات جوال، واجهات وتجربة مستخدم، واجهات برمجة، وعمليات "
+"سحابية."
+
+msgid ""
+"Direct line to our Tangier engineering studio. Request an architecture "
+"consultation."
+msgstr ""
+"تواصل مباشر مع استوديو الهندسة البرمجية في طنجة. اطلب استشارة معمارية "
+"لمشروعك."
+
+msgid ""
+"In-depth technical articles on Django, Flutter, cloud architectures and "
+"system design."
+msgstr "مقالات تقنية متعمقة حول جانغو، فلاتر، البنى السحابية وتصميم الأنظمة."
+
+msgid "Engineering Blog & Tech Insights"
+msgstr "مدونة الهندسة والرؤى التقنية"
+
+msgid "Engineering Blog"
+msgstr "مدونة الهندسة"
+
+msgid "Architecture breakdowns, Django, Flutter & performance guides"
+msgstr "تحليلات معمارية برمجية، وأدلة جانغو، فلاتر وتحسين الأداء"
+
+msgid "navigate"
+msgstr "تنقل"
+
+msgid "select"
+msgstr "اختيار"
+
+msgid "close"
+msgstr "إغلاق"
+
+msgid ""
+"getNexiro Studio Hub — Av. Youssef Ibn Tachfine, Tangier 90000, Morocco"
+msgstr "مركز استوديو getNexiro — شارع يوسف بن تاشفين، طنجة 90000، المغرب"
+
+msgid "Explore Localized Tech Hubs Across Morocco"
+msgstr "استكشف مراكز التكنولوجيا الإقليمية في المغرب"
+
+msgid "Explore Tangier Hub"
+msgstr "استكشف مركز طنجة"
+
+msgid "Explore Tétouan Hub"
+msgstr "استكشف مركز تطوان"
+
+msgid "Explore Fès Hub"
+msgstr "استكشف مركز فاس"
+
+msgid "Explore Meknès Hub"
+msgstr "استكشف مركز مكناس"
+
+msgid "Commercial & Tech Hubs"
+msgstr "المراكز التجارية والتقنية"
+
+msgid "Morocco Engineering Corridor"
+msgstr "الممر الهندسي التكنولوجي في المغرب"
+
+msgid "Regional Engineering Delivery to"
+msgstr "تسليم الحلول البرمجية الإقليمية إلى"
+
+msgid "Remote Service Delivery"
+msgstr "تقديم الخدمات عن بعد"
+
+msgid "Remote from Tangier HQ"
+msgstr "عن بعد من المقر الرئيسي في طنجة"
+
+msgid "Software Engineering & Architecture Hub in Tangier"
+msgstr "مركز الهندسة المعمارية والبرمجية في طنجة"
+
+msgid "Engineering Studio • Tangier, Morocco"
+msgstr "استوديو الهندسة البرمجية • طنجة، المغرب"
+
+msgid ""
+"Mediterranean nearshore gateway to Europe (GMT+1) & Tanger Med supply chain "
+"software."
+msgstr ""
+"البوابة المتوسطية نحو أوروبا (GMT+1) وبرمجيات سلاسل الإمداد لميناء طنجة "
+"المتوسط."
+
+msgid "Design systems, mobile commerce & coastal enterprise digitisation."
+msgstr "نظم التصميم، التجارة عبر الجوال والتحول الرقمي للمؤسسات الساحلية."
+
+msgid ""
+"Academic software engineering & high-throughput enterprise backend data "
+"engines."
+msgstr "هندسة برمجية أكاديمية ومحركات بيانات خلفية عالية الأداء للشركات."
+
+msgid ""
+"Agro-export logistics, custom management portals & regional enterprise SaaS."
+msgstr "لوجستيات التصدير الزراعي، بوابات إدارة مخصصة وبرمجيات سحابية إقليمية."
+
+msgid "Curious What It Takes to Build Your Next System?"
+msgstr "فضولي لمعرفة متطلبات بناء نظامك الرقمي القادم؟"
+
+msgid ""
+"Select a project category below to preview delivery timeframes, team "
+"architecture, and get an instant transparent quote in 60 seconds."
+msgstr ""
+"اختر نوع المشروع أدناه لمعاينة الجداول الزمنية وهيكلة الفريق والحصول على "
+"تقدير شفاف في 60 ثانية."
+
+msgid "Customize & Calculate Exact Quote"
+msgstr "تخصيص وحساب عرض السعر الدقيق"
+
+msgid "100% Free • No commitment • Instant 60s breakdown"
+msgstr "مجاني 100% • بدون التزام • تفصيل فوري في 60 ثانية"
+
+msgid "Calculate transparent delivery timelines and budget in 60 seconds."
+msgstr "احسب الجداول الزمنية للتسليم والميزانية بشفافية خلال 60 ثانية."
+
+msgid "Instant Project Quote"
+msgstr "عرض سعر فوري للمشروع"
+
+msgid "Interactive Estimation"
+msgstr "تقدير تفاعلي"
+
+msgid "Recommended Blueprint"
+msgstr "المخطط المعماري الموصى به"
+
+msgid "Typical Delivery"
+msgstr "مدة التسليم المعتادة"
+
+msgid "Development Sprints"
+msgstr "دورات التطوير البرمجي"
+
+msgid "Post-Launch Warranty"
+msgstr "ضمان ما بعد الإطلاق"
+
+msgid "IP Ownership"
+msgstr "ملكية الشفرة البرمجية"
+
+msgid "100% Full IP Transfer"
+msgstr "نقل الملكية الفكرية بالكامل 100%"
+
+msgid "30 Days Included"
+msgstr "30 يوماً مشمولة"
+
+msgid "60 Days Included"
+msgstr "60 يوماً مشمولة"
+
+msgid "2 – 4 Weeks"
+msgstr "2 – 4 أسابيع"
+
+msgid "3 – 6 Weeks"
+msgstr "3 – 6 أسابيع"
+
+msgid "6 – 10 Weeks"
+msgstr "6 – 10 أسابيع"
+
+msgid "1 – 2 Design Sprints"
+msgstr "1 – 2 دورة تصميم"
+
+msgid "2 – 3 Agile Sprints"
+msgstr "2 – 3 دورات أجايل"
+
+msgid "2 – 4 Agile Sprints"
+msgstr "2 – 4 دورات أجايل"
+
+msgid "3 – 5 Agile Sprints"
+msgstr "3 – 5 دورات أجايل"
+
+msgid "Web App / SaaS"
+msgstr "تطبيق ويب / برمجيات كخدمة SaaS"
+
+msgid "Full-Stack & Mobile Core"
+msgstr "الأنظمة الكاملة وجوهر الجوال"
+
+msgid "API Engine & Cloud"
+msgstr "محرك واجهات البرمجة والسحابة"
+
+msgid "Data, Security & Cloud"
+msgstr "البيانات والأمان والسحابة"
+
+msgid "100% Figma & Tokens"
+msgstr "تصميم كامل 100% في Figma مع Design Tokens"
+
+msgid "Styleguide Handoff"
+msgstr "تسليم دليل الهوية ونمط التصميم"
+
+msgid ""
+"Custom Django 5.1 engine + PostgreSQL database, responsive component system,"
+" multilingual routing (EN/FR/AR), and Dockerized automated CI/CD pipeline."
+msgstr ""
+"محرك مخصص بـ Django 5.1 وقاعدة بيانات PostgreSQL، نظام مكونات متجاوب، توجيه "
+"متعدد اللغات (EN/FR/AR)، وخط نشر آلي دوكر CI/CD."
+
+msgid ""
+"Cross-platform Flutter mobile app (iOS & Android) with unified codebase, "
+"offline-first SQLite sync, push notifications, and App Store / Google Play "
+"deployment."
+msgstr ""
+"تطبيق فلاتر متعدد المنصات (iOS وأندرويد) بشفرة موحدة، مزامنة SQLite بدون "
+"اتصال، إشعارات فورية، ونشر في المتاجر."
+
+msgid ""
+"Complete B2B UX audit, clickable high-fidelity Figma prototypes, "
+"comprehensive design tokens (dark/light, typography, spacing), and "
+"accessible component library."
+msgstr ""
+"تدقيق شامل لتجربة المستخدم B2B، نماذج Figma تفاعلية عالية الدقة، معايير "
+"تصميم متكاملة (داكن/فاتح)، ومكتبة مكونات معيارية."
+
+msgid ""
+"High-throughput RESTful & GraphQL microservices with JWT/OAuth2 "
+"authentication, PostgreSQL schema design, Redis caching layer, and automated"
+" API documentation."
+msgstr ""
+"خدمات مصغرة REST وGraphQL فائقة الأداء مع مصادقة JWT/OAuth2، هيكلة "
+"PostgreSQL، تخزين مؤقت عبر Redis، وتوثيق آلي."
+
+msgid "Telemetry"
+msgstr "القياس المباشر"
+
+msgid "Studio Telemetry"
+msgstr "قياسات أداء الاستوديو"
+
+msgid "Technical Insights"
+msgstr "رؤى هندسية"
+
+msgid "Tech Radar"
+msgstr "رادار التكنولوجيا"
+
+msgid "Lighthouse Performance Max"
+msgstr "أعلى أداء في Lighthouse"
+
+msgid "Sprint 4 of 6 • Phase: Payment Gateways & Arabic RTL Localization"
+msgstr "دورة 4 من 6 • المرحلة: بوابات الدفع والتعريب الكامل RTL"
+
+msgid "Jan"
+msgstr "يناير"
+
+msgid "Mar"
+msgstr "مارس"
+
+msgid "May"
+msgstr "مايو"
+
+msgid "Jul"
+msgstr "يوليو"
+
+msgid "Sep"
+msgstr "سبتمبر"
+
+msgid "Nov"
+msgstr "نوفمبر"
+
+msgid "Read Article"
+msgstr "قراءة المقال"
+
+msgid "View Engineering Blog"
+msgstr "عرض مدونة الهندسة"
+
+msgid "Related Engineering Articles"
+msgstr "مقالات هندسية ذات صلة"
+
+msgid "Related Engineering Services"
+msgstr "خدمات هندسية ذات صلة"
+
+msgid "Projects & Case Studies"
+msgstr "المشاريع ودراسات الحالة"
+
+msgid ""
+"Lead engineering contributor at getNexiro, specializing in high-performance "
+"web applications, architecture, and cloud infrastructure."
+msgstr ""
+"مساهم تقني رئيسي في getNexiro، متخصص في تطبيقات الويب عالية الأداء، وهندسة "
+"البرمجيات والبنية التحتية السحابية."
+
+msgid "Form Error"
+msgstr "خطأ في النموذج"
+
+msgid "Field Errors Preventing Save:"
+msgstr "أخطاء في الحقول تمنع الحفظ:"
+
+msgid "Is Confirmed"
+msgstr "مؤكد"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Source"
+msgstr "المصدر"
+
+msgid "Unsubscribed At"
+msgstr "تاريخ إلغاء الاشتراك"
+
+msgid "Which resource or campaign they subscribed to"
+msgstr "المورد أو الحملة التي تم الاشتراك فيها"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Français"
+msgstr "الفرنسية"
+
+msgid "العربية"
+msgstr "العربية"
+
+msgid "Canonical short city slug, e.g. tangier, tetouan, fes, meknes"
+msgstr "الاسم اللطيف القصير للمدينة، مثل: tangier, tetouan, fes, meknes"
+
+msgid ""
+"Economic zones, industrial hubs or technology parks in this city, newline-"
+"separated."
+msgstr ""
+"المناطق الاقتصادية أو المجمعات الصناعية والتكنولوجية في هذه المدينة، مفصولة "
+"بسطر جديد."
+
+msgid "Local Commercial Landmarks / Tech Parks (EN)"
+msgstr "المعالم التجارية المحلية / المجمعات التقنية (EN)"
+
+msgid "Local Commercial Landmarks / Tech Parks (FR)"
+msgstr "المعالم التجارية المحلية / المجمعات التقنية (FR)"
+
+msgid "Local Commercial Landmarks / Tech Parks (AR)"
+msgstr "المعالم التجارية المحلية / المجمعات التقنية (AR)"
+
+msgid "Local Projects (EN)"
+msgstr "المشاريع المحلية (EN)"
+
+msgid "Local Projects (FR)"
+msgstr "المشاريع المحلية (FR)"
+
+msgid "Local Projects (AR)"
+msgstr "المشاريع المحلية (AR)"
+
+msgid ""
+"Verified projects completed for clients in this city, newline-separated."
+msgstr "مشاريع مؤكدة تم تنفيذها لعملاء في هذه المدينة، مفصولة بسطر جديد."
+
+msgid ""
+"True if getNexiro serves this city remotely from Tangier HQ without a "
+"physical local studio."
+msgstr ""
+"صحيح إذا كانت getNexiro تخدم هذه المدينة عن بُعد من مقر طنجة دون وجود "
+"استوديو محلي فعلي."
+
+msgid "A valid email address is required."
+msgstr "يرجى إدخال عنوان بريد إلكتروني صحيح."
