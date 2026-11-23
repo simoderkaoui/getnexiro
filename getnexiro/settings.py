@@ -4,6 +4,7 @@ Luxury B2B Software Development Agency — Tangier, Morocco
 """
 
 import os
+import sys
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -197,12 +198,18 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'getNexiro <contact@ge
 SERVER_EMAIL = os.environ.get('SERVER_EMAIL', DEFAULT_FROM_EMAIL)
 EMAIL_TIMEOUT = int(os.environ.get('EMAIL_TIMEOUT', '10'))
 
+# Detect if running under manage.py test
+TESTING = 'test' in sys.argv or any('test' in arg for arg in sys.argv)
+
 # ──────────────────────────────────────────────
 # Production Security Settings (enabled when DEBUG=False)
 # ──────────────────────────────────────────────
 if not DEBUG:
     # HTTPS / SSL
-    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() in ('true', '1', 't')
+    SECURE_SSL_REDIRECT = (
+        not TESTING and
+        os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() in ('true', '1', 't')
+    )
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # HSTS (start with 1 hour, increase after confirming HTTPS works)

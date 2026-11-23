@@ -1554,7 +1554,10 @@ class SEOMasterTestSuite(TestCase):
         self.config.save()
 
     def _get_soup(self, url):
-        from bs4 import BeautifulSoup
+        try:
+            from bs4 import BeautifulSoup
+        except ImportError:
+            self.skipTest("beautifulsoup4 is not installed. Run: pip install -r requirements.txt")
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200, f"Page {url} did not return 200 OK")
         return BeautifulSoup(res.content.decode('utf-8'), 'html.parser')
@@ -1776,8 +1779,11 @@ class SEOPhase3Phase4AuditTest(TestCase):
     Comprehensive tests for SEO Phase 3 (Meta Tags & Social) and Phase 4 (International SEO).
     """
     def setUp(self):
-        from bs4 import BeautifulSoup
-        self.soup_cls = BeautifulSoup
+        try:
+            from bs4 import BeautifulSoup
+            self.soup_cls = BeautifulSoup
+        except ImportError:
+            self.skipTest("beautifulsoup4 is not installed. Run: pip install -r requirements.txt")
         self.service = Service.objects.create(
             title_en="Web Development in Tangier, Morocco",
             slug="web-development",
