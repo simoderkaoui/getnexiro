@@ -400,7 +400,7 @@ msgid "Research"
 msgstr "البحث والتحليل"
 
 msgid "Architecture"
-msgstr "الهندسة والمعمارية"
+msgstr "المعمارية"
 
 msgid ""
 "We design scalable system architectures and create detailed technical "
@@ -4423,7 +4423,7 @@ msgid "Technical Insights"
 msgstr "رؤى هندسية"
 
 msgid "Tech Radar"
-msgstr "رادار التكنولوجيا"
+msgstr "رادار التقنية"
 
 msgid "Lighthouse Performance Max"
 msgstr "أعلى أداء في Lighthouse"

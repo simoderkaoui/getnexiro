@@ -681,15 +681,18 @@ ul {
 .console-header {
     background: rgba(15, 23, 42, 0.95);
     border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.6rem;
+    min-width: 0;
 }
 
 .console-dots {
     display: flex;
     gap: 7px;
+    flex-shrink: 0;
 }
 
 .console-dot {
@@ -727,6 +730,8 @@ ul {
     padding: 0.25rem 0.6rem;
     border-radius: var(--radius-full);
     letter-spacing: 0.06em;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .console-body {
@@ -4396,24 +4401,35 @@ body:has(#navLinks.active) #backToTop {
 /* ── 3. Hero Console Interactive Tabs ── */
 .console-tabs-nav {
     display: flex;
+    align-items: center;
     gap: 4px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 3px;
     border-radius: 8px;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.console-tabs-nav::-webkit-scrollbar {
+    display: none;
 }
 .console-tab-btn {
     background: transparent;
     border: none;
     color: #94a3b8;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    padding: 4px 10px;
+    padding: 4px 9px;
     border-radius: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1.25;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .console-tab-btn:hover {
@@ -5966,5 +5982,24 @@ body.sticky-cta-active .back-to-top {
     border-bottom: none;
     padding-bottom: 0;
 }
+
+@media (max-width: 576px) {
+    .console-header {
+        padding: 0.5rem 0.75rem;
+    }
+    .console-dots {
+        display: none;
+    }
+    .console-tab-btn {
+        font-size: 0.72rem;
+        padding: 3px 7px;
+    }
+}
+@media (max-width: 380px) {
+    .console-live-pill {
+        display: none;
+    }
+}
+
 
 

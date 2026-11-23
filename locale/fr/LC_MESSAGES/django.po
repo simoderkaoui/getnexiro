@@ -4561,7 +4561,7 @@ msgid "Technical Insights"
 msgstr "Perspectives Techniques"
 
 msgid "Tech Radar"
-msgstr "Radar Technologique"
+msgstr "Radar Tech"
 
 msgid "Lighthouse Performance Max"
 msgstr "Performance Lighthouse Maximale"
