@@ -761,17 +761,17 @@ class BookingAdmin(admin.ModelAdmin):
 
 @admin.register(Subscriber)
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ('email', 'name', 'lead_magnet', 'status', 'consent', 'created_at')
-    list_filter = ('status', 'consent', 'lead_magnet', 'created_at')
-    list_editable = ('status',)
-    search_fields = ('email', 'name')
-    readonly_fields = ('email', 'name', 'consent', 'lead_magnet', 'source_page', 'created_at', 'confirmation_token', 'token_created_at')
+    list_display = ('email', 'language', 'is_confirmed', 'status', 'source', 'lead_magnet', 'created_at', 'unsubscribed_at')
+    list_filter = ('is_confirmed', 'status', 'language', 'source', 'lead_magnet', 'consent', 'created_at')
+    list_editable = ('status', 'is_confirmed')
+    search_fields = ('email', 'name', 'source', 'source_page')
+    readonly_fields = ('created_at', 'unsubscribed_at', 'confirmation_token', 'token_created_at')
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
     actions = [export_as_csv]
 
     def has_add_permission(self, request):
-        return False
+        return True
 
 
 

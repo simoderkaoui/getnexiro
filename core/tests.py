@@ -2249,6 +2249,93 @@ class AdminProjectSaveTest(TestCase):
         self.assertTrue(ProjectImage.objects.filter(pk=img2.pk).exists())
 
 
+# ── Phase 6: Tests for the 5 New Production Features ─────────────────
+
+class FiveFeaturesTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_search_api_empty_query(self):
+        res = self.client.get('/en/search/?q=a')
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertEqual(data['total'], 0)
+        self.assertEqual(len(data['groups']), 0)
+
+    def test_search_api_matches(self):
+        res = self.client.get('/en/search/?q=web')
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertTrue('groups' in data)
+        self.assertIn('total', data)
+
+    def test_sticky_mini_cta_included(self):
+        res = self.client.get('/en/')
+        self.assertContains(res, 'id="stickyMiniCta"')
+        self.assertContains(res, 'https://wa.me/212787862187')
+
+    def test_sticky_mini_cta_excluded_on_contact(self):
+        res = self.client.get('/en/contact/')
+        self.assertNotContains(res, 'id="stickyMiniCta"')
+
+    def test_newsletter_subscribe_success(self):
+        res = self.client.post('/en/newsletter/subscribe/', {
+            'email': 'techlead@moroccotips.ma',
+            'language': 'en',
+            'website_url': '',
+        })
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertEqual(data['status'], 'success')
+        sub = Subscriber.objects.get(email='techlead@moroccotips.ma')
+        self.assertFalse(sub.is_confirmed)
+        self.assertTrue(bool(sub.confirmation_token))
+
+    def test_newsletter_subscribe_honeypot(self):
+        res = self.client.post('/en/newsletter/subscribe/', {
+            'email': 'spambot@example.com',
+            'language': 'en',
+            'website_url': 'http://spam-site.com',
+        })
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertEqual(data['status'], 'success')
+        # Bot is silently ignored, not saved to DB
+        self.assertFalse(Subscriber.objects.filter(email='spambot@example.com').exists())
+
+    def test_client_dashboard_demo_view(self):
+        res = self.client.get('/en/client-dashboard-demo/')
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'Client Dashboard Demo')
+        self.assertContains(res, 'TKT-2026-401')
+        self.assertContains(res, '28,000 MAD')
+        self.assertContains(res, '<link rel="canonical"')
+        self.assertContains(res, 'hreflang="fr"')
+
+    def test_process_timeline_included_home_and_about(self):
+        res_home = self.client.get('/en/')
+        self.assertContains(res_home, 'id="ourProcessTimeline"')
+        self.assertContains(res_home, '01')
+        self.assertContains(res_home, 'Discovery & Architecture')
+
+        res_about = self.client.get('/en/about/')
+        self.assertContains(res_about, 'id="ourProcessTimeline"')
+
+    def test_send_newsletter_command_dry_run(self):
+        from io import StringIO
+        from django.core.management import call_command
+        Subscriber.objects.create(
+            email='active@client.ma',
+            is_confirmed=True,
+            status='confirmed',
+            language='fr'
+        )
+        out = StringIO()
+        call_command('send_newsletter', '--subject=Test Subject', '--body=<p>Hello World</p>', '--dry-run', stdout=out)
+        self.assertIn('[DRY-RUN] Would send to 1 subscriber(s)', out.getvalue())
+
+
+
 
 
 

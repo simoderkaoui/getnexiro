@@ -3588,3 +3588,568 @@ msgstr "Service associé"
 
 msgid "Software"
 msgstr "Logiciel"
+
+msgid "Search services, projects, Moroccan hubs, or tools..."
+msgstr "Rechercher des services, projets, hubs marocains ou outils..."
+
+msgid "Searching across services, projects, blog & hubs..."
+msgstr "Recherche dans les services, projets, blog et hubs..."
+
+msgid "No direct matches for"
+msgstr "Aucun résultat direct pour"
+
+msgid ""
+"Looking to engineer a custom system? Our Tangier software architects can "
+"help."
+msgstr ""
+"Vous souhaitez concevoir un système sur mesure ? Nos architectes logiciels à"
+" Tanger sont à votre écoute."
+
+msgid "Pages & Tools"
+msgstr "Pages & Outils"
+
+msgid "Tech Articles & Guides"
+msgstr "Articles Techniques & Guides"
+
+msgid "Morocco Innovation Hubs"
+msgstr "Pôles d'Innovation au Maroc"
+
+msgid "Article"
+msgstr "Article"
+
+msgid "Morocco Hub"
+msgstr "Hub Maroc"
+
+msgid "Demo"
+msgstr "Démo"
+
+msgid "Tool"
+msgstr "Outil"
+
+msgid "Rate limit exceeded. Please wait a moment."
+msgstr "Limite de requêtes dépassée. Veuillez patienter un instant."
+
+msgid "Quick Project Actions"
+msgstr "Actions Rapides du Projet"
+
+msgid "Ready to Build Your System?"
+msgstr "Prêt à Concevoir Votre Système ?"
+
+msgid ""
+"Get a transparent 60s estimate or talk directly with Tangier senior "
+"architects."
+msgstr ""
+"Obtenez une estimation transparente en 60s ou échangez directement avec nos "
+"architectes seniors à Tanger."
+
+msgid "Dismiss notification"
+msgstr "Ignorer la notification"
+
+msgid "Morocco Web Tips"
+msgstr "Morocco Web Tips"
+
+msgid "Stay Ahead in Tech & Engineering"
+msgstr "Gardez une Longueur d'Avance Tech & Ingénierie"
+
+msgid ""
+"Bi-weekly architecture breakdowns, Django & Flutter patterns, and North "
+"African tech updates directly to your inbox."
+msgstr ""
+"Analyses bimensuelles d'architectures, modèles Django & Flutter, et "
+"actualités tech d'Afrique du Nord directement dans votre boîte mail."
+
+msgid "Enter your email address..."
+msgstr "Entrez votre adresse email..."
+
+msgid "Subscribe to Tips"
+msgstr "S'abonner aux Conseils"
+
+msgid "Subscribing..."
+msgstr "Abonnement en cours..."
+
+msgid "Email address for newsletter"
+msgstr "Adresse email pour la newsletter"
+
+msgid ""
+"By subscribing, you agree to receive Morocco Web Tips and engineering "
+"updates. You can unsubscribe at any time. Governed by Moroccan Law 09-08 on "
+"personal data protection."
+msgstr ""
+"En vous abonnant, vous acceptez de recevoir Morocco Web Tips et nos "
+"actualités d'ingénierie. Vous pouvez vous désabonner à tout moment. Soumis à"
+" la loi marocaine 09-08 sur la protection des données personnelles."
+
+msgid "Enjoyed this article? Get our bi-weekly briefings."
+msgstr "Vous avez apprécié cet article ? Recevez nos briefings bimensuels."
+
+msgid ""
+"Join developers, startup founders, and technical leads across Morocco "
+"receiving our exclusive software engineering playbooks and architecture "
+"guides."
+msgstr ""
+"Rejoignez les développeurs, fondateurs de startups et directeurs techniques "
+"à travers le Maroc qui reçoivent nos guides exclusifs d'ingénierie et "
+"d'architecture."
+
+msgid ""
+"Please check your inbox to confirm your subscription to Morocco Web Tips."
+msgstr ""
+"Veuillez vérifier votre boîte de réception pour confirmer votre abonnement à"
+" Morocco Web Tips."
+
+msgid "Please check your email to confirm your subscription."
+msgstr "Veuillez vérifier votre email pour confirmer votre abonnement."
+
+msgid "You are already subscribed to Morocco Web Tips!"
+msgstr "Vous êtes déjà abonné à Morocco Web Tips !"
+
+msgid "Confirm your subscription to Morocco Web Tips | getNexiro"
+msgstr "Confirmez votre abonnement à Morocco Web Tips | getNexiro"
+
+msgid "Confirm your subscription to Morocco Web Tips"
+msgstr "Confirmez votre abonnement à Morocco Web Tips"
+
+msgid ""
+"Thank you for subscribing to Morocco Web Tips, the bi-weekly technical "
+"newsletter engineered by getNexiro in Tangier, Morocco."
+msgstr ""
+"Merci de vous être abonné à Morocco Web Tips, la newsletter technique "
+"bimensuelle conçue par getNexiro à Tanger, Maroc."
+
+msgid ""
+"Thank you for subscribing to <strong>Morocco Web Tips</strong>, the bi-"
+"weekly technical newsletter engineered by the getNexiro software team in "
+"Tangier."
+msgstr ""
+"Merci de vous être abonné à <strong>Morocco Web Tips</strong>, la newsletter"
+" technique bimensuelle conçue par l'équipe logicielle de getNexiro à Tanger."
+
+msgid ""
+"We share actionable full-stack breakdowns, Django & Flutter engineering "
+"patterns, nearshore architecture insights, and North African tech ecosystem "
+"analysis."
+msgstr ""
+"Nous partageons des analyses full-stack actionnables, des patterns Django & "
+"Flutter, des retours d'architecture nearshore et des analyses de "
+"l'écosystème tech en Afrique du Nord."
+
+msgid ""
+"To complete your subscription and start receiving our briefings, please "
+"verify your email address below:"
+msgstr ""
+"Pour finaliser votre inscription et recevoir nos prochaines éditions, "
+"veuillez vérifier votre adresse email ci-dessous :"
+
+msgid "Almost there! Confirm your email"
+msgstr "Presque terminé ! Confirmez votre adresse email"
+
+msgid "Double Opt-In Verification"
+msgstr "Vérification Double Opt-In"
+
+msgid "Confirm My Subscription"
+msgstr "Confirmer Mon Abonnement"
+
+msgid "Please confirm your subscription by clicking the link below:"
+msgstr ""
+"Veuillez confirmer votre abonnement en cliquant sur le lien ci-dessous :"
+
+msgid "If you did not request this, you can safely ignore this email."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet "
+"email en toute sécurité."
+
+msgid ""
+"If you did not request this subscription, no action is needed. You will not "
+"be emailed again unless confirmed."
+msgstr ""
+"Si vous n'avez pas demandé cet abonnement, aucune action n'est requise. "
+"Aucun autre email ne vous sera envoyé sans confirmation."
+
+msgid "Button not working? Copy and paste this link in your browser:"
+msgstr ""
+"Le bouton ne fonctionne pas ? Copiez et collez ce lien dans votre navigateur"
+" :"
+
+msgid "To unsubscribe, visit:"
+msgstr "Pour vous désabonner, visitez :"
+
+msgid "Unsubscribe from Morocco Web Tips"
+msgstr "Se désabonner de Morocco Web Tips"
+
+msgid ""
+"You received this email because you are subscribed to Morocco Web Tips by "
+"getNexiro."
+msgstr ""
+"Vous recevez cet email car vous êtes abonné à Morocco Web Tips par "
+"getNexiro."
+
+msgid "Data handled in compliance with Moroccan Law 09-08 & GDPR."
+msgstr "Données traitées conformément à la loi marocaine 09-08 et au RGPD."
+
+msgid "Compliant with Moroccan Law 09-08 and GDPR."
+msgstr "Conforme à la loi marocaine 09-08 et au RGPD."
+
+msgid ""
+"Your subscription to Morocco Web Tips has been confirmed! Welcome aboard."
+msgstr ""
+"Votre abonnement à Morocco Web Tips a été confirmé ! Bienvenue parmi nous."
+
+msgid "Too many requests. Please try again in a few minutes."
+msgstr "Trop de requêtes. Veuillez réessayer dans quelques minutes."
+
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse email valide."
+
+msgid "Thank you! Please check your email to confirm your subscription."
+msgstr ""
+"Merci ! Veuillez vérifier votre email pour confirmer votre abonnement."
+
+msgid "Our Methodology"
+msgstr "Notre Méthodologie"
+
+msgid "From Concept to Production in 5 Proven Steps"
+msgstr "Du Concept à la Production en 5 Étapes Éprouvées"
+
+msgid ""
+"A structured engineering lifecycle built on transparent sprints, zero-"
+"downtime deployments, and ongoing nearshore support from Tangier."
+msgstr ""
+"Un cycle d'ingénierie structuré basé sur des sprints transparents, des "
+"déploiements sans interruption et un support nearshore continu depuis "
+"Tanger."
+
+msgid "getNexiro 5-Step Delivery Lifecycle"
+msgstr "Cycle de Livraison en 5 Étapes getNexiro"
+
+msgid "Discovery & Architecture"
+msgstr "Découverte & Architecture"
+
+msgid ""
+"We audit your business requirements, define data models, and engineer a "
+"detailed technical roadmap with stack specifications tailored to your target"
+" markets."
+msgstr ""
+"Nous auditons vos besoins métiers, définissons les modèles de données et "
+"concevons une feuille de route technique détaillée adaptée à vos marchés "
+"cibles."
+
+msgid ""
+"Interactive Figma prototypes, accessible design tokens (dark/light, "
+"RTL/LTR), and conversion-optimized ergonomic interfaces reviewed with your "
+"team."
+msgstr ""
+"Prototypes Figma interactifs, tokens de design accessibles (sombre/clair, "
+"RTL/LTR) et interfaces ergonomiques optimisées pour la conversion."
+
+msgid "Agile Engineering Sprints"
+msgstr "Sprints d'Ingénierie Agile"
+
+msgid ""
+"Bi-weekly iterative sprints delivering robust Django 5.1 backends, reactive "
+"frontends, and native Flutter apps with test coverage and staging previews."
+msgstr ""
+"Sprints itératifs bimensuels livrant des backends Django 5.1 robustes, des "
+"frontends réactifs et des applications Flutter natives avec couverture de "
+"tests."
+
+msgid "Security, QA & Launch"
+msgstr "Sécurité, Assurance Qualité & Lancement"
+
+msgid ""
+"Rigorous OWASP security checks, Lighthouse 99+ Core Web Vitals optimization,"
+" zero-downtime blue/green CI/CD deployment, and DNS handoff."
+msgstr ""
+"Vérifications de sécurité OWASP rigoureuses, optimisation Lighthouse 99+ "
+"Core Web Vitals, déploiement CI/CD blue/green sans interruption et "
+"transition DNS."
+
+msgid "SLA Support & Growth"
+msgstr "Support SLA & Évolution"
+
+msgid ""
+"30-day post-launch warranty included, continuous automated database backups,"
+" 24/7 server monitoring, and feature iteration sprints as you scale."
+msgstr ""
+"Garantie 30 jours incluse après lancement, sauvegardes automatiques de bases"
+" de données, surveillance serveur 24/7 et sprints d'évolution continue."
+
+msgid "1 – 2 Weeks"
+msgstr "1 – 2 Semaines"
+
+msgid "2 – 3 Weeks"
+msgstr "2 – 3 Semaines"
+
+msgid "4 – 8 Weeks"
+msgstr "4 – 8 Semaines"
+
+msgid "Ongoing SLA"
+msgstr "SLA Continu"
+
+msgid "Client Dashboard Demo | Transparent Studio Portal | getNexiro"
+msgstr "Démo Espace Client | Portail Studio Transparent | getNexiro"
+
+msgid ""
+"Explore our interactive client portal simulation: real-time analytics, SLA "
+"tickets, and Moroccan Dirham (MAD) billing from getNexiro in Tangier."
+msgstr ""
+"Découvrez la simulation interactive de notre portail client : télémétrie en "
+"temps réel, tickets SLA et facturation en dirhams marocains (MAD) par "
+"getNexiro à Tanger."
+
+msgid "Client Dashboard Demo"
+msgstr "Démo Espace Client"
+
+msgid "Interactive Client Portal Demo • Post-Launch Simulation"
+msgstr "Démo Portail Client Interactif • Simulation Post-Lancement"
+
+msgid "Transparent Engineering"
+msgstr "Une Ingénierie Transparente"
+
+msgid "At Your Fingertips"
+msgstr "À Portée de Main"
+
+msgid ""
+"Experience the real-time telemetry, direct SLA ticketing, transparent sprint"
+" checkpoints, and MAD invoicing our clients enjoy after project deployment."
+msgstr ""
+"Découvrez la télémétrie en temps réel, la gestion directe des tickets SLA, "
+"le suivi transparent des sprints et la facturation en MAD dont bénéficient "
+"nos clients."
+
+msgid "Production Active • Nearshore SLA Tier 1"
+msgstr "Production Active • SLA Nearshore Niveau 1"
+
+msgid "Client Portal Sections"
+msgstr "Sections du Portail Client"
+
+msgid "Telemetry & Analytics"
+msgstr "Télémétrie & Analytique"
+
+msgid "SLA Support Tickets"
+msgstr "Tickets de Support SLA"
+
+msgid "Billing & Invoices (MAD)"
+msgstr "Facturation & Devis (MAD)"
+
+msgid "Sprint Milestones"
+msgstr "Jalons des Sprints"
+
+msgid "Monthly Active Visitors"
+msgstr "Visiteurs Actifs Mensuels"
+
+msgid "Global & Moroccan B2B traffic"
+msgstr "Trafic B2B marocain et international"
+
+msgid "Avg Session Duration"
+msgstr "Durée Moyenne de Session"
+
+msgid "High engaged user workflows"
+msgstr "Flux utilisateurs à fort engagement"
+
+msgid "Core Web Vitals"
+msgstr "Core Web Vitals"
+
+msgid "API Response Time"
+msgstr "Temps de Réponse API"
+
+msgid "Tangier Edge Server Node"
+msgstr "Nœud Serveur Edge de Tanger"
+
+msgid "Traffic & API Growth Trend (Last 12 Months)"
+msgstr "Tendance de Croissance Trafic & API (12 Derniers Mois)"
+
+msgid "Unique Visitors"
+msgstr "Visiteurs Uniques"
+
+msgid "API Calls (k)"
+msgstr "Appels API (k)"
+
+msgid "Top Performing Production Routes"
+msgstr "Meilleures Routes de Production"
+
+msgid "Route / Microservice"
+msgstr "Route / Microservice"
+
+msgid "HTTP Method"
+msgstr "Méthode HTTP"
+
+msgid "Traffic Volume"
+msgstr "Volume de Trafic"
+
+msgid "Avg Latency"
+msgstr "Latence Moyenne"
+
+msgid "SLA Support & Ticket Resolution"
+msgstr "Support SLA & Résolution de Tickets"
+
+msgid ""
+"Direct line to our Tangier engineering leads with transparent response times"
+" and Git pull-request references."
+msgstr ""
+"Ligne directe avec nos leads ingénieurs à Tanger avec temps de réponse "
+"transparents et références de commits Git."
+
+msgid "In Progress"
+msgstr "En cours"
+
+msgid "Resolved"
+msgstr "Résolu"
+
+msgid "Open"
+msgstr "Ouvert"
+
+msgid "Priority"
+msgstr "Priorité"
+
+msgid "High"
+msgstr "Élevée"
+
+msgid "Medium"
+msgstr "Moyenne"
+
+msgid "Low"
+msgstr "Basse"
+
+msgid "2 hours ago"
+msgstr "Il y a 2 heures"
+
+msgid "Yesterday"
+msgstr "Hier"
+
+msgid "30 mins ago"
+msgstr "Il y a 30 min"
+
+msgid "Stripe & CMI Multi-Currency Webhook Verification (MAD / EUR)"
+msgstr "Vérification du Webhook Multi-Devises Stripe & CMI (MAD / EUR)"
+
+msgid ""
+"PostgreSQL Connection Pooling Optimization (Tanger Med Supply Chain API)"
+msgstr ""
+"Optimisation du Pool de Connexions PostgreSQL (API Supply Chain Tanger Med)"
+
+msgid "Annual Wildcard SSL Certificate Auto-Renewal Verification"
+msgstr "Vérification du Renouvellement Automatique du Certificat SSL Wildcard"
+
+msgid "Transparent Milestone Invoicing (MAD)"
+msgstr "Facturation Transparente par Jalons (MAD)"
+
+msgid ""
+"Moroccan Dirham (MAD) and Euro billing tied directly to verifiable delivery "
+"milestones. No hidden fees."
+msgstr ""
+"Facturation en dirhams marocains (MAD) et euros directement liée à des "
+"livrables vérifiables. Aucun frais caché."
+
+msgid "Total Contract"
+msgstr "Total Contrat"
+
+msgid "Invoice Ref"
+msgstr "Réf Facture"
+
+msgid "Description & Milestone"
+msgstr "Description & Jalon"
+
+msgid "Amount (MAD)"
+msgstr "Montant (MAD)"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Paid"
+msgstr "Payée"
+
+msgid "Pending"
+msgstr "En attente"
+
+msgid "Download PDF"
+msgstr "Télécharger PDF"
+
+msgid "Sample invoice (Disabled in demo mode)"
+msgstr "Facture d'exemple (Désactivée en mode démo)"
+
+msgid "Milestone 3: Core API Architecture & Microservices Delivery"
+msgstr "Jalon 3 : Livraison de l'Architecture API Core & Microservices"
+
+msgid ""
+"Milestone 2: Cross-Platform Flutter Mobile Architecture (iOS & Android)"
+msgstr "Jalon 2 : Architecture Mobile Multiplateforme Flutter (iOS & Android)"
+
+msgid "Milestone 4: Cloud Infrastructure & 24/7 SLA Production Warranty"
+msgstr "Jalon 4 : Infrastructure Cloud & Garantie de Production SLA 24/7"
+
+msgid "Sprint Roadmap & Delivery Milestones"
+msgstr "Feuille de Route des Sprints & Jalons de Livraison"
+
+msgid "In Progress (72%)"
+msgstr "En cours (72%)"
+
+msgid "Upcoming"
+msgstr "À venir"
+
+msgid "Architecture Blueprint & Technical Audit"
+msgstr "Schéma d'Architecture & Audit Technique"
+
+msgid "Interactive Figma Prototypes & Design Tokens"
+msgstr "Prototypes Figma Interactifs & Tokens de Design"
+
+msgid "Django 5.1 Backend & PostgreSQL Schema Engine"
+msgstr "Backend Django 5.1 & Moteur de Schéma PostgreSQL"
+
+msgid "Payment Gateways, Auth & Bilingual Localization"
+msgstr "Passerelles de Paiement, Authentification & Bilinguisme"
+
+msgid "Production Cloud Launch & Zero-Downtime Blue/Green Deploy"
+msgstr "Lancement Cloud Production & Déploiement Blue/Green Sans Interruption"
+
+msgid "Ready for Your Own Portal?"
+msgstr "Prêt pour Votre Propre Portail ?"
+
+msgid "Bring Your Vision to Life With Real-Time Transparency"
+msgstr "Donnez Vie à Votre Projet Avec une Transparence Totale"
+
+msgid ""
+"Partner with Tangier's dedicated engineering studio. We combine "
+"international technical excellence with localized Moroccan responsiveness."
+msgstr ""
+"Collaborez avec un studio d'ingénierie dédié à Tanger. Nous allions "
+"excellence technique internationale et réactivité marocaine."
+
+msgid "Start Your Project (60s Quote)"
+msgstr "Démarrer Votre Projet (Devis en 60s)"
+
+msgid ""
+"Hello getNexiro! I explored your client dashboard demo and would like to "
+"discuss my project."
+msgstr ""
+"Bonjour getNexiro ! J'ai exploré votre démo d'espace client et j'aimerais "
+"discuter de mon projet."
+
+msgid "Curious What It Feels Like to Work With Us?"
+msgstr "Curieux de Savoir Comment se Déroule une Collaboration Avec Nous ?"
+
+msgid ""
+"Explore our interactive Client Dashboard Demo. See real-time telemetry, SLA "
+"ticket tracking, sprint progress, and Moroccan Dirham (MAD) billing "
+"simulation."
+msgstr ""
+"Explorez notre démo interactive du tableau de bord client. Visualisez la "
+"télémétrie en temps réel, le suivi des tickets SLA, l'avancement des sprints"
+" et la facturation en MAD."
+
+msgid "Explore Client Dashboard Demo"
+msgstr "Explorer la Démo de l'Espace Client"
+
+msgid "Transparent Operations"
+msgstr "Opérations Transparentes"
+
+msgid "Live Telemetry"
+msgstr "Télémétrie en Direct"
+
+msgid "SLA Response"
+msgstr "Temps de Réponse SLA"
+
+msgid "Uptime Status"
+msgstr "Disponibilité Serveur"
+
+msgid "Active Sprint"
+msgstr "Sprint en Cours"

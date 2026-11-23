@@ -40,7 +40,7 @@ urlpatterns = [
     path('privacy-policy/', views.legal_page, {'slug': 'privacy-policy'}, name='privacy_policy'),
     path('terms-of-service/', views.legal_page, {'slug': 'terms-of-service'}, name='terms_of_service'),
 
-    # Lead Generation & Booking
+    # Lead Generation, Booking & Interactive Features
     path('quote/', views.quote_wizard, name='quote_wizard'),
     path('quote/success/', views.quote_success, name='quote_success'),
     path('packages/', views.packages, name='packages'),
@@ -48,4 +48,9 @@ urlpatterns = [
     path('checklist/', views.lead_magnet, name='lead_magnet'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
     path('confirm/<str:token>/', views.confirm_subscription, name='confirm_subscription'),
+
+    # Features: Search API, Newsletter & Client Dashboard Demo
+    path('search/', views.search_api, name='search_api'),
+    path('newsletter/subscribe/', views.newsletter_subscribe, name='newsletter_subscribe'),
+    path('client-dashboard-demo/', views.client_dashboard_demo, name='client_dashboard_demo'),
 ]

@@ -86,6 +86,7 @@ def sitemap_xml(request):
         ('core:blog', '0.8', 'daily'),
         ('core:packages', '0.8', 'monthly'),
         ('core:contact', '0.8', 'monthly'),
+        ('core:client_dashboard_demo', '0.7', 'monthly'),
     ]
     for name, prio, freq in static_routes:
         add_multilingual_page(name, priority=prio, changefreq=freq, lastmod=base_lastmod)

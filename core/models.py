@@ -1469,7 +1469,7 @@ class Booking(models.Model):
 # ── 20. Lead Magnet Subscribers ───────────────────────────────
 
 class Subscriber(models.Model):
-    """Email subscribers for lead magnets (checklist downloads, newsletter)."""
+    """Email subscribers for newsletter (Morocco Web Tips) and lead magnets."""
 
     STATUS_CHOICES = [
         ('pending', _('Pending Confirmation')),
@@ -1477,13 +1477,22 @@ class Subscriber(models.Model):
         ('unsubscribed', _('Unsubscribed')),
     ]
 
+    LANGUAGE_CHOICES = [
+        ('en', _('English')),
+        ('fr', _('Français')),
+        ('ar', _('العربية')),
+    ]
+
     email = models.EmailField(_('Email'), unique=True)
     name = models.CharField(_('Name'), max_length=150, blank=True, default='')
+    language = models.CharField(_('Language'), max_length=10, choices=LANGUAGE_CHOICES, default='en')
+    is_confirmed = models.BooleanField(_('Is Confirmed'), default=False)
     consent = models.BooleanField(_('Marketing Consent'), default=False)
-    status = models.CharField(_('Status'), max_length=20, choices=STATUS_CHOICES, default='confirmed')
+    status = models.CharField(_('Status'), max_length=20, choices=STATUS_CHOICES, default='pending')
 
     lead_magnet = models.CharField(_('Lead Magnet'), max_length=100, blank=True, default='checklist',
-        help_text=_('Which resource they downloaded'))
+        help_text=_('Which resource or campaign they subscribed to'))
+    source = models.CharField(_('Source'), max_length=100, blank=True, default='website')
 
     confirmation_token = models.CharField(_('Confirmation Token'), max_length=64, blank=True, default='',
         help_text=_('Token sent via email for double opt-in confirmation'))
@@ -1492,11 +1501,23 @@ class Subscriber(models.Model):
     source_page = models.CharField(_('Source Page'), max_length=300, blank=True, default='')
     honeypot = models.CharField(max_length=200, blank=True, default='')
     created_at = models.DateTimeField(_('Subscribed At'), auto_now_add=True)
+    unsubscribed_at = models.DateTimeField(_('Unsubscribed At'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Subscriber')
         verbose_name_plural = _('Subscribers')
         ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        if self.status == 'confirmed':
+            self.is_confirmed = True
+        elif self.is_confirmed:
+            self.status = 'confirmed'
+        elif self.status == 'unsubscribed':
+            self.is_confirmed = False
+        if not self.source and self.source_page:
+            self.source = self.source_page[:100]
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.email} ({self.get_status_display()})"

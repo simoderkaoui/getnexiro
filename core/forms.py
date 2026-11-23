@@ -317,3 +317,38 @@ class SubscriberForm(forms.Form):
             'style': 'position:absolute;left:-9999px;',
         }),
     )
+
+
+class NewsletterSignupForm(forms.Form):
+    """Newsletter signup form for 'Morocco Web Tips' with honeypot and source tracking."""
+
+    email = forms.EmailField(
+        label=_('Email Address'),
+        widget=forms.EmailInput(attrs={
+            'placeholder': _('Enter your email address...'),
+            'class': 'newsletter-input',
+            'autocomplete': 'email',
+            'required': 'required',
+        }),
+    )
+    source = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(),
+        initial='footer',
+    )
+    # Honeypot field
+    website_url = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'tabindex': '-1',
+            'autocomplete': 'off',
+            'style': 'position:absolute;left:-9999px;display:none;',
+            'aria-hidden': 'true',
+        }),
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '').strip().lower()
+        if not email:
+            raise forms.ValidationError(_('A valid email address is required.'))
+        return email

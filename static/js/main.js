@@ -190,21 +190,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── 8. Spotlight Command Palette (Ctrl+K / ⌘K) ──
+    // ── 8. Upgraded Spotlight Command Palette (Ctrl+K / ⌘K) ──
     const spotlightModal = document.getElementById('spotlightModal');
     const spotlightTrigger = document.getElementById('spotlightTrigger');
     const mobileSpotlightTrigger = document.getElementById('mobileSpotlightTrigger');
     const spotlightCloseBtn = document.getElementById('spotlightCloseBtn');
     const spotlightBackdrop = document.getElementById('spotlightBackdrop');
     const spotlightInput = document.getElementById('spotlightInput');
-    const spotlightItems = document.querySelectorAll('.spotlight-item');
-    const spotlightGroups = document.querySelectorAll('.spotlight-group');
+    const spotlightResults = document.getElementById('spotlightResults');
+    const spotlightDefaultResults = document.getElementById('spotlightDefaultResults');
+    const spotlightDynamicResults = document.getElementById('spotlightDynamicResults');
 
     if (spotlightModal && spotlightInput) {
         let focusedIndex = -1;
+        let searchDebounceTimer = null;
+        let activeAbortController = null;
+        const searchApiUrl = spotlightResults?.dataset?.searchUrl || '/en/search/';
+
+        // Escape HTML to prevent XSS
+        const escapeHtml = (str) => {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, (m) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            }[m]));
+        };
+
+        // Safe substring highlight
+        const highlightMatch = (text, query) => {
+            if (!text || !query) return escapeHtml(text);
+            const escapedText = escapeHtml(text);
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+            return escapedText.replace(regex, '<mark class="spotlight-match">$1</mark>');
+        };
 
         const getVisibleItems = () => {
-            return Array.from(spotlightItems).filter(item => item.style.display !== 'none');
+            return Array.from(spotlightModal.querySelectorAll('.spotlight-item')).filter(item => {
+                return item.offsetParent !== null && item.style.display !== 'none';
+            });
         };
 
         const updateFocus = (items) => {
@@ -233,9 +256,20 @@ document.addEventListener('DOMContentLoaded', () => {
             spotlightModal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
             spotlightInput.value = '';
-            // Restore visibility of all items & groups
-            spotlightItems.forEach(item => item.style.display = '');
-            spotlightGroups.forEach(grp => grp.style.display = '');
+            if (activeAbortController) {
+                activeAbortController.abort();
+            }
+            if (spotlightDynamicResults) {
+                spotlightDynamicResults.style.display = 'none';
+                spotlightDynamicResults.innerHTML = '';
+            }
+            if (spotlightDefaultResults) {
+                spotlightDefaultResults.style.display = '';
+                const defaultItems = spotlightDefaultResults.querySelectorAll('.spotlight-item');
+                const defaultGroups = spotlightDefaultResults.querySelectorAll('.spotlight-group');
+                defaultItems.forEach(item => item.style.display = '');
+                defaultGroups.forEach(grp => grp.style.display = '');
+            }
         };
 
         if (spotlightTrigger) spotlightTrigger.addEventListener('click', openSpotlight);
@@ -263,36 +297,107 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Real-Time Search Filter
+        // Live Asynchronous Search with 200ms debounce
         spotlightInput.addEventListener('input', () => {
-            const query = spotlightInput.value.trim().toLowerCase();
+            const query = spotlightInput.value.trim();
             focusedIndex = -1;
+            clearTimeout(searchDebounceTimer);
 
-            if (!query) {
-                spotlightItems.forEach(item => item.style.display = '');
-                spotlightGroups.forEach(grp => grp.style.display = '');
+            if (query.length < 2) {
+                if (activeAbortController) activeAbortController.abort();
+                if (spotlightDynamicResults) {
+                    spotlightDynamicResults.style.display = 'none';
+                    spotlightDynamicResults.innerHTML = '';
+                }
+                if (spotlightDefaultResults) {
+                    spotlightDefaultResults.style.display = '';
+                    const defaultItems = spotlightDefaultResults.querySelectorAll('.spotlight-item');
+                    const defaultGroups = spotlightDefaultResults.querySelectorAll('.spotlight-group');
+                    defaultItems.forEach(item => item.style.display = '');
+                    defaultGroups.forEach(grp => grp.style.display = '');
+                }
+                const visible = getVisibleItems();
+                if (visible.length > 0) {
+                    focusedIndex = 0;
+                    updateFocus(visible);
+                }
                 return;
             }
 
-            spotlightGroups.forEach(group => {
-                let groupHasVisible = false;
-                const itemsInGroup = group.querySelectorAll('.spotlight-item');
+            searchDebounceTimer = setTimeout(() => {
+                if (activeAbortController) activeAbortController.abort();
+                activeAbortController = new AbortController();
 
-                itemsInGroup.forEach(item => {
-                    const text = (item.textContent + ' ' + (item.dataset.keywords || '')).toLowerCase();
-                    const matches = text.includes(query);
-                    item.style.display = matches ? '' : 'none';
-                    if (matches) groupHasVisible = true;
+                if (spotlightDefaultResults) spotlightDefaultResults.style.display = 'none';
+                if (spotlightDynamicResults) {
+                    spotlightDynamicResults.style.display = 'block';
+                    spotlightDynamicResults.innerHTML = '<div class="spotlight-loading-spinner"><span>⚡</span> <span>Searching across services, projects, blog & hubs...</span></div>';
+                }
+
+                fetch(`${searchApiUrl}?q=${encodeURIComponent(query)}`, {
+                    signal: activeAbortController.signal,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (!spotlightDynamicResults) return;
+
+                    if (!data.groups || data.groups.length === 0 || data.total === 0) {
+                        const currentLang = document.documentElement.lang || 'en';
+                        const quoteUrl = `/${currentLang}/quote/`;
+                        spotlightDynamicResults.innerHTML = `
+                            <div class="spotlight-empty-state">
+                                <span class="spotlight-empty-icon">🔍</span>
+                                <p class="spotlight-empty-title">No direct matches for "${escapeHtml(query)}"</p>
+                                <p class="spotlight-empty-sub">Looking to engineer a custom system? Our Tangier software architects can help.</p>
+                                <a href="${quoteUrl}" class="btn btn-primary btn-sm spotlight-empty-cta spotlight-item">
+                                    <span>Calculate Instant Project Quote →</span>
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        let html = '';
+                        data.groups.forEach(group => {
+                            html += `
+                                <div class="spotlight-group" data-group="${escapeHtml(group.type)}">
+                                    <div class="spotlight-group-title">${escapeHtml(group.title)}</div>
+                            `;
+                            group.items.forEach(item => {
+                                const highlightedTitle = highlightMatch(item.title, query);
+                                const highlightedDesc = highlightMatch(item.desc, query);
+                                html += `
+                                    <a href="${escapeHtml(item.url)}" class="spotlight-item">
+                                        <span class="spotlight-item-icon">${escapeHtml(item.icon || '📄')}</span>
+                                        <div class="spotlight-item-text">
+                                            <span class="spotlight-item-title">${highlightedTitle}</span>
+                                            <span class="spotlight-item-desc">${highlightedDesc}</span>
+                                        </div>
+                                        <span class="spotlight-item-badge">${escapeHtml(item.badge || '')}</span>
+                                    </a>
+                                `;
+                            });
+                            html += `</div>`;
+                        });
+                        spotlightDynamicResults.innerHTML = html;
+                    }
+
+                    const visible = getVisibleItems();
+                    if (visible.length > 0) {
+                        focusedIndex = 0;
+                        updateFocus(visible);
+                    }
+                })
+                .catch(err => {
+                    if (err.name === 'AbortError') return;
+                    if (spotlightDynamicResults) {
+                        spotlightDynamicResults.innerHTML = `
+                            <div class="spotlight-empty-state">
+                                <p class="spotlight-empty-title">Search is temporarily unavailable.</p>
+                            </div>
+                        `;
+                    }
                 });
-
-                group.style.display = groupHasVisible ? '' : 'none';
-            });
-
-            const visibleItems = getVisibleItems();
-            if (visibleItems.length > 0) {
-                focusedIndex = 0;
-                updateFocus(visibleItems);
-            }
+            }, 200);
         });
 
         // Arrow Key & Enter Navigation
@@ -455,4 +560,222 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ── 12. Feature 2: Sticky Mini-CTA Bar ──────────
+    const stickyMiniCta = document.getElementById('stickyMiniCta');
+    const stickyCtaClose = document.getElementById('stickyCtaClose');
+
+    if (stickyMiniCta) {
+        let ctaTicking = false;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const checkCtaScroll = () => {
+            if (sessionStorage.getItem('nexiro_sticky_cta_dismissed') === '1') {
+                return;
+            }
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (docHeight <= 350) return;
+
+            const scrollPercent = (window.scrollY / docHeight) * 100;
+            if (scrollPercent >= 40) {
+                if (!stickyMiniCta.classList.contains('active')) {
+                    stickyMiniCta.classList.add('active');
+                    stickyMiniCta.setAttribute('aria-hidden', 'false');
+                    document.body.classList.add('sticky-cta-active');
+                }
+            } else if (scrollPercent < 15) {
+                if (stickyMiniCta.classList.contains('active')) {
+                    stickyMiniCta.classList.remove('active');
+                    stickyMiniCta.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('sticky-cta-active');
+                }
+            }
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ctaTicking) {
+                window.requestAnimationFrame(() => {
+                    checkCtaScroll();
+                    ctaTicking = false;
+                });
+                ctaTicking = true;
+            }
+        }, { passive: true });
+
+        // Initial check in case of mid-page reload
+        setTimeout(checkCtaScroll, 100);
+
+        if (stickyCtaClose) {
+            stickyCtaClose.addEventListener('click', () => {
+                stickyMiniCta.classList.remove('active');
+                stickyMiniCta.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('sticky-cta-active');
+                try {
+                    sessionStorage.setItem('nexiro_sticky_cta_dismissed', '1');
+                } catch (e) {}
+            });
+        }
+    }
+
+    // ── 13. Feature 3: Newsletter 'Morocco Web Tips' AJAX ──
+    const newsletterForms = document.querySelectorAll('.newsletter-form-ajax');
+    newsletterForms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = form.querySelector('input[name="email"]');
+            const submitBtn = form.querySelector('.newsletter-submit-btn');
+            const feedback = form.querySelector('.newsletter-feedback');
+            const btnText = submitBtn?.querySelector('.btn-text');
+            const btnSpinner = submitBtn?.querySelector('.btn-spinner');
+
+            if (!emailInput || !emailInput.value.trim()) return;
+
+            const originalBtnText = btnText ? btnText.textContent : '';
+            if (btnText && btnSpinner) {
+                btnText.style.display = 'none';
+                btnSpinner.style.display = 'inline-block';
+            }
+            if (submitBtn) submitBtn.disabled = true;
+            if (feedback) {
+                feedback.className = 'newsletter-feedback';
+                feedback.textContent = '';
+            }
+
+            const formData = new FormData(form);
+            const csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]')?.value || '';
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrfToken
+                },
+                body: formData
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                if (feedback) {
+                    feedback.textContent = data.message || 'Subscription processed.';
+                    if (data.status === 'success') {
+                        feedback.classList.add('success');
+                        form.reset();
+                    } else if (data.status === 'info') {
+                        feedback.classList.add('info');
+                    } else {
+                        feedback.classList.add('error');
+                    }
+                }
+            })
+            .catch(() => {
+                if (feedback) {
+                    feedback.className = 'newsletter-feedback error';
+                    feedback.textContent = 'Network error. Please try again.';
+                }
+            })
+            .finally(() => {
+                if (btnText && btnSpinner) {
+                    btnText.style.display = '';
+                    btnSpinner.style.display = 'none';
+                }
+                if (submitBtn) submitBtn.disabled = false;
+            });
+        });
+    });
+
+    // ── 14. Feature 4: Animated Process Timeline ────
+    const processSection = document.getElementById('ourProcessTimeline');
+    const stepNodes = document.querySelectorAll('.process-step-node');
+    const trackFill = document.getElementById('timelineProgressFill');
+
+    if (processSection && stepNodes.length > 0) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            stepNodes.forEach(node => node.classList.add('is-visible'));
+            if (trackFill) {
+                trackFill.style.width = '100%';
+                trackFill.style.height = '100%';
+            }
+        } else if ('IntersectionObserver' in window) {
+            let maxActiveStep = 0;
+            const isHorizontal = window.innerWidth > 960;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stepNum = parseInt(entry.target.dataset.step, 10) || 1;
+                        entry.target.classList.add('is-visible');
+                        if (stepNum > maxActiveStep) {
+                            maxActiveStep = stepNum;
+                            const progressPercent = Math.min(100, Math.round(((maxActiveStep - 1) / (stepNodes.length - 1)) * 100));
+                            if (trackFill) {
+                                if (window.innerWidth > 960) {
+                                    trackFill.style.width = `${progressPercent}%`;
+                                } else {
+                                    trackFill.style.height = `${progressPercent}%`;
+                                }
+                            }
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.25,
+                rootMargin: '0px 0px -10% 0px'
+            });
+
+            stepNodes.forEach(node => observer.observe(node));
+        } else {
+            stepNodes.forEach(node => node.classList.add('is-visible'));
+        }
+    }
+
+    // ── 15. Feature 5: Client Dashboard Demo ────────
+    const demoTabBtns = document.querySelectorAll('.demo-tab-btn[data-tab]');
+    const demoPanes = document.querySelectorAll('.demo-tab-pane');
+    const filterBtns = document.querySelectorAll('.ticket-filter-bar .btn-filter');
+    const ticketCards = document.querySelectorAll('.ticket-item-card[data-ticket-status]');
+
+    if (demoTabBtns.length > 0) {
+        demoTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.dataset.tab;
+
+                demoTabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+
+                demoPanes.forEach(pane => {
+                    pane.classList.remove('active');
+                });
+
+                const targetPane = document.getElementById(`demoPane${targetTab.charAt(0).toUpperCase() + targetTab.slice(1)}`);
+                if (targetPane) {
+                    targetPane.classList.add('active');
+                }
+            });
+        });
+    }
+
+    if (filterBtns.length > 0 && ticketCards.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                ticketCards.forEach(card => {
+                    const status = card.dataset.ticketStatus;
+                    if (filter === 'all' || status === filter) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
 });

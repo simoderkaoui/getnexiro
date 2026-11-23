@@ -1,0 +1,15 @@
+{% load i18n %}
+{% trans "Confirm your subscription to Morocco Web Tips | getNexiro" %}
+========================================================================
+
+{% trans "Thank you for subscribing to Morocco Web Tips, the bi-weekly technical newsletter engineered by getNexiro in Tangier, Morocco." %}
+
+{% trans "Please confirm your subscription by clicking the link below:" %}
+{{ confirm_url }}
+
+{% trans "If you did not request this, you can safely ignore this email." %}
+
+------------------------------------------------------------------------
+{% trans "getNexiro Studio Hub — Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}
+{% trans "Compliant with Moroccan Law 09-08 and GDPR." %}
+{% trans "To unsubscribe, visit:" %} {{ unsubscribe_url }}

@@ -473,6 +473,9 @@
     </div>
 </section>
 
+{# ══════ OUR 5-STEP DELIVERY PROCESS TIMELINE (Feature 4) ══════ #}
+{% include "core/includes/process_timeline.html" %}
+
 {# ══════ PROJECTS (from DB) ══════ #}
 {% if featured_projects %}
 <section class="section section-projects-preview">
@@ -521,6 +524,53 @@
     </div>
 </section>
 {% endif %}
+
+{# ══════ CLIENT PORTAL DEMO TEASER (Feature 5) ══════ #}
+<section class="section section-demo-teaser">
+    <div class="container">
+        <div class="demo-portal-teaser-card glass-card reveal">
+            <div class="demo-teaser-split">
+                <div class="demo-teaser-text">
+                    <div class="badge-tag">{% trans "Transparent Operations" %}</div>
+                    <h2 class="section-title">{% trans "Curious What It Feels Like to Work With Us?" %}</h2>
+                    <p class="section-subtitle" style="margin-bottom: 1.5rem;">
+                        {% trans "Explore our interactive Client Dashboard Demo. See real-time telemetry, SLA ticket tracking, sprint progress, and Moroccan Dirham (MAD) billing simulation." %}
+                    </p>
+                    <div class="demo-teaser-actions">
+                        <a href="{% url 'core:client_dashboard_demo' %}" class="btn btn-primary btn-glow">
+                            <span>{% trans "Explore Client Dashboard Demo" %} →</span>
+                        </a>
+                        <a href="{% url 'core:quote_wizard' %}" class="btn btn-outline">
+                            <span>{% trans "Calculate Instant Quote" %}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="demo-teaser-visual">
+                    <div class="demo-mini-console">
+                        <div class="mini-console-header">
+                            <span class="dot-red"></span><span class="dot-amber"></span><span class="dot-green"></span>
+                            <span class="mini-title">client.getnexiro.com • {% trans "Live Telemetry" %}</span>
+                        </div>
+                        <div class="mini-console-body">
+                            <div class="mini-stat-row">
+                                <span>{% trans "SLA Response" %}</span>
+                                <strong class="text-cyan">38ms</strong>
+                            </div>
+                            <div class="mini-stat-row">
+                                <span>{% trans "Uptime Status" %}</span>
+                                <strong class="text-green">99.98%</strong>
+                            </div>
+                            <div class="mini-stat-row">
+                                <span>{% trans "Active Sprint" %}</span>
+                                <strong>Sprint 4 (72%)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {# ══════ TESTIMONIALS (from DB) ══════ #}
 {% if testimonials %}

@@ -1,0 +1,10 @@
+{% load i18n %}
+getNexiro — Morocco Web Tips
+========================================================================
+
+{{ content_text }}
+
+------------------------------------------------------------------------
+{% trans "You received this email because you are subscribed to Morocco Web Tips by getNexiro." %}
+{% trans "getNexiro Studio Hub — Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}
+{% trans "To unsubscribe, visit:" %} {{ unsubscribe_url }}

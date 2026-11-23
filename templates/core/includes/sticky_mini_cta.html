@@ -1,0 +1,26 @@
+{% load i18n %}
+{% if request.resolver_match.url_name not in 'quote_wizard,quote_success,contact' %}
+{# ══════ STICKY MINI-CTA BAR ══════ #}
+<aside class="sticky-mini-cta" id="stickyMiniCta" aria-hidden="true" role="region" aria-label="{% trans 'Quick Project Actions' %}">
+    <div class="sticky-cta-inner">
+        <div class="sticky-cta-info">
+            <span class="sticky-cta-beacon" aria-hidden="true"></span>
+            <div class="sticky-cta-copy">
+                <strong class="sticky-cta-headline">{% trans "Ready to Build Your System?" %}</strong>
+                <span class="sticky-cta-subline">{% trans "Get a transparent 60s estimate or talk directly with Tangier senior architects." %}</span>
+            </div>
+        </div>
+        <div class="sticky-cta-buttons">
+            <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-sm sticky-cta-quote-btn" id="stickyCtaQuote">
+                <span>{% trans "Get a quote" %}</span>
+                <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="https://wa.me/212787862187?text={% trans 'Hello getNexiro! I would like to get a quote for my project.'|urlencode %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm sticky-cta-wa-btn" id="stickyCtaWa" aria-label="{% trans 'Chat on WhatsApp' %}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.97.531 1.81.82 2.806.82 3.18 0 5.767-2.587 5.768-5.766 0-3.181-2.587-5.767-5.768-5.767zm7.848 5.766c-.001 4.318-3.513 7.828-7.848 7.828-.868 0-1.724-.143-2.528-.426l-3.503.919.935-3.411c-.524-.876-.8-1.879-.801-2.91.002-4.319 3.514-7.829 7.848-7.829 4.334 0 7.847 3.514 7.847 7.829zm2.121 0c0-5.514-4.486-10-10-10s-10 4.486-10 10c0 1.297.25 2.534.701 3.666l-1.701 6.208 6.353-1.666c1.077.42 2.247.666 3.473.666 5.514 0 10-4.486 10-10z"/></svg>
+                <span>WhatsApp</span>
+            </a>
+            <button type="button" class="sticky-cta-close" id="stickyCtaClose" aria-label="{% trans 'Dismiss notification' %}">&times;</button>
+        </div>
+    </div>
+</aside>
+{% endif %}

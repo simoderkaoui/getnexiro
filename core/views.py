@@ -837,8 +837,13 @@ def confirm_subscription(request, token):
 
     # Confirm the subscriber
     sub.status = 'confirmed'
+    sub.is_confirmed = True
     sub.confirmation_token = ''  # Clear token after use
-    sub.save(update_fields=['status', 'confirmation_token'])
+    sub.save(update_fields=['status', 'is_confirmed', 'confirmation_token'])
+
+    if sub.lead_magnet == 'newsletter':
+        messages.success(request, _('Your subscription to Morocco Web Tips has been confirmed! Welcome aboard.'))
+        return redirect('core:home')
 
     messages.success(request, _('Email confirmed! You can now download your checklist.'))
     ctx['download_ready'] = True
@@ -998,6 +1003,7 @@ def blog_tag_archive(request, tag):
 
 def unsubscribe(request):
     """Handle unsubscribe requests."""
+    from django.utils import timezone as tz
     ctx = _get_common_context()
     email = request.GET.get('email', '')
 
@@ -1006,7 +1012,9 @@ def unsubscribe(request):
         try:
             sub = Subscriber.objects.get(email=email)
             sub.status = 'unsubscribed'
-            sub.save(update_fields=['status'])
+            sub.is_confirmed = False
+            sub.unsubscribed_at = tz.now()
+            sub.save(update_fields=['status', 'is_confirmed', 'unsubscribed_at'])
             messages.success(request, _('You have been unsubscribed successfully.'))
         except Subscriber.DoesNotExist:
             messages.info(request, _('Email address not found in our records.'))
@@ -1014,6 +1022,443 @@ def unsubscribe(request):
 
     ctx['email'] = email
     return render(request, 'core/unsubscribe.html', ctx)
+
+
+# ── Feature 1: Better ⌘K / Ctrl+K Search API ────────────────────────
+
+def search_api(request):
+    """
+    JSON endpoint for the upgraded ⌘K command palette.
+    Searches Services, Projects, Blog posts, City hubs, and static Pages in the current language.
+    Fast queries with select_related/only and rate limiting.
+    """
+    from django.db.models import Q
+    from django.core.cache import cache
+    from .emails import get_client_ip
+
+    query = request.GET.get('q', '').strip()
+    if len(query) < 2:
+        return JsonResponse({'query': query, 'total': 0, 'groups': []})
+
+    # Rate limiting: max 45 searches per minute per client IP
+    ip = get_client_ip(request)
+    rate_key = f"spotlight_search_rate_{ip}"
+    req_count = cache.get(rate_key, 0)
+    if req_count > 45:
+        return JsonResponse({'error': _('Rate limit exceeded. Please wait a moment.')}, status=429)
+    cache.set(rate_key, req_count + 1, 60)
+
+    total = 0
+    groups = []
+
+    # 1. Pages
+    static_pages = [
+        {
+            'title': _('Home'),
+            'desc': _('Premier web & mobile app development agency in Tangier, Morocco.'),
+            'url': reverse('core:home'),
+            'icon': '🏠',
+            'badge': _('Page'),
+            'keywords': 'home accueil الرئيسية start portal getnexiro tangier'
+        },
+        {
+            'title': _('About Us'),
+            'desc': _('Our engineering culture, Tangier headquarters, and technical leadership.'),
+            'url': reverse('core:about'),
+            'icon': '🏛️',
+            'badge': _('Page'),
+            'keywords': 'about a-propos من-نحن agency history team studio'
+        },
+        {
+            'title': _('Services'),
+            'desc': _('Custom Web Platforms, Mobile Apps, UI/UX, APIs, and Cloud DevOps.'),
+            'url': reverse('core:services'),
+            'icon': '🛠️',
+            'badge': _('Page'),
+            'keywords': 'services prestations خدمات development engineering stack'
+        },
+        {
+            'title': _('Selected Work & Projects'),
+            'desc': _('Explore enterprise software case studies delivered across Morocco and Europe.'),
+            'url': reverse('core:projects'),
+            'icon': '💼',
+            'badge': _('Page'),
+            'keywords': 'projects portfolio projets مشاريع case studies work clients'
+        },
+        {
+            'title': _('Engineering Blog'),
+            'desc': _('In-depth technical articles on Django, Flutter, cloud architectures and system design.'),
+            'url': reverse('core:blog'),
+            'icon': '📰',
+            'badge': _('Page'),
+            'keywords': 'blog articles insights actualites مدونة tutorials guides'
+        },
+        {
+            'title': _('Contact & Inquiry'),
+            'desc': _('Direct line to our Tangier engineering studio. Request an architecture consultation.'),
+            'url': reverse('core:contact'),
+            'icon': '✉️',
+            'badge': _('Page'),
+            'keywords': 'contact inquiry devis تواصل meeting rdv call email'
+        },
+        {
+            'title': _('Instant Project Quote'),
+            'desc': _('Calculate transparent delivery timelines and budget in 60 seconds.'),
+            'url': reverse('core:quote_wizard'),
+            'icon': '⚡',
+            'badge': _('Tool'),
+            'keywords': 'quote wizard pricing devis tarif حاسبة الأسعار estimator'
+        },
+        {
+            'title': _('Client Dashboard Demo'),
+            'desc': _('Interactive simulation of live telemetry, support tickets, and sprint progress.'),
+            'url': reverse('core:client_dashboard_demo'),
+            'icon': '📊',
+            'badge': _('Demo'),
+            'keywords': 'client dashboard demo portal simulation tableau de bord لوحة العميل tickets analytics'
+        },
+    ]
+
+    matched_pages = []
+    q_lower = query.lower()
+    for page in static_pages:
+        haystack = f"{page['title']} {page['desc']} {page.get('keywords', '')}".lower()
+        if q_lower in haystack:
+            matched_pages.append({
+                'title': page['title'],
+                'desc': page['desc'],
+                'url': page['url'],
+                'icon': page['icon'],
+                'badge': page['badge'],
+            })
+            if len(matched_pages) >= 5:
+                break
+
+    if matched_pages:
+        groups.append({
+            'type': 'pages',
+            'title': _('Pages & Tools'),
+            'items': matched_pages
+        })
+        total += len(matched_pages)
+
+    # 2. Services
+    svc_q = Q(title_en__icontains=query) | Q(title_fr__icontains=query) | Q(title_ar__icontains=query) | \
+            Q(description_en__icontains=query) | Q(description_fr__icontains=query) | Q(description_ar__icontains=query)
+    services_qs = Service.objects.filter(svc_q).only(
+        'id', 'slug', 'title_en', 'title_fr', 'title_ar',
+        'description_en', 'description_fr', 'description_ar', 'icon'
+    )[:5]
+
+    matched_services = []
+    for s in services_qs:
+        matched_services.append({
+            'title': s.title,
+            'desc': s.description[:110] + ('...' if len(s.description) > 110 else ''),
+            'url': s.get_absolute_url(),
+            'icon': '🛠️',
+            'badge': _('Service'),
+        })
+    if matched_services:
+        groups.append({
+            'type': 'services',
+            'title': _('Core Engineering Services'),
+            'items': matched_services
+        })
+        total += len(matched_services)
+
+    # 3. Projects
+    proj_q = Q(title_en__icontains=query) | Q(title_fr__icontains=query) | Q(title_ar__icontains=query) | \
+             Q(description_en__icontains=query) | Q(description_fr__icontains=query) | Q(description_ar__icontains=query)
+    projects_qs = Project.objects.filter(proj_q).select_related('category').only(
+        'id', 'slug', 'title_en', 'title_fr', 'title_ar',
+        'description_en', 'description_fr', 'description_ar', 'category__name_en'
+    )[:5]
+
+    matched_projects = []
+    for p in projects_qs:
+        matched_projects.append({
+            'title': p.title,
+            'desc': p.description[:110] + ('...' if len(p.description) > 110 else ''),
+            'url': p.get_absolute_url(),
+            'icon': '💼',
+            'badge': _('Case Study'),
+        })
+    if matched_projects:
+        groups.append({
+            'type': 'projects',
+            'title': _('Projects & Case Studies'),
+            'items': matched_projects
+        })
+        total += len(matched_projects)
+
+    # 4. Blog Posts
+    post_q = Q(title_en__icontains=query) | Q(title_fr__icontains=query) | Q(title_ar__icontains=query) | \
+             Q(excerpt_en__icontains=query) | Q(excerpt_fr__icontains=query) | Q(excerpt_ar__icontains=query)
+    posts_qs = BlogPost.objects.filter(status='published').filter(post_q).select_related('category').only(
+        'id', 'slug', 'title_en', 'title_fr', 'title_ar',
+        'excerpt_en', 'excerpt_fr', 'excerpt_ar', 'category__name_en'
+    )[:5]
+
+    matched_posts = []
+    for bp in posts_qs:
+        desc_text = bp.excerpt or ''
+        matched_posts.append({
+            'title': bp.title,
+            'desc': desc_text[:110] + ('...' if len(desc_text) > 110 else ''),
+            'url': bp.get_absolute_url(),
+            'icon': '📰',
+            'badge': _('Article'),
+        })
+    if matched_posts:
+        groups.append({
+            'type': 'blog',
+            'title': _('Tech Articles & Guides'),
+            'items': matched_posts
+        })
+        total += len(matched_posts)
+
+    # 5. City Service Hubs (Tangier, Tetouan, Fes, Meknes)
+    city_q = Q(city__icontains=query) | Q(h1_en__icontains=query) | Q(h1_fr__icontains=query) | Q(h1_ar__icontains=query) | \
+             Q(intro_en__icontains=query) | Q(intro_fr__icontains=query) | Q(intro_ar__icontains=query)
+    city_qs = CityServicePage.objects.filter(is_published=True).filter(city_q).select_related('service').only(
+        'id', 'slug', 'city', 'h1_en', 'h1_fr', 'h1_ar', 'intro_en', 'intro_fr', 'intro_ar',
+        'service__slug', 'service__title_en'
+    )[:5]
+
+    matched_cities = []
+    for c in city_qs:
+        matched_cities.append({
+            'title': f"{c.get_city_display()} — {c.service.title if c.service else ''}",
+            'desc': c.intro[:110] + ('...' if len(c.intro) > 110 else ''),
+            'url': c.get_absolute_url(),
+            'icon': '📍',
+            'badge': _('Morocco Hub'),
+        })
+    if matched_cities:
+        groups.append({
+            'type': 'cities',
+            'title': _('Morocco Innovation Hubs'),
+            'items': matched_cities
+        })
+        total += len(matched_cities)
+
+    return JsonResponse({
+        'query': query,
+        'total': total,
+        'groups': groups,
+    })
+
+
+# ── Feature 3: Newsletter 'Morocco Web Tips' Subscription ────────────
+
+@require_POST
+def newsletter_subscribe(request):
+    """
+    AJAX endpoint for newsletter 'Morocco Web Tips' with double opt-in.
+    Protects with honeypot and rate limiting. Returns localized JSON.
+    """
+    import secrets
+    import urllib.parse
+    from django.core.cache import cache
+    from django.utils import timezone as tz
+    from django.core.mail import EmailMultiAlternatives
+    from django.template.loader import render_to_string
+    from django.conf import settings
+    from .forms import NewsletterSignupForm
+    from .emails import get_client_ip
+
+    ip = get_client_ip(request)
+    cache_key = f"newsletter_sub_rate_{ip}"
+    req_count = cache.get(cache_key, 0)
+    if req_count >= 5:
+        return JsonResponse({
+            'status': 'error',
+            'message': _('Too many requests. Please try again in a few minutes.')
+        }, status=429)
+    cache.set(cache_key, req_count + 1, 300)
+
+    form = NewsletterSignupForm(request.POST)
+
+    # Honeypot silent rejection
+    if request.POST.get('website_url'):
+        return JsonResponse({
+            'status': 'success',
+            'message': _('Thank you! Please check your email to confirm your subscription.')
+        })
+
+    if not form.is_valid():
+        first_err = next(iter(form.errors.values()))[0] if form.errors else _('Please enter a valid email address.')
+        return JsonResponse({'status': 'error', 'message': str(first_err)}, status=400)
+
+    email = form.cleaned_data['email']
+    source = form.cleaned_data.get('source') or 'footer'
+    lang = (get_language() or 'en').lower()
+    if lang.startswith('fr'):
+        sub_lang = 'fr'
+    elif lang.startswith('ar'):
+        sub_lang = 'ar'
+    else:
+        sub_lang = 'en'
+
+    token = secrets.token_urlsafe(32)
+    sub, created = Subscriber.objects.get_or_create(
+        email=email,
+        defaults={
+            'language': sub_lang,
+            'source': source,
+            'source_page': request.META.get('HTTP_REFERER', '')[:300],
+            'status': 'pending',
+            'is_confirmed': False,
+            'consent': True,
+            'lead_magnet': 'newsletter',
+            'confirmation_token': token,
+            'token_created_at': tz.now(),
+        }
+    )
+
+    if not created:
+        if sub.is_confirmed or sub.status == 'confirmed':
+            return JsonResponse({
+                'status': 'info',
+                'message': _('You are already subscribed to Morocco Web Tips!')
+            })
+        # If pending or unsubscribed, refresh token and language
+        sub.confirmation_token = token
+        sub.token_created_at = tz.now()
+        sub.status = 'pending'
+        sub.is_confirmed = False
+        sub.language = sub_lang
+        sub.source = source
+        sub.consent = True
+        sub.save(update_fields=['confirmation_token', 'token_created_at', 'status', 'is_confirmed', 'language', 'source', 'consent'])
+
+    # Send localized double opt-in email
+    site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com').rstrip('/')
+    confirm_url = f"{site_url}/{sub_lang}/confirm/{token}/"
+    unsub_url = f"{site_url}/{sub_lang}/unsubscribe/?email={urllib.parse.quote(email)}"
+
+    email_ctx = {
+        'subscriber': sub,
+        'confirm_url': confirm_url,
+        'unsubscribe_url': unsub_url,
+        'site_url': site_url,
+        'language': sub_lang,
+    }
+
+    try:
+        from django.utils.translation import override
+        with override(sub_lang):
+            subject = render_to_string('emails/newsletter_confirm_subject.txt', email_ctx).strip()
+            html_content = render_to_string('emails/newsletter_confirm.html', email_ctx)
+            text_content = render_to_string('emails/newsletter_confirm.txt', email_ctx)
+
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@getnexiro.com')
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send(fail_silently=True)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"Failed to dispatch newsletter confirmation: {e}")
+
+    return JsonResponse({
+        'status': 'success',
+        'message': _('Please check your inbox to confirm your subscription to Morocco Web Tips.')
+    })
+
+
+# ── Feature 5: Client Dashboard Demo View ────────────────────────────
+
+def client_dashboard_demo(request):
+    """
+    Client Dashboard Demo page showing post-launch transparent agency reporting.
+    Features: Analytics overview, support tickets, invoices in MAD, and sprint milestones.
+    """
+    ctx = _get_common_context()
+    ctx['page_seo_title'] = _('Client Dashboard Demo | Transparent Studio Portal | getNexiro')
+    ctx['page_seo_description'] = _('Explore our interactive client portal simulation: real-time analytics, SLA tickets, and Moroccan Dirham (MAD) billing from getNexiro in Tangier.')
+    ctx['breadcrumbs'] = [
+        {'name': _('Home'), 'url': reverse('core:home')},
+        {'name': _('Client Dashboard Demo'), 'url': reverse('core:client_dashboard_demo')},
+    ]
+
+    # Sample demo data
+    ctx['demo_stats'] = {
+        'monthly_visitors': '42,850',
+        'visitors_growth': '+18.4%',
+        'avg_session': '3m 42s',
+        'uptime_sla': '99.98%',
+        'lighthouse_score': '99/100',
+        'api_response_time': '38ms',
+        'total_requests': '1.24M',
+    }
+
+    ctx['demo_tickets'] = [
+        {
+            'id': 'TKT-2026-401',
+            'title': _('Stripe & CMI Multi-Currency Webhook Verification (MAD / EUR)'),
+            'priority': _('High'),
+            'status': 'in_progress',
+            'status_label': _('In Progress'),
+            'assigned': 'Youssef B. (Senior Lead Architect)',
+            'updated': _('2 hours ago'),
+        },
+        {
+            'id': 'TKT-2026-389',
+            'title': _('PostgreSQL Connection Pooling Optimization (Tanger Med Supply Chain API)'),
+            'priority': _('Medium'),
+            'status': 'resolved',
+            'status_label': _('Resolved'),
+            'assigned': 'Engineering DevOps Core',
+            'updated': _('Yesterday'),
+        },
+        {
+            'id': 'TKT-2026-412',
+            'title': _('Annual Wildcard SSL Certificate Auto-Renewal Verification'),
+            'priority': _('Low'),
+            'status': 'open',
+            'status_label': _('Open'),
+            'assigned': 'DevOps Automated CI/CD',
+            'updated': _('30 mins ago'),
+        },
+    ]
+
+    ctx['demo_invoices'] = [
+        {
+            'ref': 'INV-2026-081',
+            'description': _('Milestone 3: Core API Architecture & Microservices Delivery'),
+            'amount_mad': '28,000 MAD',
+            'date': '12 Nov 2026',
+            'status': 'paid',
+            'status_label': _('Paid'),
+        },
+        {
+            'ref': 'INV-2026-064',
+            'description': _('Milestone 2: Cross-Platform Flutter Mobile Architecture (iOS & Android)'),
+            'amount_mad': '19,500 MAD',
+            'date': '28 Oct 2026',
+            'status': 'paid',
+            'status_label': _('Paid'),
+        },
+        {
+            'ref': 'INV-2026-092',
+            'description': _('Milestone 4: Cloud Infrastructure & 24/7 SLA Production Warranty'),
+            'amount_mad': '14,000 MAD',
+            'date': '20 Nov 2026',
+            'status': 'pending',
+            'status_label': _('Pending'),
+        },
+    ]
+
+    ctx['demo_milestones'] = [
+        {'step': '01', 'title': _('Architecture Blueprint & Technical Audit'), 'status': 'completed', 'date': _('Completed')},
+        {'step': '02', 'title': _('Interactive Figma Prototypes & Design Tokens'), 'status': 'completed', 'date': _('Completed')},
+        {'step': '03', 'title': _('Django 5.1 Backend & PostgreSQL Schema Engine'), 'status': 'completed', 'date': _('Completed')},
+        {'step': '04', 'title': _('Payment Gateways, Auth & Bilingual Localization'), 'status': 'current', 'date': _('In Progress (72%)')},
+        {'step': '05', 'title': _('Production Cloud Launch & Zero-Downtime Blue/Green Deploy'), 'status': 'upcoming', 'date': _('Upcoming')},
+    ]
+
+    return render(request, 'core/client_dashboard_demo.html', ctx)
 
 
 # ── Error Handlers ───────────────────────────────────────────────

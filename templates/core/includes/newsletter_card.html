@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="newsletter-card glass-card" id="blogPostNewsletterCard">
+    <div class="newsletter-card-header">
+        <div class="badge-tag">{% trans "Morocco Web Tips" %}</div>
+        <h3 class="newsletter-card-title">{% trans "Enjoyed this article? Get our bi-weekly briefings." %}</h3>
+        <p class="newsletter-card-desc">{% trans "Join developers, startup founders, and technical leads across Morocco receiving our exclusive software engineering playbooks and architecture guides." %}</p>
+    </div>
+    <form class="newsletter-form-ajax" action="{% url 'core:newsletter_subscribe' %}" method="POST" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="source" value="blog_post">
+        {# Honeypot #}
+        <input type="text" name="website_url" class="newsletter-honeypot" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px; display: none;" aria-hidden="true">
+        <div class="newsletter-input-group">
+            <input type="email" name="email" class="newsletter-input" placeholder="{% trans 'Enter your email address...' %}" required autocomplete="email" aria-label="{% trans 'Email address for newsletter' %}">
+            <button type="submit" class="btn btn-primary newsletter-submit-btn">
+                <span class="btn-text">{% trans "Subscribe to Tips" %}</span>
+                <span class="btn-spinner" style="display: none;" aria-hidden="true">...</span>
+            </button>
+        </div>
+        <div class="newsletter-feedback" aria-live="polite"></div>
+        <p class="newsletter-compliance-note">
+            🔒 {% trans "By subscribing, you agree to receive Morocco Web Tips and engineering updates. You can unsubscribe at any time. Governed by Moroccan Law 09-08 on personal data protection." %} <a href="{% url 'core:privacy_policy' %}">{% trans "Privacy Policy" %}</a>.
+        </p>
+    </form>
+</div>

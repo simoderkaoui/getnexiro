@@ -1,0 +1,94 @@
+{% load i18n %}
+{# ══════ OUR PROVEN 5-STEP DELIVERY PROCESS TIMELINE ══════ #}
+<section class="section section-process-timeline" id="ourProcessTimeline">
+    <div class="container">
+        <div class="section-header text-center reveal">
+            <div class="badge-tag">{% trans "Our Methodology" %}</div>
+            <h2 class="section-title">{% trans "From Concept to Production in 5 Proven Steps" %}</h2>
+            <p class="section-subtitle">{% trans "A structured engineering lifecycle built on transparent sprints, zero-downtime deployments, and ongoing nearshore support from Tangier." %}</p>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-track-rail" aria-hidden="true">
+                <div class="timeline-track-progress" id="timelineProgressFill"></div>
+            </div>
+
+            <ol class="process-timeline-list" role="list" aria-label="{% trans 'getNexiro 5-Step Delivery Lifecycle' %}">
+                <!-- Step 1: Discovery -->
+                <li class="process-step-node" data-step="1">
+                    <div class="step-card glass-card">
+                        <div class="step-badge-row">
+                            <span class="step-num-pill">01</span>
+                            <span class="step-duration-badge">⏱️ {% trans "1 – 2 Weeks" %}</span>
+                        </div>
+                        <div class="step-icon-bubble" aria-hidden="true">
+                            <span class="step-emoji">🔍</span>
+                        </div>
+                        <h3 class="step-card-title">{% trans "Discovery & Architecture" %}</h3>
+                        <p class="step-card-desc">{% trans "We audit your business requirements, define data models, and engineer a detailed technical roadmap with stack specifications tailored to your target markets." %}</p>
+                    </div>
+                </li>
+
+                <!-- Step 2: Design -->
+                <li class="process-step-node" data-step="2">
+                    <div class="step-card glass-card">
+                        <div class="step-badge-row">
+                            <span class="step-num-pill">02</span>
+                            <span class="step-duration-badge">⏱️ {% trans "2 – 3 Weeks" %}</span>
+                        </div>
+                        <div class="step-icon-bubble" aria-hidden="true">
+                            <span class="step-emoji">🎨</span>
+                        </div>
+                        <h3 class="step-card-title">{% trans "UI/UX & Design Systems" %}</h3>
+                        <p class="step-card-desc">{% trans "Interactive Figma prototypes, accessible design tokens (dark/light, RTL/LTR), and conversion-optimized ergonomic interfaces reviewed with your team." %}</p>
+                    </div>
+                </li>
+
+                <!-- Step 3: Sprints -->
+                <li class="process-step-node" data-step="3">
+                    <div class="step-card glass-card">
+                        <div class="step-badge-row">
+                            <span class="step-num-pill">03</span>
+                            <span class="step-duration-badge">⏱️ {% trans "4 – 8 Weeks" %}</span>
+                        </div>
+                        <div class="step-icon-bubble" aria-hidden="true">
+                            <span class="step-emoji">⚡</span>
+                        </div>
+                        <h3 class="step-card-title">{% trans "Agile Engineering Sprints" %}</h3>
+                        <p class="step-card-desc">{% trans "Bi-weekly iterative sprints delivering robust Django 5.1 backends, reactive frontends, and native Flutter apps with test coverage and staging previews." %}</p>
+                    </div>
+                </li>
+
+                <!-- Step 4: Launch -->
+                <li class="process-step-node" data-step="4">
+                    <div class="step-card glass-card">
+                        <div class="step-badge-row">
+                            <span class="step-num-pill">04</span>
+                            <span class="step-duration-badge">⏱️ {% trans "1 – 2 Weeks" %}</span>
+                        </div>
+                        <div class="step-icon-bubble" aria-hidden="true">
+                            <span class="step-emoji">🚀</span>
+                        </div>
+                        <h3 class="step-card-title">{% trans "Security, QA & Launch" %}</h3>
+                        <p class="step-card-desc">{% trans "Rigorous OWASP security checks, Lighthouse 99+ Core Web Vitals optimization, zero-downtime blue/green CI/CD deployment, and DNS handoff." %}</p>
+                    </div>
+                </li>
+
+                <!-- Step 5: Support -->
+                <li class="process-step-node" data-step="5">
+                    <div class="step-card glass-card">
+                        <div class="step-badge-row">
+                            <span class="step-num-pill">05</span>
+                            <span class="step-duration-badge">⏱️ {% trans "Ongoing SLA" %}</span>
+                        </div>
+                        <div class="step-icon-bubble" aria-hidden="true">
+                            <span class="step-emoji">🛡️</span>
+                        </div>
+                        <h3 class="step-card-title">{% trans "SLA Support & Growth" %}</h3>
+                        <p class="step-card-desc">{% trans "30-day post-launch warranty included, continuous automated database backups, 24/7 server monitoring, and feature iteration sprints as you scale." %}</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</section>

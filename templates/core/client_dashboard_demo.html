@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block meta_tags %}
+<title>{{ page_seo_title|default:'Client Dashboard Demo | Transparent Studio Portal | getNexiro' }}</title>
+<meta name="description" content="{{ page_seo_description|default:'Explore our interactive client portal simulation: real-time analytics, SLA tickets, and Moroccan Dirham (MAD) billing from getNexiro in Tangier.' }}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+{% endblock %}
+
+{% block structured_data %}
+{% include "core/includes/jsonld_breadcrumb.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="client-demo-page">
+    {# ── PAGE HEADER & DEMO BANNER ── #}
+    <section class="page-header demo-header">
+        <div class="container text-center">
+            <div class="demo-live-badge">
+                <span class="demo-live-dot" aria-hidden="true"></span>
+                <span>{% trans "Interactive Client Portal Demo • Post-Launch Simulation" %}</span>
+            </div>
+            <h1 class="page-title">
+                {% trans "Transparent Engineering" %} <span class="text-gradient">{% trans "At Your Fingertips" %}</span>
+            </h1>
+            <p class="page-subtitle">
+                {% trans "Experience the real-time telemetry, direct SLA ticketing, transparent sprint checkpoints, and MAD invoicing our clients enjoy after project deployment." %}
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        {# ── DEMO DASHBOARD SHELL ── #}
+        <div class="demo-dashboard-container glass-card">
+            {# Dashboard Topbar #}
+            <div class="demo-dashboard-topbar">
+                <div class="demo-project-identity">
+                    <span class="demo-avatar">🚀</span>
+                    <div>
+                        <div class="demo-project-name">MediTrans Logistics SaaS</div>
+                        <div class="demo-client-name">{% trans "Client" %}: CaperMed Agrotech Ltd • Tangier Med Hub</div>
+                    </div>
+                </div>
+                <div class="demo-topbar-actions">
+                    <span class="demo-status-pill status-active">
+                        <span class="pulse-green"></span> {% trans "Production Active • Nearshore SLA Tier 1" %}
+                    </span>
+                </div>
+            </div>
+
+            {# Dashboard Navigation Tabs #}
+            <div class="demo-tabs-nav" role="tablist" aria-label="{% trans 'Client Portal Sections' %}">
+                <button type="button" class="demo-tab-btn active" data-tab="analytics" role="tab" aria-selected="true" aria-controls="demoPaneAnalytics">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">{% trans "Telemetry & Analytics" %}</span>
+                </button>
+                <button type="button" class="demo-tab-btn" data-tab="tickets" role="tab" aria-selected="false" aria-controls="demoPaneTickets">
+                    <span class="tab-icon">🎫</span>
+                    <span class="tab-label">{% trans "SLA Support Tickets" %}</span>
+                    <span class="tab-counter">3</span>
+                </button>
+                <button type="button" class="demo-tab-btn" data-tab="invoices" role="tab" aria-selected="false" aria-controls="demoPaneInvoices">
+                    <span class="tab-icon">💳</span>
+                    <span class="tab-label">{% trans "Billing & Invoices (MAD)" %}</span>
+                </button>
+                <button type="button" class="demo-tab-btn" data-tab="milestones" role="tab" aria-selected="false" aria-controls="demoPaneMilestones">
+                    <span class="tab-icon">🚀</span>
+                    <span class="tab-label">{% trans "Sprint Milestones" %}</span>
+                    <span class="tab-badge-progress">72%</span>
+                </button>
+            </div>
+
+            {# ══════ TAB 1: TELEMETRY & ANALYTICS ══════ #}
+            <div class="demo-tab-pane active" id="demoPaneAnalytics" role="tabpanel">
+                <div class="demo-metrics-grid">
+                    <div class="demo-metric-card">
+                        <span class="metric-title">{% trans "Monthly Active Visitors" %}</span>
+                        <div class="metric-val">{{ demo_stats.monthly_visitors }} <span class="trend-up">{{ demo_stats.visitors_growth }}</span></div>
+                        <span class="metric-caption">{% trans "Global & Moroccan B2B traffic" %}</span>
+                    </div>
+                    <div class="demo-metric-card">
+                        <span class="metric-title">{% trans "Avg Session Duration" %}</span>
+                        <div class="metric-val">{{ demo_stats.avg_session }}</div>
+                        <span class="metric-caption">{% trans "High engaged user workflows" %}</span>
+                    </div>
+                    <div class="demo-metric-card">
+                        <span class="metric-title">{% trans "Core Web Vitals" %}</span>
+                        <div class="metric-val text-cyan">{{ demo_stats.lighthouse_score }}</div>
+                        <span class="metric-caption">{% trans "Lighthouse Performance Max" %}</span>
+                    </div>
+                    <div class="demo-metric-card">
+                        <span class="metric-title">{% trans "API Response Time" %}</span>
+                        <div class="metric-val text-green">{{ demo_stats.api_response_time }}</div>
+                        <span class="metric-caption">{% trans "Tangier Edge Server Node" %}</span>
+                    </div>
+                </div>
+
+                {# Clean Inline SVG Growth Chart #}
+                <div class="demo-chart-section">
+                    <div class="demo-chart-header">
+                        <h3 class="demo-subheading">{% trans "Traffic & API Growth Trend (Last 12 Months)" %}</h3>
+                        <span class="demo-chart-legend">
+                            <span class="legend-dot dot-cyan"></span> {% trans "Unique Visitors" %}
+                            <span class="legend-dot dot-indigo"></span> {% trans "API Calls (k)" %}
+                        </span>
+                    </div>
+                    <div class="svg-chart-wrapper" aria-hidden="true">
+                        <svg class="demo-svg-chart" viewBox="0 0 760 220" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="chartGradCyan" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.38"/>
+                                    <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid lines -->
+                            <line x1="30" y1="30" x2="740" y2="30" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+                            <line x1="30" y1="80" x2="740" y2="80" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+                            <line x1="30" y1="130" x2="740" y2="130" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+                            <line x1="30" y1="180" x2="740" y2="180" stroke="rgba(255,255,255,0.06)"/>
+
+                            <!-- Area fill -->
+                            <polygon fill="url(#chartGradCyan)" points="40,175 100,160 160,145 220,130 280,135 340,110 400,95 460,85 520,70 580,50 640,42 710,32 710,180 40,180"/>
+
+                            <!-- Line curve -->
+                            <polyline fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                points="40,175 100,160 160,145 220,130 280,135 340,110 400,95 460,85 520,70 580,50 640,42 710,32"/>
+
+                            <!-- Data dots -->
+                            <circle cx="40" cy="175" r="4" fill="#38bdf8"/>
+                            <circle cx="100" cy="160" r="4" fill="#38bdf8"/>
+                            <circle cx="220" cy="130" r="4" fill="#38bdf8"/>
+                            <circle cx="340" cy="110" r="4" fill="#38bdf8"/>
+                            <circle cx="460" cy="85" r="4" fill="#38bdf8"/>
+                            <circle cx="580" cy="50" r="4" fill="#38bdf8"/>
+                            <circle cx="710" cy="32" r="5" fill="#f8fafc" stroke="#38bdf8" stroke-width="2"/>
+                        </svg>
+                        <div class="chart-x-labels">
+                            <span>{% trans "Jan" %}</span><span>{% trans "Mar" %}</span><span>{% trans "May" %}</span>
+                            <span>{% trans "Jul" %}</span><span>{% trans "Sep" %}</span><span>{% trans "Nov" %}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {# Top Endpoints Table #}
+                <div class="demo-table-section">
+                    <h3 class="demo-subheading">{% trans "Top Performing Production Routes" %}</h3>
+                    <div class="table-responsive">
+                        <table class="demo-table">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Route / Microservice" %}</th>
+                                    <th>{% trans "HTTP Method" %}</th>
+                                    <th>{% trans "Traffic Volume" %}</th>
+                                    <th>{% trans "Avg Latency" %}</th>
+                                    <th>{% trans "Status" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>/api/v1/shipments/tracking/</code></td>
+                                    <td><span class="http-badge get">GET</span></td>
+                                    <td>418,290 req</td>
+                                    <td>26ms</td>
+                                    <td><span class="status-indicator-dot online"></span> 200 OK</td>
+                                </tr>
+                                <tr>
+                                    <td><code>/api/v1/checkout/process-cmi/</code></td>
+                                    <td><span class="http-badge post">POST</span></td>
+                                    <td>62,140 req</td>
+                                    <td>48ms</td>
+                                    <td><span class="status-indicator-dot online"></span> 200 OK</td>
+                                </tr>
+                                <tr>
+                                    <td><code>/api/v1/inventory/warehouse-sync/</code></td>
+                                    <td><span class="http-badge post">POST</span></td>
+                                    <td>189,400 req</td>
+                                    <td>32ms</td>
+                                    <td><span class="status-indicator-dot online"></span> 200 OK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {# ══════ TAB 2: SUPPORT & SLA TICKETS ══════ #}
+            <div class="demo-tab-pane" id="demoPaneTickets" role="tabpanel">
+                <div class="demo-tickets-header">
+                    <div>
+                        <h3 class="demo-subheading">{% trans "SLA Support & Ticket Resolution" %}</h3>
+                        <p class="demo-sub-desc">{% trans "Direct line to our Tangier engineering leads with transparent response times and Git pull-request references." %}</p>
+                    </div>
+                    <div class="ticket-filter-bar">
+                        <button type="button" class="btn btn-sm btn-filter active" data-filter="all">{% trans "All" %} (3)</button>
+                        <button type="button" class="btn btn-sm btn-filter" data-filter="in_progress">{% trans "In Progress" %} (1)</button>
+                        <button type="button" class="btn btn-sm btn-filter" data-filter="resolved">{% trans "Resolved" %} (1)</button>
+                        <button type="button" class="btn btn-sm btn-filter" data-filter="open">{% trans "Open" %} (1)</button>
+                    </div>
+                </div>
+
+                <div class="demo-tickets-list">
+                    {% for ticket in demo_tickets %}
+                    <div class="ticket-item-card" data-ticket-status="{{ ticket.status }}">
+                        <div class="ticket-top">
+                            <span class="ticket-id">{{ ticket.id }}</span>
+                            <span class="ticket-badge badge-{{ ticket.status }}">{{ ticket.status_label }}</span>
+                            <span class="ticket-priority">{% trans "Priority" %}: {{ ticket.priority }}</span>
+                            <span class="ticket-updated">{{ ticket.updated }}</span>
+                        </div>
+                        <h4 class="ticket-title">{{ ticket.title }}</h4>
+                        <div class="ticket-footer">
+                            <span class="ticket-assigned">👤 {{ ticket.assigned }}</span>
+                            <span class="ticket-sla">⏱️ SLA: &lt; 2h Response</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# ══════ TAB 3: BILLING & INVOICES (MAD) ══════ #}
+            <div class="demo-tab-pane" id="demoPaneInvoices" role="tabpanel">
+                <div class="demo-invoices-header">
+                    <div>
+                        <h3 class="demo-subheading">{% trans "Transparent Milestone Invoicing (MAD)" %}</h3>
+                        <p class="demo-sub-desc">{% trans "Moroccan Dirham (MAD) and Euro billing tied directly to verifiable delivery milestones. No hidden fees." %}</p>
+                    </div>
+                    <div class="invoice-summary-pill">
+                        <span>{% trans "Total Contract" %}: <strong>61,500 MAD</strong></span>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="demo-table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Invoice Ref" %}</th>
+                                <th>{% trans "Description & Milestone" %}</th>
+                                <th>{% trans "Amount (MAD)" %}</th>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Action" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inv in demo_invoices %}
+                            <tr>
+                                <td><strong>{{ inv.ref }}</strong></td>
+                                <td>{{ inv.description }}</td>
+                                <td><span class="invoice-amount">{{ inv.amount_mad }}</span></td>
+                                <td>{{ inv.date }}</td>
+                                <td>
+                                    {% if inv.status == 'paid' %}
+                                    <span class="badge-status-paid">✓ {{ inv.status_label }}</span>
+                                    {% else %}
+                                    <span class="badge-status-pending">⏱ {{ inv.status_label }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline btn-sm btn-disabled" disabled title="{% trans 'Sample invoice (Disabled in demo mode)' %}">
+                                        📄 {% trans "Download PDF" %}
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# ══════ TAB 4: SPRINT MILESTONES ══════ #}
+            <div class="demo-tab-pane" id="demoPaneMilestones" role="tabpanel">
+                <div class="milestones-header">
+                    <div>
+                        <h3 class="demo-subheading">{% trans "Sprint Roadmap & Delivery Milestones" %}</h3>
+                        <p class="demo-sub-desc">{% trans "Sprint 4 of 6 • Phase: Payment Gateways & Arabic RTL Localization" %}</p>
+                    </div>
+                    <div class="milestone-progress-box">
+                        <span class="milestone-percentage">72% {% trans "Completed" %}</span>
+                    </div>
+                </div>
+
+                <div class="milestone-progress-bar-bg">
+                    <div class="milestone-progress-bar-fill" style="width: 72%;"></div>
+                </div>
+
+                <div class="milestones-steps-list">
+                    {% for m in demo_milestones %}
+                    <div class="milestone-step-row {% if m.status == 'completed' %}is-done{% elif m.status == 'current' %}is-current{% else %}is-future{% endif %}">
+                        <div class="m-step-icon">
+                            {% if m.status == 'completed' %}✓{% elif m.status == 'current' %}⚡{% else %}○{% endif %}
+                        </div>
+                        <div class="m-step-info">
+                            <span class="m-step-title">{{ m.step }} — {{ m.title }}</span>
+                            <span class="m-step-date">{{ m.date }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# ── BOTTOM CTA BANNER ── #}
+        <div class="demo-bottom-cta text-center reveal">
+            <div class="badge-tag">{% trans "Ready for Your Own Portal?" %}</div>
+            <h2 class="section-title">{% trans "Bring Your Vision to Life With Real-Time Transparency" %}</h2>
+            <p class="section-subtitle">{% trans "Partner with Tangier's dedicated engineering studio. We combine international technical excellence with localized Moroccan responsiveness." %}</p>
+            <div class="demo-cta-actions">
+                <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-glow btn-lg">
+                    <span>{% trans "Start Your Project (60s Quote)" %} →</span>
+                </a>
+                <a href="https://wa.me/212787862187?text={% trans 'Hello getNexiro! I explored your client dashboard demo and would like to discuss my project.'|urlencode %}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+                    <span>{% trans "Chat on WhatsApp" %}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

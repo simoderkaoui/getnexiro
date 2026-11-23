@@ -189,6 +189,7 @@
                         <li><a href="{% url 'core:services' %}">{% trans "Services" %}</a></li>
                         <li><a href="{% url 'core:projects' %}">{% trans "Selected Works" %}</a></li>
                         <li><a href="{% url 'core:blog' %}">{% trans "Blog" %}</a></li>
+                        <li><a href="{% url 'core:client_dashboard_demo' %}">{% trans "Client Dashboard Demo" %}</a></li>
                         <li><a href="{% url 'core:contact' %}">{% trans "Contact" %}</a></li>
                     </ul>
                 </div>
@@ -248,6 +249,9 @@
                     </div>
                 </div>
             </div>
+
+            {# ── Newsletter Subscription Block (Morocco Web Tips) ── #}
+            {% include "core/includes/newsletter_form.html" %}
 
             {# ── SEO-rich service areas section ── #}
             <div class="footer-seo-areas">
@@ -328,35 +332,48 @@
                 <input type="text" id="spotlightInput" class="spotlight-input" placeholder="{% trans 'Search services, projects, Moroccan hubs, or tools...' %}" autocomplete="off" spellcheck="false">
                 <button type="button" class="spotlight-close-btn" id="spotlightCloseBtn" aria-label="{% trans 'Close' %}">&times;</button>
             </div>
-            <div class="spotlight-results" id="spotlightResults">
-                <!-- Category: Actions & Tools -->
-                <div class="spotlight-group" data-group="actions">
-                    <div class="spotlight-group-title">{% trans "⚡ Actions & Interactive Tools" %}</div>
-                    <a href="{% url 'core:quote_wizard' %}" class="spotlight-item" data-keywords="quote price estimate cost calculate wizard devis tarif">
-                        <span class="spotlight-item-icon">⚡</span>
-                        <div class="spotlight-item-text">
-                            <span class="spotlight-item-title">{% trans "Calculate Instant Project Quote" %}</span>
-                            <span class="spotlight-item-desc">{% trans "Interactive 60s estimate for web, mobile & cloud systems" %}</span>
-                        </div>
-                        <span class="spotlight-item-badge">{% trans "Wizard" %}</span>
-                    </a>
-                    <a href="https://wa.me/212787862187" target="_blank" rel="noopener noreferrer" class="spotlight-item" data-keywords="whatsapp chat direct message talk call contact phone">
-                        <span class="spotlight-item-icon">💬</span>
-                        <div class="spotlight-item-text">
-                            <span class="spotlight-item-title">{% trans "Direct WhatsApp with Senior Architects" %}</span>
-                            <span class="spotlight-item-desc">{% trans "Instant consultation with Tangier engineering studio" %}</span>
-                        </div>
-                        <span class="spotlight-item-badge">WhatsApp</span>
-                    </a>
-                    <a href="{% url 'core:contact' %}" class="spotlight-item" data-keywords="contact message email office address meeting rdv">
-                        <span class="spotlight-item-icon">✉️</span>
-                        <div class="spotlight-item-text">
-                            <span class="spotlight-item-title">{% trans "Contact & Project Inquiry" %}</span>
-                            <span class="spotlight-item-desc">{% trans "Submit RFP or schedule a discovery sprint" %}</span>
-                        </div>
-                        <span class="spotlight-item-badge">{% trans "Contact" %}</span>
-                    </a>
-                </div>
+            <div class="spotlight-results" id="spotlightResults" data-search-url="{% url 'core:search_api' %}">
+                {# Live dynamic search results container #}
+                <div class="spotlight-dynamic-results" id="spotlightDynamicResults" style="display: none;" role="region" aria-live="polite"></div>
+
+                {# Default popular items shown on empty query #}
+                <div class="spotlight-default-results" id="spotlightDefaultResults">
+                    <!-- Category: Actions & Tools -->
+                    <div class="spotlight-group" data-group="actions">
+                        <div class="spotlight-group-title">{% trans "⚡ Actions & Interactive Tools" %}</div>
+                        <a href="{% url 'core:quote_wizard' %}" class="spotlight-item" data-keywords="quote price estimate cost calculate wizard devis tarif">
+                            <span class="spotlight-item-icon">⚡</span>
+                            <div class="spotlight-item-text">
+                                <span class="spotlight-item-title">{% trans "Calculate Instant Project Quote" %}</span>
+                                <span class="spotlight-item-desc">{% trans "Interactive 60s estimate for web, mobile & cloud systems" %}</span>
+                            </div>
+                            <span class="spotlight-item-badge">{% trans "Wizard" %}</span>
+                        </a>
+                        <a href="{% url 'core:client_dashboard_demo' %}" class="spotlight-item" data-keywords="client dashboard demo simulation portal tracking reporting devops tickets telemetry">
+                            <span class="spotlight-item-icon">📊</span>
+                            <div class="spotlight-item-text">
+                                <span class="spotlight-item-title">{% trans "Client Dashboard Demo" %}</span>
+                                <span class="spotlight-item-desc">{% trans "Interactive simulation of live telemetry, support tickets, and sprint progress" %}</span>
+                            </div>
+                            <span class="spotlight-item-badge">{% trans "Demo" %}</span>
+                        </a>
+                        <a href="https://wa.me/212787862187" target="_blank" rel="noopener noreferrer" class="spotlight-item" data-keywords="whatsapp chat direct message talk call contact phone">
+                            <span class="spotlight-item-icon">💬</span>
+                            <div class="spotlight-item-text">
+                                <span class="spotlight-item-title">{% trans "Direct WhatsApp with Senior Architects" %}</span>
+                                <span class="spotlight-item-desc">{% trans "Instant consultation with Tangier engineering studio" %}</span>
+                            </div>
+                            <span class="spotlight-item-badge">WhatsApp</span>
+                        </a>
+                        <a href="{% url 'core:contact' %}" class="spotlight-item" data-keywords="contact message email office address meeting rdv">
+                            <span class="spotlight-item-icon">✉️</span>
+                            <div class="spotlight-item-text">
+                                <span class="spotlight-item-title">{% trans "Contact & Project Inquiry" %}</span>
+                                <span class="spotlight-item-desc">{% trans "Submit RFP or schedule a discovery sprint" %}</span>
+                            </div>
+                            <span class="spotlight-item-badge">{% trans "Contact" %}</span>
+                        </a>
+                    </div>
 
                 <!-- Category: Core Services -->
                 <div class="spotlight-group" data-group="services">
@@ -468,18 +485,22 @@
                         <span class="spotlight-item-badge">{% trans "Blog" %}</span>
                     </a>
                 </div>
+            </div>{# /spotlight-default-results #}
+        </div>{# /spotlight-results #}
+        <div class="spotlight-footer">
+            <div class="spotlight-shortcuts-hint">
+                <span><kbd class="spotlight-mini-kbd">↑</kbd><kbd class="spotlight-mini-kbd">↓</kbd> {% trans "navigate" %}</span>
+                <span><kbd class="spotlight-mini-kbd">↵</kbd> {% trans "select" %}</span>
+                <span><kbd class="spotlight-mini-kbd">ESC</kbd> {% trans "close" %}</span>
             </div>
-            <div class="spotlight-footer">
-                <div class="spotlight-shortcuts-hint">
-                    <span><kbd class="spotlight-mini-kbd">↑</kbd><kbd class="spotlight-mini-kbd">↓</kbd> {% trans "navigate" %}</span>
-                    <span><kbd class="spotlight-mini-kbd">↵</kbd> {% trans "select" %}</span>
-                    <span><kbd class="spotlight-mini-kbd">ESC</kbd> {% trans "close" %}</span>
-                </div>
-                <div class="spotlight-branding">getNexiro 🇲🇦 Studio Hub</div>
-            </div>
+            <div class="spotlight-branding">getNexiro 🇲🇦 Studio Hub</div>
         </div>
     </div>
+</div>
 
-    {% include "core/includes/cookie_consent.html" %}
+{# ══════ STICKY MINI-CTA BAR (Feature 2) ══════ #}
+{% include "core/includes/sticky_mini_cta.html" %}
+
+{% include "core/includes/cookie_consent.html" %}
 </body>
 </html>
