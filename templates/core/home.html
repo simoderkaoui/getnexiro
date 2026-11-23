@@ -65,46 +65,126 @@
                                 <span class="console-dot dot-amber"></span>
                                 <span class="console-dot dot-green"></span>
                             </div>
-                            <div class="console-tab">
-                                <span>⚡</span> {% trans "Engineering Studio" %} • Tangier Hub
+                            <div class="console-tabs-nav" role="tablist" aria-label="{% trans 'Studio Telemetry' %}">
+                                <button type="button" class="console-tab-btn active" data-console-tab="architecture" role="tab" aria-selected="true">
+                                    <span>⚡</span> {% trans "Architecture" %}
+                                </button>
+                                <button type="button" class="console-tab-btn" data-console-tab="telemetry" role="tab" aria-selected="false">
+                                    <span>🚀</span> {% trans "Telemetry" %}
+                                </button>
+                                <button type="button" class="console-tab-btn" data-console-tab="radar" role="tab" aria-selected="false">
+                                    <span>🔬</span> {% trans "Tech Radar" %}
+                                </button>
                             </div>
                             <div class="console-live-pill">
                                 <span class="status-live-dot"></span>
                                 <span>{% trans "ACTIVE" %}</span>
                             </div>
                         </div>
-                        <div class="architecture-stack-body">
-                            <div class="arch-layer">
-                                <div class="arch-layer-header">
-                                    <span class="arch-layer-badge">01</span>
-                                    <span class="arch-layer-title">{% trans "Web & Mobile Frontends" %}</span>
+
+                        <!-- Console Tab 1: Architecture -->
+                        <div class="console-tab-pane active" id="consolePaneArchitecture">
+                            <div class="architecture-stack-body">
+                                <div class="arch-layer">
+                                    <div class="arch-layer-header">
+                                        <span class="arch-layer-badge">01</span>
+                                        <span class="arch-layer-title">{% trans "Web & Mobile Frontends" %}</span>
+                                    </div>
+                                    <div class="arch-layer-chips">
+                                        <span class="tech-pill">Next.js / React</span>
+                                        <span class="tech-pill">Flutter Mobile</span>
+                                        <span class="tech-pill">TypeScript</span>
+                                    </div>
                                 </div>
-                                <div class="arch-layer-chips">
-                                    <span class="tech-pill">Next.js / React</span>
-                                    <span class="tech-pill">Flutter Mobile</span>
-                                    <span class="tech-pill">TypeScript</span>
+                                <div class="arch-layer">
+                                    <div class="arch-layer-header">
+                                        <span class="arch-layer-badge">02</span>
+                                        <span class="arch-layer-title">{% trans "Backend Engine & APIs" %}</span>
+                                    </div>
+                                    <div class="arch-layer-chips">
+                                        <span class="tech-pill">Django / Python</span>
+                                        <span class="tech-pill">PostgreSQL</span>
+                                        <span class="tech-pill">REST & GraphQL</span>
+                                    </div>
+                                </div>
+                                <div class="arch-layer">
+                                    <div class="arch-layer-header">
+                                        <span class="arch-layer-badge">03</span>
+                                        <span class="arch-layer-title">{% trans "Cloud & Production Delivery" %}</span>
+                                    </div>
+                                    <div class="arch-layer-chips">
+                                        <span class="tech-pill">Docker & CI/CD</span>
+                                        <span class="tech-pill">AWS / Nginx</span>
+                                        <span class="tech-pill">Nearshore GMT+1</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="arch-layer">
-                                <div class="arch-layer-header">
-                                    <span class="arch-layer-badge">02</span>
-                                    <span class="arch-layer-title">{% trans "Backend Engine & APIs" %}</span>
-                                </div>
-                                <div class="arch-layer-chips">
-                                    <span class="tech-pill">Django / Python</span>
-                                    <span class="tech-pill">PostgreSQL</span>
-                                    <span class="tech-pill">REST & GraphQL</span>
+                        </div>
+
+                        <!-- Console Tab 2: Live Telemetry -->
+                        <div class="console-tab-pane" id="consolePaneTelemetry">
+                            <div class="telemetry-dashboard-body">
+                                <div class="telemetry-grid">
+                                    <div class="telemetry-card">
+                                        <div class="telemetry-head">
+                                            <span class="telemetry-radar-dot"></span>
+                                            <span class="telemetry-title">Lighthouse</span>
+                                        </div>
+                                        <div class="telemetry-val">100<small>/100</small></div>
+                                        <div class="telemetry-bar-bg"><div class="telemetry-bar-fill" style="width: 100%;"></div></div>
+                                        <span class="telemetry-sub">Core Web Vitals Max</span>
+                                    </div>
+                                    <div class="telemetry-card">
+                                        <div class="telemetry-head">
+                                            <span class="telemetry-radar-dot pulse-cyan"></span>
+                                            <span class="telemetry-title">Response</span>
+                                        </div>
+                                        <div class="telemetry-val">38<small>ms</small></div>
+                                        <div class="telemetry-bar-bg"><div class="telemetry-bar-fill bar-cyan" style="width: 92%;"></div></div>
+                                        <span class="telemetry-sub">Tangier ↔ Europe</span>
+                                    </div>
+                                    <div class="telemetry-card">
+                                        <div class="telemetry-head">
+                                            <span class="telemetry-radar-dot"></span>
+                                            <span class="telemetry-title">Uptime SLA</span>
+                                        </div>
+                                        <div class="telemetry-val">99.99<small>%</small></div>
+                                        <div class="telemetry-bar-bg"><div class="telemetry-bar-fill" style="width: 99.9%;"></div></div>
+                                        <span class="telemetry-sub">High Availability</span>
+                                    </div>
+                                    <div class="telemetry-card">
+                                        <div class="telemetry-head">
+                                            <span class="telemetry-radar-dot pulse-amber"></span>
+                                            <span class="telemetry-title">Deployments</span>
+                                        </div>
+                                        <div class="telemetry-val">0<small> downtime</small></div>
+                                        <div class="telemetry-bar-bg"><div class="telemetry-bar-fill bar-amber" style="width: 96%;"></div></div>
+                                        <span class="telemetry-sub">Blue/Green CI/CD</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="arch-layer">
-                                <div class="arch-layer-header">
-                                    <span class="arch-layer-badge">03</span>
-                                    <span class="arch-layer-title">{% trans "Cloud & Production Delivery" %}</span>
+                        </div>
+
+                        <!-- Console Tab 3: Tech Radar -->
+                        <div class="console-tab-pane" id="consolePaneRadar">
+                            <div class="radar-cloud-body">
+                                <div class="radar-group">
+                                    <span class="radar-group-title">{% trans "Full-Stack & Mobile Core" %}</span>
+                                    <div class="radar-pills">
+                                        <span class="radar-pill" title="Python 3.12 Core"><span class="radar-dot"></span> Python 3.12</span>
+                                        <span class="radar-pill" title="Django 5.1 Batteries Included"><span class="radar-dot"></span> Django 5.1</span>
+                                        <span class="radar-pill" title="Reactive UI & SSR"><span class="radar-dot"></span> Next.js / React</span>
+                                        <span class="radar-pill" title="Native Cross-Platform"><span class="radar-dot"></span> Flutter 3.24</span>
+                                    </div>
                                 </div>
-                                <div class="arch-layer-chips">
-                                    <span class="tech-pill">Docker & CI/CD</span>
-                                    <span class="tech-pill">AWS / Nginx</span>
-                                    <span class="tech-pill">Nearshore GMT+1</span>
+                                <div class="radar-group">
+                                    <span class="radar-group-title">{% trans "Data, Security & Cloud" %}</span>
+                                    <div class="radar-pills">
+                                        <span class="radar-pill" title="ACID Relational Core"><span class="radar-dot"></span> PostgreSQL 16</span>
+                                        <span class="radar-pill" title="Microservices & Containers"><span class="radar-dot"></span> Docker</span>
+                                        <span class="radar-pill" title="Scalable Cloud"><span class="radar-dot"></span> AWS & Nginx</span>
+                                        <span class="radar-pill" title="Sub-5ms In-Memory Cache"><span class="radar-dot"></span> Redis 7</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,8 +224,8 @@
     <div class="container">
         <div class="stats-grid reveal-stagger reveal">
             {% for stat in stats %}
-            <div class="stat-card">
-                <div class="stat-number">{{ stat.value }}</div>
+            <div class="stat-card glass-card">
+                <div class="stat-number counter" data-value="{{ stat.value }}">{{ stat.value }}</div>
                 <div class="stat-label">{{ stat.label }}</div>
             </div>
             {% endfor %}
@@ -172,6 +252,52 @@
                 Strategically positioned in Northern Morocco near the Tanger Med logistics hub and regional commercial zones, our engineering team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
                 {% endblocktrans %}
             </p>
+
+            <!-- Interactive Morocco Innovation Hubs Corridor -->
+            <div class="hubs-corridor-wrapper" style="margin-top: 2.5rem; text-align: left;">
+                <div class="hubs-corridor-title" style="text-align: center; margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: #38bdf8; font-weight: 700;">{% trans "Morocco Engineering Corridor" %}</span>
+                    <h3 style="color: #f1f5f9; font-size: 1.35rem; margin-top: 0.35rem;">{% trans "Explore Localized Tech Hubs Across Morocco" %}</h3>
+                </div>
+                <div class="hubs-grid">
+                    <a href="{% url 'core:city_service_page' 'web-development' 'tangier' %}" class="hub-card glass-card">
+                        <div class="hub-card-header">
+                            <span class="hub-radar-beacon"></span>
+                            <span class="hub-city-name">Tangier 🇲🇦</span>
+                            <span class="hub-role-badge">HQ</span>
+                        </div>
+                        <p class="hub-card-desc">{% trans "Mediterranean nearshore gateway to Europe (GMT+1) & Tanger Med supply chain software." %}</p>
+                        <span class="hub-card-link">{% trans "Explore Tangier Hub" %} →</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'tetouan' %}" class="hub-card glass-card">
+                        <div class="hub-card-header">
+                            <span class="hub-radar-beacon"></span>
+                            <span class="hub-city-name">Tétouan 🇲🇦</span>
+                            <span class="hub-role-badge">Design Hub</span>
+                        </div>
+                        <p class="hub-card-desc">{% trans "Design systems, mobile commerce & coastal enterprise digitisation." %}</p>
+                        <span class="hub-card-link">{% trans "Explore Tétouan Hub" %} →</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'fes' %}" class="hub-card glass-card">
+                        <div class="hub-card-header">
+                            <span class="hub-radar-beacon"></span>
+                            <span class="hub-city-name">Fès 🇲🇦</span>
+                            <span class="hub-role-badge">Backend Hub</span>
+                        </div>
+                        <p class="hub-card-desc">{% trans "Academic software engineering & high-throughput enterprise backend data engines." %}</p>
+                        <span class="hub-card-link">{% trans "Explore Fès Hub" %} →</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'meknes' %}" class="hub-card glass-card">
+                        <div class="hub-card-header">
+                            <span class="hub-radar-beacon"></span>
+                            <span class="hub-city-name">Meknès 🇲🇦</span>
+                            <span class="hub-role-badge">AgriTech Hub</span>
+                        </div>
+                        <p class="hub-card-desc">{% trans "Agro-export logistics, custom management portals & regional enterprise SaaS." %}</p>
+                        <span class="hub-card-link">{% trans "Explore Meknès Hub" %} →</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -256,6 +382,72 @@
     </div>
 </section>
 {% endif %}
+
+{# ══════ INTERACTIVE PROJECT ESTIMATOR ══════ #}
+<section class="section section-estimator-teaser" id="projectEstimatorSection">
+    <div class="container">
+        <div class="estimator-teaser-card glass-card">
+            <div class="estimator-header">
+                <div class="badge-tag">{% trans "Interactive Estimation" %}</div>
+                <h2 class="estimator-title">{% trans "Curious What It Takes to Build Your Next System?" %}</h2>
+                <p class="estimator-subtitle">{% trans "Select a project category below to preview delivery timeframes, team architecture, and get an instant transparent quote in 60 seconds." %}</p>
+            </div>
+            
+            <div class="estimator-tabs-bar" role="tablist">
+                <button type="button" class="estimator-tab-btn active" data-type="web" role="tab" aria-selected="true">
+                    <span class="est-icon">🌐</span>
+                    <span class="est-label">{% trans "Web App / SaaS" %}</span>
+                </button>
+                <button type="button" class="estimator-tab-btn" data-type="mobile" role="tab" aria-selected="false">
+                    <span class="est-icon">📱</span>
+                    <span class="est-label">{% trans "Mobile App (iOS/Android)" %}</span>
+                </button>
+                <button type="button" class="estimator-tab-btn" data-type="backend" role="tab" aria-selected="false">
+                    <span class="est-icon">⚙️</span>
+                    <span class="est-label">{% trans "API Engine & Cloud" %}</span>
+                </button>
+                <button type="button" class="estimator-tab-btn" data-type="design" role="tab" aria-selected="false">
+                    <span class="est-icon">🎨</span>
+                    <span class="est-label">{% trans "UI/UX & Design System" %}</span>
+                </button>
+            </div>
+
+            <div class="estimator-display-panel" id="estimatorDisplay">
+                <div class="est-preview-grid">
+                    <div class="est-metric-box">
+                        <span class="est-metric-lbl">{% trans "Typical Delivery" %}</span>
+                        <span class="est-metric-val" id="estDelivery">4 – 8 Weeks</span>
+                    </div>
+                    <div class="est-metric-box">
+                        <span class="est-metric-lbl">{% trans "Development Sprints" %}</span>
+                        <span class="est-metric-val" id="estSprints">2 – 4 Agile Sprints</span>
+                    </div>
+                    <div class="est-metric-box">
+                        <span class="est-metric-lbl">{% trans "IP Ownership" %}</span>
+                        <span class="est-metric-val" id="estOwnership">100% Full Transfer</span>
+                    </div>
+                    <div class="est-metric-box">
+                        <span class="est-metric-lbl">{% trans "Post-Launch Warranty" %}</span>
+                        <span class="est-metric-val" id="estWarranty">30 Days Included</span>
+                    </div>
+                </div>
+
+                <div class="est-details-row">
+                    <div class="est-blueprint">
+                        <span class="est-bp-title">{% trans "Recommended Blueprint" %}:</span>
+                        <p class="est-bp-desc" id="estBlueprint">{% trans "Custom Django 5.1 engine + PostgreSQL database, responsive component system, multilingual routing (EN/FR/AR), and Dockerized automated CI/CD pipeline." %}</p>
+                    </div>
+                    <div class="est-cta-col">
+                        <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-glow est-cta-btn" id="estCta">
+                            <span>{% trans "Customize & Calculate Exact Quote" %} →</span>
+                        </a>
+                        <span class="est-guarantee-note">🔒 {% trans "100% Free • No commitment • Instant 60s breakdown" %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {# ══════ PROJECTS (from DB) ══════ #}
 {% if featured_projects %}

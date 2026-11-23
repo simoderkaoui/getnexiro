@@ -215,17 +215,22 @@ class SafeProjectImageFormSet(BaseInlineFormSet):
         return super().save(commit=commit)
 
 
-class ProjectImageInline(admin.TabularInline):
+class ProjectImageInline(admin.StackedInline):
     model = ProjectImage
     formset = SafeProjectImageFormSet
-    extra = 0
-    fields = ('image', 'caption_en', 'caption_fr', 'caption_ar', 'order', 'image_preview')
+    extra = 1
+    verbose_name = _('Project Gallery Carousel Photo')
+    verbose_name_plural = _('📸 Project Gallery Carousel Photos (Upload & Manage Showcase Slides)')
+    fields = (('image', 'image_preview'), ('caption_en', 'caption_fr', 'caption_ar'), 'order')
     readonly_fields = ('image_preview',)
 
-    @admin.display(description=_('Preview'))
+    @admin.display(description=_('Current Photo Preview'))
     def image_preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="height:45px; border-radius:6px; object-fit:cover;" />', obj.image.url)
+            return format_html(
+                '<div style="margin-top:6px;"><img src="{}" style="max-height:90px; max-width:180px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); object-fit:cover; box-shadow:0 4px 12px rgba(0,0,0,0.3);" /></div>',
+                obj.image.url
+            )
         return '—'
 
 
@@ -235,6 +240,13 @@ class ProjectImageAdmin(admin.ModelAdmin):
     list_filter = ('project',)
     search_fields = ('project__title_en', 'caption_en', 'caption_fr', 'caption_ar')
     ordering = ('project', 'order')
+
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        project_id = request.GET.get('project')
+        if project_id:
+            initial['project'] = project_id
+        return initial
 
     @admin.display(description=_('Preview'))
     def image_preview(self, obj):
@@ -252,14 +264,19 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('title_en', 'title_fr', 'title_ar', 'description_en', 'slug')
     prepopulated_fields = {'slug': ('title_en',)}
     ordering = ('order',)
+    readonly_fields = ('gallery_manager_shortcut',)
     inlines = [ProjectImageInline]
 
     fieldsets = (
         (_('Titles & Slug (Multilingual)'), {
             'fields': ('title_en', 'title_fr', 'title_ar', 'slug'),
         }),
-        (_('Category, Client & Links'), {
-            'fields': ('category', 'client_name', 'technologies', 'duration', 'year', 'live_url', 'github_url', 'image'),
+        (_('Category, Client, Cover Image & Gallery'), {
+            'fields': (
+                'category', 'client_name', 'technologies', 'duration', 'year', 'live_url', 'github_url',
+                'image', 'gallery_manager_shortcut'
+            ),
+            'description': _('Upload the primary cover image below, or use the Gallery manager to add multiple carousel slides to this case study.'),
         }),
         (_('Executive Overview (Multilingual)'), {
             'fields': ('description_en', 'description_fr', 'description_ar'),
@@ -299,10 +316,53 @@ class ProjectAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="height:36px; border-radius:6px; object-fit:cover;" />', obj.image.url)
         return '—'
 
-    @admin.display(description=_('Gallery'))
+    @admin.display(description=_('Gallery Photos'))
     def gallery_count(self, obj):
         count = obj.gallery_images.count()
-        return f"{count} photo{'s' if count != 1 else ''}"
+        list_url = f"/admin/core/projectimage/?project__id__exact={obj.id}"
+        add_url = f"/admin/core/projectimage/add/?project={obj.id}"
+        if count > 0:
+            return format_html(
+                '<a href="{}" style="font-weight:600; color:#38bdf8; text-decoration:underline;">📷 {} photo{}</a> '
+                '<a href="{}" style="margin-left:6px; padding:2px 7px; background:#0284c7; color:#fff; border-radius:4px; font-size:11px; text-decoration:none;">+ Add</a>',
+                list_url, count, 's' if count != 1 else '', add_url
+            )
+        return format_html(
+            '<span style="color:#64748b;">0 photos</span> '
+            '<a href="{}" style="margin-left:6px; padding:2px 7px; background:#0284c7; color:#fff; border-radius:4px; font-size:11px; text-decoration:none;">+ Add Photo</a>',
+            add_url
+        )
+
+    @admin.display(description=_('📸 Project Gallery Carousel'))
+    def gallery_manager_shortcut(self, obj):
+        if not obj or not obj.pk:
+            return _("Save this project first to add gallery carousel photos.")
+        count = obj.gallery_images.count()
+        add_url = f"/admin/core/projectimage/add/?project={obj.id}"
+        list_url = f"/admin/core/projectimage/?project__id__exact={obj.id}"
+        return format_html(
+            '<div style="background:linear-gradient(135deg, rgba(2,132,199,0.18) 0%, rgba(56,189,248,0.08) 100%); '
+            'border:1px solid rgba(56,189,248,0.35); border-radius:10px; padding:14px 18px; margin:6px 0 14px;">'
+            '<div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">'
+            '<div>'
+            '<span style="font-size:14px; font-weight:700; color:#38bdf8;">📸 Carousel Photo Gallery</span>'
+            '<p style="margin:4px 0 0; color:#cbd5e1; font-size:13px;">This project currently has <strong>{} photo{}</strong> in its interactive carousel.</p>'
+            '</div>'
+            '<div style="display:flex; gap:8px;">'
+            '<a href="{}" target="_blank" style="background:#0284c7; color:#ffffff; font-weight:600; padding:6px 14px; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; font-size:13px; box-shadow:0 2px 6px rgba(2,132,199,0.4);">'
+            '+ Upload Photo Directly ↗'
+            '</a>'
+            '<a href="{}" target="_blank" style="background:rgba(255,255,255,0.08); color:#38bdf8; border:1px solid rgba(56,189,248,0.3); font-weight:500; padding:6px 14px; border-radius:6px; text-decoration:none; font-size:13px;">'
+            'View All Gallery Photos ({}) ↗'
+            '</a>'
+            '</div>'
+            '</div>'
+            '<p style="margin:10px 0 0; color:#94a3b8; font-size:12px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">'
+            '💡 <em>Tip: You can upload photos directly using the button above, or scroll down to the bottom of this form to upload slides in bulk.</em>'
+            '</p>'
+            '</div>',
+            count, 's' if count != 1 else '', add_url, list_url, count
+        )
 
 
 

@@ -66,6 +66,10 @@
                     <a href="{% url 'core:projects' %}" class="nav-link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">{% trans "Projects" %}</a>
                     <a href="{% url 'core:blog' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'blog_detail' %}active{% endif %}">{% trans "Blog" %}</a>
                     <div class="mobile-nav-actions">
+                        <button type="button" class="btn btn-outline btn-sm btn-full mobile-spotlight-trigger" id="mobileSpotlightTrigger">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <span>{% trans "Search & Quick Jump (⌘K)" %}</span>
+                        </button>
                         <a href="{% url 'core:quote_wizard' %}" class="btn btn-primary btn-sm btn-full btn-quote-animated">
                             <span class="quote-pulse-dot" aria-hidden="true"></span>
                             <span>{% trans "Ask for a Free Quote" %}</span>
@@ -75,6 +79,13 @@
                 </div>
 
                 <div class="navbar-actions">
+                    {# ── QUICK EXPLORE / COMMAND PALETTE TRIGGER ── #}
+                    <button type="button" class="nav-spotlight-btn" id="spotlightTrigger" aria-label="{% trans 'Quick Search & Navigation (Ctrl+K)' %}" title="{% trans 'Quick Navigation (Ctrl+K)' %}">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <span class="spotlight-btn-label">{% trans "Explore" %}</span>
+                        <kbd class="spotlight-kbd">⌘K</kbd>
+                    </button>
+
                     {# ── FLAG-BASED LANGUAGE SWITCHER ── #}
                     <div class="flag-switcher" role="navigation" aria-label="{% trans 'Language Switcher' %}">
                         {% for lang_code, lang_name in ALL_LANGS %}
@@ -308,6 +319,167 @@
         }
     })();
     </script>
+    {# ══════ COMMAND PALETTE / SPOTLIGHT MODAL ══════ #}
+    <div class="spotlight-overlay" id="spotlightModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{% trans 'Quick Navigator' %}">
+        <div class="spotlight-backdrop" id="spotlightBackdrop"></div>
+        <div class="spotlight-box">
+            <div class="spotlight-search-bar">
+                <svg class="spotlight-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="spotlightInput" class="spotlight-input" placeholder="{% trans 'Search services, projects, Moroccan hubs, or tools...' %}" autocomplete="off" spellcheck="false">
+                <button type="button" class="spotlight-close-btn" id="spotlightCloseBtn" aria-label="{% trans 'Close' %}">&times;</button>
+            </div>
+            <div class="spotlight-results" id="spotlightResults">
+                <!-- Category: Actions & Tools -->
+                <div class="spotlight-group" data-group="actions">
+                    <div class="spotlight-group-title">{% trans "⚡ Actions & Interactive Tools" %}</div>
+                    <a href="{% url 'core:quote_wizard' %}" class="spotlight-item" data-keywords="quote price estimate cost calculate wizard devis tarif">
+                        <span class="spotlight-item-icon">⚡</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Calculate Instant Project Quote" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Interactive 60s estimate for web, mobile & cloud systems" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Wizard" %}</span>
+                    </a>
+                    <a href="https://wa.me/212787862187" target="_blank" rel="noopener noreferrer" class="spotlight-item" data-keywords="whatsapp chat direct message talk call contact phone">
+                        <span class="spotlight-item-icon">💬</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Direct WhatsApp with Senior Architects" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Instant consultation with Tangier engineering studio" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">WhatsApp</span>
+                    </a>
+                    <a href="{% url 'core:contact' %}" class="spotlight-item" data-keywords="contact message email office address meeting rdv">
+                        <span class="spotlight-item-icon">✉️</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Contact & Project Inquiry" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Submit RFP or schedule a discovery sprint" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Contact" %}</span>
+                    </a>
+                </div>
+
+                <!-- Category: Core Services -->
+                <div class="spotlight-group" data-group="services">
+                    <div class="spotlight-group-title">{% trans "🛠️ Core Engineering Services" %}</div>
+                    <a href="{% url 'core:service_detail' 'web-development' %}" class="spotlight-item" data-keywords="web development django react nextjs saas portal platform site">
+                        <span class="spotlight-item-icon">🌐</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Web Development & Custom Platforms" %}</span>
+                            <span class="spotlight-item-desc">Django 5.1, Next.js, PostgreSQL, Cloud Deployments</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Service" %}</span>
+                    </a>
+                    <a href="{% url 'core:service_detail' 'mobile-applications' %}" class="spotlight-item" data-keywords="mobile app flutter ios android application smartphone">
+                        <span class="spotlight-item-icon">📱</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Mobile Applications (iOS & Android)" %}</span>
+                            <span class="spotlight-item-desc">Flutter, offline-first sync, push notifications, stores</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Service" %}</span>
+                    </a>
+                    <a href="{% url 'core:service_detail' 'uiux-design-systems' %}" class="spotlight-item" data-keywords="ui ux design figma prototype wireframe system branding">
+                        <span class="spotlight-item-icon">🎨</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "UI/UX Design Systems & Interfaces" %}</span>
+                            <span class="spotlight-item-desc">Design tokens, interactive prototypes, B2B ergonomics</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Service" %}</span>
+                    </a>
+                    <a href="{% url 'core:service_detail' 'api-microservices' %}" class="spotlight-item" data-keywords="api microservices rest graphql backend endpoints python fastapi">
+                        <span class="spotlight-item-icon">⚙️</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "API Architecture & Microservices" %}</span>
+                            <span class="spotlight-item-desc">High-throughput REST/GraphQL APIs with secure auth</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Service" %}</span>
+                    </a>
+                    <a href="{% url 'core:service_detail' 'cloud-devops' %}" class="spotlight-item" data-keywords="cloud devops docker aws nginx cicd deployment kubernetes">
+                        <span class="spotlight-item-icon">☁️</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Cloud Infrastructure & DevOps CI/CD" %}</span>
+                            <span class="spotlight-item-desc">Docker orchestration, AWS, automated blue/green pipelines</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Service" %}</span>
+                    </a>
+                </div>
+
+                <!-- Category: Moroccan Regional Tech Hubs -->
+                <div class="spotlight-group" data-group="cities">
+                    <div class="spotlight-group-title">{% trans "🇲🇦 Morocco Regional Innovation Hubs" %}</div>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'tangier' %}" class="spotlight-item" data-keywords="tangier tanger طنجة morocco nearshore headquarters hub mediterranean">
+                        <span class="spotlight-item-icon">📍</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">Tangier (Headquarters Hub)</span>
+                            <span class="spotlight-item-desc">{% trans "Mediterranean nearshore gateway to Europe (GMT+1)" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">HQ 🇲🇦</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'tetouan' %}" class="spotlight-item" data-keywords="tetouan tetuan تطوان northern morocco nearshore">
+                        <span class="spotlight-item-icon">📍</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">Tétouan</span>
+                            <span class="spotlight-item-desc">{% trans "Design systems & cross-border commercial tech" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">Hub 🇲🇦</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'fes' %}" class="spotlight-item" data-keywords="fes fez فاس central morocco engineering academy">
+                        <span class="spotlight-item-icon">📍</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">Fès</span>
+                            <span class="spotlight-item-desc">{% trans "Academic talent & deep enterprise backend systems" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">Hub 🇲🇦</span>
+                    </a>
+                    <a href="{% url 'core:city_service_page' 'web-development' 'meknes' %}" class="spotlight-item" data-keywords="meknes مكناس agrotech supply chain logistics morocco">
+                        <span class="spotlight-item-icon">📍</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">Meknès</span>
+                            <span class="spotlight-item-desc">{% trans "Agro-industrial platforms & supply chain software" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">Hub 🇲🇦</span>
+                    </a>
+                </div>
+
+                <!-- Category: Portfolio & Agency -->
+                <div class="spotlight-group" data-group="pages">
+                    <div class="spotlight-group-title">{% trans "🏛️ Agency & Work" %}</div>
+                    <a href="{% url 'core:projects' %}" class="spotlight-item" data-keywords="projects portfolio work cases studies clients medicenters capersmed">
+                        <span class="spotlight-item-icon">💼</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Selected Work & Case Studies" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Explore enterprise projects delivered across Morocco & Europe" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Portfolio" %}</span>
+                    </a>
+                    <a href="{% url 'core:about' %}" class="spotlight-item" data-keywords="about us agency story philosophy tangier team founders values">
+                        <span class="spotlight-item-icon">🏛️</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "About getNexiro" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Our engineering culture, Tangier studio, and client philosophy" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "About" %}</span>
+                    </a>
+                    <a href="{% url 'core:blog' %}" class="spotlight-item" data-keywords="blog articles tech insights architecture tutorials engineering">
+                        <span class="spotlight-item-icon">📰</span>
+                        <div class="spotlight-item-text">
+                            <span class="spotlight-item-title">{% trans "Engineering Blog & Tech Insights" %}</span>
+                            <span class="spotlight-item-desc">{% trans "Architecture breakdowns, Django, Flutter & performance guides" %}</span>
+                        </div>
+                        <span class="spotlight-item-badge">{% trans "Blog" %}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="spotlight-footer">
+                <div class="spotlight-shortcuts-hint">
+                    <span><kbd class="spotlight-mini-kbd">↑</kbd><kbd class="spotlight-mini-kbd">↓</kbd> {% trans "navigate" %}</span>
+                    <span><kbd class="spotlight-mini-kbd">↵</kbd> {% trans "select" %}</span>
+                    <span><kbd class="spotlight-mini-kbd">ESC</kbd> {% trans "close" %}</span>
+                </div>
+                <div class="spotlight-branding">getNexiro 🇲🇦 Studio Hub</div>
+            </div>
+        </div>
+    </div>
+
     {% include "core/includes/cookie_consent.html" %}
 </body>
 </html>
