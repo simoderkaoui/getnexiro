@@ -2011,6 +2011,56 @@ class SEOPhase3Phase4AuditTest(TestCase):
         for s in soup.find_all('script', {'type': 'application/ld+json'}):
             self.assertNotEqual(json.loads(s.string).get('@type'), 'FAQPage', "FAQPage schema should be skipped")
 
+    def test_jsonld_same_as_serialization(self):
+        """
+        Verify that SiteConfig and Author serialize social URLs via json.dumps,
+        preventing any 'Missing comma or bracket in array declaration' parsing errors in JSON-LD.
+        """
+        config, _ = SiteConfig.objects.get_or_create(pk=1)
+        config.instagram_url = "https://instagram.com/getnexiro"
+        config.twitter_url = "https://x.com/getnexiro"
+        config.linkedin_url = ""
+        config.github_url = "https://github.com/getnexiro"
+        config.save()
+
+        self.assertEqual(len(config.same_as_list), 3)
+        self.assertIn("https://instagram.com/getnexiro", config.same_as_list)
+        self.assertIn("https://x.com/getnexiro", config.same_as_list)
+        self.assertIn("https://github.com/getnexiro", config.same_as_list)
+
+        parsed_config_json = json.loads(config.same_as_json)
+        self.assertIsInstance(parsed_config_json, list)
+        self.assertEqual(len(parsed_config_json), 3)
+
+        author = Author.objects.create(
+            name="Test Lead Architect",
+            slug="test-lead-architect",
+            linkedin_url="https://linkedin.com/in/test",
+            github_url="",
+            twitter_url="https://twitter.com/test",
+            website_url="https://test.com"
+        )
+        self.assertEqual(len(author.same_as_list), 3)
+        parsed_author_json = json.loads(author.same_as_json)
+        self.assertIsInstance(parsed_author_json, list)
+        self.assertEqual(len(parsed_author_json), 3)
+
+        # Test actual HTTP response and JSON-LD parsing on the author page
+        res = self.client.get(f'/en/blog/author/{author.slug}/')
+        self.assertEqual(res.status_code, 200)
+        soup = self.soup_cls(res.content.decode('utf-8'), 'html.parser')
+        scripts = soup.find_all('script', {'type': 'application/ld+json'})
+        self.assertTrue(len(scripts) >= 1)
+        for s in scripts:
+            data = json.loads(s.string)
+            self.assertIsInstance(data, dict)
+            if data.get('@type') == 'Person':
+                self.assertEqual(data.get('sameAs'), [
+                    "https://linkedin.com/in/test",
+                    "https://twitter.com/test",
+                    "https://test.com"
+                ])
+
     def test_phase6_sitemap_and_robots(self):
         """
         Phase 6:

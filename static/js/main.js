@@ -409,15 +409,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('active');
                 btn.setAttribute('aria-selected', 'true');
 
-                const data = estData[type];
-                estDelivery.textContent = data.delivery;
-                estSprints.textContent = data.sprints;
-                estOwnership.textContent = data.ownership;
-                estWarranty.textContent = data.warranty;
-                estBlueprint.textContent = data.blueprint;
+                const data = estData[type] || {};
+                estDelivery.textContent = btn.dataset.delivery || data.delivery || '';
+                estSprints.textContent = btn.dataset.sprints || data.sprints || '';
+                estOwnership.textContent = btn.dataset.ownership || data.ownership || '';
+                estWarranty.textContent = btn.dataset.warranty || data.warranty || '';
+                estBlueprint.textContent = btn.dataset.blueprint || data.blueprint || '';
                 if (estCta) {
+                    const ctaParam = btn.dataset.cta || data.ctaParam || type;
                     const currentHref = estCta.getAttribute('href').split('?')[0];
-                    estCta.setAttribute('href', `${currentHref}?type=${data.ctaParam}`);
+                    estCta.setAttribute('href', `${currentHref}?type=${ctaParam}`);
                 }
             });
         });

@@ -326,6 +326,19 @@ class SiteConfig(models.Model):
     @property
     def meta_description(self): return get_localized(self, 'meta_description')
 
+    @property
+    def same_as_list(self):
+        links = []
+        for url in [self.instagram_url, self.linkedin_url, self.github_url, self.twitter_url]:
+            if url and url.strip():
+                links.append(url.strip())
+        return links
+
+    @property
+    def same_as_json(self):
+        import json
+        return json.dumps(self.same_as_list)
+
     class Meta:
         verbose_name = _('Site Configuration')
         verbose_name_plural = _('Site Configuration')
@@ -900,6 +913,19 @@ class Author(models.Model):
 
     @property
     def bio(self): return get_localized(self, 'bio')
+
+    @property
+    def same_as_list(self):
+        links = []
+        for url in [self.linkedin_url, self.github_url, self.twitter_url, self.website_url]:
+            if url and url.strip():
+                links.append(url.strip())
+        return links
+
+    @property
+    def same_as_json(self):
+        import json
+        return json.dumps(self.same_as_list)
 
     def __str__(self):
         return self.name

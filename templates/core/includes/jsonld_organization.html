@@ -42,9 +42,7 @@
         {"@type": "AdministrativeArea", "name": "Northern Morocco"}
     ],
     "priceRange": "$$",
-    "sameAs": [
-        {% if config.instagram_url %}"{{ config.instagram_url }}"{% endif %}
-    ],
+    "sameAs": {{ config.same_as_json|safe }},
     "knowsAbout": ["Web Development", "Mobile App Development", "UI/UX Design", "Django", "React", "Flutter", "Cloud Computing", "API Development"],
     "foundingLocation": {
         "@type": "Place",

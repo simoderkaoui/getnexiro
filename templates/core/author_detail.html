@@ -19,11 +19,7 @@
         "name": "{{ config.site_name|default:'getNexiro' }}",
         "url": "{{ SITE_URL }}"
     },
-    "sameAs": [
-        {% if author.linkedin_url %}"{{ author.linkedin_url }}"{% endif %}{% if author.linkedin_url and author.github_url %},{% endif %}
-        {% if author.github_url %}"{{ author.github_url }}"{% endif %}{% if author.github_url and author.twitter_url %},{% endif %}
-        {% if author.twitter_url %}"{{ author.twitter_url }}"{% endif %}
-    ]
+    "sameAs": {{ author.same_as_json|safe }}
 }
 </script>
 {% endblock %}

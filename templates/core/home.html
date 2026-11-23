@@ -249,7 +249,7 @@
             </p>
             <p style="font-size: 1rem; line-height: 1.8; color: #64748b; margin-bottom: 0;">
                 {% blocktrans trimmed %}
-                Strategically positioned in Northern Morocco near the Tanger Med logistics hub and regional commercial zones, our engineering team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
+                Strategically positioned in Northern Morocco near Tanger Med Port and the Tangier Free Zone, our team collaborates closely with ambitious businesses across <a href="/en/services/web-development/tangier/" style="color: #cbd5e1; text-decoration: underline;">Tangier</a>, <a href="/en/services/web-development/tetouan/" style="color: #cbd5e1; text-decoration: underline;">Tétouan</a>, <a href="/en/services/web-development/fes/" style="color: #cbd5e1; text-decoration: underline;">Fès</a>, and <a href="/en/services/web-development/meknes/" style="color: #cbd5e1; text-decoration: underline;">Meknès</a>, while providing European organizations with premier nearshore development talent in GMT+1 with trilingual fluency in English, French, and Arabic.
                 {% endblocktrans %}
             </p>
 
@@ -394,19 +394,43 @@
             </div>
             
             <div class="estimator-tabs-bar" role="tablist">
-                <button type="button" class="estimator-tab-btn active" data-type="web" role="tab" aria-selected="true">
+                <button type="button" class="estimator-tab-btn active" data-type="web"
+                    data-delivery="{% trans '4 – 8 Weeks' %}"
+                    data-sprints="{% trans '2 – 4 Agile Sprints' %}"
+                    data-ownership="{% trans '100% Full IP Transfer' %}"
+                    data-warranty="{% trans '30 Days Included' %}"
+                    data-blueprint="{% trans 'Custom Django 5.1 engine + PostgreSQL database, responsive component system, multilingual routing (EN/FR/AR), and Dockerized automated CI/CD pipeline.' %}"
+                    data-cta="web" role="tab" aria-selected="true">
                     <span class="est-icon">🌐</span>
                     <span class="est-label">{% trans "Web App / SaaS" %}</span>
                 </button>
-                <button type="button" class="estimator-tab-btn" data-type="mobile" role="tab" aria-selected="false">
+                <button type="button" class="estimator-tab-btn" data-type="mobile"
+                    data-delivery="{% trans '6 – 10 Weeks' %}"
+                    data-sprints="{% trans '3 – 5 Agile Sprints' %}"
+                    data-ownership="{% trans '100% Full IP Transfer' %}"
+                    data-warranty="{% trans '60 Days Included' %}"
+                    data-blueprint="{% trans 'Cross-platform Flutter mobile app (iOS & Android) with unified codebase, offline-first SQLite sync, push notifications, and App Store / Google Play deployment.' %}"
+                    data-cta="mobile" role="tab" aria-selected="false">
                     <span class="est-icon">📱</span>
                     <span class="est-label">{% trans "Mobile App (iOS/Android)" %}</span>
                 </button>
-                <button type="button" class="estimator-tab-btn" data-type="backend" role="tab" aria-selected="false">
+                <button type="button" class="estimator-tab-btn" data-type="backend"
+                    data-delivery="{% trans '3 – 6 Weeks' %}"
+                    data-sprints="{% trans '2 – 3 Agile Sprints' %}"
+                    data-ownership="{% trans '100% Full IP Transfer' %}"
+                    data-warranty="{% trans '30 Days Included' %}"
+                    data-blueprint="{% trans 'High-throughput RESTful & GraphQL microservices with JWT/OAuth2 authentication, PostgreSQL schema design, Redis caching layer, and automated API documentation.' %}"
+                    data-cta="backend" role="tab" aria-selected="false">
                     <span class="est-icon">⚙️</span>
                     <span class="est-label">{% trans "API Engine & Cloud" %}</span>
                 </button>
-                <button type="button" class="estimator-tab-btn" data-type="design" role="tab" aria-selected="false">
+                <button type="button" class="estimator-tab-btn" data-type="design"
+                    data-delivery="{% trans '2 – 4 Weeks' %}"
+                    data-sprints="{% trans '1 – 2 Design Sprints' %}"
+                    data-ownership="{% trans '100% Figma & Tokens' %}"
+                    data-warranty="{% trans 'Styleguide Handoff' %}"
+                    data-blueprint="{% trans 'Complete B2B UX audit, clickable high-fidelity Figma prototypes, comprehensive design tokens (dark/light, typography, spacing), and accessible component library.' %}"
+                    data-cta="design" role="tab" aria-selected="false">
                     <span class="est-icon">🎨</span>
                     <span class="est-label">{% trans "UI/UX & Design System" %}</span>
                 </button>
