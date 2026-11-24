@@ -5,6 +5,7 @@ Engineered for maximum deliverability (SPF/DKIM/DMARC compliance, CAN-SPAM,
 multipart/alternative, and proper RFC headers) to ensure messages land in the inbox.
 """
 
+import os
 import json
 import logging
 import threading
@@ -76,7 +77,7 @@ def geolocate_ip(ip_address):
     for api in apis:
         try:
             req = urllib.request.Request(api['url'], headers={'User-Agent': 'getNexiro-GeoLookup/1.0'})
-            with urllib.request.urlopen(req, timeout=3) as resp:
+            with urllib.request.urlopen(req, timeout=1.5) as resp:
                 data = json.loads(resp.read().decode('utf-8'))
                 result = api['parse'](data)
                 if result and result.get('city'):
@@ -293,6 +294,24 @@ def send_contact_emails(contact_message, request=None, async_send=True, client_g
         t.start()
 
 
+def _log_email_debug(message, exc=None):
+    """Write email diagnostic messages to email_debug.log in BASE_DIR for easy server troubleshooting."""
+    try:
+        from django.conf import settings
+        import datetime, traceback
+        log_dir = getattr(settings, 'BASE_DIR', None)
+        if log_dir:
+            path = os.path.join(str(log_dir), 'email_debug.log')
+            with open(path, 'a', encoding='utf-8') as f:
+                now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+                f.write(f"[{now}] {message}\n")
+                if exc:
+                    f.write(f"Exception: {exc}\n")
+                    f.write(f"{traceback.format_exc()}\n")
+    except Exception:
+        pass
+
+
 def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_address, source_page, site_url, admin_url):
     """
     Synchronous worker that compiles and sends:
@@ -301,15 +320,26 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
     """
     import urllib.parse
     from django.utils.translation import override
+    from django.core.mail import get_connection
     from .models import Subscriber
 
     try:
         subscriber = Subscriber.objects.get(pk=subscriber_id)
     except Subscriber.DoesNotExist:
         logger.warning("Subscriber %s not found for email dispatch", subscriber_id)
+        _log_email_debug(f"Subscriber ID {subscriber_id} not found in DB")
         return
 
+    connection = None
     try:
+        try:
+            connection = get_connection(fail_silently=False)
+            connection.open()
+        except Exception as conn_err:
+            logger.error("Failed to open SMTP connection: %s", conn_err, exc_info=True)
+            _log_email_debug(f"Failed to open SMTP connection: {conn_err}", conn_err)
+            connection = None
+
         config = SiteConfig.load()
         auth_user = getattr(settings, 'EMAIL_HOST_USER', '') or ''
         raw_from = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
@@ -322,9 +352,14 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
             faddr = 'contact@getnexiro.com'
         from_email = formataddr((fname or 'getNexiro', faddr))
 
-        ip_geo = geolocate_ip(ip_address)
-        geo_location = ip_geo.get('location_str', '')
-        geo_isp = ip_geo.get('isp', '')
+        geo_location = ''
+        geo_isp = ''
+        try:
+            ip_geo = geolocate_ip(ip_address)
+            geo_location = ip_geo.get('location_str', '')
+            geo_isp = ip_geo.get('isp', '')
+        except Exception:
+            pass
 
         site_url = site_url.rstrip('/')
         confirm_url = f"{site_url}/{lang}/confirm/{subscriber.confirmation_token}/"
@@ -362,12 +397,15 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
                 from_email=from_email,
                 to=[admin_recipient],
                 reply_to=[subscriber.email],
+                connection=connection,
             )
             admin_msg.attach_alternative(admin_html, 'text/html')
             admin_msg.send(fail_silently=False)
             logger.info("Admin newsletter notification sent to %s for subscriber %s", admin_recipient, subscriber.email)
+            _log_email_debug(f"[SUCCESS] Admin notification sent to {admin_recipient} for subscriber {subscriber.email}")
         except Exception as admin_err:
             logger.error("Failed to send admin newsletter notification for %s: %s", subscriber.email, admin_err, exc_info=True)
+            _log_email_debug(f"[FAIL] Admin notification failed for {subscriber.email}: {admin_err}", admin_err)
 
         # ── 2. Subscriber Confirmation & Welcome Email ─────────────────────
         try:
@@ -391,21 +429,30 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
                 from_email=from_email,
                 to=[subscriber.email],
                 reply_to=[admin_recipient],
+                connection=connection,
             )
             subscriber_msg.attach_alternative(sub_html, 'text/html')
-            subscriber_msg.extra_headers['Auto-Submitted'] = 'auto-replied'
-            subscriber_msg.extra_headers['X-Auto-Response-Suppress'] = 'All'
-            subscriber_msg.extra_headers['Precedence'] = 'auto_reply'
+            subscriber_msg.extra_headers['List-Unsubscribe'] = f"<{unsub_url}>"
+            subscriber_msg.extra_headers['X-Entity-Ref-ID'] = str(subscriber.confirmation_token)
             subscriber_msg.send(fail_silently=False)
             logger.info("Confirmation email sent to subscriber %s", subscriber.email)
+            _log_email_debug(f"[SUCCESS] Confirmation email sent to subscriber {subscriber.email}")
         except Exception as sub_err:
             logger.error("Failed to send confirmation email to subscriber %s: %s", subscriber.email, sub_err, exc_info=True)
+            _log_email_debug(f"[FAIL] Confirmation email failed for {subscriber.email}: {sub_err}", sub_err)
 
     except Exception as exc:
         logger.error(
             "Failed during newsletter subscription email preparation for %s: %s",
             subscriber.email, exc, exc_info=True
         )
+        _log_email_debug(f"[FAIL] Pipeline error for {getattr(subscriber, 'email', subscriber_id)}: {exc}", exc)
+    finally:
+        if connection:
+            try:
+                connection.close()
+            except Exception:
+                pass
 
 
 def send_newsletter_subscription_emails(subscriber, request=None, async_send=False):

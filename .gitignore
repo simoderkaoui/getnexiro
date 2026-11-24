@@ -13,3 +13,5 @@ db.sqlite3
 .idea/
 test_err.log
 scratch/
+email_debug.log
+tmp/restart.txt

@@ -1,0 +1,2 @@
+# Used by Phusion Passenger WSGI to trigger app restarts:
+# Run: touch tmp/restart.txt
