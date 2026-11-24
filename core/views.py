@@ -1292,7 +1292,7 @@ def newsletter_subscribe(request):
     ip = get_client_ip(request)
     cache_key = f"newsletter_sub_rate_{ip}"
     req_count = cache.get(cache_key, 0)
-    if req_count >= 5:
+    if req_count >= 25:
         return JsonResponse({
             'status': 'error',
             'message': _('Too many requests. Please try again in a few minutes.')
@@ -1312,7 +1312,7 @@ def newsletter_subscribe(request):
         first_err = next(iter(form.errors.values()))[0] if form.errors else _('Please enter a valid email address.')
         return JsonResponse({'status': 'error', 'message': str(first_err)}, status=400)
 
-    email = form.cleaned_data['email']
+    email = form.cleaned_data['email'].strip().lower()
     source = form.cleaned_data.get('source') or 'footer'
     lang = (get_language() or 'en').lower()
     if lang.startswith('fr'):
@@ -1339,24 +1339,17 @@ def newsletter_subscribe(request):
     )
 
     if not created:
-        if sub.is_confirmed or sub.status == 'confirmed':
-            return JsonResponse({
-                'status': 'info',
-                'message': _('You are already subscribed to Morocco Web Tips!')
-            })
-        # If pending or unsubscribed, refresh token and language
+        # Refresh token and language so testing or re-subscribing re-triggers confirmation
         sub.confirmation_token = token
         sub.token_created_at = tz.now()
-        sub.status = 'pending'
-        sub.is_confirmed = False
         sub.language = sub_lang
         sub.source = source
         sub.consent = True
-        sub.save(update_fields=['confirmation_token', 'token_created_at', 'status', 'is_confirmed', 'language', 'source', 'consent'])
+        sub.save(update_fields=['confirmation_token', 'token_created_at', 'language', 'source', 'consent'])
 
     # Dispatch both Admin notification (to contact@getnexiro.com) and Subscriber confirmation
     from .emails import send_newsletter_subscription_emails
-    send_newsletter_subscription_emails(sub, request=request)
+    send_newsletter_subscription_emails(sub, request=request, async_send=False)
 
     return JsonResponse({
         'status': 'success',

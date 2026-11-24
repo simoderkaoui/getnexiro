@@ -311,10 +311,14 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
 
     try:
         config = SiteConfig.load()
+        auth_user = getattr(settings, 'EMAIL_HOST_USER', '') or ''
         raw_from = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
         from email.utils import parseaddr, formataddr
         fname, faddr = parseaddr(raw_from)
-        if not faddr:
+        # On cPanel Exim, ensure the envelope sender matches the authenticated mailbox
+        if auth_user and '@' in auth_user:
+            faddr = auth_user
+        elif not faddr:
             faddr = 'contact@getnexiro.com'
         from_email = formataddr((fname or 'getNexiro', faddr))
 
@@ -404,11 +408,12 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
         )
 
 
-def send_newsletter_subscription_emails(subscriber, request=None, async_send=True):
+def send_newsletter_subscription_emails(subscriber, request=None, async_send=False):
     """
     Dispatches both the Admin notification (to contact@getnexiro.com) and the
     Subscriber confirmation & welcome email.
-    Uses async daemon thread for zero UI latency, or synchronous in test environments.
+    Defaults to synchronous dispatch (async_send=False) so cPanel Passenger WSGI
+    never terminates the thread before outbound SMTP delivery completes.
     """
     config = SiteConfig.load()
     admin_recipient = config.email or 'contact@getnexiro.com'

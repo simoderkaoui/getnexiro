@@ -189,9 +189,19 @@ EMAIL_BACKEND = os.environ.get(
     else 'django.core.mail.backends.console.EmailBackend'
 )
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+# Automatically resolve common cPanel hostname mismatch:
+# The server's SSL certificate is issued for getnexiro.com, not mail.getnexiro.com.
+if EMAIL_HOST in ('mail.getnexiro.com', 'mail.getnexiro.ma'):
+    EMAIL_HOST = 'getnexiro.com'
+
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 't')
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() in ('true', '1', 't')
+if EMAIL_PORT == 465:
+    EMAIL_USE_SSL = True
+    EMAIL_USE_TLS = False
+else:
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 't')
+    EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() in ('true', '1', 't')
+
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
