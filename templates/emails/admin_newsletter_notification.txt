@@ -1,0 +1,25 @@
+[Morocco Web Tips] New Newsletter Subscriber
+
+A new reader just entered their email to subscribe to Morocco Web Tips on getnexiro.com.
+
+============================================================
+SUBSCRIBER DETAILS
+============================================================
+Email: {{ email }}
+Language: {{ language|upper }}
+Source Widget: {{ source|default:'newsletter_box' }}
+{% if source_page %}Source URL: {{ source_page }}
+{% endif %}Status: {% if subscriber.is_confirmed %}Confirmed{% else %}Pending Double Opt-In Verification{% endif %}
+Signup Time: {{ created_at|date:"F j, Y, H:i:s" }} (GMT+1)
+{% if ip_address %}IP Address: {{ ip_address }}
+{% endif %}{% if geo_location %}Location: {{ geo_location }}{% if geo_isp %} ({{ geo_isp }}){% endif %}
+{% endif %}
+============================================================
+ACTIONS
+============================================================
+{% if admin_url %}View in Admin: {{ admin_url }}
+{% endif %}Reply directly: {{ email }}
+
+-- 
+getNexiro Engineering Studio • Tangier, Morocco
+Automated notification sent to contact@getnexiro.com

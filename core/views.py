@@ -806,6 +806,27 @@ def lead_magnet(request):
                 visitor_email.extra_headers['X-Auto-Response-Suppress'] = 'All'
                 visitor_email.extra_headers['Precedence'] = 'auto_reply'
                 visitor_email.send(fail_silently=True)
+
+                # Also notify admin at contact@getnexiro.com
+                config = SiteConfig.load()
+                admin_recipient = config.email or 'contact@getnexiro.com'
+                admin_subject = f"[Lead Magnet] New Checklist Request — {email}"
+                admin_body = (
+                    f"New lead magnet / checklist download request on getnexiro.com:\n\n"
+                    f"Email: {email}\n"
+                    f"Name: {sub.name or 'N/A'}\n"
+                    f"Status: Pending confirmation\n"
+                    f"Language: {user_lang.upper()}\n"
+                    f"Source Page: {sub.source_page}\n"
+                )
+                admin_msg = EmailMultiAlternatives(
+                    subject=admin_subject,
+                    body=admin_body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[admin_recipient],
+                    reply_to=[email],
+                )
+                admin_msg.send(fail_silently=True)
             except Exception:
                 pass
 
@@ -1333,33 +1354,9 @@ def newsletter_subscribe(request):
         sub.consent = True
         sub.save(update_fields=['confirmation_token', 'token_created_at', 'status', 'is_confirmed', 'language', 'source', 'consent'])
 
-    # Send localized double opt-in email
-    site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com').rstrip('/')
-    confirm_url = f"{site_url}/{sub_lang}/confirm/{token}/"
-    unsub_url = f"{site_url}/{sub_lang}/unsubscribe/?email={urllib.parse.quote(email)}"
-
-    email_ctx = {
-        'subscriber': sub,
-        'confirm_url': confirm_url,
-        'unsubscribe_url': unsub_url,
-        'site_url': site_url,
-        'language': sub_lang,
-    }
-
-    try:
-        from django.utils.translation import override
-        with override(sub_lang):
-            subject = render_to_string('emails/newsletter_confirm_subject.txt', email_ctx).strip()
-            html_content = render_to_string('emails/newsletter_confirm.html', email_ctx)
-            text_content = render_to_string('emails/newsletter_confirm.txt', email_ctx)
-
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@getnexiro.com')
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send(fail_silently=True)
-    except Exception as e:
-        import logging
-        logging.getLogger(__name__).warning(f"Failed to dispatch newsletter confirmation: {e}")
+    # Dispatch both Admin notification (to contact@getnexiro.com) and Subscriber confirmation
+    from .emails import send_newsletter_subscription_emails
+    send_newsletter_subscription_emails(sub, request=request)
 
     return JsonResponse({
         'status': 'success',

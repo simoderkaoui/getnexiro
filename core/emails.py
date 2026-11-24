@@ -292,3 +292,159 @@ def send_contact_emails(contact_message, request=None, async_send=True, client_g
         )
         t.start()
 
+
+def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_address, source_page, site_url, admin_url):
+    """
+    Synchronous worker that compiles and sends:
+    1. Admin notification to contact@getnexiro.com
+    2. Subscriber confirmation & welcome email
+    """
+    import urllib.parse
+    from django.utils.translation import override
+    from .models import Subscriber
+
+    try:
+        subscriber = Subscriber.objects.get(pk=subscriber_id)
+    except Subscriber.DoesNotExist:
+        logger.warning("Subscriber %s not found for email dispatch", subscriber_id)
+        return
+
+    try:
+        config = SiteConfig.load()
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
+        ip_geo = geolocate_ip(ip_address)
+        geo_location = ip_geo.get('location_str', '')
+        geo_isp = ip_geo.get('isp', '')
+
+        site_url = site_url.rstrip('/')
+        confirm_url = f"{site_url}/{lang}/confirm/{subscriber.confirmation_token}/"
+        unsub_url = f"{site_url}/{lang}/unsubscribe/?email={urllib.parse.quote(subscriber.email)}"
+
+        # ── 1. Admin Notification to contact@getnexiro.com ─────────────────
+        if getattr(subscriber, 'lead_magnet', '') == 'checklist':
+            admin_subject = f"[Lead Magnet] New Checklist Request — {subscriber.email}"
+        else:
+            admin_subject = f"[Morocco Web Tips] New Subscriber — {subscriber.email}"
+
+        admin_context = {
+            'subscriber': subscriber,
+            'email': subscriber.email,
+            'language': lang,
+            'source': subscriber.source or 'newsletter_box',
+            'source_page': source_page or getattr(subscriber, 'source_page', ''),
+            'ip_address': ip_address,
+            'geo_location': geo_location,
+            'geo_isp': geo_isp,
+            'created_at': subscriber.created_at,
+            'status': getattr(subscriber, 'status', 'pending'),
+            'admin_url': admin_url,
+            'confirm_url': confirm_url,
+            'config': config,
+        }
+
+        admin_text = render_to_string('emails/admin_newsletter_notification.txt', admin_context)
+        admin_html = render_to_string('emails/admin_newsletter_notification.html', admin_context)
+
+        admin_msg = EmailMultiAlternatives(
+            subject=admin_subject,
+            body=admin_text,
+            from_email=from_email,
+            to=[admin_recipient],
+            reply_to=[subscriber.email],
+        )
+        admin_msg.attach_alternative(admin_html, 'text/html')
+        admin_msg.send(fail_silently=False)
+
+        # ── 2. Subscriber Confirmation & Welcome Email ─────────────────────
+        sub_context = {
+            'subscriber': subscriber,
+            'confirm_url': confirm_url,
+            'unsubscribe_url': unsub_url,
+            'site_url': site_url,
+            'language': lang,
+            'config': config,
+        }
+
+        with override(lang):
+            sub_subject = render_to_string('emails/newsletter_confirm_subject.txt', sub_context).strip()
+            sub_html = render_to_string('emails/newsletter_confirm.html', sub_context)
+            sub_text = render_to_string('emails/newsletter_confirm.txt', sub_context)
+
+        subscriber_msg = EmailMultiAlternatives(
+            subject=sub_subject,
+            body=sub_text,
+            from_email=from_email,
+            to=[subscriber.email],
+            reply_to=[admin_recipient],
+        )
+        subscriber_msg.attach_alternative(sub_html, 'text/html')
+        subscriber_msg.extra_headers['Auto-Submitted'] = 'auto-replied'
+        subscriber_msg.extra_headers['X-Auto-Response-Suppress'] = 'All'
+        subscriber_msg.extra_headers['Precedence'] = 'auto_reply'
+        subscriber_msg.send(fail_silently=False)
+
+        logger.info(
+            "Successfully sent newsletter subscription emails for %s to admin (%s) and subscriber",
+            subscriber.email, admin_recipient
+        )
+
+    except Exception as exc:
+        logger.error(
+            "Failed to send newsletter subscription emails for %s: %s",
+            subscriber.email, exc, exc_info=True
+        )
+
+
+def send_newsletter_subscription_emails(subscriber, request=None, async_send=True):
+    """
+    Dispatches both the Admin notification (to contact@getnexiro.com) and the
+    Subscriber confirmation & welcome email.
+    Uses async daemon thread for zero UI latency, or synchronous in test environments.
+    """
+    config = SiteConfig.load()
+    admin_recipient = config.email or 'contact@getnexiro.com'
+
+    lang = getattr(subscriber, 'language', 'en') or 'en'
+    if request:
+        req_lang = getattr(request, 'LANGUAGE_CODE', None) or get_language() or lang
+        if req_lang.startswith('fr'):
+            lang = 'fr'
+        elif req_lang.startswith('ar'):
+            lang = 'ar'
+        else:
+            lang = 'en'
+
+    ip_address = get_client_ip(request)
+    source_page = ''
+    if request:
+        source_page = request.META.get('HTTP_REFERER', '')
+    if not source_page:
+        source_page = getattr(subscriber, 'source_page', '')
+
+    site_url = getattr(settings, 'SITE_URL', 'https://getnexiro.com')
+    if request:
+        try:
+            site_url = request.build_absolute_uri('/').rstrip('/')
+        except Exception:
+            pass
+
+    admin_url = ''
+    try:
+        admin_url = f"{site_url}/admin/core/subscriber/{subscriber.pk}/change/"
+    except Exception:
+        admin_url = f"{site_url}/admin/core/subscriber/"
+
+    is_testing = getattr(settings, 'TESTING', False) or hasattr(mail, 'outbox')
+    if is_testing or not async_send:
+        _dispatch_newsletter_emails_sync(
+            subscriber.pk, admin_recipient, lang, ip_address, source_page, site_url, admin_url
+        )
+    else:
+        t = threading.Thread(
+            target=_dispatch_newsletter_emails_sync,
+            args=(subscriber.pk, admin_recipient, lang, ip_address, source_page, site_url, admin_url),
+            daemon=True,
+        )
+        t.start()
+
+

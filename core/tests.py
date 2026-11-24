@@ -2285,6 +2285,8 @@ class FiveFeaturesTests(TestCase):
         self.assertNotContains(res, 'id="stickyMiniCta"')
 
     def test_newsletter_subscribe_success(self):
+        from django.core import mail
+        mail.outbox.clear()
         res = self.client.post('/en/newsletter/subscribe/', {
             'email': 'techlead@moroccotips.ma',
             'language': 'en',
@@ -2296,6 +2298,12 @@ class FiveFeaturesTests(TestCase):
         sub = Subscriber.objects.get(email='techlead@moroccotips.ma')
         self.assertFalse(sub.is_confirmed)
         self.assertTrue(bool(sub.confirmation_token))
+
+        # Verify 2 emails dispatched: Admin notification (contact@getnexiro.com) + Subscriber confirmation
+        self.assertEqual(len(mail.outbox), 2)
+        recipients = [m.to[0] for m in mail.outbox]
+        self.assertIn('techlead@moroccotips.ma', recipients)
+        self.assertTrue(any('contact@getnexiro.com' in m.to[0] for m in mail.outbox))
 
     def test_newsletter_subscribe_honeypot(self):
         res = self.client.post('/en/newsletter/subscribe/', {

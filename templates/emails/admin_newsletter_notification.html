@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Newsletter Subscriber — {{ email }}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #080b10; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #f1f5f9;">
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #080b10; padding: 32px 16px;">
+        <tr>
+            <td align="center">
+                <!-- Main Container -->
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 620px; background-color: #0f172a; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 14px; overflow: hidden; box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 28px 32px; background: linear-gradient(135deg, #131d33 0%, #0d1526 100%); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                                            get<span style="color: #38bdf8;">Nexiro</span>
+                                        </div>
+                                        <div style="font-size: 11px; color: #94a3b8; letter-spacing: 0.8px; text-transform: uppercase; margin-top: 4px; font-weight: 600;">
+                                            Morocco Web Tips • New Subscriber
+                                        </div>
+                                    </td>
+                                    <td align="right">
+                                        <span style="display: inline-block; background-color: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            Newsletter Lead
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 32px;">
+                            <div style="display: inline-block; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;">
+                                📬 New Subscriber Signup
+                            </div>
+                            <h1 style="margin: 0 0 8px 0; font-size: 21px; font-weight: 700; color: #ffffff; line-height: 1.3;">
+                                New Subscriber: <span style="color: #38bdf8;">{{ email }}</span>
+                            </h1>
+                            <p style="margin: 0 0 24px 0; font-size: 14px; color: #94a3b8; line-height: 1.6;">
+                                A new reader just entered their email to subscribe to <strong>Morocco Web Tips</strong> on <span style="color: #cbd5e1;">getnexiro.com</span>.
+                            </p>
+
+                            <!-- Subscriber Details Card -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #0b1120; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; margin-bottom: 24px;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="7">
+                                            <tr>
+                                                <td width="130" style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email Address:</td>
+                                                <td style="font-size: 14px; color: #38bdf8; font-weight: 600;">
+                                                    <a href="mailto:{{ email }}" style="color: #38bdf8; text-decoration: none;">{{ email }}</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Language:</td>
+                                                <td style="font-size: 13px; color: #f1f5f9; font-weight: 600;">
+                                                    {% if language == 'ar' %}العربية (AR){% elif language == 'fr' %}Français (FR){% else %}English (EN){% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Source Widget:</td>
+                                                <td style="font-size: 13px; color: #cbd5e1;">{{ source|default:'newsletter_box' }}</td>
+                                            </tr>
+                                            {% if source_page %}
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Source URL:</td>
+                                                <td style="font-size: 12px; color: #94a3b8; word-break: break-all;">
+                                                    <a href="{{ source_page }}" style="color: #94a3b8; text-decoration: underline;" target="_blank">{{ source_page }}</a>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Status:</td>
+                                                <td style="font-size: 13px; color: #f59e0b; font-weight: 600;">
+                                                    {% if subscriber.is_confirmed %}Confirmed{% else %}Pending Double Opt-In Verification{% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Signup Time:</td>
+                                                <td style="font-size: 13px; color: #cbd5e1;">{{ created_at|date:"F j, Y, H:i:s" }} (GMT+1)</td>
+                                            </tr>
+                                            {% if ip_address %}
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">IP Address:</td>
+                                                <td style="font-size: 13px; color: #94a3b8; font-family: monospace;">{{ ip_address }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% if geo_location %}
+                                            <tr>
+                                                <td style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Location:</td>
+                                                <td style="font-size: 13px; color: #cbd5e1;">
+                                                    📍 {{ geo_location }}{% if geo_isp %} <span style="color: #64748b;">({{ geo_isp }})</span>{% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Action Buttons -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="left">
+                                        {% if admin_url %}
+                                        <a href="{{ admin_url }}" style="display: inline-block; padding: 11px 22px; background: #38bdf8; color: #080b10; text-decoration: none; font-size: 13px; font-weight: 700; border-radius: 6px; margin-right: 10px;">
+                                            View Subscriber in Admin →
+                                        </a>
+                                        {% endif %}
+                                        <a href="mailto:{{ email }}" style="display: inline-block; padding: 11px 20px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #f1f5f9; text-decoration: none; font-size: 13px; font-weight: 600; border-radius: 6px;">
+                                            Email Subscriber Directly
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px 32px; background-color: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #64748b; text-align: center;">
+                            <p style="margin: 0 0 4px 0;">
+                                <strong style="color: #94a3b8;">getNexiro Engineering Studio</strong> — Tangier, Morocco
+                            </p>
+                            <p style="margin: 0;">
+                                This is an automated internal notification sent to <a href="mailto:contact@getnexiro.com" style="color: #38bdf8; text-decoration: none;">contact@getnexiro.com</a> upon subscriber signup.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
