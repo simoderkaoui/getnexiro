@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block meta_tags %}
-<title>{{ page_seo_title|default:'Client Dashboard Demo | Transparent Studio Portal | getNexiro' }}</title>
-<meta name="description" content="{{ page_seo_description|default:'Explore our interactive client portal simulation: real-time analytics, SLA tickets, and Moroccan Dirham (MAD) billing from getNexiro in Tangier.' }}">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+{% block seo %}
+{% render_seo title="Client Dashboard Demo | Transparent Studio Portal" description="Explore our interactive client portal simulation: real-time analytics, SLA tickets, and Moroccan Dirham (MAD) billing from getNexiro in Tangier." %}
 {% endblock %}
 
 {% block structured_data %}

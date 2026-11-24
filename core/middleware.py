@@ -55,9 +55,34 @@ CANONICAL_SLUGS = {
     },
 }
 
+NON_PREFIX_MAP = {
+    # Arabic localized aliases
+    'من-نحن': '/ar/about/',
+    'خدمات': '/ar/services/',
+    'مشاريع': '/ar/projects/',
+    'مدونة': '/ar/blog/',
+    'تواصل': '/ar/contact/',
+    # French localized aliases
+    'a-propos': '/fr/about/',
+    'projets': '/fr/projects/',
+    # English default sections (aligned with root /en/ canonicals)
+    'about': '/en/about/',
+    'services': '/en/services/',
+    'projects': '/en/projects/',
+    'blog': '/en/blog/',
+    'contact': '/en/contact/',
+    'packages': '/en/packages/',
+    'client-dashboard-demo': '/en/client-dashboard-demo/',
+    'quote': '/en/quote/',
+    'store': '/en/store/',
+    'privacy-policy': '/en/privacy-policy/',
+    'terms-of-service': '/en/terms-of-service/',
+}
+
 ALL_KNOWN_SECTIONS = set()
 for _lang_map in CANONICAL_SLUGS.values():
     ALL_KNOWN_SECTIONS.update(_lang_map.keys())
+ALL_KNOWN_SECTIONS.update(NON_PREFIX_MAP.keys())
 
 
 def clean_language_path(path):
@@ -73,6 +98,8 @@ def clean_language_path(path):
       /ar/ar/ -> /ar/
       /en/about/en/services/ -> /en/services/
       /fr/a-propos/fr/services/ -> /fr/services/
+      /services/ -> /en/services/
+      /من-نحن/ -> /ar/about/
     """
     if not path or path == '/':
         return path
@@ -123,7 +150,16 @@ def clean_language_path(path):
         last_sec_idx = section_indices[-1]
         subparts = subparts[last_sec_idx:]
 
-    target_lang = lang or 'ar'
+    # If no language prefix was specified in URL, resolve via NON_PREFIX_MAP or fallback to default lang (en)
+    if lang is None:
+        if subparts and subparts[0] in NON_PREFIX_MAP:
+            target_base = NON_PREFIX_MAP[subparts[0]].rstrip('/')
+            rest = '/' + '/'.join(subparts[1:]) if len(subparts) > 1 else ''
+            return f"{target_base}{rest}/"
+        target_lang = getattr(settings, 'LANGUAGE_CODE', 'en') or 'en'
+    else:
+        target_lang = lang
+
     if subparts:
         # Canonicalize first section slug
         first_sec = subparts[0]
@@ -133,21 +169,6 @@ def clean_language_path(path):
         return f"/{target_lang}/" + "/".join(subparts) + "/"
     else:
         return f"/{target_lang}/"
-
-NON_PREFIX_MAP = {
-    'من-نحن': '/ar/about/',
-    'خدمات': '/ar/services/',
-    'مشاريع': '/ar/projects/',
-    'مدونة': '/ar/blog/',
-    'تواصل': '/ar/contact/',
-    'a-propos': '/fr/about/',
-    'projets': '/fr/projects/',
-    'about': '/en/about/',
-    'services': '/en/services/',
-    'projects': '/en/projects/',
-    'blog': '/en/blog/',
-    'contact': '/en/contact/',
-}
 
 
 class CanonicalHostMiddleware:
