@@ -4542,3 +4542,37 @@ msgstr ""
 
 msgid "A valid email address is required."
 msgstr "يرجى إدخال عنوان بريد إلكتروني صحيح."
+
+msgid "Verify your email address | getNexiro"
+msgstr "تأكيد عنوان بريدك الإلكتروني | getNexiro"
+
+msgid "Verify your email address"
+msgstr "تأكيد عنوان بريدك الإلكتروني"
+
+msgid ""
+"Please confirm your email address to complete your verification with "
+"getNexiro Engineering Studio."
+msgstr ""
+"يرجى تأكيد عنوان بريدك الإلكتروني لإتمام التحقق مع استوديو الهندسة البرمجية "
+"getNexiro."
+
+msgid "Verify Email Address"
+msgstr "تأكيد البريد الإلكتروني"
+
+msgid "If you did not make this request, you can safely ignore this message."
+msgstr "إذا لم تكن أنت من قدّم هذا الطلب، يمكنك تجاهل هذه الرسالة بأمان."
+
+msgid "Or copy and paste this direct verification link into your browser:"
+msgstr "أو انسخ رابط التحقق المباشر والصقه في متصفحك:"
+
+msgid ""
+"getNexiro Engineering Studio • Av. Youssef Ibn Tachfine, Tangier 90000, "
+"Morocco"
+msgstr ""
+"استوديو الهندسة البرمجية getNexiro • شارع يوسف بن تاشفين، طنجة 90000، المغرب"
+
+msgid "This is an automated transactional verification message."
+msgstr "هذه رسالة تحقق أمنية آلية."
+
+msgid "Verify your email address by opening the link below:"
+msgstr "أكّد عنوان بريدك الإلكتروني بفتح الرابط أدناه:"

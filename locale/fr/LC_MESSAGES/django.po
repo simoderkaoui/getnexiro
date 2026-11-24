@@ -4685,3 +4685,41 @@ msgstr ""
 
 msgid "A valid email address is required."
 msgstr "Une adresse email valide est requise."
+
+msgid "Verify your email address | getNexiro"
+msgstr "Vérifiez votre adresse e-mail | getNexiro"
+
+msgid "Verify your email address"
+msgstr "Vérifiez votre adresse e-mail"
+
+msgid ""
+"Please confirm your email address to complete your verification with "
+"getNexiro Engineering Studio."
+msgstr ""
+"Veuillez confirmer votre adresse e-mail pour finaliser votre vérification "
+"auprès du studio d'ingénierie getNexiro."
+
+msgid "Verify Email Address"
+msgstr "Vérifier l'adresse e-mail"
+
+msgid "If you did not make this request, you can safely ignore this message."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer ce "
+"message en toute sécurité."
+
+msgid "Or copy and paste this direct verification link into your browser:"
+msgstr ""
+"Ou copiez et collez ce lien direct de vérification dans votre navigateur :"
+
+msgid ""
+"getNexiro Engineering Studio • Av. Youssef Ibn Tachfine, Tangier 90000, "
+"Morocco"
+msgstr ""
+"Studio d'Ingénierie getNexiro • Av. Youssef Ibn Tachfine, Tanger 90000, "
+"Maroc"
+
+msgid "This is an automated transactional verification message."
+msgstr "Ceci est un message transactionnel de vérification automatisé."
+
+msgid "Verify your email address by opening the link below:"
+msgstr "Vérifiez votre adresse e-mail en ouvrant le lien ci-dessous :"

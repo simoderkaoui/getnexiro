@@ -4,21 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Confirm your subscription to Morocco Web Tips" %}</title>
+    <title>{% trans "Verify your email address | getNexiro" %}</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #080b10; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f1f5f9; }
-        .wrapper { width: 100%; table-layout: fixed; background-color: #080b10; padding: 40px 0; }
-        .main { max-width: 580px; margin: 0 auto; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; overflow: hidden; }
-        .header { padding: 32px 32px 24px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0) 100%); }
-        .logo { font-size: 24px; font-weight: 800; color: #38bdf8; text-decoration: none; letter-spacing: -0.5px; }
+        body { margin: 0; padding: 0; background-color: #080b10; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f1f5f9; -webkit-font-smoothing: antialiased; }
+        .wrapper { width: 100%; table-layout: fixed; background-color: #080b10; padding: 36px 0; }
+        .main { max-width: 560px; margin: 0 auto; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 14px; overflow: hidden; }
+        .header { padding: 28px 32px 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0) 100%); }
+        .logo { font-size: 22px; font-weight: 800; color: #38bdf8; text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: #f8fafc; }
         .body { padding: 32px; font-size: 15px; line-height: 1.7; color: #cbd5e1; }
-        .h1 { font-size: 22px; font-weight: 700; color: #f8fafc; margin: 0 0 16px; }
-        .btn-wrapper { text-align: center; margin: 32px 0; }
-        .btn { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%); color: #ffffff !important; text-decoration: none; font-weight: 600; border-radius: 9999px; font-size: 15px; }
-        .badge { display: inline-block; padding: 4px 12px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; font-size: 12px; font-weight: 600; color: #38bdf8; margin-bottom: 12px; }
-        .footer { padding: 24px 32px; background: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #64748b; line-height: 1.6; text-align: center; }
-        .footer a { color: #94a3b8; text-decoration: underline; }
+        .h1 { font-size: 20px; font-weight: 700; color: #f8fafc; margin: 0 0 16px; }
+        .btn-wrapper { text-align: center; margin: 28px 0; }
+        .btn { display: inline-block; padding: 13px 32px; background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%); color: #ffffff !important; text-decoration: none; font-weight: 600; border-radius: 8px; font-size: 15px; }
+        .footer { padding: 20px 32px; background: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #64748b; line-height: 1.6; text-align: center; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .header, [dir="rtl"] .btn-wrapper, [dir="rtl"] .footer { text-align: center; }
     </style>
@@ -28,23 +26,19 @@
         <div class="main">
             <div class="header">
                 <a href="{{ site_url }}" class="logo">get<span>Nexiro</span></a>
-                <div style="margin-top: 6px; font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">{% trans "Engineering Studio • Tangier, Morocco" %}</div>
             </div>
             <div class="body">
-                <span class="badge">{% trans "Double Opt-In Verification" %}</span>
-                <h1 class="h1">{% trans "Almost there! Confirm your email" %}</h1>
-                <p>{% trans "Thank you for subscribing to <strong>Morocco Web Tips</strong>, the bi-weekly technical newsletter engineered by the getNexiro software team in Tangier." %}</p>
-                <p>{% trans "We share actionable full-stack breakdowns, Django & Flutter engineering patterns, nearshore architecture insights, and North African tech ecosystem analysis." %}</p>
-                <p>{% trans "To complete your subscription and start receiving our briefings, please verify your email address below:" %}</p>
+                <h1 class="h1">{% trans "Verify your email address" %}</h1>
+                <p>{% trans "Please confirm your email address to complete your verification with getNexiro Engineering Studio." %}</p>
                 <div class="btn-wrapper">
-                    <a href="{{ confirm_url }}" class="btn">{% trans "Confirm My Subscription" %} →</a>
+                    <a href="{{ confirm_url }}" class="btn">{% trans "Verify Email Address" %}</a>
                 </div>
-                <p style="font-size: 13px; color: #94a3b8;">{% trans "If you did not request this subscription, no action is needed. You will not be emailed again unless confirmed." %}</p>
-                <p style="font-size: 12px; color: #64748b; word-break: break-all;">{% trans "Button not working? Copy and paste this link in your browser:" %}<br><a href="{{ confirm_url }}" style="color: #38bdf8;">{{ confirm_url }}</a></p>
+                <p style="font-size: 13px; color: #94a3b8;">{% trans "If you did not make this request, you can safely ignore this message." %}</p>
+                <p style="font-size: 12px; color: #64748b; word-break: break-all;">{% trans "Or copy and paste this direct verification link into your browser:" %}<br><a href="{{ confirm_url }}" style="color: #38bdf8;">{{ confirm_url }}</a></p>
             </div>
             <div class="footer">
-                <p>{% trans "getNexiro Studio Hub — Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}</p>
-                <p>{% trans "Data handled in compliance with Moroccan Law 09-08 & GDPR." %} • <a href="{{ unsubscribe_url }}">{% trans "Unsubscribe" %}</a></p>
+                <p style="margin: 0 0 4px 0;">{% trans "getNexiro Engineering Studio • Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}</p>
+                <p style="margin: 0;">{% trans "This is an automated transactional verification message." %}</p>
             </div>
         </div>
     </div>

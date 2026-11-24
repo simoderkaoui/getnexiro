@@ -432,7 +432,6 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
                 connection=connection,
             )
             subscriber_msg.attach_alternative(sub_html, 'text/html')
-            subscriber_msg.extra_headers['List-Unsubscribe'] = f"<{unsub_url}>"
             subscriber_msg.extra_headers['X-Entity-Ref-ID'] = str(subscriber.confirmation_token)
             subscriber_msg.send(fail_silently=False)
             logger.info("Confirmation email sent to subscriber %s", subscriber.email)

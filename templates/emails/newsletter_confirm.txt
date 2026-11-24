@@ -1,15 +1,14 @@
 {% load i18n %}
-{% trans "Confirm your subscription to Morocco Web Tips | getNexiro" %}
+{% trans "Verify your email address | getNexiro" %}
 ========================================================================
 
-{% trans "Thank you for subscribing to Morocco Web Tips, the bi-weekly technical newsletter engineered by getNexiro in Tangier, Morocco." %}
+{% trans "Please confirm your email address to complete your verification with getNexiro Engineering Studio." %}
 
-{% trans "Please confirm your subscription by clicking the link below:" %}
+{% trans "Verify your email address by opening the link below:" %}
 {{ confirm_url }}
 
-{% trans "If you did not request this, you can safely ignore this email." %}
+{% trans "If you did not make this request, you can safely ignore this message." %}
 
 ------------------------------------------------------------------------
-{% trans "getNexiro Studio Hub — Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}
-{% trans "Compliant with Moroccan Law 09-08 and GDPR." %}
-{% trans "To unsubscribe, visit:" %} {{ unsubscribe_url }}
+{% trans "getNexiro Engineering Studio • Av. Youssef Ibn Tachfine, Tangier 90000, Morocco" %}
+{% trans "This is an automated transactional verification message." %}

@@ -1,1 +1,1 @@
-{% load i18n %}{% trans "Confirm your subscription to Morocco Web Tips | getNexiro" %}
+{% load i18n %}{% trans "Verify your email address | getNexiro" %}
