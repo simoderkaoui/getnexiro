@@ -85,14 +85,24 @@ class Command(BaseCommand):
             connection.open()
             self.stdout.write(self.style.SUCCESS("   [OK] SMTP handshake and authentication successful!"))
         except Exception as auth_err:
-            self.stdout.write(self.style.ERROR(
-                f"   [FAIL] SMTP authentication failed: {auth_err}\n\n"
-                f"   Common solutions:\n"
-                f"   - If using Gmail: Standard passwords do NOT work. You must enable 2FA\n"
-                f"     and generate a 16-character App Password at https://myaccount.google.com/apppasswords\n"
-                f"   - If using cPanel email: Use EMAIL_HOST=localhost (or mail.getnexiro.com),\n"
-                f"     EMAIL_PORT=465 with EMAIL_USE_SSL=True and your cPanel mailbox password."
-            ))
+            err_str = str(auth_err)
+            if 'Hostname mismatch' in err_str or 'CERTIFICATE_VERIFY_FAILED' in err_str:
+                self.stdout.write(self.style.ERROR(
+                    f"   [FAIL] SSL Certificate verification failed: {auth_err}\n\n"
+                    f"   SOLUTION FOR CPANEL:\n"
+                    f"   Change EMAIL_HOST in your .env file to:\n"
+                    f"     EMAIL_HOST=getnexiro.com\n"
+                    f"   (Do NOT use mail.getnexiro.com because the SSL certificate is issued for getnexiro.com!)"
+                ))
+            else:
+                self.stdout.write(self.style.ERROR(
+                    f"   [FAIL] SMTP authentication failed: {auth_err}\n\n"
+                    f"   Common solutions:\n"
+                    f"   - If using Gmail: Standard passwords do NOT work. You must enable 2FA\n"
+                    f"     and generate a 16-character App Password at https://myaccount.google.com/apppasswords\n"
+                    f"   - If using cPanel email: Use EMAIL_HOST=getnexiro.com (or localhost),\n"
+                    f"     EMAIL_PORT=465 with EMAIL_USE_SSL=True and your cPanel mailbox password."
+                ))
             return
 
         # Attempt to deliver test email
