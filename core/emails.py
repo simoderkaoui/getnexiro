@@ -311,7 +311,13 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
 
     try:
         config = SiteConfig.load()
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
+        raw_from = getattr(settings, 'DEFAULT_FROM_EMAIL', 'getNexiro <contact@getnexiro.com>')
+        from email.utils import parseaddr, formataddr
+        fname, faddr = parseaddr(raw_from)
+        if not faddr:
+            faddr = 'contact@getnexiro.com'
+        from_email = formataddr((fname or 'getNexiro', faddr))
+
         ip_geo = geolocate_ip(ip_address)
         geo_location = ip_geo.get('location_str', '')
         geo_isp = ip_geo.get('isp', '')
@@ -342,55 +348,58 @@ def _dispatch_newsletter_emails_sync(subscriber_id, admin_recipient, lang, ip_ad
             'config': config,
         }
 
-        admin_text = render_to_string('emails/admin_newsletter_notification.txt', admin_context)
-        admin_html = render_to_string('emails/admin_newsletter_notification.html', admin_context)
+        try:
+            admin_text = render_to_string('emails/admin_newsletter_notification.txt', admin_context)
+            admin_html = render_to_string('emails/admin_newsletter_notification.html', admin_context)
 
-        admin_msg = EmailMultiAlternatives(
-            subject=admin_subject,
-            body=admin_text,
-            from_email=from_email,
-            to=[admin_recipient],
-            reply_to=[subscriber.email],
-        )
-        admin_msg.attach_alternative(admin_html, 'text/html')
-        admin_msg.send(fail_silently=False)
+            admin_msg = EmailMultiAlternatives(
+                subject=admin_subject,
+                body=admin_text,
+                from_email=from_email,
+                to=[admin_recipient],
+                reply_to=[subscriber.email],
+            )
+            admin_msg.attach_alternative(admin_html, 'text/html')
+            admin_msg.send(fail_silently=False)
+            logger.info("Admin newsletter notification sent to %s for subscriber %s", admin_recipient, subscriber.email)
+        except Exception as admin_err:
+            logger.error("Failed to send admin newsletter notification for %s: %s", subscriber.email, admin_err, exc_info=True)
 
         # ── 2. Subscriber Confirmation & Welcome Email ─────────────────────
-        sub_context = {
-            'subscriber': subscriber,
-            'confirm_url': confirm_url,
-            'unsubscribe_url': unsub_url,
-            'site_url': site_url,
-            'language': lang,
-            'config': config,
-        }
+        try:
+            sub_context = {
+                'subscriber': subscriber,
+                'confirm_url': confirm_url,
+                'unsubscribe_url': unsub_url,
+                'site_url': site_url,
+                'language': lang,
+                'config': config,
+            }
 
-        with override(lang):
-            sub_subject = render_to_string('emails/newsletter_confirm_subject.txt', sub_context).strip()
-            sub_html = render_to_string('emails/newsletter_confirm.html', sub_context)
-            sub_text = render_to_string('emails/newsletter_confirm.txt', sub_context)
+            with override(lang):
+                sub_subject = render_to_string('emails/newsletter_confirm_subject.txt', sub_context).strip()
+                sub_html = render_to_string('emails/newsletter_confirm.html', sub_context)
+                sub_text = render_to_string('emails/newsletter_confirm.txt', sub_context)
 
-        subscriber_msg = EmailMultiAlternatives(
-            subject=sub_subject,
-            body=sub_text,
-            from_email=from_email,
-            to=[subscriber.email],
-            reply_to=[admin_recipient],
-        )
-        subscriber_msg.attach_alternative(sub_html, 'text/html')
-        subscriber_msg.extra_headers['Auto-Submitted'] = 'auto-replied'
-        subscriber_msg.extra_headers['X-Auto-Response-Suppress'] = 'All'
-        subscriber_msg.extra_headers['Precedence'] = 'auto_reply'
-        subscriber_msg.send(fail_silently=False)
-
-        logger.info(
-            "Successfully sent newsletter subscription emails for %s to admin (%s) and subscriber",
-            subscriber.email, admin_recipient
-        )
+            subscriber_msg = EmailMultiAlternatives(
+                subject=sub_subject,
+                body=sub_text,
+                from_email=from_email,
+                to=[subscriber.email],
+                reply_to=[admin_recipient],
+            )
+            subscriber_msg.attach_alternative(sub_html, 'text/html')
+            subscriber_msg.extra_headers['Auto-Submitted'] = 'auto-replied'
+            subscriber_msg.extra_headers['X-Auto-Response-Suppress'] = 'All'
+            subscriber_msg.extra_headers['Precedence'] = 'auto_reply'
+            subscriber_msg.send(fail_silently=False)
+            logger.info("Confirmation email sent to subscriber %s", subscriber.email)
+        except Exception as sub_err:
+            logger.error("Failed to send confirmation email to subscriber %s: %s", subscriber.email, sub_err, exc_info=True)
 
     except Exception as exc:
         logger.error(
-            "Failed to send newsletter subscription emails for %s: %s",
+            "Failed during newsletter subscription email preparation for %s: %s",
             subscriber.email, exc, exc_info=True
         )
 
