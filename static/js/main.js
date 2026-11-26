@@ -687,7 +687,10 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(() => {
                 if (feedback) {
                     feedback.className = 'newsletter-feedback error';
-                    feedback.textContent = 'Network error. Please try again.';
+                    const currentLang = document.documentElement.lang || 'en';
+                    feedback.textContent = currentLang === 'ar' ? 'خطأ في الاتصال بالشبكة. يرجى المحاولة مرة أخرى.' :
+                                          (currentLang === 'fr' ? 'Erreur de connexion. Veuillez réessayer.' :
+                                          'Network error. Please try again.');
                 }
             })
             .finally(() => {

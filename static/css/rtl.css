@@ -259,3 +259,50 @@
 [dir="rtl"] .industry-card {
     text-align: right;
 }
+
+/* ── Spotlight Command Palette RTL ── */
+[dir="rtl"] .spotlight-item-badge {
+    margin-left: 0;
+    margin-right: auto;
+}
+[dir="rtl"] .spotlight-close-btn {
+    margin-left: 0;
+    margin-right: auto;
+}
+[dir="rtl"] .spotlight-mini-kbd {
+    margin-right: 0;
+    margin-left: 2px;
+}
+[dir="rtl"] .spotlight-item-text {
+    text-align: right;
+}
+[dir="rtl"] .spotlight-input {
+    text-align: right;
+}
+
+/* ── Process Timeline Small Mobile RTL ── */
+@media (max-width: 480px) {
+    [dir="rtl"] .timeline-track-rail {
+        left: auto;
+        right: 18px;
+    }
+    [dir="rtl"] .process-timeline-list {
+        padding-left: 0;
+        padding-right: 44px;
+    }
+    [dir="rtl"] .process-step-node::before {
+        left: auto;
+        right: -33px;
+    }
+}
+
+/* ── Client Dashboard Demo RTL ── */
+[dir="rtl"] .demo-portal-card,
+[dir="rtl"] .demo-tab-pane,
+[dir="rtl"] .demo-metric-card,
+[dir="rtl"] .demo-chart-section,
+[dir="rtl"] .demo-table-section,
+[dir="rtl"] .demo-table th,
+[dir="rtl"] .demo-table td {
+    text-align: right;
+}

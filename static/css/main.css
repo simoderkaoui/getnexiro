@@ -6001,5 +6001,194 @@ body.sticky-cta-active .back-to-top {
     }
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   6. ADVANCED MOBILE RESPONSIVENESS & TOUCH TARGET POLISH
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Generic Responsive Table Wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+}
+.table-responsive::-webkit-scrollbar {
+    height: 6px;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.3);
+    border-radius: 4px;
+}
+
+/* Spotlight Command Palette on Mobile */
+@media (max-width: 640px) {
+    .spotlight-overlay {
+        padding: 10px 8px;
+        align-items: flex-start;
+        padding-top: max(16px, env(safe-area-inset-top));
+    }
+    .spotlight-box {
+        max-height: 88vh;
+        border-radius: 16px;
+    }
+    .spotlight-search-bar {
+        padding: 12px 14px;
+        gap: 8px;
+    }
+    .spotlight-input {
+        font-size: 0.95rem;
+    }
+    .spotlight-results {
+        padding: 10px 10px;
+        max-height: 60vh;
+    }
+    .spotlight-item {
+        padding: 9px 10px;
+        gap: 10px;
+    }
+    .spotlight-item-title {
+        font-size: 0.88rem;
+    }
+    .spotlight-item-desc {
+        font-size: 0.76rem;
+        line-height: 1.4;
+    }
+    .spotlight-item-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+    .spotlight-shortcuts-hint {
+        display: none;
+    }
+    .spotlight-footer {
+        justify-content: center;
+        padding: 8px 14px;
+        font-size: 0.72rem;
+    }
+}
+
+/* Newsletter Card Mobile Refinements */
+@media (max-width: 600px) {
+    .newsletter-card {
+        padding: 1.5rem 1.15rem;
+        margin: 2rem 0 1.5rem;
+        border-radius: 14px;
+    }
+    .newsletter-card-title {
+        font-size: 1.18rem;
+        line-height: 1.35;
+    }
+    .newsletter-card-desc {
+        font-size: 0.86rem;
+        line-height: 1.6;
+    }
+    .newsletter-input {
+        font-size: 0.9rem;
+        padding: 12px 14px;
+    }
+    .newsletter-submit-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    .newsletter-compliance-note {
+        font-size: 0.72rem;
+        line-height: 1.5;
+    }
+}
+
+/* Process Timeline on Small Mobile */
+@media (max-width: 480px) {
+    .timeline-track-rail {
+        left: 18px;
+        width: 2px;
+    }
+    .process-timeline-list {
+        padding-left: 44px;
+        gap: 1.25rem;
+    }
+    .process-step-node::before {
+        left: -33px;
+        width: 14px;
+        height: 14px;
+        top: 20px;
+    }
+    .step-card-node {
+        padding: 1.25rem 1rem;
+    }
+    .step-card-title {
+        font-size: 0.98rem;
+    }
+    .step-card-desc {
+        font-size: 0.8rem;
+    }
+}
+
+/* Client Dashboard Demo on Mobile */
+@media (max-width: 640px) {
+    .demo-portal-card {
+        border-radius: 14px;
+    }
+    .demo-header-bar {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .demo-tab-btn {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+    .demo-tab-pane {
+        padding: 18px 14px;
+    }
+    .demo-metric-card {
+        padding: 14px;
+    }
+    .metric-val {
+        font-size: 1.45rem;
+    }
+    .demo-chart-section {
+        padding: 16px 12px;
+    }
+    .demo-chart-legend {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.75rem;
+    }
+    .ticket-filter-pills {
+        gap: 6px;
+    }
+    .ticket-filter-btn {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+    .demo-portal-teaser-card {
+        padding: 1.75rem 1.25rem;
+    }
+}
+
+/* Quote Wizard on Small Mobile */
+@media (max-width: 480px) {
+    .wizard-card {
+        padding: 1.25rem 1rem !important;
+    }
+    .wizard-card h2 {
+        font-size: 1.15rem !important;
+    }
+    .wizard-nav {
+        flex-direction: column-reverse !important;
+        gap: 0.75rem !important;
+    }
+    .btn-wizard {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    .btn-wizard-next {
+        margin-left: 0 !important;
+    }
+}
+
 
 
