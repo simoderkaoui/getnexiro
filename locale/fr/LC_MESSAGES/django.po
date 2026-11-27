@@ -4760,3 +4760,19 @@ msgstr ""
 "sprints d'ingénierie dédiés garantissent des délais de réponse rapides, la "
 "propriété intégrale du code source et une parfaite conformité réglementaire "
 "CNDP à travers le Maroc."
+
+msgid "Featured Cover Image & Media"
+msgstr "Image de couverture & Médias"
+
+msgid "Upload the main article cover photo here (1200x630 recommended)."
+msgstr ""
+"Téléversez la photo de couverture principale ici (1200x630 recommandé)."
+
+msgid "Current Image Preview"
+msgstr "Aperçu de l'image actuelle"
+
+msgid "No image uploaded yet"
+msgstr "Aucune image téléversée pour le moment"
+
+msgid "Cover"
+msgstr "Couverture"

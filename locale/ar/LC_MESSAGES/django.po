@@ -4609,3 +4609,18 @@ msgstr ""
 "أننا لا ندير فرعاً فعلياً في {{ city }}، فإن دوراتنا الهندسية المخصصة تضمن "
 "سرعة الاستجابة، والملكية الكاملة للشفرة المصدرية، والامتثال الكامل لقوانين "
 "CNDP في كافة أنحاء المغرب."
+
+msgid "Featured Cover Image & Media"
+msgstr "صورة الغلاف والوسائط"
+
+msgid "Upload the main article cover photo here (1200x630 recommended)."
+msgstr "قم برفع صورة الغلاف الرئيسية للمقال هنا (يُفضل أبعاد 1200×630)."
+
+msgid "Current Image Preview"
+msgstr "معاينة الصورة الحالية"
+
+msgid "No image uploaded yet"
+msgstr "لم يتم رفع أي صورة بعد"
+
+msgid "Cover"
+msgstr "الغلاف"

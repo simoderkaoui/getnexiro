@@ -527,17 +527,23 @@ class AuthorAdmin(admin.ModelAdmin):
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('title_en', 'category', 'author', 'status', 'noindex', 'index_in_sitemap', 'is_featured', 'published_at')
+    list_display = ('image_preview_list', 'title_en', 'category', 'author', 'status', 'noindex', 'index_in_sitemap', 'is_featured', 'published_at')
+    list_display_links = ('title_en',)
     list_filter = ('status', 'noindex', 'index_in_sitemap', 'is_featured', 'category')
     list_editable = ('status', 'noindex', 'index_in_sitemap', 'is_featured')
     search_fields = ('title_en', 'title_fr', 'title_ar', 'body_en', 'slug', 'tags')
     prepopulated_fields = {'slug': ('title_en',)}
     date_hierarchy = 'published_at'
     ordering = ('-published_at', '-created_at')
+    readonly_fields = ('image_preview',)
 
     fieldsets = (
         (_('Title & Slug'), {
             'fields': ('title_en', 'title_fr', 'title_ar', 'slug'),
+        }),
+        (_('Featured Cover Image & Media'), {
+            'fields': ('featured_image', 'image_preview', 'featured_image_alt', 'category', 'tags'),
+            'description': _('Upload the main article cover photo here (1200x630 recommended).'),
         }),
         (_('Excerpt / Summary (Multilingual)'), {
             'fields': ('excerpt_en', 'excerpt_fr', 'excerpt_ar'),
@@ -551,9 +557,6 @@ class BlogPostAdmin(admin.ModelAdmin):
                        'meta_description_en', 'meta_description_fr', 'meta_description_ar',
                        'meta_keywords'),
         }),
-        (_('Taxonomy & Media'), {
-            'fields': ('category', 'featured_image', 'featured_image_alt', 'tags'),
-        }),
         (_('Author & Reading'), {
             'fields': ('author', 'author_name', 'reading_time_minutes'),
         }),
@@ -561,6 +564,26 @@ class BlogPostAdmin(admin.ModelAdmin):
             'fields': ('status', 'is_featured', 'published_at'),
         }),
     )
+
+    def image_preview(self, obj):
+        if obj and obj.featured_image:
+            from django.utils.html import format_html
+            return format_html(
+                '<a href="{0}" target="_blank"><img src="{0}" style="max-height: 120px; max-width: 240px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.4);" /></a>',
+                obj.featured_image.url
+            )
+        return _('No image uploaded yet')
+    image_preview.short_description = _('Current Image Preview')
+
+    def image_preview_list(self, obj):
+        if obj and obj.featured_image:
+            from django.utils.html import format_html
+            return format_html(
+                '<img src="{0}" style="width: 44px; height: 32px; object-fit: cover; border-radius: 4px;" />',
+                obj.featured_image.url
+            )
+        return '-'
+    image_preview_list.short_description = _('Cover')
 
 
 
