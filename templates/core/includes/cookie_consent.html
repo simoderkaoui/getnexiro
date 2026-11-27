@@ -78,15 +78,25 @@
     document.getElementById('cookieDecline').addEventListener('click', function() {
         localStorage.setItem('cookie_consent', 'declined');
         document.getElementById('cookieConsent').style.display = 'none';
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'cookie_consent_declined',
+            'consent_status': 'declined'
+        });
     });
 
     function loadAnalytics() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'cookie_consent_accepted',
+            'consent_status': 'accepted',
+            'analytics_storage': 'granted'
+        });
         {% if ANALYTICS_PROVIDER == 'ga4' and ANALYTICS_ID %}
         var s = document.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id={{ ANALYTICS_ID }}';
         document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '{{ ANALYTICS_ID }}');

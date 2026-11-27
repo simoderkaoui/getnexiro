@@ -49,9 +49,10 @@ SITE_URL = os.environ.get('SITE_URL', 'https://getnexiro.com')
 # on cPanel from mangling non-ASCII / Arabic URLs into SCRIPT_NAME and breaking reverse())
 FORCE_SCRIPT_NAME = ''
 
-# Analytics (loaded only after cookie consent)
-ANALYTICS_PROVIDER = os.environ.get('ANALYTICS_PROVIDER', '')  # 'ga4' or 'plausible'
-ANALYTICS_ID = os.environ.get('ANALYTICS_ID', '')  # e.g. 'G-XXXXXXXXXX'
+# Analytics & Google Tag Manager
+GTM_ID = os.environ.get('GTM_ID', 'GTM-PB4N5P47')
+ANALYTICS_PROVIDER = os.environ.get('ANALYTICS_PROVIDER', 'gtm')  # 'gtm', 'ga4', or 'plausible'
+ANALYTICS_ID = os.environ.get('ANALYTICS_ID', 'GTM-PB4N5P47')
 
 # ──────────────────────────────────────────────
 # Installed Apps
