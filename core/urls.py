@@ -6,6 +6,7 @@ URL path segments are translated for SEO (e.g. /fr/services/ vs /ar/خدمات/)
 """
 
 from django.urls import path, include
+from django.views.generic import RedirectView
 from . import views
 
 app_name = 'core'
@@ -17,8 +18,10 @@ app_name = 'core'
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('city/', RedirectView.as_view(pattern_name='core:services', permanent=True)),
     path('services/', include([
         path('', views.services, name='services'),
+        path('city/', RedirectView.as_view(pattern_name='core:services', permanent=True)),
         path('<slug:slug>/', views.service_detail, name='service_detail'),
         path('<slug:service_slug>/<slug:city_slug>/', views.city_service_page, name='city_service_page'),
     ])),
@@ -30,7 +33,9 @@ urlpatterns = [
         path('', views.blog, name='blog'),
         path('feed/', views.blog_rss_feed, name='blog_rss_feed'),
         path('author/<slug:slug>/', views.author_detail, name='author_detail'),
+        path('category/', RedirectView.as_view(pattern_name='core:blog', permanent=True)),
         path('category/<slug:slug>/', views.blog_category_archive, name='blog_category_archive'),
+        path('tag/', RedirectView.as_view(pattern_name='core:blog', permanent=True)),
         path('tag/<path:tag>/', views.blog_tag_archive, name='blog_tag_archive'),
         path('<slug:slug>/', views.blog_detail, name='blog_detail'),
     ])),
@@ -46,6 +51,7 @@ urlpatterns = [
     path('packages/', views.packages, name='packages'),
     path('booking/', views.booking, name='booking'),
     path('checklist/', views.lead_magnet, name='lead_magnet'),
+    path('store/', views.store_view, name='store'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
     path('confirm/<str:token>/', views.confirm_subscription, name='confirm_subscription'),
 

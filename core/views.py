@@ -1017,9 +1017,19 @@ def blog_tag_archive(request, tag):
         'active_tag': tag,
         'archive_title': tag,
         'archive_type': 'tag',
+        'noindex': True,
     })
     ctx['page_seo_title'] = f'{tag} — {_("Blog")}'
     return render(request, 'core/blog.html', ctx)
+
+
+def store_view(request):
+    """The getNexiro Store (Coming Soon)."""
+    ctx = _get_common_context()
+    ctx['page_seo_title'] = f"{_('Store — Coming Soon')} | getNexiro"
+    ctx['page_seo_description'] = _("The getNexiro Store is coming soon with premium developer templates and tools.")
+    ctx['noindex'] = True
+    return render(request, 'core/store.html', ctx)
 
 
 def unsubscribe(request):

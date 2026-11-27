@@ -327,6 +327,8 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
         if page_val and page_val.isdigit() and int(page_val) > 1:
             clean_path = f"{clean_path}?page={page_val}"
 
+    # Always ensure canonical URL is RFC 3986 compliant (properly percent-encoded, never unescaped spaces)
+    clean_path = urllib.parse.quote(clean_path, safe='/:?=&')
     canonical_url = f"{site_url}{clean_path}"
 
     # 5. Hreflang Reciprocal Links
@@ -334,11 +336,13 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
     base_request_path = clean_language_path(request.path) if request else '/'
     for alt_lang in ['en', 'fr', 'ar']:
         alt_path = translate_url(base_request_path, alt_lang) or f"/{alt_lang}/"
+        alt_path = urllib.parse.quote(alt_path, safe='/:?=&')
         hreflang_alternates.append({
             'lang': alt_lang,
             'url': f"{site_url}{alt_path}",
         })
     en_path = translate_url(base_request_path, 'en') or '/en/'
+    en_path = urllib.parse.quote(en_path, safe='/:?=&')
     x_default_url = f"{site_url}{en_path}"
 
     # 6. Open Graph & Twitter Image (Accurate dimensions: 1200x630 for default OG, real dimensions or omitted for uploads)
@@ -421,6 +425,8 @@ def render_seo(context, obj=None, title=None, description=None, image=None, noin
     is_noindex = False
     if noindex is not None:
         is_noindex = bool(noindex)
+    elif context.get('noindex') is not None:
+        is_noindex = bool(context.get('noindex'))
     elif obj and hasattr(obj, 'noindex'):
         is_noindex = bool(obj.noindex)
 

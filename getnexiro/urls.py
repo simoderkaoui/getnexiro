@@ -24,9 +24,13 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     # SEO: sitemap and robots
     path('robots.txt', robots_txt, name='robots_txt'),
+    path('robots.txt/', RedirectView.as_view(url='/robots.txt', permanent=True)),
     path('sitemap.xml', sitemap_xml, name='sitemap_xml'),
+    path('sitemap.xml/', RedirectView.as_view(url='/sitemap.xml', permanent=True)),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
+    path('favicon.ico/', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
     path('site.webmanifest', RedirectView.as_view(url='/static/site.webmanifest', permanent=True)),
+    path('site.webmanifest/', RedirectView.as_view(url='/static/site.webmanifest', permanent=True)),
 ]
 
 from django.conf import settings

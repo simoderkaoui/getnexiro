@@ -100,9 +100,11 @@ def clean_language_path(path):
       /fr/a-propos/fr/services/ -> /fr/services/
       /services/ -> /en/services/
       /من-نحن/ -> /ar/about/
+      / -> /en/
     """
     if not path or path == '/':
-        return path
+        target_lang = getattr(settings, 'LANGUAGE_CODE', 'en') or 'en'
+        return f"/{target_lang}/"
 
     # First normalize encoding & repair any latin-1 mojibake
     path = normalize_uri(path)
@@ -187,8 +189,17 @@ class CanonicalHostMiddleware:
 
         if is_www or (is_insecure and 'getnexiro.com' in host and not settings.DEBUG):
             canonical_host = re.sub(r'^www\.', '', host)
-            path = request.get_full_path()
-            target = f"https://{canonical_host}{path}"
+            raw_path = request.path_info
+            # Directly compute final canonical path so this is a 1-hop 301 redirect
+            if raw_path.startswith(('/static/', '/media/', '/admin/', '/robots.txt', '/sitemap.xml', '/i18n/', '/favicon.ico', '/site.webmanifest')):
+                target_path = raw_path
+            else:
+                target_path = clean_language_path(raw_path)
+            
+            qs = request.META.get('QUERY_STRING')
+            target = f"https://{canonical_host}{target_path}"
+            if qs:
+                target += f"?{qs}"
             return HttpResponsePermanentRedirect(target)
         return self.get_response(request)
 
@@ -220,8 +231,8 @@ class UrlNormalizationMiddleware:
 
         path = request.path_info
 
-        # Skip static / media / admin / robots / sitemap
-        if path.startswith(('/static/', '/media/', '/admin/', '/robots.txt', '/sitemap.xml', '/i18n/')):
+        # Skip static / media / admin / robots / sitemap / icons / manifest
+        if path.startswith(('/static/', '/media/', '/admin/', '/robots.txt', '/sitemap.xml', '/i18n/', '/favicon.ico', '/site.webmanifest')):
             return self.get_response(request)
 
         # 2. Check for duplicate or trailing language codes (e.g. /ar/من-نحن/ar/ar/ -> /ar/من-نحن/)
